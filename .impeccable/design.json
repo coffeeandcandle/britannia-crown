@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-08T00:00:00Z",
+  "title": "Design System: Britannia Crown",
+  "extensions": {
+    "colorMeta": {
+      "burgundy": { "role": "primary", "displayName": "Heritage Burgundy", "canonical": "#6B1E3D", "tonalRamp": ["#2A0C18", "#3E1223", "#52182E", "#6B1E3D", "#853A55", "#A05C74", "#C08E9C", "#E3C7CF"] },
+      "dark-burgundy": { "role": "primary", "displayName": "Deep Burgundy", "canonical": "#4A0E29", "tonalRamp": ["#1E0510", "#2C0919", "#3A0C21", "#4A0E29", "#672A44", "#8A5468", "#B48A9A", "#DCC5CE"] },
+      "champagne": { "role": "secondary", "displayName": "Champagne Gold", "canonical": "#E8C89C", "tonalRamp": ["#4A3A20", "#6E5730", "#93753F", "#B7924F", "#D4A96E", "#E8C89C", "#F0DBBB", "#F8EDDD"] },
+      "warm-gold": { "role": "secondary", "displayName": "Warm Gold Hairline", "canonical": "#D4A574", "tonalRamp": ["#3F3018", "#5F4824", "#816231", "#A47D3D", "#C69759", "#D4A574", "#E3C29B", "#F1E0CD"] },
+      "warm-gold-text": { "role": "secondary", "displayName": "Warm Gold Text (accessible)", "canonical": "#8C5C2B", "tonalRamp": ["#241704", "#382306", "#4C2F08", "#603C0B", "#744D24", "#8C5C2B", "#B98850", "#DCC19B"] },
+      "burgundy-alt": { "role": "primary", "displayName": "Burgundy Alt (Teachers card)", "canonical": "#5C1A35", "tonalRamp": ["#240A15", "#33101E", "#421527", "#521A31", "#5C1A35", "#7D3856", "#A16D82", "#C7A6B4"] },
+      "off-white": { "role": "neutral", "displayName": "Paper Off-White", "canonical": "#FAF6F1", "tonalRamp": ["#3A3630", "#5A5449", "#7C7568", "#9E9686", "#C1B9A7", "#E4DCC9", "#FAF6F1", "#FEFDFB"] },
+      "white": { "role": "neutral", "displayName": "Card White", "canonical": "#FFFFFF", "tonalRamp": ["#333333", "#555555", "#777777", "#999999", "#BBBBBB", "#DDDDDD", "#F5F5F5", "#FFFFFF"] },
+      "text-dark": { "role": "neutral", "displayName": "Ink Text", "canonical": "#2A0D1A", "tonalRamp": ["#0F0509", "#1A080E", "#2A0D1A", "#3F1727", "#5C2C3C", "#7D4C5C", "#A57A87", "#CFB3BA"] },
+      "text-mid": { "role": "neutral", "displayName": "Muted Wine Text", "canonical": "#6B3A4E", "tonalRamp": ["#2A171F", "#3F222D", "#552E3D", "#6B3A4E", "#87586B", "#A57C8B", "#C5A6B1", "#E4D3D8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline only (single H1 per page)." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles, one per major section." },
+      "title": { "displayName": "Title", "purpose": "Card titles, FAQ questions, step titles." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy throughout." },
+      "label": { "displayName": "Label", "purpose": "Uppercase eyebrows, nav links, button labels, stat labels." }
+    },
+    "shadows": [
+      { "name": "hover-lift", "value": "0 20px 50px rgba(107,30,61,0.12)", "purpose": "Card hover response, paired with translateY(-4px)." },
+      { "name": "button-glow", "value": "0 8px 30px rgba(232,200,156,0.3)", "purpose": "Primary button hover response, paired with translateY(-2px)." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "all 0.3s ease", "purpose": "Default transition for hover/focus state changes across buttons, links, cards." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "600px" },
+      { "name": "tablet", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Champagne-filled CTA button used for the main conversion action in a section.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Book Free Consultation</a>",
+      "css": ".ds-btn-primary { display: inline-block; padding: 17px 38px; background: #E8C89C; color: #4A0E29; text-decoration: none; font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; border-radius: 2px; transition: all 0.3s; } .ds-btn-primary:hover { background: #FFFFFF; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(232,200,156,0.3); } .ds-btn-primary:focus-visible { outline: 2px solid #4A0E29; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Ghost/outline button used as the secondary action alongside a primary CTA.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\">Our Services</a>",
+      "css": ".ds-btn-secondary { display: inline-block; padding: 17px 38px; border: 1px solid rgba(232,200,156,0.4); color: #E8C89C; text-decoration: none; font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; border-radius: 2px; transition: all 0.3s; } .ds-btn-secondary:hover { border-color: #E8C89C; background: rgba(232,200,156,0.1); } .ds-btn-secondary:focus-visible { outline: 2px solid #E8C89C; outline-offset: 2px; }"
+    },
+    {
+      "name": "Service Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Standard white service card with age tag, title, description, price, and CTA link.",
+      "html": "<div class=\"ds-card\"><span class=\"ds-card-age\">Ages 0-4</span><h3 class=\"ds-card-title\">Nursery Search &amp; Placement</h3><p class=\"ds-card-desc\">Finding the right EYFS nursery for your child.</p><a class=\"ds-card-cta\" href=\"#\">Learn More</a></div>",
+      "css": ".ds-card { background: #FFFFFF; border-radius: 4px; padding: 44px 38px; border: 1px solid rgba(107,30,61,0.08); position: relative; transition: all 0.3s; } .ds-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(107,30,61,0.12); } .ds-card-age { display: inline-block; padding: 6px 14px; background: rgba(107,30,61,0.08); border-radius: 100px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 1px; color: #6B1E3D; font-weight: 500; margin-bottom: 18px; } .ds-card-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #4A0E29; margin: 0 0 14px; line-height: 1.2; } .ds-card-desc { font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; color: #6B3A4E; font-weight: 300; margin: 0 0 26px; } .ds-card-cta { display: inline-block; padding: 12px 24px; border: 1px solid rgba(107,30,61,0.2); color: #6B1E3D; text-decoration: none; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; border-radius: 2px; transition: all 0.3s; } .ds-card-cta:hover { border-color: #6B1E3D; background: rgba(107,30,61,0.05); }"
+    },
+    {
+      "name": "Featured Card",
+      "kind": "card",
+      "refersTo": "card-featured",
+      "description": "Burgundy-filled variant of the service card used to highlight flagship offerings.",
+      "html": "<div class=\"ds-card-featured\"><span class=\"ds-card-featured-age\">Ages 4-18</span><h3 class=\"ds-card-featured-title\">School Search &amp; Placement</h3><p class=\"ds-card-featured-desc\">Expert guidance through Dubai's British curriculum school landscape.</p></div>",
+      "css": ".ds-card-featured { background: #6B1E3D; border-radius: 4px; padding: 44px 38px; border: 1px solid transparent; transition: all 0.3s; } .ds-card-featured:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(107,30,61,0.12); } .ds-card-featured-age { display: inline-block; padding: 6px 14px; background: rgba(232,200,156,0.15); border-radius: 100px; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 1px; color: #E8C89C; font-weight: 500; margin-bottom: 18px; } .ds-card-featured-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #E8C89C; margin: 0 0 14px; line-height: 1.2; } .ds-card-featured-desc { font-family: 'Jost', sans-serif; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.7); font-weight: 300; margin: 0; }"
+    },
+    {
+      "name": "Age Pill / Tag",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Pill-shaped metadata tag — the system's one deliberate exception to sharp corners.",
+      "html": "<span class=\"ds-pill\">0-4 Early Years</span>",
+      "css": ".ds-pill { display: inline-block; padding: 10px 20px; background: rgba(232,200,156,0.12); border: 1px solid rgba(232,200,156,0.25); border-radius: 100px; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 1px; color: #E8C89C; font-weight: 500; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Form field used on dark contact-form backgrounds (translucent white fill).",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Your full name\" />",
+      "css": ".ds-input { width: 100%; padding: 14px 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(232,200,156,0.2); border-radius: 2px; color: #FFFFFF; font-family: 'Jost', sans-serif; font-size: 15px; transition: all 0.3s; } .ds-input::placeholder { color: rgba(255,255,255,0.4); } .ds-input:focus { outline: none; border-color: #E8C89C; background: rgba(255,255,255,0.12); }"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Fixed dark-burgundy nav bar with champagne serif wordmark and uppercase link labels.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-brand\">BRITANNIA CROWN</span><a class=\"ds-nav-link\" href=\"#\">Services</a><a class=\"ds-nav-cta\" href=\"#\">Book Consultation</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 16px 60px; background: rgba(74,14,41,0.97); border-bottom: 1px solid rgba(232,200,156,0.2); } .ds-nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700; color: #E8C89C; letter-spacing: 2px; } .ds-nav-link { color: rgba(232,200,156,0.8); text-decoration: none; font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; transition: color 0.3s; } .ds-nav-link:hover { color: #E8C89C; } .ds-nav-cta { background: #E8C89C; color: #4A0E29; padding: 10px 22px; border-radius: 2px; text-decoration: none; font-family: 'Jost', sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; transition: all 0.3s; } .ds-nav-cta:hover { background: #FFFFFF; transform: translateY(-1px); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Family Advisor",
+    "overview": "Britannia Crown reads like a trusted family advisor's study, not a marketplace stall: a deep burgundy and champagne palette borrowed from British heritage branding, paired with a serif display face for authority and a light, airy sans body face for warmth. The system exists to make a family relocating to Dubai feel they are handing their child's education to a confident, established partner — never a discount tutoring aggregator, never a cold corporate portal. The system explicitly rejects generic template energy: no stock-agency blue-and-white SaaS look, no discount-marketplace badges or urgency banners, no gimmicky animation. Confidence is conveyed through restraint — generous whitespace, one accent color used sparingly, and real numbers instead of decorative flourish.",
+    "keyCharacteristics": [
+      "Deep burgundy + champagne as the only real color statement; everything else is neutral",
+      "Serif display type (Cormorant Garamond) for every heading, paired with a light-weight sans (Jost) for body copy",
+      "Flat-by-default surfaces; shadow appears only as a hover response, never at rest",
+      "Pill-shaped tags/badges contrasted against sharp 2-4px corners everywhere else",
+      "Wide, generous section padding (100px desktop) — nothing feels cramped or ad-dense"
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Champagne is the only color used to signal \"act here.\" It never appears twice in the same viewport for two different purposes.", "section": "colors" },
+      { "name": "The Uppercase Whisper Rule", "body": "Small uppercase, wide-tracked labels (eyebrows, nav, stat labels) never exceed 13px. They organize the page without competing with headline serif type for attention.", "section": "typography" },
+      { "name": "The Flat-Until-Touched Rule", "body": "Nothing casts a shadow at rest. If it's not being hovered or focused, it sits flush against its background.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep champagne (#E8C89C) as the only \"act here\" signal — one accent, used sparingly (the One Accent Rule).",
+      "Do use uppercase, wide-tracked labels (≤13px) for all structural/meta text — eyebrows, nav, stat labels, button labels.",
+      "Do keep cards and buttons flat at rest; only add shadow/lift on hover or focus.",
+      "Do pair every headline in Cormorant Garamond with body copy in Jost — never mix another display or body face into a page.",
+      "Do favor real, specific numbers over decorative claims when building trust-building sections."
+    ],
+    "donts": [
+      "Don't introduce a second saturated accent color alongside champagne — it dilutes the One Accent Rule.",
+      "Don't use rounded/pill shapes on buttons or cards — pill shape is reserved exclusively for tags/badges.",
+      "Don't add resting shadows to cards, buttons, or inputs — this system is flat-until-touched.",
+      "Don't let this drift toward a generic SaaS/template look (blue gradients, glassmorphism, urgency badges, countdown timers) — that directly contradicts the boutique-consultancy positioning in PRODUCT.md.",
+      "Don't use bold weight for emphasis in body copy — emphasis is carried by champagne color and italic serif, not font-weight jumps."
+    ]
+  }
+}
