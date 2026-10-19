@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import { Suspense } from "react";
 import Link from "next/link";
 import Nav from "../components/Nav";
@@ -6,10 +7,12 @@ import Footer from "../components/Footer";
 import ContactForm from "../components/ContactForm";
 import { WhatsAppIcon, EmailIcon, InstagramIcon } from "../components/Icons";
 
-export const metadata: Metadata = {
-  title: "Contact Us | Britannia Crown — British Education Consultants Dubai",
-  description: "Get in touch with Britannia Crown for nursery search, school placement, tutoring, or homeschool support in Dubai. We respond within 24 hours.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Contact Britannia Crown | British Education Consultants",
+  description:
+    "Talk to Britannia Crown about tutoring, home education, school placement or qualifications — or moving to the UAE. We respond within 24 hours.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
@@ -23,8 +26,8 @@ export default function ContactPage() {
             <span className="section-eyebrow-text">Get Started</span>
             <span className="section-eyebrow-line"></span>
           </div>
-          <h1 className="section-title">Get in Touch with Dubai&apos;s British Education Consultant</h1>
-          <p className="cta-desc">Whether you need an EYFS nursery search, British school placement, IGCSE or A-Level tutors in Dubai, or homeschool support — send us a message and we&apos;ll respond within 24 hours. Prefer to talk live? <Link href="/book-consultation" style={{ color: "var(--champagne)" }}>Book a free consultation</Link> instead.</p>
+          <h1 className="section-title">Talk to a Britannia Crown Education Consultant</h1>
+          <p className="cta-desc">Whether you&apos;re looking for a tutor, planning home education, choosing a school or preparing for exams — or moving to the UAE — send us a message and we&apos;ll respond within 24 hours. Prefer to talk live? <Link href="/book-consultation" style={{ color: "var(--champagne)" }}>Book a free consultation</Link> instead.</p>
 
           <div className="cta-methods">
             <div className="cta-method">

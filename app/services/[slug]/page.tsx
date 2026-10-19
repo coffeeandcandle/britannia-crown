@@ -4,7 +4,14 @@ import { notFound } from "next/navigation";
 import Nav from "../../components/Nav";
 import Footer from "../../components/Footer";
 import Reveal from "../../components/Reveal";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import FaqSection from "../../components/FaqSection";
+import EnquirySection from "../../components/EnquirySection";
+import SubjectGrid from "../../components/SubjectGrid";
+import JsonLd from "../../components/JsonLd";
 import { services, getService } from "../../lib/services";
+import { pageMetadata } from "../../lib/seo";
+import { serviceSchema } from "../../lib/schema";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -16,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const service = getService(slug);
   if (!service) return {};
-  return { title: service.seoTitle, description: service.seoDescription };
+  return pageMetadata({ title: service.seoTitle, description: service.seoDescription, path: `/services/${service.slug}`, ownImage: true });
 }
 
 export default async function ServicePage({ params }: Props) {
@@ -24,6 +31,7 @@ export default async function ServicePage({ params }: Props) {
   const service = getService(slug);
   if (!service) notFound();
 
+  const path = `/services/${service.slug}`;
   const others = services.filter((s) => s.slug !== service.slug);
 
   return (
@@ -32,9 +40,20 @@ export default async function ServicePage({ params }: Props) {
 
       <section className="uk-sub-hero">
         <div className="uk-wrap uk-hero-load">
+          <Breadcrumbs
+            crumbs={[
+              { name: "Home", path: "/" },
+              { name: "Services", path: "/services" },
+              { name: service.name, path },
+            ]}
+          />
           <span className="uk-eyebrow">{service.name}</span>
           <h1>{service.headline}</h1>
           <p>{service.lead}</p>
+          <div className="uk-hero-actions uk-sub-actions">
+            <Link href="#enquire" className="btn-primary">Request a Call Back</Link>
+            <Link href="/book-consultation" className="btn-secondary">Book Free Consultation</Link>
+          </div>
           <span className="uk-chip">{service.ages}</span>
         </div>
       </section>
@@ -78,6 +97,31 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
+      {service.showSubjects && (
+        <section className="uk-section white">
+          <div className="uk-wrap">
+            <Reveal className="uk-head">
+              <span className="uk-kicker">By subject</span>
+              <h2 className="uk-h2">Find a tutor for <em>your child&apos;s subject.</em></h2>
+              <p className="uk-lead">Specialist support for the subjects families ask us about most — and we tutor across the curriculum.</p>
+            </Reveal>
+            <Reveal>
+              <SubjectGrid />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
+      <FaqSection faqs={service.faqs} tone="cream" />
+
+      <EnquirySection
+        title={<>Let&apos;s talk about <em>your child.</em></>}
+        lead={`Tell us a little about your child and an education consultant will call you back to discuss ${service.name.toLowerCase()}.`}
+        source="service_page"
+        defaultService={service.contactValue}
+        context={service.name}
+      />
+
       <section className="uk-section white">
         <div className="uk-wrap">
           <Reveal className="uk-head">
@@ -96,17 +140,14 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="uk-cta">
-        <Reveal>
-          <span className="uk-kicker">Get started</span>
-          <h2>Let&apos;s talk about <em>your child.</em></h2>
-          <p>Book a free 30-minute consultation with one of our education consultants. No obligation — just a clear, honest conversation.</p>
-          <div className="uk-hero-actions">
-            <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
-            <Link href={{ pathname: "/contact", query: { service: service.contactValue } }} className="btn-secondary">Enquire About {service.name}</Link>
-          </div>
-        </Reveal>
-      </section>
+      <JsonLd
+        data={serviceSchema({
+          name: service.name,
+          description: service.seoDescription,
+          path,
+          serviceType: service.serviceType,
+        })}
+      />
 
       <Footer />
     </>

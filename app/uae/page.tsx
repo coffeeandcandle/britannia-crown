@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Nav from "../components/Nav";
@@ -13,10 +14,12 @@ import {
   ConciergeIcon,
 } from "../components/Icons";
 
-export const metadata: Metadata = {
-  title: "Moving to the UAE — British Education Advice for Families | Britannia Crown",
-  description: "Relocating to Dubai or the UAE? Nursery search, British school placement, IGCSE & A-Level tutoring and education concierge for families moving from the UK.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Moving to Dubai with Children? Schools & Tutoring | Britannia Crown",
+  description:
+    "Relocating to Dubai or the UAE? Nursery search, British school placement, IGCSE & A-Level tutoring and education concierge for families moving from the UK.",
+  path: "/uae",
+});
 
 export default function ServicesPage() {
   return (

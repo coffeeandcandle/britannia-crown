@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 
-export const metadata: Metadata = {
-  title: "About Us — Why Choose Britannia Crown | British Education Consultants Dubai",
-  description: "Britannia Crown is Dubai's only full-service British education consultant, covering EYFS nursery search through to A-Level tutoring for expat families across Dubai and the GCC.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "About Britannia Crown | British Education Consultants",
+  description:
+    "British education consultancy offering tutoring, home education, school placement and qualifications support — one relationship from early years to A-Level.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

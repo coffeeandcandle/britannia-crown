@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import {
@@ -11,10 +12,12 @@ import {
   CommunityIcon,
 } from "../components/Icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Ambassador Programme | Britannia Crown",
-  description: "Refer a family to Britannia Crown and earn 150 AED for every successful booking. No limit on referrals — join Dubai's British education ambassador programme.",
-};
+  description:
+    "Refer a family to Britannia Crown and earn 150 AED for every successful booking. No limit on referrals — join Dubai's British education ambassador programme.",
+  path: "/ambassador",
+});
 
 export default function AmbassadorPage() {
   return (

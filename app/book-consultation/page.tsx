@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import CalendlyEmbed from "../components/CalendlyEmbed";
+import { CALENDLY_URL } from "../lib/site";
 
-export const metadata: Metadata = {
-  title: "Book a Free Consultation | Britannia Crown — British Education Consultants Dubai",
-  description: "Book a free 30-minute consultation with Britannia Crown to discuss nursery search, school placement, tutoring, or homeschool support for your family in Dubai.",
-};
-
-const CALENDLY_URL = "https://calendly.com/miramayhis/30min";
+export const metadata: Metadata = pageMetadata({
+  title: "Book a Free Consultation | Britannia Crown",
+  description:
+    "Book a free 30-minute consultation with a Britannia Crown education consultant to talk through tutoring, home education, school placement or qualifications for your child.",
+  path: "/book-consultation",
+});
 
 export default function BookConsultationPage() {
   return (

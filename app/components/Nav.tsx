@@ -31,7 +31,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav style={scrolled ? { padding: "10px 60px", boxShadow: "0 4px 30px rgba(0,0,0,0.3)" } : undefined}>
+      <nav className={scrolled ? "scrolled" : undefined}>
         <Link href="/" className="nav-brand">
           <svg className="nav-crown" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
             <path d="M20,120 L35,50 L70,90 L100,30 L130,90 L165,50 L180,120 Z" fill="#E8C89C" stroke="#E8C89C" strokeWidth="3" />
@@ -45,10 +45,10 @@ export default function Nav() {
         </Link>
         <ul className="nav-links">
           <li><Link href="/services">Services</Link></li>
+          <li><Link href="/tutors">Find a Tutor</Link></li>
           <li><Link href="/uae">Moving to the UAE</Link></li>
           <li><Link href="/about">About</Link></li>
           <li><Link href="/guides">Free Guides</Link></li>
-          <li><Link href="/ambassador">Ambassador</Link></li>
           <li><Link href="/contact">Contact</Link></li>
           <li><Link href="/book-consultation" className="nav-cta">Book Consultation</Link></li>
         </ul>
@@ -71,6 +71,7 @@ export default function Nav() {
         <ul className="nav-mobile-links">
           <li><Link href="/" onClick={close}>Home</Link></li>
           <li><Link href="/services" onClick={close}>Services</Link></li>
+          <li><Link href="/tutors" onClick={close}>Find a Tutor</Link></li>
           <li><Link href="/uae" onClick={close}>Moving to the UAE</Link></li>
           <li><Link href="/membership" onClick={close}>Membership</Link></li>
           <li><Link href="/about" onClick={close}>About</Link></li>

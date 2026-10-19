@@ -1,15 +1,25 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Reveal from "./components/Reveal";
+import SubjectGrid from "./components/SubjectGrid";
 import { services } from "./lib/services";
+import { pageMetadata } from "./lib/seo";
 
-const stages = ["Early Years", "Primary", "11+ & Entrance", "GCSE", "A-Level", "Home Education", "School Placement", "Private Tutoring"];
+export const metadata: Metadata = pageMetadata({
+  title: "Britannia Crown | British Education Consultants & Private Tutors",
+  description:
+    "Private tutoring, home education, school placement and GCSE & A-Level support from UK-trained educators, overseen by a dedicated education consultant.",
+  path: "/",
+});
+
+const stages = ["Early Years", "Primary", "Secondary", "GCSE", "A-Level", "Home Education", "School Placement", "Private Tutoring"];
 
 const principles = [
   { mark: "i", title: "UK-trained educators", body: "Every tutor is trained in the British curriculum. No anonymous marketplace, no guesswork." },
   { mark: "ii", title: "One consultant, one relationship", body: "A dedicated consultant who knows your child and oversees the whole journey." },
-  { mark: "iii", title: "Independent, honest advice", body: "Our recommendations are built around your child, never around a provider." },
+  { mark: "iii", title: "Honest, child-first advice", body: "Our recommendations are built around your child, your priorities and your family's circumstances." },
 ];
 
 export default function Home() {
@@ -66,6 +76,19 @@ export default function Home() {
                 </Link>
               ))}
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section white">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">Find a tutor</span>
+            <h2 className="uk-h2">Specialist tutors, <em>subject by subject.</em></h2>
+            <p className="uk-lead">From first phonics to final A-Level papers — choose a subject to see how we help, or <Link href="/tutors">browse all tutoring</Link>.</p>
+          </Reveal>
+          <Reveal>
+            <SubjectGrid />
           </Reveal>
         </div>
       </section>

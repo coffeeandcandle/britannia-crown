@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy | Britannia Crown",
-  description: "How Britannia Crown collects, uses, and protects your personal information.",
-};
+  description:
+    "How Britannia Crown collects, uses, and protects your personal information.",
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
   return (

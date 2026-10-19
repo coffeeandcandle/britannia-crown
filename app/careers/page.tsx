@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 
-export const metadata: Metadata = {
-  title: "Careers | Britannia Crown — British Education Consultants Dubai",
-  description: "Join Britannia Crown's network of UK-qualified tutors and education consultants in Dubai.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Careers | Britannia Crown",
+  description:
+    "Join Britannia Crown's network of UK-qualified tutors and education consultants.",
+  path: "/careers",
+});
 
 export default function CareersPage() {
   return (

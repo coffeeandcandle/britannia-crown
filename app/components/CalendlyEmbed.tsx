@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { track } from "../lib/track";
 
 type CalendlyEmbedProps = {
   url: string;
@@ -49,6 +50,10 @@ export default function CalendlyEmbed({ url }: CalendlyEmbedProps) {
       if (e.data.event === "calendly.page_height") {
         const newHeight = Number(e.data.payload?.height);
         if (newHeight > 0) setHeight(newHeight);
+      }
+      // A booked consultation is the strongest lead signal on the site.
+      if (e.data.event === "calendly.event_scheduled" && e.origin.endsWith("calendly.com")) {
+        track("consultation_booked", { method: "calendly", page_path: window.location.pathname });
       }
     }
     window.addEventListener("message", onMessage);

@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 import { TutorIcon, ConciergeIcon, ShareCodeIcon, FamilyBooksIcon } from "../components/Icons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Online Tutoring Membership Dubai | Academic Partner Membership | Britannia Crown",
-  description: "Ongoing online tutoring membership for expat families in Dubai. Vetted British tutors, flexible hours, direct access to your education consultant. From AED 1,000/month.",
-};
+  description:
+    "Ongoing online tutoring membership for expat families in Dubai. Vetted British tutors, flexible hours, direct access to your education consultant. From AED 1,000/month.",
+  path: "/membership",
+});
 
 export default function MembershipPage() {
   return (

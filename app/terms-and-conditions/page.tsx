@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms and Conditions | Britannia Crown",
-  description: "Terms and conditions for using Britannia Crown's education consultancy services and the Ambassador referral programme.",
-};
+  description:
+    "Terms and conditions for using Britannia Crown's education consultancy services and the Ambassador referral programme.",
+  path: "/terms-and-conditions",
+});
 
 export default function TermsPage() {
   return (

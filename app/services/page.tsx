@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "../lib/seo";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
+import Breadcrumbs from "../components/Breadcrumbs";
 import { services } from "../lib/services";
 
-export const metadata: Metadata = {
-  title: "Education Consultancy Services — Tutoring, Home Education, School Placement | Britannia Crown",
+export const metadata: Metadata = pageMetadata({
+  title: "Tutoring, Home Education & School Placement Services | Britannia Crown",
   description:
     "Private tutoring, home education, school and nursery placement, and qualifications support from UK-trained educators and dedicated education consultants.",
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
@@ -18,9 +21,14 @@ export default function ServicesPage() {
 
       <section className="uk-sub-hero">
         <div className="uk-wrap uk-hero-load">
+          <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Services", path: "/services" }]} />
           <span className="uk-eyebrow">Our Services</span>
           <h1>Education advice, <em>from the first day to the final exam.</em></h1>
           <p>One consultancy for every stage of your child&apos;s education — tutoring, home education, school placement and qualifications — with a dedicated consultant who knows your family.</p>
+          <div className="uk-hero-actions uk-sub-actions">
+            <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
+            <Link href="/tutors" className="btn-secondary">Find a Tutor</Link>
+          </div>
         </div>
       </section>
 

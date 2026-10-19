@@ -1,28 +1,31 @@
 import type { MetadataRoute } from 'next'
+import { SITE_URL } from './lib/site'
+import { services } from './lib/services'
+import { subjects } from './lib/subjects'
 
-const BASE_URL = 'https://www.britanniacrown.com'
+type Entry = { path: string; changeFrequency: NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>; priority: number }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    { path: '/', changeFrequency: 'yearly' as const, priority: 1 },
-    { path: '/services', changeFrequency: 'monthly' as const, priority: 0.8 },
-    { path: '/uae', changeFrequency: 'monthly' as const, priority: 0.8 },
-    { path: '/services/tutoring', changeFrequency: 'monthly' as const, priority: 0.8 },
-    { path: '/services/home-education', changeFrequency: 'monthly' as const, priority: 0.8 },
-    { path: '/services/school-placement', changeFrequency: 'monthly' as const, priority: 0.8 },
-    { path: '/services/qualifications', changeFrequency: 'monthly' as const, priority: 0.8 },
-    { path: '/membership', changeFrequency: 'monthly' as const, priority: 0.9 },
-    { path: '/about', changeFrequency: 'monthly' as const, priority: 0.8 },
-    { path: '/guides', changeFrequency: 'weekly' as const, priority: 0.7 },
-    { path: '/ambassador', changeFrequency: 'monthly' as const, priority: 0.6 },
-    { path: '/contact', changeFrequency: 'yearly' as const, priority: 0.6 },
-    { path: '/book-consultation', changeFrequency: 'monthly' as const, priority: 0.9 },
-    { path: '/privacy-policy', changeFrequency: 'yearly' as const, priority: 0.3 },
-    { path: '/terms-and-conditions', changeFrequency: 'yearly' as const, priority: 0.3 },
+  const routes: Entry[] = [
+    { path: '/', changeFrequency: 'weekly', priority: 1 },
+    { path: '/services', changeFrequency: 'monthly', priority: 0.9 },
+    ...services.map((s): Entry => ({ path: `/services/${s.slug}`, changeFrequency: 'monthly', priority: 0.9 })),
+    { path: '/tutors', changeFrequency: 'monthly', priority: 0.9 },
+    ...subjects.map((s): Entry => ({ path: `/tutors/${s.slug}`, changeFrequency: 'monthly', priority: 0.8 })),
+    { path: '/book-consultation', changeFrequency: 'monthly', priority: 0.8 },
+    { path: '/contact', changeFrequency: 'yearly', priority: 0.7 },
+    { path: '/uae', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/membership', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/about', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/guides', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/ambassador', changeFrequency: 'monthly', priority: 0.4 },
+    { path: '/careers', changeFrequency: 'yearly', priority: 0.3 },
+    { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.2 },
+    { path: '/terms-and-conditions', changeFrequency: 'yearly', priority: 0.2 },
   ]
 
   return routes.map((route) => ({
-    url: `${BASE_URL}${route.path}`,
+    url: route.path === '/' ? SITE_URL : `${SITE_URL}${route.path}`,
     lastModified: new Date(),
     changeFrequency: route.changeFrequency,
     priority: route.priority,
