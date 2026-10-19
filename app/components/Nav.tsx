@@ -45,7 +45,7 @@ export default function Nav() {
         </Link>
         <ul className="nav-links">
           <li><Link href="/services">Services</Link></li>
-          <li><Link href="/membership">Membership</Link></li>
+          <li><Link href="/uae">Moving to the UAE</Link></li>
           <li><Link href="/about">About</Link></li>
           <li><Link href="/guides">Free Guides</Link></li>
           <li><Link href="/ambassador">Ambassador</Link></li>
@@ -71,6 +71,7 @@ export default function Nav() {
         <ul className="nav-mobile-links">
           <li><Link href="/" onClick={close}>Home</Link></li>
           <li><Link href="/services" onClick={close}>Services</Link></li>
+          <li><Link href="/uae" onClick={close}>Moving to the UAE</Link></li>
           <li><Link href="/membership" onClick={close}>Membership</Link></li>
           <li><Link href="/about" onClick={close}>About</Link></li>
           <li><Link href="/guides" onClick={close}>Free Guides</Link></li>

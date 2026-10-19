@@ -1,153 +1,144 @@
 import Link from "next/link";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import { TutorIcon, ConciergeIcon, ShareCodeIcon } from "./components/Icons";
+import Reveal from "./components/Reveal";
+import { services } from "./lib/services";
+
+const stages = ["Early Years", "Primary", "11+ & Entrance", "GCSE", "A-Level", "Home Education", "School Placement", "Private Tutoring"];
+
+const principles = [
+  { mark: "i", title: "UK-trained educators", body: "Every tutor is trained in the British curriculum. No anonymous marketplace, no guesswork." },
+  { mark: "ii", title: "One consultant, one relationship", body: "A dedicated consultant who knows your child and oversees the whole journey." },
+  { mark: "iii", title: "Independent, honest advice", body: "Our recommendations are built around your child, never around a provider." },
+];
 
 export default function Home() {
   return (
     <>
       <Nav />
 
-      {/* Hero */}
-      <section className="hero" id="home">
-        <div className="hero-inner">
-          <div className="hero-eyebrow">
-            <span className="hero-eyebrow-line"></span>
-            <span className="hero-eyebrow-text">British Education Partner · Dubai & GCC</span>
-          </div>
-          <h1>Dubai&apos;s <em>British Education Partner</em> — IGCSE Tutors, School Placement &amp; Nursery Search</h1>
-          <div className="age-range-pills">
-            <span className="age-pill">0-4 Early Years</span>
-            <span className="age-pill">4-11 Primary</span>
-            <span className="age-pill">11-16 GCSE</span>
-            <span className="age-pill">16-18 A-Level</span>
-          </div>
-          <p className="hero-desc">Dubai&apos;s leading British education consultant. Expert IGCSE &amp; A-Level tutors, EYFS nursery search, British school placement and homeschool support. UK curriculum specialists for expat families across Dubai and the GCC.</p>
-          <div className="hero-actions">
+      <section className="uk-hero" id="home">
+        <svg className="uk-hero-crown" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20,120 L35,50 L70,90 L100,30 L130,90 L165,50 L180,120 Z" fill="#E8C89C" />
+          <rect x="15" y="120" width="170" height="26" fill="#E8C89C" rx="3" />
+        </svg>
+        <div className="uk-hero-inner uk-hero-load">
+          <span className="uk-eyebrow">British Education Consultants</span>
+          <h1>Education, <em>considered</em> with care.</h1>
+          <p className="uk-hero-lead">Private tutoring, home education, school placement and qualifications — personal advice from UK-trained educators, for families who want it done properly.</p>
+          <div className="uk-hero-actions">
             <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
-            <Link href="/services" className="btn-secondary">Our Services</Link>
+            <Link href="/services" className="btn-secondary">Explore Our Services</Link>
           </div>
-          <div className="hero-trust-line">
-            <span>6+ Years UK Experience</span>
-            <span className="dot">·</span>
-            <span>50+ UK Trained Educators</span>
-            <span className="dot">·</span>
-            <span>100% UK Curriculum Focus</span>
+        </div>
+        <div className="uk-hero-stats">
+          <div className="uk-hero-stats-inner">
+            <div className="uk-stat"><span className="uk-stat-num">6+</span><span className="uk-stat-label">Years of UK<br />experience</span></div>
+            <div className="uk-stat"><span className="uk-stat-num">50+</span><span className="uk-stat-label">UK-trained<br />educators</span></div>
+            <div className="uk-stat"><span className="uk-stat-num">100%</span><span className="uk-stat-label">British curriculum<br />focus</span></div>
           </div>
         </div>
       </section>
 
-      {/* Academic Partner Membership — Flagship */}
-      <section className="flagship-banner">
-        <div className="flagship-inner">
-          <div>
-            <span className="flagship-badge">Flagship Service</span>
-            <h2 className="section-title">Your Tutor Left Dubai? <em>Stop Starting Over.</em></h2>
-            <p className="flagship-desc">Tutors relocating suddenly, no way to verify who&apos;s actually qualified, endless re-vetting on Dubizzle and Facebook groups — the Academic Partner Membership ends the search for good. Ongoing access to vetted British tutors online, with your dedicated education consultant personally overseeing your child&apos;s academic journey.</p>
-            <Link href="/membership" className="btn-primary">Explore Academic Partner Membership →</Link>
-          </div>
-          <div className="flagship-visual">
-            <div className="flagship-visual-item">
-              <TutorIcon className="flagship-visual-icon" />
-              <span className="flagship-visual-text">Vetted, UK-qualified tutors — never a marketplace guess</span>
+      <div className="uk-strip" aria-hidden="true">
+        <div className="uk-strip-track">
+          {[0, 1].map((n) => (
+            <span key={n}>{stages.map((s) => <span key={s + n} style={{ gap: 0 }}>{s}</span>)}</span>
+          ))}
+        </div>
+      </div>
+
+      <section className="uk-section cream">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">What we do</span>
+            <h2 className="uk-h2">Four ways we help your child <em>thrive.</em></h2>
+            <p className="uk-lead">From a single subject to a whole education plan, every service is led by a consultant who takes responsibility for the result.</p>
+          </Reveal>
+          <Reveal>
+            <div className="uk-rows">
+              {services.map((s) => (
+                <Link href={`/services/${s.slug}`} className="uk-row" key={s.slug}>
+                  <span className="uk-row-num">{s.numeral}</span>
+                  <span className="uk-row-name">{s.name}</span>
+                  <span className="uk-row-desc">{s.short}</span>
+                  <span className="uk-row-arrow" aria-hidden="true">→</span>
+                </Link>
+              ))}
             </div>
-            <div className="flagship-visual-item">
-              <ConciergeIcon className="flagship-visual-icon" />
-              <span className="flagship-visual-text">A dedicated education consultant overseeing progress</span>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section dark">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">How we work</span>
+            <h2 className="uk-h2">Simple to start. <em>Thorough throughout.</em></h2>
+          </Reveal>
+          <Reveal>
+            <div className="uk-steps">
+              <div className="uk-step"><div className="uk-step-num">01</div><h3>Talk to us</h3><p>A free 30-minute consultation to understand your child, your goals and your concerns.</p></div>
+              <div className="uk-step"><div className="uk-step-num">02</div><h3>A plan, personally made</h3><p>We recommend the right tutor, school or programme — and explain exactly why.</p></div>
+              <div className="uk-step"><div className="uk-step-num">03</div><h3>We stay involved</h3><p>Your consultant oversees progress and adapts the plan as your child grows.</p></div>
             </div>
-            <div className="flagship-visual-item">
-              <ShareCodeIcon className="flagship-visual-icon" />
-              <span className="flagship-visual-text">Cancel or pause anytime — no long-term contract</span>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section white">
+        <div className="uk-wrap uk-split">
+          <Reveal>
+            <span className="uk-kicker">Why Britannia Crown</span>
+            <h2 className="uk-h2">Not an agency. <em>A partner.</em></h2>
+            <p className="uk-lead">We are not a tutoring marketplace and we are not a school directory. We are education consultants — one relationship for the whole journey, from first nursery to final exam.</p>
+            <div style={{ marginTop: 36 }}><Link href="/about" className="btn-primary">About Us</Link></div>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="uk-principles">
+              {principles.map((p) => (
+                <div className="uk-principle" key={p.title}>
+                  <span className="uk-principle-mark">{p.mark}</span>
+                  <div><h3>{p.title}</h3><p>{p.body}</p></div>
+                </div>
+              ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* What We Offer teaser */}
-      <section className="services">
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">What We Offer</span>
-          </div>
-          <h2 className="section-title">British Education Services Dubai — Birth to A-Level</h2>
-          <p className="section-lead">From EYFS nursery search to expert IGCSE and A-Level tutors in Dubai — your UK curriculum partner for every stage of your child&apos;s education.</p>
-
-          <div className="teaser-grid">
-            <Link href="/membership" className="teaser-card">
-              <span className="card-badge">New</span>
-              <h3 className="teaser-card-title">Academic Partner Membership</h3>
-              <p className="teaser-card-desc">Ongoing online tutoring membership with vetted British tutors and a dedicated education consultant.</p>
-              <span className="teaser-card-link">See Membership →</span>
-            </Link>
-            <Link href="/services" className="teaser-card">
-              <h3 className="teaser-card-title">Nursery &amp; School Placement</h3>
-              <p className="teaser-card-desc">EYFS nursery search through to British curriculum school placement, FS1 to Sixth Form.</p>
-              <span className="teaser-card-link">See Services →</span>
-            </Link>
-            <Link href="/services" className="teaser-card">
-              <h3 className="teaser-card-title">Tutoring &amp; Exam Prep</h3>
-              <p className="teaser-card-desc">UK-qualified tutors for all subjects, plus GCSE and A-Level exam technique coaching.</p>
-              <span className="teaser-card-link">See Services →</span>
-            </Link>
-            <Link href="/services" className="teaser-card">
-              <h3 className="teaser-card-title">Homeschool &amp; Concierge</h3>
-              <p className="teaser-card-desc">Full British curriculum homeschool support, or a dedicated education concierge.</p>
-              <span className="teaser-card-link">See Services →</span>
-            </Link>
-          </div>
+      <section className="uk-uae">
+        <div className="uk-uae-inner">
+          <Reveal>
+            <span className="uk-kicker" style={{ color: "var(--champagne)" }}>Relocating abroad</span>
+            <h2>Moving to the UAE? <em>We advise families on the move.</em></h2>
+            <p>We help UK families relocating to Dubai find the right nursery or school, and keep British-curriculum tutoring going without a break.</p>
+          </Reveal>
+          <Link href="/uae" className="btn-primary">Moving to the UAE →</Link>
         </div>
       </section>
 
-      {/* Why Us teaser */}
-      <section className="why">
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Why Britannia Crown</span>
-          </div>
-          <h2 className="section-title">Dubai&apos;s Only Full-Service British Education Consultant</h2>
-          <p className="section-lead">We&apos;re not a tutoring agency. We&apos;re not a relocation firm. We&apos;re your British education consultant in Dubai — one relationship, birth to A-Level.</p>
-          <Link href="/about" className="btn-primary">Learn Why Families Choose Us</Link>
+      <section className="uk-section cream">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">Free guides</span>
+            <h2 className="uk-h2">Practical guidance, <em>free.</em></h2>
+            <p className="uk-lead">Clear, honest guides on schools, curricula and qualifications — straight to your inbox.</p>
+            <div style={{ marginTop: 32 }}><Link href="/guides" className="btn-primary">Get the Free Guides</Link></div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Free Guides teaser */}
-      <section id="guides" style={{ background: "var(--white)", padding: "100px 60px", overflow: "hidden", width: "100%", maxWidth: "100%" }}>
-        <div className="section-inner">
-          <p style={{ fontSize: "13px", letterSpacing: "2px", textTransform: "uppercase", color: "var(--warm-gold-text)", fontWeight: 600, marginBottom: "14px" }}>Free Guides</p>
-          <h2 className="section-title">Free Guides for British Expat Families in Dubai</h2>
-          <p className="section-lead" style={{ maxWidth: "680px" }}>Four practical guides covering nursery search, school waitlists, IGCSE vs GCSE, and homeschooling — free, straight to your inbox.</p>
-          <Link href="/guides" className="btn-primary">Get the Free Guides</Link>
-        </div>
-      </section>
-
-      {/* Ambassador Teaser */}
-      <section style={{ background: "var(--dark-burgundy)", padding: "60px", width: "100%", maxWidth: "100%" }}>
-        <div className="section-inner" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "24px" }}>
-          <div>
-            <span className="section-eyebrow-text" style={{ color: "var(--champagne)" }}>Britannia Crown · Ambassador Programme</span>
-            <h3 style={{ fontSize: "26px", color: "var(--white)", marginTop: "8px" }}>Earn <em style={{ color: "var(--champagne)" }}>150 AED</em> for every family you refer</h3>
-          </div>
-          <Link href="/ambassador" className="btn-primary">Learn More →</Link>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="cta-section">
-        <div className="cta-inner">
-          <div className="section-eyebrow" style={{ justifyContent: "center" }}>
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Get Started</span>
-            <span className="section-eyebrow-line"></span>
-          </div>
-          <h2 className="section-title">Book Your Free Consultation with Dubai&apos;s British Education Consultant</h2>
-          <p className="cta-desc">Whether you need an EYFS nursery search, British school placement, IGCSE or A-Level tutors in Dubai, or homeschool support — start with a free 30-minute consultation.</p>
-          <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
+      <section className="uk-cta">
+        <Reveal>
+          <span className="uk-kicker">Get started</span>
+          <h2>Let&apos;s talk about <em>your child.</em></h2>
+          <p>Book a free 30-minute consultation with one of our education consultants. No obligation — just a clear, honest conversation.</p>
+          <div className="uk-hero-actions">
             <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
             <Link href="/contact" className="btn-secondary">Contact Us</Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <Footer />

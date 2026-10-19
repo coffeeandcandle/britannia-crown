@@ -37,6 +37,11 @@ export default function ContactForm() {
           <label htmlFor="service">Service Interested In <span className="required">*</span></label>
           <select key={preselectedService} id="service" name="service" required defaultValue={preselectedService}>
             <option value="">Select a service...</option>
+            <option value="Tutoring">Private Tutoring (Primary to A-Level)</option>
+            <option value="Home Education">Home Education</option>
+            <option value="School Placement">School &amp; Nursery Placement (UK)</option>
+            <option value="Qualifications">Qualifications &amp; Exam Success</option>
+            <option value="Moving to the UAE">Moving to the UAE</option>
             <option value="Nursery Search & Placement">Nursery Search & Placement (Ages 0-4)</option>
             <option value="School Search & Placement">School Search & Placement (Ages 4-18)</option>
             <option value="Subject Tutoring">Subject Tutoring (All Ages)</option>

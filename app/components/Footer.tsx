@@ -12,12 +12,13 @@ export default function Footer() {
             </svg>
             <span className="footer-brand-name">BRITANNIA CROWN</span>
           </div>
-          <p className="footer-tagline">British education consultant in Dubai. IGCSE tutors, A-Level tutors, nursery search, school placement and homeschool support for British expat families across Dubai and the GCC.</p>
+          <p className="footer-tagline">British education consultants. Private tutoring, home education, school placement and qualifications from UK-trained educators — and advice for families relocating to the UAE.</p>
         </div>
         <div className="footer-col">
           <h3 className="footer-col-title">Explore</h3>
           <ul className="footer-links">
             <li><Link href="/services">Services</Link></li>
+            <li><Link href="/uae">Moving to the UAE</Link></li>
             <li><Link href="/about">About</Link></li>
             <li><Link href="/guides">Free Guides</Link></li>
             <li><Link href="/book-consultation">Book Consultation</Link></li>

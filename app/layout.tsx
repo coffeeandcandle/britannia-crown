@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import "./uk.css";
 
 export const metadata: Metadata = {
-  title:
-    "British Education Consultant Dubai | IGCSE & A-Level Tutor Dubai | Nursery Search | Britannia Crown",
+  metadataBase: new URL("https://britanniacrown.com"),
+  title: "Britannia Crown | British Education Consultants — Tutoring, Home Education & School Placement",
   description:
-    "British Education Partner in Dubai. Nursery search, school placement, tutoring, GCSE & A-Level prep, homeschool support. Birth to Eighteen. UK curriculum specialists serving expat families across Dubai and GCC.",
+    "British education consultants offering private tutoring, home education, school and nursery placement, and GCSE & A-Level support from UK-trained educators. Also advising families relocating to the UAE.",
   keywords:
-    "British education consultant Dubai, IGCSE tutor Dubai, A-level tutor Dubai, GCSE tutor Dubai, British tutor Dubai, UK curriculum tutor Dubai, nursery search Dubai expat, EYFS nursery Dubai, British school placement Dubai, school placement Dubai expat, homeschool support Dubai British, education concierge Dubai, British education partner Dubai, private tutor Dubai British curriculum, UK exam preparation Dubai, GCC British curriculum tutor, find British school Dubai, home tutor Dubai British school",
+    "education consultant UK, private tutor UK, home education support, school placement consultant, GCSE tutor, A-Level tutor, 11+ tutor, education consultancy, moving to Dubai schools",
   openGraph: {
-    title: "Britannia Crown | British Education Consultant Dubai | IGCSE & A-Level Tutors Dubai",
+    title: "Britannia Crown | British Education Consultants",
     description:
-      "Dubai's trusted British education consultant. IGCSE tutors, A-level tutors, nursery search, British school placement and homeschool support for expat families in Dubai and GCC.",
+      "Private tutoring, home education, school placement and qualifications — personal advice from UK-trained educators.",
     type: "website",
     url: "https://britanniacrown.com",
+    locale: "en_GB",
   },
-  alternates: {
-    canonical: "https://britanniacrown.com",
-  },
+  alternates: { canonical: "https://britanniacrown.com" },
   referrer: "no-referrer-when-downgrade",
 };
 
@@ -36,12 +36,7 @@ const schemaJson = {
   url: "https://britanniacrown.com",
   logo: "https://britanniacrown.com/logo.png",
   description:
-    "British education consultant in Dubai providing IGCSE tutoring, A-level tutoring, nursery search, British school placement and homeschool support for expat families across Dubai and the GCC.",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Dubai",
-    addressCountry: "AE",
-  },
+    "British education consultants providing private tutoring, home education support, school and nursery placement and qualifications guidance, and advising UK families relocating to the UAE.",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+971502635427",
@@ -51,21 +46,18 @@ const schemaJson = {
   },
   sameAs: ["https://instagram.com/britanniacrowneducation", "https://wa.me/971502635427"],
   areaServed: [
-    { "@type": "City", name: "Dubai" },
-    { "@type": "City", name: "Abu Dhabi" },
+    { "@type": "Country", name: "United Kingdom" },
     { "@type": "Country", name: "United Arab Emirates" },
   ],
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "British Education Services Dubai",
+    name: "British Education Services",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "IGCSE Tutor Dubai", description: "Expert IGCSE tutoring from UK curriculum specialists in Dubai" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "A-Level Tutor Dubai", description: "A-Level preparation and tutoring for British expat families in Dubai" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "GCSE Tutor Dubai", description: "GCSE tutoring and exam preparation by qualified UK educators in Dubai" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "British School Placement Dubai", description: "Expert school search and placement for British curriculum schools in Dubai" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Nursery Search Dubai", description: "EYFS nursery search and placement for expat families in Dubai" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Homeschool Support Dubai", description: "British curriculum homeschool support and coordination in Dubai and GCC" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Education Concierge Dubai", description: "Full-service British education concierge for expat families in Dubai" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Private Tutoring", description: "UK-trained private tutors for primary, GCSE and A-Level, personally matched and overseen by a consultant" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Home Education", description: "British-curriculum home education planning, specialist tutors and qualifications guidance" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "School & Nursery Placement", description: "Independent research, shortlisting and application support from nursery to Sixth Form" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Qualifications & Exam Success", description: "GCSE and A-Level teaching, exam technique and private-candidate support" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Moving to the UAE", description: "Education advice and placement for UK families relocating to Dubai and the UAE" } },
     ],
   },
 };
@@ -76,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
