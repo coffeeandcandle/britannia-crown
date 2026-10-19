@@ -4,7 +4,9 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import Reveal from "./components/Reveal";
 import SubjectGrid from "./components/SubjectGrid";
+import GuideCards from "./components/GuideCards";
 import { services } from "./lib/services";
+import { guides } from "./lib/guides";
 import { pageMetadata } from "./lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -144,11 +146,14 @@ export default function Home() {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">Free guides</span>
-            <h2 className="uk-h2">Practical guidance, <em>free.</em></h2>
-            <p className="uk-lead">Clear, honest guides on schools, curricula and qualifications — straight to your inbox.</p>
-            <div style={{ marginTop: 32 }}><Link href="/guides" className="btn-primary">Get the Free Guides</Link></div>
+            <span className="uk-kicker">Guides for parents</span>
+            <h2 className="uk-h2">Practical guidance, <em>freely shared.</em></h2>
+            <p className="uk-lead">Clear, honest guides on school applications, exams, tutors and home education.</p>
           </Reveal>
+          <Reveal>
+            <GuideCards items={guides.slice(0, 3)} />
+          </Reveal>
+          <div style={{ marginTop: 40 }}><Link href="/guides" className="btn-primary">All Guides</Link></div>
         </div>
       </section>
 

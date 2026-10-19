@@ -13,25 +13,30 @@ export function pageMetadata({
   description,
   path,
   ownImage = false,
+  article,
 }: {
   title: string;
   description: string;
   path: string;
   ownImage?: boolean;
+  article?: { published: string; updated: string };
 }): Metadata {
+  const shared = {
+    title,
+    description,
+    url: path,
+    siteName: SITE_NAME,
+    locale: "en_GB",
+    ...(ownImage ? {} : { images: [defaultImage] }),
+  };
+
   return {
     title,
     description,
     alternates: { canonical: path },
-    openGraph: {
-      title,
-      description,
-      url: path,
-      siteName: SITE_NAME,
-      locale: "en_GB",
-      type: "website",
-      ...(ownImage ? {} : { images: [defaultImage] }),
-    },
+    openGraph: article
+      ? { ...shared, type: "article", publishedTime: article.published, modifiedTime: article.updated }
+      : { ...shared, type: "website" },
     twitter: {
       card: "summary_large_image",
       title,

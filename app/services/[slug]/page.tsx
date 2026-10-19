@@ -9,7 +9,9 @@ import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
 import SubjectGrid from "../../components/SubjectGrid";
 import JsonLd from "../../components/JsonLd";
+import GuideCards from "../../components/GuideCards";
 import { services, getService } from "../../lib/services";
+import { guidesFor } from "../../lib/guides";
 import { pageMetadata } from "../../lib/seo";
 import { serviceSchema } from "../../lib/schema";
 
@@ -33,6 +35,7 @@ export default async function ServicePage({ params }: Props) {
 
   const path = `/services/${service.slug}`;
   const others = services.filter((s) => s.slug !== service.slug);
+  const reading = guidesFor("services", service.slug).slice(0, 3);
 
   return (
     <>
@@ -124,6 +127,17 @@ export default async function ServicePage({ params }: Props) {
 
       <section className="uk-section white">
         <div className="uk-wrap">
+          {reading.length > 0 && (
+            <div className="gd-reading">
+              <Reveal className="uk-head">
+                <span className="uk-kicker">Further reading</span>
+                <h2 className="uk-h2">Guides for <em>parents.</em></h2>
+              </Reveal>
+              <Reveal>
+                <GuideCards items={reading} />
+              </Reveal>
+            </div>
+          )}
           <Reveal className="uk-head">
             <span className="uk-kicker">Also from Britannia Crown</span>
           </Reveal>

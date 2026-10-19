@@ -48,7 +48,7 @@ export default function Nav() {
           <li><Link href="/tutors">Find a Tutor</Link></li>
           <li><Link href="/uae">Moving to the UAE</Link></li>
           <li><Link href="/about">About</Link></li>
-          <li><Link href="/guides">Free Guides</Link></li>
+          <li><Link href="/guides">Guides</Link></li>
           <li><Link href="/contact">Contact</Link></li>
           <li><Link href="/book-consultation" className="nav-cta">Book Consultation</Link></li>
         </ul>
@@ -75,7 +75,7 @@ export default function Nav() {
           <li><Link href="/uae" onClick={close}>Moving to the UAE</Link></li>
           <li><Link href="/membership" onClick={close}>Membership</Link></li>
           <li><Link href="/about" onClick={close}>About</Link></li>
-          <li><Link href="/guides" onClick={close}>Free Guides</Link></li>
+          <li><Link href="/guides" onClick={close}>Guides</Link></li>
           <li><Link href="/ambassador" onClick={close}>Ambassador</Link></li>
           <li><Link href="/contact" onClick={close}>Contact</Link></li>
         </ul>

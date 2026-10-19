@@ -8,8 +8,10 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
 import JsonLd from "../../components/JsonLd";
+import GuideCards from "../../components/GuideCards";
 import { subjects, getSubject } from "../../lib/subjects";
 import { getService } from "../../lib/services";
+import { guidesFor } from "../../lib/guides";
 import { pageMetadata } from "../../lib/seo";
 import { serviceSchema } from "../../lib/schema";
 
@@ -34,6 +36,7 @@ export default async function SubjectPage({ params }: Props) {
   const path = `/tutors/${subject.slug}`;
   const steps = getService("tutoring")?.steps ?? [];
   const related = subject.related.map(getSubject).filter((s) => s !== undefined);
+  const reading = guidesFor("subjects", subject.slug).slice(0, 3);
 
   return (
     <>
@@ -149,6 +152,11 @@ export default async function SubjectPage({ params }: Props) {
               </Link>
             </div>
           </Reveal>
+          {reading.length > 0 && (
+            <Reveal className="gd-reading-after">
+              <GuideCards items={reading} />
+            </Reveal>
+          )}
         </div>
       </section>
 

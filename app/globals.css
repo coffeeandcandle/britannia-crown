@@ -1,6 +1,8 @@
     /* ── NUCLEAR OVERFLOW PREVENTION ── */
     html, body {
       overflow-x: hidden !important;
+      /* clip (where supported) prevents sideways scroll without making body a scroll container, which broke position: sticky */
+      overflow-x: clip !important;
       max-width: 100% !important;
     }
     * {

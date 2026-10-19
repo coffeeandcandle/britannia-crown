@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
+  // Guides are written as .mdx files in /content/guides and imported by app/guides/[slug].
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   images: {
     remotePatterns: [
       {
@@ -11,4 +14,11 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Turbopack needs remark/rehype plugins referenced by package name, not imported functions.
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ["remark-gfm"],
+  },
+});
+
+export default withMDX(nextConfig);

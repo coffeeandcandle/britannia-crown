@@ -11,3 +11,4 @@ export const INSTAGRAM_URL = "https://instagram.com/britanniacrowneducation";
 
 export const CALENDLY_URL = "https://calendly.com/miramayhis/30min";
 export const FORMSPREE_ENQUIRY = "https://formspree.io/f/xyzypzkv";
+export const FORMSPREE_GUIDES = "https://formspree.io/f/xpqobbpo";

@@ -77,6 +77,34 @@ export function serviceSchema({
   };
 }
 
+export function articleSchema({
+  title,
+  description,
+  path,
+  published,
+  updated,
+}: {
+  title: string;
+  description: string;
+  path: string;
+  published: string;
+  updated: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description,
+    datePublished: published,
+    dateModified: updated,
+    author: { "@type": "Organization", name: LEGAL_NAME, url: SITE_URL },
+    publisher: { "@id": ORG_ID },
+    mainEntityOfPage: abs(path),
+    image: `${abs(path)}/opengraph-image`,
+    inLanguage: "en-GB",
+  };
+}
+
 export type Faq = { q: string; a: string };
 
 export function faqSchema(faqs: Faq[]) {

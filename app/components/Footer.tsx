@@ -40,7 +40,7 @@ export default function Footer() {
           <h3 className="footer-col-title">Company</h3>
           <ul className="footer-links">
             <li><Link href="/about">About</Link></li>
-            <li><Link href="/guides">Free Guides</Link></li>
+            <li><Link href="/guides">Guides for Parents</Link></li>
             <li><Link href="/ambassador">Ambassador Programme</Link></li>
             <li><Link href="/careers">Careers</Link></li>
             <li><Link href="/contact">Contact</Link></li>
