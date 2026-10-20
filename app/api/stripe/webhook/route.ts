@@ -2,6 +2,7 @@ import type Stripe from "stripe";
 import { getStripe } from "../../../lib/stripe";
 import { getProduct, formatPrice } from "../../../lib/products";
 import { FORMSPREE_ENQUIRY } from "../../../lib/site";
+import { query } from "../../../lib/portal/db";
 
 // Stripe calls this endpoint after payments and subscription changes. Each event is
 // verified with STRIPE_WEBHOOK_SECRET, then the team is emailed via the enquiry form inbox
@@ -38,6 +39,7 @@ export async function POST(request: Request) {
           stripe_session: s.id,
           ...pick(s.metadata, ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "page"]),
         });
+        await linkCustomerToFamily(s);
         break;
       }
       case "invoice.payment_failed": {
@@ -74,6 +76,19 @@ async function notifyTeam(subject: string, fields: Record<string, string>) {
     body: JSON.stringify({ _subject: `${subject} | Britannia Crown`, source: "stripe", ...fields }),
   });
   if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+}
+
+// If the buyer already has a portal account, remember their Stripe customer for the billing page.
+async function linkCustomerToFamily(s: Stripe.Checkout.Session) {
+  const customer = typeof s.customer === "string" ? s.customer : s.customer?.id;
+  const email = s.customer_details?.email?.toLowerCase();
+  if (!process.env.DATABASE_URL || !customer || !email) return;
+  try {
+    await query("UPDATE families SET stripe_customer_id = $1 WHERE lower(email) = $2 AND stripe_customer_id IS NULL", [customer, email]);
+  } catch (error) {
+    // The order email has already gone; a missing link is found again from the email on the billing page.
+    console.error("Linking Stripe customer to family failed", error);
+  }
 }
 
 function pick(obj: Record<string, string> | null | undefined, keys: string[]) {

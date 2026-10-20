@@ -186,6 +186,7 @@ export default function Nav() {
           <p>British education consultants for families in the UK and the UAE</p>
           <ul>
             <li><Link href="/guides#tools">Free tools</Link></li>
+            <li><Link href="/portal">Client login</Link></li>
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
             <li><a href={WHATSAPP_URL}><WhatsAppIcon /> +971 50 263 5427</a></li>
           </ul>

@@ -55,6 +55,7 @@ export default function Footer() {
             <ul>
               <li><Link href="/about">About</Link></li>
               <li><Link href="/contact">Contact</Link></li>
+              <li><Link href="/portal">Client login</Link></li>
               <li><Link href="/ambassador">Ambassador Programme</Link></li>
               <li><Link href="/careers">Careers</Link></li>
               <li><a href={INSTAGRAM_URL}>Instagram</a></li>

@@ -19,12 +19,11 @@ The site now runs one clear path: a parent searches Google, lands on a guide, to
 - **To switch on paid sessions:** in Calendly, connect Stripe (Integrations → Stripe), create a 60-minute and a 45-minute event type with their prices, and add a first question such as "What would you like to talk about?" to each. Then paste each event link into `calendlyUrl` in `app/lib/sessions.ts` and confirm the price. Until then, those sessions show a request form and no price.
 - Later: move to a native booking system with its own database when the client portal is built.
 
-## Phase 3: Client portal
-- Login for families (email magic link or Google), built on Next.js with a hosted auth provider (Clerk or Auth.js) and a Postgres database (Neon or Supabase via Vercel).
-- For families: upcoming sessions, joining links for online lessons, tutor notes after each session, invoices and membership management (Stripe customer portal).
-- For tutors: their timetable, session notes and availability.
-- For consultants: an overview of each child's plan and progress.
-- Video lessons: start with links to Zoom or Google Meet, and add embedded video (e.g. Daily or Whereby) later if needed.
+## Phase 3: Client portal (built; switch on with Clerk and Neon)
+- **Built:** `/portal` for families (overview, sessions with "Join now" links, tutor notes and homework, billing via Stripe) and `/portal/admin` for staff (families, children, scheduling including weekly blocks, session notes, team roles).
+- Login with Clerk; data in Postgres (Neon). Each person's access is checked on the server for every page and action. Tutors only see their own sessions; families only see their own data and the notes shared with them.
+- **To switch on:** see `PORTAL_SETUP.md`.
+- **Next:** email families when a new note is posted; a family-visible progress summary each term; tutor availability and families booking lessons directly from the portal (this would replace Calendly for existing clients); video lessons embedded in the portal.
 
 ## Ongoing: content and SEO
 - One or two new guides a month, aimed at questions parents search for (admissions, 11+, exam boards, revision, home education, relocation).

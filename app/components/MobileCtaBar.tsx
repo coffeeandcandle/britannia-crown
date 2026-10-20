@@ -17,7 +17,7 @@ export default function MobileCtaBar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname === "/book-consultation") return null;
+  if (pathname === "/book-consultation" || pathname.startsWith("/portal")) return null;
 
   return (
     <div className={`mcta${show ? " show" : ""}`} inert={!show}>

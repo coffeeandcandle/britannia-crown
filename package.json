@@ -6,13 +6,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:migrate": "node scripts/db-migrate.mjs"
   },
   "dependencies": {
+    "@clerk/nextjs": "7.9.17",
     "@mdx-js/loader": "3.1.1",
     "@mdx-js/react": "3.1.1",
     "@next/mdx": "16.2.10",
     "next": "16.2.10",
+    "pg": "8.23.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "remark-gfm": "4.0.1",
@@ -21,6 +24,7 @@
   "devDependencies": {
     "@types/mdx": "2.0.14",
     "@types/node": "^20",
+    "@types/pg": "8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
