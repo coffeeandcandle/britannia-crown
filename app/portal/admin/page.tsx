@@ -4,8 +4,7 @@ import { requireStaff, staffUpcoming, staffNeedingNotes, staffStats, canManage }
 import { greeting } from "../../lib/portal/time";
 import { SessionList, Flash } from "../components";
 import AdminOverview from "./Overview";
-import Dismissible from "../Dismissible";
-import { PageHeader, Card, EmptyState, StatGrid, Stat, Checklist, HelpBox, type Step } from "../ui";
+import { PageHeader, Card, EmptyState, StatGrid, Stat, HelpBox } from "../ui";
 
 // Staff see times in UK time; families see their own time zone.
 const STAFF_TZ = "Europe/London";
@@ -17,17 +16,8 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
   const href = (s: { id: number }) => `/portal/admin/sessions/${s.id}`;
   const firstName = staff.name.split(" ")[0];
 
-  // First-time setup guide for admins and consultants; it disappears once everything is done.
-  const setup: Step[] = [
-    ...(staff.role === "admin"
-      ? [{ done: stats.team > 1, title: "Add your team", body: "Invite the consultants and tutors who'll use the portal.", href: "/portal/admin/staff", cta: "Add a team member" }]
-      : []),
-    { done: stats.families > 0, title: "Add your first family", body: "Use the parent's email address. That's how they'll sign in.", href: "/portal/admin/families#add-family", cta: "Add a family" },
-    { done: stats.children > 0, title: "Add their child", body: "Open the family and add each child's name and year group.", href: "/portal/admin/families", cta: "Open families" },
-    { done: stats.sessions > 0, title: "Schedule a lesson", body: "Pick a date, tutor and video link. Weekly lessons can be added in one go.", href: "/portal/admin/families", cta: "Schedule" },
-    { done: stats.notes > 0, title: "Write a session note", body: "After a lesson, the tutor writes a note the family can read.", href: "/portal/admin/sessions?view=past", cta: "See past lessons" },
-  ];
-  const setupDone = setup.every((s) => s.done);
+  // The first-time setup checklist was removed from the dashboard; the Checklist component stays in ui.tsx if it is wanted again.
+  const setupDone = true;
 
   return (
     <>
@@ -45,12 +35,6 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
           </Suspense>
           <h2 className="ov-h">Today&apos;s lessons and notes</h2>
         </>
-      )}
-
-      {manager && !setupDone && (
-        <Dismissible id="admin-setup" label="Hide the setup guide">
-          <Checklist title="Get set up" description="Five quick steps to get families using the portal." steps={setup} />
-        </Dismissible>
       )}
 
       {staff.role !== "admin" && (<StatGrid>
