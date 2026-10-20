@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AudienceSwitch } from "./AudienceChoice";
+import { SIGN_IN_PATH, SIGN_UP_PATH, STAFF_SIGN_IN_PATH, STAFF_SIGN_UP_PATH } from "../lib/portal/config";
 
 // Full-screen frame for the portal's sign-in and access pages: a branded panel beside the form.
 export default function AuthFrame({
@@ -47,6 +48,21 @@ export default function AuthFrame({
         <div className="pt-auth-form-inner">
           {audience && <AudienceSwitch audience={audience.who} mode={audience.mode} />}
           {children}
+          {audience && (
+            <p className="ch-newhere">
+              {audience.mode === "in" ? (
+                <>
+                  <strong>First time here?</strong> You need to create your account once before you can log in.{" "}
+                  <Link href={audience.who === "team" ? STAFF_SIGN_UP_PATH : SIGN_UP_PATH}>Create my account →</Link>
+                </>
+              ) : (
+                <>
+                  <strong>Already have an account?</strong>{" "}
+                  <Link href={audience.who === "team" ? STAFF_SIGN_IN_PATH : SIGN_IN_PATH}>Log in →</Link>
+                </>
+              )}
+            </p>
+          )}
           {switchLink && (
             <p className="pt-auth-switch">
               <Link href={switchLink.href}>{switchLink.label}</Link>

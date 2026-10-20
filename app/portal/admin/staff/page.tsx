@@ -3,8 +3,8 @@ import { siteOrigin } from "../../../lib/portal/origin";
 import { STAFF_SIGN_IN_PATH } from "../../../lib/portal/config";
 import { Flash } from "../../components";
 import { PageHeader, Card, Avatar, Pill, Field, HelpBox } from "../../ui";
-import { SubmitButton, CopyButton } from "../../client-ui";
-import { saveStaff } from "../actions";
+import { SubmitButton, CopyButton, ConfirmSubmit } from "../../client-ui";
+import { saveStaff, deleteStaff } from "../actions";
 
 const roles = [
   { id: "tutor", name: "Tutor", can: "Sees only their own lessons, joins them and writes notes." },
@@ -50,6 +50,14 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
                     {!s.active && <Pill tone="muted">Access off</Pill>}
                     <SubmitButton className="btn-secondary ui-btn-sm">Save</SubmitButton>
                   </form>
+                  {s.id !== me.id && (
+                    <form action={deleteStaff} className="ui-row-delete">
+                      <input type="hidden" name="id" value={s.id} />
+                      <ConfirmSubmit message={`Delete ${s.name} permanently? Their lessons will show as not assigned and any families they look after will have no consultant. This cannot be undone. To keep their history, turn their access off instead.`}>
+                        Delete {s.name.split(" ")[0]}
+                      </ConfirmSubmit>
+                    </form>
+                  )}
                 </li>
               ))}
             </ul>

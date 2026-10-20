@@ -218,3 +218,20 @@ export async function saveStaff(fd: FormData) {
   revalidatePath("/portal/admin", "layout");
   back("/portal/admin/staff", { ok: `${name} added. They can sign in with ${email}.` });
 }
+
+export async function deleteStaff(fd: FormData) {
+  const { staff: me } = await requireStaff(["admin"]);
+  const id = int(fd, "id");
+  if (!id) back("/portal/admin/staff", { error: "Team member not found." });
+  if (id === me.id) back("/portal/admin/staff", { error: "You can't delete your own account." });
+  const person = await queryOne<{ name: string; role: Role; active: boolean }>("SELECT name, role, active FROM staff WHERE id = $1", [id]);
+  if (!person) back("/portal/admin/staff", { error: "Team member not found." });
+  if (person!.role === "admin" && person!.active) {
+    const others = await queryOne<{ n: number }>("SELECT count(*)::int AS n FROM staff WHERE role = 'admin' AND active AND id <> $1", [id]);
+    if (!others || others.n < 1) back("/portal/admin/staff", { error: "There must be at least one active admin." });
+  }
+  // Their lessons stay but show as not assigned; families lose this consultant; notes keep their text.
+  await query("DELETE FROM staff WHERE id = $1", [id]);
+  revalidatePath("/portal", "layout");
+  back("/portal/admin/staff", { ok: `${person!.name} was deleted. Their lessons now show as not assigned.` });
+}
