@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { services } from "../lib/services";
@@ -116,11 +116,18 @@ function PanelItem({ link, onNavigate }: { link: PanelLink; onNavigate: () => vo
   );
 }
 
+const subscribeToNothing = () => () => {};
+const readSignedIn = () =>
+  document.cookie.split("; ").some((c) => /^__client_uat(_[^=]+)?=/.test(c) && Number(c.split("=")[1]) > 0);
+
 export default function Nav() {
   const pathname = usePathname();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Clerk only runs inside /portal, so the public pages read its readable session marker
+  // (__client_uat, a timestamp that is 0 or absent when signed out) to show the right link.
+  const signedIn = useSyncExternalStore(subscribeToNothing, readSignedIn, () => false);
   const navRef = useRef<HTMLElement>(null);
 
   // Close everything when the route changes.
@@ -176,7 +183,7 @@ export default function Nav() {
           <p>British education consultants for families in the UK and the UAE</p>
           <ul>
             <li><Link href="/guides#tools">Free tools</Link></li>
-            <li><Link href="/portal">Client login</Link></li>
+            <li><Link href="/portal">{signedIn ? "My portal" : "Client login"}</Link></li>
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
           </ul>
         </div>
@@ -258,7 +265,7 @@ export default function Nav() {
           </nav>
 
           <div className="header-actions">
-            <Link href="/portal" className="header-wa header-login">Log in</Link>
+            <Link href="/portal" className="header-wa header-login">{signedIn ? "My portal" : "Log in"}</Link>
             <Link href="/book-consultation" className="btn-primary header-cta">Book a free call</Link>
           </div>
 
