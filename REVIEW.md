@@ -135,3 +135,6 @@ Research figures, each linked to its source on the page; please confirm you are 
 - Families no longer book lessons directly: "Request a lesson" in their portal sends a request (and an email to the team inbox). An admin approves it under Lesson requests, chooses the tutor or consultant, date, length and weekly repeat, which creates the lesson(s). The family is emailed on approval or decline.
 - Admins can still schedule directly from a family's page.
 - The admin "Get set up" checklist can now be closed (remembered in that browser).
+
+## Unified UI style
+One design scale now covers the public site and the portal: radii (cards 14px, controls 8px), shadows, heading sizes, stat sizes and section spacing are shared variables at the top of `app/site.css`. Change them there to restyle everything at once.
