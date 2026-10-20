@@ -440,3 +440,74 @@ nav.scrolled { padding-top: 10px; padding-bottom: 10px; box-shadow: 0 4px 30px r
   .uk-hero-crown, .uk-strip-track { animation: none; }
   .reveal { transition: none; opacity: 1; transform: none; }
 }
+
+/* ── ABOUT / MEMBERSHIP / AMBASSADOR ── */
+.ab-stats { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(74,14,41,.18); border-bottom: 1px solid rgba(74,14,41,.18); }
+.ab-stat { display: flex; flex-direction: column; gap: 10px; padding: 40px 32px; }
+.ab-stat + .ab-stat { border-left: 1px solid rgba(74,14,41,.14); }
+.ab-stat-num { font-family: var(--font-display), 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1; color: var(--burgundy); font-weight: 500; }
+.ab-stat-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; line-height: 1.5; color: var(--text-mid); }
+
+/* Process steps on a light background (the default .uk-step is styled for dark sections). */
+.mb-light h3 { color: var(--dark-burgundy); }
+.mb-light p { color: var(--text-mid); }
+.mb-light .uk-step-num { -webkit-text-stroke: 1px var(--warm-gold-text); }
+.uk-steps.mb-light-steps, .uk-steps.mb-three { border-top-color: rgba(74,14,41,.2); }
+.mb-light + .mb-light, .mb-three .mb-light + .mb-light, .mb-light-steps .mb-light + .mb-light { border-left-color: rgba(74,14,41,.14); }
+.uk-steps.mb-three { grid-template-columns: repeat(3, 1fr); }
+.uk-steps.mb-four { grid-template-columns: repeat(4, 1fr); }
+.mb-four .uk-step { padding-right: 28px; }
+.mb-four .uk-step + .uk-step { padding-left: 28px; }
+.mb-three-points { grid-template-columns: repeat(3, 1fr); }
+.amb-tag { display: inline-block; margin-bottom: 16px; padding: 5px 12px; border: 1px solid var(--warm-gold); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--warm-gold-text); }
+
+/* Membership tiers */
+.mb-tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
+.mb-tier { position: relative; display: flex; flex-direction: column; padding: 44px 36px 38px; background: var(--white); border: 1px solid rgba(74,14,41,.16); }
+.mb-tier.featured { background: var(--dark-burgundy); border-color: var(--dark-burgundy); color: rgba(255,255,255,.8); transform: translateY(-14px); box-shadow: 0 30px 60px rgba(74,14,41,.2); }
+.mb-badge { position: absolute; top: -13px; left: 36px; padding: 6px 14px; background: var(--champagne); color: var(--dark-burgundy); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+.mb-tier-name { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--warm-gold-text); }
+.mb-tier.featured .mb-tier-name { color: var(--champagne); }
+.mb-price { margin: 16px 0 26px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-mid); }
+.mb-price span { display: block; margin-bottom: 4px; font-family: var(--font-display), 'Cormorant Garamond', serif; font-size: 2.8rem; letter-spacing: 0; text-transform: none; line-height: 1.05; color: var(--dark-burgundy); }
+.mb-tier.featured .mb-price { color: rgba(255,255,255,.65); }
+.mb-tier.featured .mb-price span { color: var(--white); }
+.mb-tier ul { flex: 1; list-style: none; display: grid; gap: 14px; margin-bottom: 34px; }
+.mb-tier li { position: relative; padding-left: 28px; font-size: .96rem; line-height: 1.6; font-weight: 300; }
+.mb-tier li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 12px; height: 6px; border-left: 2px solid var(--warm-gold-text); border-bottom: 2px solid var(--warm-gold-text); transform: rotate(-45deg); }
+.mb-tier.featured li::before { border-color: var(--champagne); }
+.mb-tier .btn-primary, .mb-tier .btn-secondary { text-align: center; }
+.mb-btn-dark { color: var(--dark-burgundy); border-color: var(--dark-burgundy); }
+.mb-btn-dark:hover { background: var(--dark-burgundy); color: var(--champagne); }
+.mb-note { margin-top: 36px; text-align: center; font-size: .95rem; font-style: italic; color: var(--text-mid); }
+.mb-note a { color: var(--burgundy); }
+
+/* Ambassador */
+.amb-earn { width: 100%; border-collapse: collapse; border: 1px solid rgba(232,200,156,.25); }
+.amb-earn th, .amb-earn td { padding: 22px 28px; text-align: left; font-weight: 400; }
+.amb-earn thead th { background: rgba(0,0,0,.2); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--champagne); }
+.amb-earn thead th:last-child, .amb-earn td { text-align: right; }
+.amb-earn tbody tr + tr > * { border-top: 1px solid rgba(232,200,156,.15); }
+.amb-earn tbody th { font-size: 1.05rem; color: rgba(255,255,255,.85); }
+.amb-earn td { font-family: var(--font-display), 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--champagne); }
+.amb-earn tbody tr:last-child td { color: var(--white); }
+.amb-earn-note { margin-top: 16px; font-size: 13px; font-style: italic; color: rgba(255,255,255,.6); }
+.amb-code-wrap { text-align: center; }
+.amb-code { display: inline-flex; flex-direction: column; gap: 12px; margin-top: 44px; padding: 38px 64px; background: var(--dark-burgundy); border: 1px solid var(--dark-burgundy); }
+.amb-code-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: rgba(232,200,156,.85); }
+.amb-code-value { font-family: var(--font-display), 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 6vw, 4rem); letter-spacing: 6px; color: var(--champagne); }
+.amb-code-note { font-size: 13px; font-style: italic; color: rgba(255,255,255,.65); }
+.amb-hint { display: block; margin-top: 6px; font-size: 12px; color: rgba(232,200,156,.75); }
+
+@media (max-width: 960px) {
+  .ab-stats { grid-template-columns: 1fr; }
+  .ab-stat, .ab-stat + .ab-stat { padding: 28px 0; border-left: none; }
+  .ab-stat + .ab-stat { border-top: 1px solid rgba(74,14,41,.14); }
+  .uk-steps.mb-three, .uk-steps.mb-four { grid-template-columns: 1fr; }
+  .mb-four .uk-step, .mb-four .uk-step + .uk-step { padding-left: 0; padding-right: 0; }
+  .mb-three-points { grid-template-columns: 1fr; }
+  .mb-tiers { grid-template-columns: 1fr; gap: 36px; }
+  .mb-tier.featured { transform: none; }
+  .amb-earn th, .amb-earn td { padding: 16px 18px; }
+  .amb-code { padding: 30px 28px; }
+}

@@ -1,112 +1,168 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "../lib/seo";
-import Image from "next/image";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import PageHero from "../components/PageHero";
+import Reveal from "../components/Reveal";
+import Breadcrumbs from "../components/Breadcrumbs";
+import EnquirySection from "../components/EnquirySection";
+import JsonLd from "../components/JsonLd";
+import { pageMetadata } from "../lib/seo";
+import { services } from "../lib/services";
+import { ORG_ID } from "../lib/schema";
+import { SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Britannia Crown | British Education Consultants",
   description:
-    "British education consultancy offering tutoring, home education, school placement and qualifications support — one relationship from early years to A-Level.",
+    "Britannia Crown is a British education consultancy built on six years of running a UK tutoring company: UK-trained tutors, expert advice on schools and qualifications, and one relationship from early years to A-Level.",
   path: "/about",
 });
+
+const reasons = [
+  {
+    title: "One partner from early years to A-Level",
+    body: "Tutoring, home education, school placement and qualifications under one relationship, so you never need a second consultant as your child grows.",
+  },
+  {
+    title: "British curriculum specialists",
+    body: "Built over six years running a UK tutoring company. Deep expertise in GCSE, IGCSE, A-Level, Cambridge and Edexcel — we teach and advise on the curriculum, not just match names to a list.",
+  },
+  {
+    title: "A network of 50+ vetted tutors",
+    body: "UK-trained educators, vetted by us before they work with your child — including tutors teaching in British schools today. Personally matched, never assigned from a list.",
+  },
+  {
+    title: "A consultant who stays involved",
+    body: "Every family has a dedicated education consultant who oversees the whole journey: progress, plans and decisions, not just the tutoring hours.",
+  },
+];
+
+const approach = [
+  { title: "We listen first", body: "A free 30-minute consultation to understand your child, your goals and your concerns, before anything is recommended." },
+  { title: "We recommend, and explain why", body: "The right tutor, school or programme for your child, with honest reasoning you can question." },
+  { title: "We stay with you", body: "Your consultant oversees progress and adapts the plan as your child grows and circumstances change." },
+];
 
 export default function AboutPage() {
   return (
     <>
       <Nav />
 
-      <PageHero
-        eyebrow="About Britannia Crown"
-        title="Dubai's Only Full-Service British Education Consultant"
-        subtitle="We're not a tutoring agency. We're not a relocation firm. We're your British education consultant in Dubai — providing expert IGCSE tutors, A-Level tutors, school placement and nursery search under one relationship for expat families."
+      <section className="uk-sub-hero">
+        <div className="uk-wrap uk-hero-load">
+          <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} />
+          <span className="uk-eyebrow">About Britannia Crown</span>
+          <h1>Education advice you can <em>trust,</em> from early years to A-Level.</h1>
+          <p>We are not a tutoring marketplace, and we are not a school directory. Britannia Crown is a British education consultancy: UK-trained educators and a dedicated consultant for every family, with one relationship for the whole journey.</p>
+          <div className="uk-hero-actions uk-sub-actions">
+            <Link href="#enquire" className="btn-primary">Request a Call Back</Link>
+            <Link href="/book-consultation" className="btn-secondary">Book Free Consultation</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="uk-section white">
+        <div className="uk-wrap">
+          <Reveal>
+            <div className="ab-stats">
+              <div className="ab-stat"><span className="ab-stat-num">6+</span><span className="ab-stat-label">Years running a UK tutoring company</span></div>
+              <div className="ab-stat"><span className="ab-stat-num">50+</span><span className="ab-stat-label">Vetted UK-trained educators</span></div>
+              <div className="ab-stat"><span className="ab-stat-num">100%</span><span className="ab-stat-label">British curriculum focus</span></div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section cream">
+        <div className="uk-wrap uk-split">
+          <Reveal>
+            <span className="uk-kicker">Why Britannia Crown</span>
+            <h2 className="uk-h2">Four reasons families <em>choose us.</em></h2>
+            <p className="uk-lead">Choosing education support is a high-stakes decision, often made in a hurry. We built Britannia Crown to make it easier to get right.</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <div className="uk-principles">
+              {reasons.map((r, i) => (
+                <div className="uk-principle" key={r.title}>
+                  <span className="uk-principle-mark">{["i", "ii", "iii", "iv"][i]}</span>
+                  <div><h3>{r.title}</h3><p>{r.body}</p></div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section dark">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">How we work</span>
+            <h2 className="uk-h2">Simple to start. <em>Thorough throughout.</em></h2>
+          </Reveal>
+          <Reveal>
+            <div className="uk-steps">
+              {approach.map((a, i) => (
+                <div className="uk-step" key={a.title}>
+                  <div className="uk-step-num">0{i + 1}</div>
+                  <h3>{a.title}</h3>
+                  <p>{a.body}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section white">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">What we do</span>
+            <h2 className="uk-h2">Four services, <em>one consultancy.</em></h2>
+          </Reveal>
+          <Reveal>
+            <div className="uk-rows">
+              {services.map((s) => (
+                <Link href={`/services/${s.slug}`} className="uk-row" key={s.slug}>
+                  <span className="uk-row-num">{s.numeral}</span>
+                  <span className="uk-row-name">{s.name}</span>
+                  <span className="uk-row-desc">{s.short}</span>
+                  <span className="uk-row-arrow" aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-uae">
+        <div className="uk-uae-inner">
+          <Reveal>
+            <span className="uk-kicker" style={{ color: "var(--champagne)" }}>Also in the UAE</span>
+            <h2>Advising families who are <em>moving to Dubai.</em></h2>
+            <p>We also help UK families relocating to the UAE: understanding KHDA ratings, fees and waitlists, finding a British-curriculum school or nursery, and keeping tutoring going without a break. There are around 144,000 students in UK-curriculum schools in Dubai and more than 240,000 British nationals living there, so the choices are many and the competition for places is real.</p>
+          </Reveal>
+          <Link href="/uae" className="btn-primary">Moving to the UAE →</Link>
+        </div>
+      </section>
+
+      <EnquirySection
+        title={<>Let&apos;s talk about <em>your child.</em></>}
+        lead="Tell us a little about your child and an education consultant will call you back, usually within 24 hours."
+        source="about_page"
+        defaultService=""
+        context="About page"
       />
 
-      <section className="why" id="why">
-        <div className="section-inner">
-          <div className="image-text-section">
-            <div className="image-text-content">
-              <h2 className="section-title" style={{ fontSize: "clamp(28px, 3.5vw, 44px)" }}>Not just a tutoring agency</h2>
-              <p>We cover the full journey — birth to A-Level — under one relationship, so you never need a second consultant as your child grows.</p>
-            </div>
-            <div className="image-text-media">
-              <Image
-                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
-                alt="UK curriculum education consultant Dubai British school placement"
-                fill
-                sizes="(max-width: 900px) 100vw, 50vw"
-              />
-            </div>
-          </div>
-
-          <div className="why-grid">
-            <div>
-              <h2 style={{ fontSize: "22px", color: "var(--dark-burgundy)", marginBottom: "28px" }}>Four reasons families choose us</h2>
-
-              <div className="why-points">
-                <div className="why-point">
-                  <span className="why-point-num">01</span>
-                  <div>
-                    <h3 className="why-point-title">Birth to A-Level — One British Education Partner</h3>
-                    <p className="why-point-text">The only British education consultant in Dubai covering EYFS nursery search through to A-Level tutoring and university preparation. One relationship, 18 years of support.</p>
-                  </div>
-                </div>
-                <div className="why-point">
-                  <span className="why-point-num">02</span>
-                  <div>
-                    <h3 className="why-point-title">UK Curriculum Specialists — Cambridge &amp; Edexcel</h3>
-                    <p className="why-point-text">Built over 6 years running a UK tutoring company. Deep expertise in IGCSE, GCSE, A-Level, Cambridge and Edexcel. Not a relocation firm — a genuine UK curriculum specialist.</p>
-                  </div>
-                </div>
-                <div className="why-point">
-                  <span className="why-point-num">03</span>
-                  <div>
-                    <h3 className="why-point-title">Dubai British School Experts — KHDA &amp; Waitlists</h3>
-                    <p className="why-point-text">We know Dubai&apos;s British school landscape inside out — KHDA ratings, fee structures, waitlist dynamics and the specific challenges British expat families face when finding the right school or tutor.</p>
-                  </div>
-                </div>
-                <div className="why-point">
-                  <span className="why-point-num">04</span>
-                  <div>
-                    <h3 className="why-point-title">50+ Vetted British Tutors in Dubai &amp; UK</h3>
-                    <p className="why-point-text">A network of 50+ vetted UK curriculum specialists — qualified British tutors in Dubai, IGCSE and A-Level tutors in Dubai, and UK-based educators teaching in British schools today.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="why-visual">
-              <div className="why-stat">
-                <div className="why-stat-number">10+</div>
-                <div className="why-stat-label">Year Client Relationships</div>
-              </div>
-              <div className="why-divider"></div>
-              <div className="why-stat">
-                <div className="why-stat-number">144K</div>
-                <div className="why-stat-label">Students in UK Curriculum Schools (Dubai)</div>
-              </div>
-              <div className="why-divider"></div>
-              <div className="why-stat">
-                <div className="why-stat-number">240K+</div>
-                <div className="why-stat-label">British Nationals in Dubai</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section style={{ background: "var(--dark-burgundy)", padding: "80px 60px", textAlign: "center", width: "100%", maxWidth: "100%" }}>
-        <div className="section-inner">
-          <h2 className="section-title" style={{ color: "var(--white)" }}>Ready to talk about your child&apos;s education?</h2>
-          <p style={{ fontSize: "17px", color: "rgba(255,255,255,0.7)", maxWidth: "560px", margin: "0 auto 32px" }}>Start with a free 30-minute consultation, or send us a message and we&apos;ll respond within 24 hours.</p>
-          <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
-            <Link href="/contact" className="btn-secondary">Contact Us</Link>
-          </div>
-        </div>
-      </section>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "About Britannia Crown",
+          url: `${SITE_URL}/about`,
+          about: { "@id": ORG_ID },
+          inLanguage: "en-GB",
+        }}
+      />
 
       <Footer />
     </>

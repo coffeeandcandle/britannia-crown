@@ -1,241 +1,260 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "../lib/seo";
 import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import PageHero from "../components/PageHero";
-import { TutorIcon, ConciergeIcon, ShareCodeIcon, FamilyBooksIcon } from "../components/Icons";
+import Reveal from "../components/Reveal";
+import Breadcrumbs from "../components/Breadcrumbs";
+import FaqSection from "../components/FaqSection";
+import EnquirySection from "../components/EnquirySection";
+import JsonLd from "../components/JsonLd";
+import { pageMetadata } from "../lib/seo";
+import { ORG_ID } from "../lib/schema";
+import { SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Online Tutoring Membership Dubai | Academic Partner Membership | Britannia Crown",
+  title: "Online Tutoring Membership | Academic Partner | Britannia Crown",
   description:
-    "Ongoing online tutoring membership for expat families in Dubai. Vetted British tutors, flexible hours, direct access to your education consultant. From AED 1,000/month.",
+    "Ongoing online tutoring with vetted UK-qualified tutors and a dedicated education consultant overseeing your child's progress. Flexible monthly tiers from AED 1,000. Cancel anytime.",
   path: "/membership",
 });
+
+const problems = [
+  { title: "Tutors leave without warning", body: "A great tutor moves, changes job or simply disappears mid-term, and you are back to square one just before exams." },
+  { title: "No way to verify qualifications", body: "Marketplaces and Facebook groups don't tell you who is a qualified UK teacher and who isn't. You are trusting a profile photo." },
+  { title: "Constant re-vetting", body: "Every time a tutor falls through it is another round of messaging strangers, trial sessions and hoping this one works out." },
+  { title: "No one watching the bigger picture", body: "A one-off tutor teaches a subject. No one is tracking whether your child's overall plan is on track." },
+];
+
+const different = [
+  { title: "Vetted, not just listed", body: "Every tutor is UK-qualified and personally vetted by Britannia Crown before they ever teach your child. No marketplace guesswork." },
+  { title: "Continuity built in", body: "If a tutor becomes unavailable we have a full bench ready to step in, so your child's progress doesn't stall." },
+  { title: "Your consultant oversees it all", body: "A dedicated education consultant checks in on your child's whole academic journey, not just the tutoring hours." },
+];
+
+const tiers = [
+  {
+    name: "Foundation",
+    price: "1,000",
+    value: 1000,
+    features: [
+      "4 hours/month online tutoring credit (flexible allocation, any subject)",
+      "Monthly 15-minute parent check-in call",
+      "WhatsApp access for academic questions (48hr response)",
+      "Subject strategy notes after each session",
+    ],
+    service: "Academic Partner Membership - Foundation",
+  },
+  {
+    name: "Partner",
+    price: "1,800",
+    value: 1800,
+    featured: true,
+    features: [
+      "8 hours/month online tutoring credit",
+      "Fixed weekly slot with a dedicated tutor (same tutor every week)",
+      "Monthly 30-minute call with your education consultant",
+      "WhatsApp access, same-day response",
+      "One subject-specific exam strategy session per term",
+    ],
+    service: "Academic Partner Membership - Partner",
+  },
+  {
+    name: "Full Partner",
+    price: "3,200",
+    value: 3200,
+    features: [
+      "14 hours/month online tutoring credit, split across up to 2 subjects",
+      "Everything in Partner tier",
+      "Termly academic plan review directly with your education consultant",
+      "Priority access to school placement consultancy at a reduced rate if needed mid-term",
+      "Direct WhatsApp line to your education consultant",
+    ],
+    service: "Academic Partner Membership - Full Partner",
+  },
+];
+
+const peace = [
+  { title: "Vetted British tutors", body: "Every tutor is UK-qualified and personally screened by Britannia Crown." },
+  { title: "All online", body: "No geography risk. Your tutor never has to move away for lessons to continue, and you can learn from anywhere." },
+  { title: "Cancel or pause anytime", body: "No long lock-in contracts. Change tiers or pause your membership whenever your family needs to." },
+  { title: "A full bench, always", body: "If your tutor is ever unavailable, another vetted tutor steps in. Your child is never left without support." },
+];
+
+const faqs = [
+  {
+    q: "What if my tutor becomes unavailable?",
+    a: "We have a full bench of vetted British tutors. If your assigned tutor is ever unavailable, we bring in a qualified replacement so your child is never left without support.",
+  },
+  {
+    q: "Can I change subjects?",
+    a: "Yes. Your monthly hours are flexible and can be allocated across subjects as your child's needs change — just let your consultant know.",
+  },
+  {
+    q: "Is this different from a one-off consultation?",
+    a: "Yes. The free 30-minute consultation is a one-time introduction to Britannia Crown. Academic Partner Membership is an ongoing monthly relationship with recurring tutoring hours and continuous consultant oversight.",
+  },
+  {
+    q: "Can I cancel anytime?",
+    a: "Yes — there is no long-term contract. You can cancel or change tiers at any time.",
+  },
+  {
+    q: "Is membership available to families in the UK?",
+    a: "Membership is delivered online, so it works wherever your family lives. Prices on this page are in UAE dirhams (AED); contact us for sterling pricing.",
+  },
+  {
+    q: "What if I'd rather have face-to-face tutoring?",
+    a: "Face-to-face tutoring is available on request, with tailored pricing based on your child's exact needs and location. Get in touch and we will talk it through.",
+  },
+];
 
 export default function MembershipPage() {
   return (
     <>
       <Nav />
 
-      <PageHero
-        eyebrow="Academic Partner Membership"
-        title={<>Your Tutor Left Dubai? Not Sure If They&apos;re Even <em>Qualified?</em> Stop Starting Over.</>}
-        subtitle="Britannia Crown's Academic Partner Membership gives your child ongoing access to vetted, qualified British tutors online — with your dedicated education consultant personally overseeing your child's academic journey, so you never have to search Dubizzle or Facebook groups again."
+      <section className="uk-sub-hero">
+        <div className="uk-wrap uk-hero-load">
+          <Breadcrumbs
+            crumbs={[
+              { name: "Home", path: "/" },
+              { name: "Services", path: "/services" },
+              { name: "Academic Partner Membership", path: "/membership" },
+            ]}
+          />
+          <span className="uk-eyebrow">Academic Partner Membership</span>
+          <h1>Tired of starting over with a <em>new tutor?</em></h1>
+          <p>Academic Partner Membership gives your child ongoing access to vetted, UK-qualified tutors online, with a dedicated education consultant personally overseeing their academic journey, so you never have to search for a tutor again.</p>
+          <div className="uk-hero-actions uk-sub-actions">
+            <Link href="#tiers" className="btn-primary">See Membership Tiers</Link>
+            <Link href="#enquire" className="btn-secondary">Book a Free 15-Minute Call</Link>
+          </div>
+          <span className="uk-chip">Online · Cancel anytime · No lock-in</span>
+        </div>
+      </section>
+
+      <section className="uk-section white">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">We understand</span>
+            <h2 className="uk-h2">The tutor search every parent <em>knows too well.</em></h2>
+            <p className="uk-lead">We hear the same frustrations from families every week.</p>
+          </Reveal>
+          <Reveal>
+            <div className="uk-points">
+              {problems.map((p) => (
+                <div className="uk-point" key={p.title}>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section cream">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">How it&apos;s different</span>
+            <h2 className="uk-h2">A consultancy relationship, <em>not just a subscription.</em></h2>
+            <p className="uk-lead">Membership isn&apos;t another tutoring app. It&apos;s backed by Britannia Crown&apos;s full education consultancy, the same team behind our school placement and home education services.</p>
+          </Reveal>
+          <Reveal>
+            <div className="uk-steps mb-three">
+              {different.map((d, i) => (
+                <div className="uk-step mb-light" key={d.title}>
+                  <div className="uk-step-num">0{i + 1}</div>
+                  <h3>{d.title}</h3>
+                  <p>{d.body}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section white" id="tiers">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">Membership tiers</span>
+            <h2 className="uk-h2">Choose your <em>Academic Partner tier.</em></h2>
+            <p className="uk-lead">All tiers include vetted British tutors, online delivery and direct access to Britannia Crown&apos;s consultancy team.</p>
+          </Reveal>
+          <Reveal>
+            <div className="mb-tiers">
+              {tiers.map((t) => (
+                <div className={`mb-tier${t.featured ? " featured" : ""}`} key={t.name}>
+                  {t.featured && <span className="mb-badge">Most Popular</span>}
+                  <p className="mb-tier-name">{t.name}</p>
+                  <p className="mb-price"><span>AED {t.price}</span> / month</p>
+                  <ul>
+                    {t.features.map((f) => <li key={f}>{f}</li>)}
+                  </ul>
+                  <Link href={{ pathname: "/contact", query: { service: t.service } }} className={t.featured ? "btn-primary" : "btn-secondary mb-btn-dark"}>
+                    Start {t.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <p className="mb-note">Cancel or change tiers anytime — no long-term contract. Prices are in UAE dirhams (AED); <Link href="/contact?service=Academic+Partner+Membership">contact us</Link> for sterling pricing.</p>
+        </div>
+      </section>
+
+      <section className="uk-section dark">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">Peace of mind</span>
+            <h2 className="uk-h2">Built around flexibility, <em>not lock-in.</em></h2>
+          </Reveal>
+          <Reveal>
+            <div className="uk-steps mb-four">
+              {peace.map((p) => (
+                <div className="uk-step" key={p.title}>
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <FaqSection faqs={faqs} tone="cream" />
+
+      <EnquirySection
+        title={<>Book a free <em>15-minute call.</em></>}
+        lead="A short, no-pressure call to understand your child's needs and find the right Academic Partner tier, before you commit to anything."
+        source="membership_page"
+        defaultService="Academic Partner Membership"
+        context="Academic Partner Membership"
       />
 
-      <div style={{ background: "var(--dark-burgundy)", padding: "0 60px 60px", width: "100%" }}>
-        <div className="section-inner" style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          <Link href="#pricing" className="btn-primary">See Membership Tiers</Link>
-          <Link href="/contact?service=Academic+Partner+Membership" className="btn-secondary">Book a Free 15-Minute Membership Call</Link>
-        </div>
-      </div>
-
-      {/* The Problem */}
-      <section style={{ background: "var(--white)" }}>
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">We Understand</span>
-          </div>
-          <h2 className="section-title">The Tutoring Search Every Dubai Parent Knows Too Well</h2>
-          <p className="section-lead">Dubai&apos;s expat tutor market moves fast — and that&apos;s exactly the problem. We hear the same frustrations from families every week.</p>
-
-          <div className="problem-grid">
-            <div className="problem-item">
-              <h3 className="problem-item-title">Tutors Leave Without Warning</h3>
-              <p className="problem-item-text">A great tutor gets a new visa, relocates, or simply disappears mid-term — and you&apos;re back to square one right before exams.</p>
-            </div>
-            <div className="problem-item">
-              <h3 className="problem-item-title">No Way to Verify Qualifications</h3>
-              <p className="problem-item-text">Dubizzle and Facebook groups don&apos;t tell you who&apos;s actually a qualified UK teacher and who isn&apos;t. You&apos;re trusting a profile photo.</p>
-            </div>
-            <div className="problem-item">
-              <h3 className="problem-item-title">Constant Re-Vetting</h3>
-              <p className="problem-item-text">Every time a tutor falls through, it&apos;s another round of messaging strangers, trial sessions, and hoping this one works out.</p>
-            </div>
-            <div className="problem-item">
-              <h3 className="problem-item-title">No One Overseeing the Bigger Picture</h3>
-              <p className="problem-item-text">One-off tutors teach a subject. No one is tracking whether your child&apos;s overall academic plan is actually on track.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It's Different */}
-      <section style={{ background: "var(--off-white)" }}>
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">How It&apos;s Different</span>
-          </div>
-          <h2 className="section-title">A Consultancy Relationship, Not Just a Subscription</h2>
-          <p className="section-lead">Academic Partner Membership isn&apos;t another tutoring app. It&apos;s backed by Britannia Crown&apos;s full education consultancy — the same team behind our school placement and homeschool support services.</p>
-
-          <div className="problem-grid">
-            <div className="problem-item">
-              <h3 className="problem-item-title">Vetted, Not Just Listed</h3>
-              <p className="problem-item-text">Every tutor is UK-qualified and personally vetted by Britannia Crown before they ever teach your child — no marketplace guesswork.</p>
-            </div>
-            <div className="problem-item">
-              <h3 className="problem-item-title">Continuity Built In</h3>
-              <p className="problem-item-text">If a tutor becomes unavailable, we have a full bench ready to step in — your child&apos;s progress doesn&apos;t stall.</p>
-            </div>
-            <div className="problem-item">
-              <h3 className="problem-item-title">Your Consultant Oversees It All</h3>
-              <p className="problem-item-text">A dedicated education consultant checks in on your child&apos;s academic journey directly — not just the tutoring hours.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" style={{ background: "var(--white)" }}>
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Membership Tiers</span>
-          </div>
-          <h2 className="section-title">Choose Your Academic Partner Tier</h2>
-          <p className="section-lead">All tiers include vetted British tutors, online delivery, and direct access to Britannia Crown&apos;s consultancy team.</p>
-
-          <div className="pricing-grid">
-            <div className="pricing-card">
-              <div className="pricing-tier-name">Foundation</div>
-              <div className="pricing-amount">
-                <span className="pricing-amount-value">AED 1,000</span>
-                <span className="pricing-amount-unit">/ month</span>
-              </div>
-              <ul className="pricing-features">
-                <li>4 hours/month online tutoring credit (flexible allocation, any subject)</li>
-                <li>Monthly 15-minute parent check-in call</li>
-                <li>WhatsApp access for academic questions (48hr response)</li>
-                <li>Subject strategy notes after each session</li>
-              </ul>
-              <Link href="/contact?service=Academic+Partner+Membership+-+Foundation" className="pricing-cta">Start Foundation</Link>
-            </div>
-
-            <div className="pricing-card featured">
-              <span className="pricing-popular-badge">Most Popular</span>
-              <div className="pricing-tier-name">Partner</div>
-              <div className="pricing-amount">
-                <span className="pricing-amount-value">AED 1,800</span>
-                <span className="pricing-amount-unit">/ month</span>
-              </div>
-              <ul className="pricing-features">
-                <li>8 hours/month online tutoring credit</li>
-                <li>Fixed weekly slot with a dedicated tutor (same tutor every week)</li>
-                <li>Monthly 30-minute consultant call with your education consultant</li>
-                <li>WhatsApp access, same-day response</li>
-                <li>One subject-specific exam strategy session per term</li>
-              </ul>
-              <Link href="/contact?service=Academic+Partner+Membership+-+Partner" className="pricing-cta">Start Partner</Link>
-            </div>
-
-            <div className="pricing-card">
-              <div className="pricing-tier-name">Full Partner</div>
-              <div className="pricing-amount">
-                <span className="pricing-amount-value">AED 3,200</span>
-                <span className="pricing-amount-unit">/ month</span>
-              </div>
-              <ul className="pricing-features">
-                <li>14 hours/month online tutoring credit, split across up to 2 subjects</li>
-                <li>Everything in Partner tier</li>
-                <li>Termly academic plan review with your education consultant directly</li>
-                <li>Priority access to school placement/British Council consultancy at a reduced rate if needed mid-term</li>
-                <li>Direct WhatsApp line to your education consultant</li>
-              </ul>
-              <Link href="/contact?service=Academic+Partner+Membership+-+Full+Partner" className="pricing-cta">Start Full Partner</Link>
-            </div>
-          </div>
-
-          <p className="pricing-trust-line">Cancel or change tiers anytime — no long-term contract.</p>
-
-          <p className="face-to-face-note">
-            Need face-to-face support instead? Face-to-face tutoring is available on request with tailored pricing based on your child&apos;s exact needs and location. <Link href="/contact?service=Face-to-Face+Tutoring">Contact us</Link> to discuss.
-          </p>
-        </div>
-      </section>
-
-      {/* Trust / Reassurance */}
-      <section style={{ background: "var(--dark-burgundy)" }}>
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text" style={{ color: "var(--champagne)" }}>Peace of Mind</span>
-          </div>
-          <h2 className="section-title" style={{ color: "var(--white)" }}>Built Around Flexibility, Not Lock-In</h2>
-          <div className="problem-grid">
-            <div className="problem-item problem-item-dark">
-              <TutorIcon className="service-icon problem-item-icon" />
-              <h3 className="problem-item-title">Vetted British Tutors</h3>
-              <p className="problem-item-text">Every tutor is UK-qualified and personally screened by Britannia Crown.</p>
-            </div>
-            <div className="problem-item problem-item-dark">
-              <ConciergeIcon className="service-icon problem-item-icon" />
-              <h3 className="problem-item-title">All Online</h3>
-              <p className="problem-item-text">No visa, relocation, or geography risk — your tutor never has to &quot;leave Dubai&quot; again.</p>
-            </div>
-            <div className="problem-item problem-item-dark">
-              <ShareCodeIcon className="service-icon problem-item-icon" />
-              <h3 className="problem-item-title">Cancel or Pause Anytime</h3>
-              <p className="problem-item-text">No long lock-in contracts. Change tiers or pause your membership whenever your family needs to.</p>
-            </div>
-            <div className="problem-item problem-item-dark">
-              <FamilyBooksIcon className="service-icon problem-item-icon" />
-              <h3 className="problem-item-title">A Full Bench, Always</h3>
-              <p className="problem-item-text">If your tutor is ever unavailable, another vetted tutor steps in — your child is never left without support.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="faq">
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Questions Answered</span>
-          </div>
-          <h2 className="section-title">Frequently Asked Questions</h2>
-
-          <div className="faq-grid">
-            <div className="faq-item">
-              <h3 className="faq-q">What if my tutor becomes unavailable?</h3>
-              <p className="faq-a">We have a full bench of vetted British tutors. If your assigned tutor is ever unavailable, we bring in a qualified replacement so your child is never left without support.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">Can I change subjects?</h3>
-              <p className="faq-a">Yes. Your monthly hours are flexible and can be allocated across subjects as your child&apos;s needs change — just let your consultant know.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">Is this different from a one-off consultation?</h3>
-              <p className="faq-a">Yes. The free 30-minute consultation is a one-time introduction to Britannia Crown. Academic Partner Membership is an ongoing monthly relationship with recurring tutoring hours and continuous consultant oversight.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">Can I cancel anytime?</h3>
-              <p className="faq-a">Yes — there is no long-term contract. You can cancel or change tiers at any time.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="cta-section">
-        <div className="cta-inner">
-          <div className="section-eyebrow" style={{ justifyContent: "center" }}>
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Get Started</span>
-            <span className="section-eyebrow-line"></span>
-          </div>
-          <h2 className="section-title">Book a Free 15-Minute Membership Call</h2>
-          <p className="cta-desc">A short, no-pressure call to understand your child&apos;s needs and find the right Academic Partner tier — before you commit to anything.</p>
-          <div style={{ display: "flex", gap: "20px", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/contact?service=Academic+Partner+Membership" className="btn-primary">Book a Free 15-Minute Call</Link>
-            <Link href="/services" className="btn-secondary">See All Services</Link>
-          </div>
-        </div>
-      </section>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Academic Partner Membership",
+          serviceType: "Online tutoring membership",
+          description:
+            "Ongoing online tutoring with vetted UK-qualified tutors and a dedicated education consultant overseeing progress.",
+          url: `${SITE_URL}/membership`,
+          provider: { "@id": ORG_ID },
+          offers: tiers.map((t) => ({
+            "@type": "Offer",
+            name: `${t.name} membership`,
+            price: t.value,
+            priceCurrency: "AED",
+            priceSpecification: {
+              "@type": "UnitPriceSpecification",
+              price: t.value,
+              priceCurrency: "AED",
+              billingDuration: 1,
+              unitCode: "MON",
+            },
+          })),
+        }}
+      />
 
       <Footer />
     </>
