@@ -6,9 +6,7 @@ Until it's configured, `/portal` shows a "portal is on its way" page. Nothing el
 
 ## 1. Database (Neon, through Vercel)
 1. In Vercel, open the project, then **Storage → Create → Neon** (the free plan is fine) and connect it to the project. This adds `DATABASE_URL` automatically.
-2. Create the tables once, from a computer with the code checked out:
-   `DATABASE_URL="<the pooled connection string>" ADMIN_EMAILS="you@example.com" npm run db:migrate`
-   The migration is safe to run again after future updates.
+2. Redeploy. The tables are created automatically at the start of each build (`npm run build` runs the migration first, and it's safe to run repeatedly). To run it by hand: `DATABASE_URL="<connection string>" npm run db:migrate`.
 
 ## 2. Login (Clerk)
 1. Create an application at clerk.com. Turn on **Email** (code or link) and **Google**.

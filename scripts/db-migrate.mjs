@@ -1,10 +1,16 @@
 // Applies db/schema.sql to the database in DATABASE_URL, and adds the first admin.
 // Usage: DATABASE_URL=... ADMIN_EMAILS=you@example.com npm run db:migrate
+// Also runs before every build with --if-configured, so a deploy keeps the tables up to date
+// and simply skips this step while no database is connected.
 import { readFile } from "node:fs/promises";
 import pg from "pg";
 
 const url = process.env.DATABASE_URL;
 if (!url) {
+  if (process.argv.includes("--if-configured")) {
+    console.log("No DATABASE_URL: skipping portal database setup.");
+    process.exit(0);
+  }
   console.error("DATABASE_URL is not set.");
   process.exit(1);
 }
