@@ -3,13 +3,15 @@ import { getStripe } from "../../../lib/stripe";
 import { getProduct, formatPrice } from "../../../lib/products";
 import { FORMSPREE_ENQUIRY } from "../../../lib/site";
 import { query } from "../../../lib/portal/db";
+import { getSetting } from "../../../lib/settings";
 
 // Stripe calls this endpoint after payments and subscription changes. Each event is
-// verified with STRIPE_WEBHOOK_SECRET, then the team is emailed via the enquiry form inbox
-// so a new order is followed up the same way as any other lead.
+// verified with the webhook's signing secret (STRIPE_WEBHOOK_SECRET, or the one saved by
+// scripts/stripe-setup.mjs), then the team is emailed via the enquiry form inbox so a new
+// order is followed up the same way as any other lead.
 export async function POST(request: Request) {
   const stripe = getStripe();
-  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  const secret = process.env.STRIPE_WEBHOOK_SECRET ?? (await getSetting("stripe_webhook_secret"));
   if (!stripe || !secret) return new Response("Payments are not configured", { status: 503 });
 
   const signature = request.headers.get("stripe-signature");
@@ -24,8 +26,12 @@ export async function POST(request: Request) {
 
   try {
     switch (event.type) {
-      case "checkout.session.completed": {
+      // With delayed payment methods (such as bank debits) a session completes before the
+      // money arrives; those orders are announced when async_payment_succeeded follows.
+      case "checkout.session.completed":
+      case "checkout.session.async_payment_succeeded": {
         const s = event.data.object;
+        if (s.payment_status === "unpaid") break;
         const product = getProduct(s.metadata?.product_id ?? "");
         const child = s.custom_fields?.find((f) => f.key === "child")?.text?.value ?? "";
         await notifyTeam(`New online order: ${product?.name ?? "Unknown product"}`, {
@@ -40,6 +46,16 @@ export async function POST(request: Request) {
           ...pick(s.metadata, ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "page"]),
         });
         await linkCustomerToFamily(s);
+        break;
+      }
+      case "checkout.session.async_payment_failed": {
+        const s = event.data.object;
+        await notifyTeam("Online payment failed", {
+          product_id: s.metadata?.product_id ?? "",
+          name: s.customer_details?.name ?? "",
+          email: s.customer_details?.email ?? "",
+          stripe_session: s.id,
+        });
         break;
       }
       case "invoice.payment_failed": {

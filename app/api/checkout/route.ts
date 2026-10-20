@@ -1,6 +1,7 @@
 import type Stripe from "stripe";
 import { getProduct } from "../../lib/products";
 import { getStripe } from "../../lib/stripe";
+import { priceIdFor } from "../../lib/stripe-catalog";
 
 const ATTRIBUTION_FIELDS = ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
 
@@ -25,19 +26,29 @@ export async function POST(request: Request) {
     if (typeof value === "string" && value) metadata[key] = value.slice(0, 500);
   }
 
+  // Use the catalogue price in Stripe; if that lookup fails, charge the same amount inline
+  // so a Stripe hiccup never blocks a sale.
+  let lineItem: Stripe.Checkout.SessionCreateParams.LineItem;
+  try {
+    lineItem = { quantity: 1, price: await priceIdFor(stripe, product) };
+  } catch (error) {
+    console.error("Stripe catalogue lookup failed; using inline price", error);
+    lineItem = {
+      quantity: 1,
+      price_data: {
+        currency: product.currency,
+        unit_amount: Math.round(product.amount * 100),
+        product_data: { name: product.name, description: product.description },
+        ...(product.mode === "subscription" ? { recurring: { interval: "month" as const } } : {}),
+      },
+    };
+  }
+
   const params: Stripe.Checkout.SessionCreateParams = {
     mode: product.mode,
-    line_items: [
-      {
-        quantity: 1,
-        price_data: {
-          currency: product.currency,
-          unit_amount: Math.round(product.amount * 100),
-          product_data: { name: product.name, description: product.description },
-          ...(product.mode === "subscription" ? { recurring: { interval: "month" as const } } : {}),
-        },
-      },
-    ],
+    // Labels these sessions in the Stripe dashboard so website sales can be compared with other flows.
+    integration_identifier: "bc_website_checkout_qmvtrhzk",
+    line_items: [lineItem],
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}${returnPath}${returnPath.includes("?") ? "&" : "?"}checkout=cancelled`,
     billing_address_collection: "auto",

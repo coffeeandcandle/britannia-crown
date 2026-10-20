@@ -57,3 +57,10 @@ CREATE TABLE IF NOT EXISTS session_notes (
   created_at         timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS session_notes_session ON session_notes (session_id);
+
+-- Small key/value store for values set up automatically, such as the Stripe webhook's signing secret.
+CREATE TABLE IF NOT EXISTS app_settings (
+  key         text PRIMARY KEY,
+  value       text NOT NULL,
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);

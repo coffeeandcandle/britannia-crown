@@ -19,7 +19,7 @@ Until it's configured, `/portal` shows a "portal is on its way" page. Nothing el
 4. Redeploy.
 
 ## 3. Billing (optional)
-The Billing tab uses the Stripe keys from the online payments setup (`.env.example`). In Stripe, turn on the **customer portal** (Settings → Billing → Customer portal) so families can update their card or cancel.
+The Billing tab uses the Stripe keys from the online payments setup (`.env.example`). Production deploys set up the Stripe customer portal automatically (card updates, invoices, cancel at the end of the paid month), along with the order webhook. See `scripts/stripe-setup.mjs`.
 
 ## Day to day
 - **Add a family:** Staff area → Families → Add a family. Use the parent's email address. When they sign in with that address, their login links to the family automatically.

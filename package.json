@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/db-migrate.mjs --if-configured && next build",
+    "build": "node scripts/db-migrate.mjs --if-configured && node scripts/stripe-setup.mjs && next build",
     "start": "next start",
     "lint": "eslint",
+    "stripe:setup": "node scripts/stripe-setup.mjs --force",
     "db:migrate": "node scripts/db-migrate.mjs"
   },
   "dependencies": {

@@ -1,5 +1,6 @@
 // Everything that can be bought online. Prices live here, not in the Stripe dashboard:
-// checkout sends them as inline price data, so changing a price is a one-line edit.
+// checkout creates the matching Stripe product and price on first use (see stripe-catalog.ts),
+// so changing a price is a one-line edit.
 // Amounts are in pounds (£600 is 600). Converted from the original AED prices at about
 // 1 AED = £0.20 and rounded; confirm with the client before going live.
 export type Product = {
