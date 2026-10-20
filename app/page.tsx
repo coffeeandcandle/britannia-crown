@@ -57,9 +57,44 @@ export default function Home() {
               <li>50+ vetted UK-trained tutors</li>
               <li>Reply within 24 hours</li>
               <li>First consultation free</li>
+              <li>Online lessons held in your own portal</li>
             </ul>
           </div>
           <Finder />
+        </div>
+      </section>
+
+      <section className="uk-section white" id="portal-lessons">
+        <div className="uk-wrap uk-split">
+          <div>
+            <h2 className="uk-h2">Online lessons happen inside your portal</h2>
+            <p className="uk-lead">
+              No video links to chase and nothing to install. Log in to your Britannia Crown account, press Join, and your tutor is there.
+              It works on a phone, a tablet or a laptop.
+            </p>
+            <div className="uk-hero-actions">
+              <SignupLink location="home_portal_lessons" className="btn-primary">Create your free account</SignupLink>
+              <Link href="/portal/login" className="btn-secondary">Log in</Link>
+            </div>
+          </div>
+          <div className="uk-points">
+            <div className="uk-point">
+              <h3>Join in one press</h3>
+              <p>The Join button appears 15 minutes before each lesson. Your camera and microphone are set up in a single step.</p>
+            </div>
+            <div className="uk-point">
+              <h3>A private room for every lesson</h3>
+              <p>Only your family, your tutor and our team can enter. There is no public link to share or lose.</p>
+            </div>
+            <div className="uk-point">
+              <h3>Notes and homework straight after</h3>
+              <p>Your tutor writes up what was covered and what to practise, and it appears in the same account.</p>
+            </div>
+            <div className="uk-point">
+              <h3>Everything in one place</h3>
+              <p>Upcoming lessons, past notes, receipts and new lesson requests, all under one login.</p>
+            </div>
+          </div>
         </div>
       </section>
 
