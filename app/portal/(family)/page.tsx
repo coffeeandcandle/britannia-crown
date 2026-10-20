@@ -1,18 +1,20 @@
 import Link from "next/link";
-import { requireFamily, familyChildren, familyConsultant, familyUpcoming, familyNotes, familyNoteCount } from "../../lib/portal/dal";
+import { requireFamily, familyChildren, familyConsultant, familyUpcoming, familyNotes, familyNoteCount, familyOrders } from "../../lib/portal/dal";
 import { tzLabel, sessionWhen, greeting } from "../../lib/portal/time";
 import { EMAIL } from "../../lib/site";
 import { SessionList, NoteCard, DateTile } from "../components";
 import { PageHeader, Card, EmptyState, StatGrid, Stat, HelpBox, Avatar } from "../ui";
+import Purchases from "./Purchases";
 
 export default async function FamilyDashboard() {
   const { viewer, family } = await requireFamily();
-  const [children, consultant, upcoming, notes, noteCount] = await Promise.all([
+  const [children, consultant, upcoming, notes, noteCount, orders] = await Promise.all([
     familyChildren(family.id),
     familyConsultant(family),
     familyUpcoming(family.id, 6),
     familyNotes(family.id, { limit: 2 }),
     familyNoteCount(family.id),
+    familyOrders(family, 20),
   ]);
   const [next, ...later] = upcoming;
   const tz = family.timezone;
@@ -70,6 +72,15 @@ export default async function FamilyDashboard() {
 
       <div className="pt-grid">
         <div className="pt-main">
+          {orders.length > 0 && (
+            <Card
+              title="Your services"
+              description="What you've bought from us. Receipts and plan changes are under Billing."
+              action={<Link href="/portal/billing" className="ui-link">Billing →</Link>}
+            >
+              <Purchases orders={orders} tz={tz} limit={4} />
+            </Card>
+          )}
           {later.length > 0 && (
             <Card title="Also coming up" action={<Link href="/portal/sessions" className="ui-link">All sessions →</Link>}>
               <SessionList sessions={later} tz={tz} hrefFor={(s) => `/portal/sessions/${s.id}`} empty={null} />

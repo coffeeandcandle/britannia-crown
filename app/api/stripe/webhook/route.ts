@@ -36,7 +36,7 @@ export async function POST(request: Request) {
         const s = event.data.object;
         if (s.payment_status === "unpaid") break;
         const order = describe(s);
-        const isNew = await saveOrder(s, order, "paid");
+        const { inserted: isNew, familyId } = await saveOrder(s, order, "paid");
         // Stripe can send the same event more than once; only announce a new order.
         if (isNew) {
           if (hasDatabase && order.email) {
@@ -50,6 +50,10 @@ export async function POST(request: Request) {
               source: s.metadata?.utm_source ?? s.metadata?.landing_page ?? "online order",
               stage: "client",
             });
+            // The contact and the portal family are the same person: link them so staff see one record.
+            if (familyId) {
+              await query("UPDATE contacts SET family_id = $1 WHERE lower(email) = $2 AND family_id IS NULL", [familyId, order.email.toLowerCase()]);
+            }
           }
           await notifyTeam(`New online order: ${order.productName}`, {
             product: order.productName,
@@ -111,14 +115,34 @@ function describe(s: Stripe.Checkout.Session): OrderDetails {
   };
 }
 
-// Records the order (once per checkout session) and links it to a portal family with the
-// same email. Returns true when this is the first time we've seen the order.
+// Records the order (once per checkout session) and attaches it to the buyer's portal account:
+// an existing family with the same email, or a new one created now, so a purchase always shows up
+// in the portal once they sign in with that email. Returns whether this is the first time we've
+// seen the order, and the family it belongs to.
 async function saveOrder(s: Stripe.Checkout.Session, o: OrderDetails, status: "paid" | "payment_failed") {
-  if (!hasDatabase) return true;
+  if (!hasDatabase) return { inserted: true, familyId: null as number | null };
   const customer = typeof s.customer === "string" ? s.customer : (s.customer?.id ?? null);
   const subscription = typeof s.subscription === "string" ? s.subscription : (s.subscription?.id ?? null);
   const email = o.email.toLowerCase();
-  const family = email ? await queryOne<{ id: number }>("SELECT id FROM families WHERE lower(email) = $1", [email]) : null;
+
+  let family = email ? await queryOne<{ id: number }>("SELECT id FROM families WHERE lower(email) = $1", [email]) : null;
+  if (!family && email && status === "paid") {
+    const created = await queryOne<{ id: number; inserted: boolean }>(
+      `INSERT INTO families (name, email, phone) VALUES ($1, $2, $3)
+       ON CONFLICT (email) DO UPDATE SET email = families.email
+       RETURNING id, (xmax = 0) AS inserted`,
+      [o.name || email, email, o.phone || null],
+    );
+    family = created ? { id: created.id } : null;
+    // Only for a brand-new family: add the child named at checkout so the account is ready for lessons.
+    if (created?.inserted && o.child) {
+      await query(
+        `INSERT INTO children (family_id, name) SELECT $1, $2
+          WHERE NOT EXISTS (SELECT 1 FROM children WHERE family_id = $1 AND lower(name) = lower($2))`,
+        [created.id, o.child.slice(0, 120)],
+      );
+    }
+  }
 
   const saved = await queryOne<{ inserted: boolean }>(
     `INSERT INTO orders (stripe_session_id, product_id, product_name, amount_pence, currency, recurring, status,
@@ -130,11 +154,11 @@ async function saveOrder(s: Stripe.Checkout.Session, o: OrderDetails, status: "p
      o.name || null, email || null, o.phone || null, o.child || null, family?.id ?? null, customer, subscription],
   );
 
-  // If the buyer already has a portal account, remember their Stripe customer for the billing page.
+  // Remember their Stripe customer for the billing page.
   if (family && customer) {
     await query("UPDATE families SET stripe_customer_id = $1 WHERE id = $2 AND stripe_customer_id IS NULL", [customer, family.id]);
   }
-  return Boolean(saved?.inserted);
+  return { inserted: Boolean(saved?.inserted), familyId: family?.id ?? null };
 }
 
 // Emails the team. The order is already saved in the portal, so this never fails the webhook.

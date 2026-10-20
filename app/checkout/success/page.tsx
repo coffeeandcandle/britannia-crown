@@ -62,6 +62,13 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
               <li><strong>We get to work.</strong> Your consultant sets out the plan and the first steps, and matches a tutor where needed.</li>
               <li><strong>You hear from us regularly.</strong> Progress updates come by email, and through your family portal.</li>
             </ol>
+            <p>
+              <strong>Your purchase is saved in your client portal.</strong>{" "}
+              {order?.email
+                ? <>Sign in with <strong>{order.email}</strong> to see your services, lessons, tutor notes and receipts.</>
+                : "Sign in with the email you used at checkout to see your services, lessons, tutor notes and receipts."}
+            </p>
+            <p><Link href="/portal/sign-in" className="btn-primary">Open my client portal</Link></p>
             <p>Want to speak sooner? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>, or <Link href="/book-consultation">book a call</Link> at a time that suits you.</p>
           </div>
         </div>

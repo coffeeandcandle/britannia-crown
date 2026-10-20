@@ -64,6 +64,8 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
   if (family && !family.clerk_user_id) {
     await query("UPDATE families SET clerk_user_id = $1 WHERE id = $2 AND clerk_user_id IS NULL", [id.userId, family.id]);
     family.clerk_user_id = id.userId;
+    // First sign-in: attach any purchases made under this email before the account was linked.
+    await query("UPDATE orders SET family_id = $1 WHERE family_id IS NULL AND lower(customer_email) = lower($2)", [family.id, family.email]);
   }
 
   return { ...id, staff, family };
@@ -390,6 +392,17 @@ export async function contactOrders(email: string) {
             o.customer_phone, o.child, o.family_id, NULL::text AS family_name, o.stripe_session_id, o.created_at
        FROM orders o WHERE lower(o.customer_email) = lower($1) ORDER BY o.created_at DESC`,
     [email],
+  );
+}
+
+// A family's online purchases, newest first: orders linked to the family, or placed under its email.
+export async function familyOrders(family: Family, limit = 100) {
+  return query<OrderRow>(
+    `SELECT o.id, o.product_name, o.amount_pence, o.currency, o.recurring, o.status, o.customer_name, o.customer_email,
+            o.customer_phone, o.child, o.family_id, NULL::text AS family_name, o.stripe_session_id, o.created_at
+       FROM orders o WHERE o.family_id = $1 OR lower(o.customer_email) = lower($2)
+      ORDER BY o.created_at DESC LIMIT $3`,
+    [family.id, family.email, limit],
   );
 }
 

@@ -20,7 +20,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
         { href: "/portal", label: "Overview", icon: "home", exact: true },
         { href: "/portal/sessions", label: "Sessions", icon: "calendar" },
         { href: "/portal/notes", label: "Notes and homework", icon: "notes" },
-        { href: "/portal/billing", label: "Billing", icon: "card" },
+        { href: "/portal/billing", label: "Purchases and billing", icon: "card" },
       ],
     },
     {

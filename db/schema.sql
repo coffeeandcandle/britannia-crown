@@ -124,3 +124,9 @@ INSERT INTO contacts (name, email, phone, stage, source, created_at)
 SELECT DISTINCT ON (lower(o.customer_email)) COALESCE(o.customer_name, o.customer_email), lower(o.customer_email), o.customer_phone, 'client', 'online order', o.created_at
 FROM orders o WHERE o.customer_email IS NOT NULL ORDER BY lower(o.customer_email), o.created_at
 ON CONFLICT (lower(email)) DO NOTHING;
+
+-- Attach any online orders to the family with the same email (runs harmlessly on every deploy), so
+-- purchases made before a portal account existed show up as soon as that person signs in.
+UPDATE orders o SET family_id = f.id
+  FROM families f
+ WHERE o.family_id IS NULL AND o.customer_email IS NOT NULL AND lower(o.customer_email) = lower(f.email);

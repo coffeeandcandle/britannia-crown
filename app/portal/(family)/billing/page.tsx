@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireFamily } from "../../../lib/portal/dal";
+import { requireFamily, familyOrders } from "../../../lib/portal/dal";
 import { findCustomerId, billingSummary, type BillingSummary } from "../../../lib/portal/billing";
 import { paymentsEnabled } from "../../../lib/stripe";
 import { formatDate } from "../../../lib/portal/time";
@@ -7,6 +7,7 @@ import { Flash } from "../../components";
 import { PageHeader, Card, EmptyState, Pill } from "../../ui";
 import { SubmitButton } from "../../client-ui";
 import { openBillingPortal } from "./actions";
+import Purchases from "../Purchases";
 
 const statusText: Record<string, string> = {
   active: "Active",
@@ -26,6 +27,7 @@ const errors: Record<string, string> = {
 export default async function BillingPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const { family } = await requireFamily();
   const { error } = await searchParams;
+  const orders = await familyOrders(family);
 
   let summary: BillingSummary | null = null;
   let loadFailed = false;
@@ -42,13 +44,19 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
   return (
     <>
       <PageHeader
-        title="Billing"
-        description={<>Your plan, payments and receipts. Changes to your card or plan are made securely through Stripe. See our <Link href="/refunds-and-cancellations">refunds and cancellations policy</Link>.</>}
+        title="Purchases and billing"
+        description={<>What you&apos;ve bought, your plan, payments and receipts. Changes to your card or plan are made securely through Stripe. See our <Link href="/refunds-and-cancellations">refunds and cancellations policy</Link>.</>}
       />
       <Flash error={error ? errors[error] ?? undefined : loadFailed ? errors.portal : undefined} />
 
+      {orders.length > 0 && (
+        <Card title="Your purchases" description="Everything you've bought from us online.">
+          <Purchases orders={orders} tz={family.timezone} />
+        </Card>
+      )}
+
       {!summary ? (
-        <Card>
+        orders.length > 0 ? null : <Card>
           <EmptyState
             icon="💳"
             title="No online payments yet"
