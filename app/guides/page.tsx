@@ -5,7 +5,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import GuideCards from "../components/GuideCards";
 import GuideRequestForm from "../components/GuideRequestForm";
 import { pageMetadata } from "../lib/seo";
-import { guides } from "../lib/guides";
+import { guides, guideCategories } from "../lib/guides";
 
 export const metadata: Metadata = pageMetadata({
   title: "Guides for Parents: Schools, Exams & Home Education | Britannia Crown",
@@ -65,7 +65,20 @@ export default function GuidesPage() {
             <span className="uk-kicker">All guides</span>
             <h2 className="uk-h2">Latest guides</h2>
           </div>
-          <GuideCards items={guides} feature />
+          <nav className="gd-cats" aria-label="Guide topics">
+            {guideCategories.filter((c) => guides.some((g) => g.category === c)).map((c) => (
+              <a key={c} href={`#${c.toLowerCase().replace(/[^a-z]+/g, "-")}`}>{c}</a>
+            ))}
+          </nav>
+          {guideCategories.map((c) => {
+            const items = guides.filter((g) => g.category === c);
+            return items.length > 0 ? (
+              <div className="gd-cat" id={c.toLowerCase().replace(/[^a-z]+/g, "-")} key={c}>
+                <h3 className="gd-cat-title">{c}</h3>
+                <GuideCards items={items} />
+              </div>
+            ) : null;
+          })}
         </div>
       </section>
 

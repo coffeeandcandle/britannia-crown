@@ -64,7 +64,10 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Britannia Crown Education Consultants</span>
+          <span>
+            © {new Date().getFullYear()} Britannia Crown Education Consultants. Photography from{" "}
+            <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a> contributors.
+          </span>
           <nav aria-label="Legal">
             <Link href="/privacy-policy">Privacy policy</Link>
             <Link href="/terms-and-conditions">Terms and conditions</Link>

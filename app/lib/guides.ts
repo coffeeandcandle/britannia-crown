@@ -2,7 +2,23 @@ import type { Faq } from "./schema";
 
 // Metadata for every guide. The article body lives in content/guides/<slug>.mdx.
 // To add a guide: write the .mdx file, then add an entry here (newest first).
-export type GuideCategory = "Exams & Qualifications" | "Choosing a School" | "Home Education" | "Tutoring";
+export type GuideCategory =
+  | "Exams & Qualifications"
+  | "Choosing a School"
+  | "Early Years & Primary"
+  | "Home Education"
+  | "Tutoring"
+  | "Moving & International Families";
+
+// The order categories appear in on the guides page.
+export const guideCategories: GuideCategory[] = [
+  "Tutoring",
+  "Exams & Qualifications",
+  "Choosing a School",
+  "Early Years & Primary",
+  "Home Education",
+  "Moving & International Families",
+];
 
 export type Guide = {
   slug: string;

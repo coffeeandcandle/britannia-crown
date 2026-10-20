@@ -40,3 +40,14 @@ using only facts already published on the site. These are the statements worth a
 - Admissions dates quoted on the school placement page (secondary applications close 31 October, primary 15 January)
   come from the existing FAQ; please confirm they are still correct for the current admissions year.
 - The tutoring page title was shortened to "UK-Trained Private Tutors | Britannia Crown" (the old one was truncated in search).
+
+## Photography
+- All photos are free-to-use Unsplash stock (see `app/lib/images.ts` for ids and photographer credit). They illustrate the
+  subject and are never presented as Britannia Crown's own tutors, clients or children.
+- Replace any of them with the client's own photography by editing the id in `app/lib/images.ts` (or adding real files to
+  `public/` and pointing `photoUrl` at them). Genuine photos of real tutors and families, with permission, convert best.
+- A footer line credits Unsplash contributors.
+
+## Home page "Start today" section
+- Buy buttons use the real catalogue and prices. Hourly values are worked out from published prices
+  (Foundation £200 / 4 h = £50, Partner £360 / 8 h = £45, Full Partner £640 / 14 h = about £46).

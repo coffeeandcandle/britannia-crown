@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Photo from "./components/Photo";
+import HomePlans from "./components/HomePlans";
 import SubjectGrid from "./components/SubjectGrid";
 import GuideCards from "./components/GuideCards";
 import Finder from "./components/Finder";
@@ -31,6 +33,9 @@ export default function Home() {
   return (
     <>
       <section className="hm-hero">
+        <div className="hm-hero-bg" aria-hidden="true">
+          <Photo name="tutoring" sizes="100vw" priority />
+        </div>
         <div className="uk-wrap hm-hero-grid">
           <div>
             <span className="uk-eyebrow">British education consultants</span>
@@ -40,8 +45,8 @@ export default function Home() {
               who knows your child and stays involved.
             </p>
             <div className="uk-hero-actions">
-              <Link href="/book-consultation" className="btn-primary">Book a free 30-minute call</Link>
-              <Link href="/contact" className="btn-secondary">Request a call back</Link>
+              <Link href="#plans" className="btn-primary">Choose a plan and start today</Link>
+              <Link href="/book-consultation" className="btn-secondary">Book a free 30-minute call</Link>
             </div>
             <ul className="hm-proof">
               <li>50+ vetted UK-trained tutors</li>
@@ -52,6 +57,8 @@ export default function Home() {
           <Finder />
         </div>
       </section>
+
+      <HomePlans />
 
       <section className="uk-section white">
         <div className="uk-wrap">

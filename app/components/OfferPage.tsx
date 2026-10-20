@@ -5,6 +5,8 @@ import EnquirySection from "./EnquirySection";
 import JsonLd from "./JsonLd";
 import GuideCards from "./GuideCards";
 import BuyButton from "./BuyButton";
+import HeroMedia from "./HeroMedia";
+import { offerPhoto } from "../lib/images";
 import { getProduct, formatPrice } from "../lib/products";
 import { paymentsEnabled } from "../lib/stripe";
 import { offers, offerPath, type Offer } from "../lib/offers";
@@ -59,6 +61,7 @@ export default function OfferPage({ offer }: { offer: Offer }) {
               <li key={a}>{a}</li>
             ))}
           </ul>
+          <HeroMedia name={offerPhoto[offer.slug] ?? "tutoring"} />
         </div>
       </section>
 

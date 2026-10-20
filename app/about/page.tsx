@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
+import HeroMedia from "../components/HeroMedia";
 import EnquirySection from "../components/EnquirySection";
 import JsonLd from "../components/JsonLd";
 import { pageMetadata } from "../lib/seo";
@@ -55,6 +56,7 @@ export default function AboutPage() {
             <Link href="#enquire" className="btn-primary">Request a call back</Link>
             <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
           </div>
+          <HeroMedia name="classroom" />
         </div>
       </section>
 

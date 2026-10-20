@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
+import HeroMedia from "../components/HeroMedia";
 import FaqSection from "../components/FaqSection";
 import EnquirySection from "../components/EnquirySection";
 import JsonLd from "../components/JsonLd";
@@ -132,6 +133,7 @@ export default function MembershipPage() {
             <Link href="#tiers" className="btn-primary">See membership tiers</Link>
             <Link href="#enquire" className="btn-secondary">Book a free 15-minute call</Link>
           </div>
+          <HeroMedia name="online" />
           <span className="uk-chip">Online · Cancel anytime · No lock-in</span>
         </div>
       </section>

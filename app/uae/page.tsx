@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
 import Breadcrumbs from "../components/Breadcrumbs";
+import HeroMedia from "../components/HeroMedia";
 import EnquirySection from "../components/EnquirySection";
 import JsonLd from "../components/JsonLd";
 import { ORG_ID } from "../lib/schema";
@@ -102,6 +103,7 @@ export default function UaePage() {
             <Link href="/book-consultation" className="btn-primary">Book a free 30-minute call</Link>
             <Link href="#prices" className="btn-secondary">See services and prices</Link>
           </div>
+          <HeroMedia name="dubai" />
         </div>
       </section>
 

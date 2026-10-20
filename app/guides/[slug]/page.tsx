@@ -6,6 +6,9 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
 import GuideCards from "../../components/GuideCards";
+import GuideHelp from "../../components/GuideHelp";
+import Photo from "../../components/Photo";
+import { categoryPhoto } from "../../lib/images";
 import JsonLd from "../../components/JsonLd";
 import { guides, getGuide } from "../../lib/guides";
 import { readGuideSource } from "../../lib/guide-source";
@@ -71,6 +74,9 @@ export default async function GuidePage({ params }: Props) {
           <p className="gd-meta">
             By Britannia Crown · Updated <time dateTime={guide.updated}>{formatDate(guide.updated)}</time> · {minutes} min read
           </p>
+          <div className="gd-hero-img">
+            <Photo name={categoryPhoto[guide.category] ?? "tutoring"} sizes="(min-width: 1200px) 1180px, 100vw" priority />
+          </div>
         </div>
       </section>
 
@@ -122,6 +128,8 @@ export default async function GuidePage({ params }: Props) {
           </aside>
         </div>
       </div>
+
+      <GuideHelp guide={guide} service={relatedServices[0]} />
 
       <FaqSection faqs={guide.faqs} tone="cream" />
 

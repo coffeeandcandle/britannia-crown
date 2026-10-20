@@ -13,6 +13,8 @@ import { guidesFor } from "../../lib/guides";
 import { pageMetadata } from "../../lib/seo";
 import { serviceSchema } from "../../lib/schema";
 import BuyButton from "../../components/BuyButton";
+import HeroMedia from "../../components/HeroMedia";
+import { servicePhoto } from "../../lib/images";
 import { products, getProduct, formatPrice } from "../../lib/products";
 import { getOffer, offerPath, offerForProduct } from "../../lib/offers";
 import { paymentsEnabled } from "../../lib/stripe";
@@ -74,6 +76,7 @@ export default async function ServicePage({ params }: Props) {
             ))}
           </ul>
           <span className="uk-chip">{service.ages}</span>
+          <HeroMedia name={servicePhoto[service.slug] ?? "tutoring"} />
         </div>
       </section>
 
