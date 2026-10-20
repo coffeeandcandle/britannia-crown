@@ -30,3 +30,13 @@ using only facts already published on the site. These are the statements worth a
 - Testimonials, star ratings, case studies and results. Add real, permissioned ones; never placeholders.
 - Photos of the team or tutors.
 - Any success rate or number of families helped.
+
+## UK service pages (`app/lib/services.ts`)
+- **No prices are shown for the four UK services** because the site quotes them after a conversation.
+  The tutoring and qualifications pages sell the membership tiers (from the real catalogue) and a free consultation.
+- The strategy session (£120) and trial lesson (£45) exist in `app/lib/sessions.ts` but are not bookable yet, so their
+  prices are deliberately not shown. The pages offer to "request" them.
+- New "How much does it cost?" FAQs state the quote-first approach and the real fixed prices for Dubai and membership.
+- Admissions dates quoted on the school placement page (secondary applications close 31 October, primary 15 January)
+  come from the existing FAQ; please confirm they are still correct for the current admissions year.
+- The tutoring page title was shortened to "UK-Trained Private Tutors | Britannia Crown" (the old one was truncated in search).

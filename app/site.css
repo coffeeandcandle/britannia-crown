@@ -1308,3 +1308,10 @@ html.rv-ready [data-rv=""] { opacity: 0; transform: translateY(16px); }
 .price-card-more, .mb-more { display: inline-block; margin: 2px 0 14px; font-size: .95rem; font-weight: 650; text-decoration: none; color: var(--brand); }
 .price-card-more:hover, .mb-more:hover { text-decoration: underline; }
 .mb-tier.featured .mb-more { color: var(--champagne); }
+.offer-price--sm { margin: 18px 0 0; font-size: clamp(1.4rem, 3vw, 1.8rem); }
+.offer-price--sm small { display: block; margin-top: 4px; font-size: .95rem; }
+.offer-dubai { margin-top: 26px; text-align: center; font-weight: 650; }
+.offer-free { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 28px; margin-bottom: 26px; padding: 22px 26px; background: var(--white); border: 1px solid var(--line); border-left: 4px solid var(--champagne); border-radius: var(--radius); }
+.offer-free h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--ink); }
+.offer-free p { max-width: 62ch; margin-top: 6px; color: var(--ink-2); }
+@media (max-width: 700px) { .offer-free .btn-primary { width: 100%; justify-content: center; } }

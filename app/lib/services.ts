@@ -16,6 +16,19 @@ export type Service = {
   seoTitle: string;
   seoDescription: string;
   contactValue: string;
+  // Who it suits, what changes for the family, and how to start (shown above the FAQs).
+  audience: string[];
+  outcomes: { title: string; body: string }[];
+  assurances: string[];
+  start: {
+    // "membership": sell the online membership tiers here; "quote": tailored, priced after a conversation.
+    kind: "membership" | "quote";
+    intro: string;
+    // Offer to point Dubai families to, e.g. "school-search" under /uae.
+    dubai?: { slug: string; label: string };
+    // A 60-minute paid strategy session is also available for this service.
+    strategy?: string;
+  };
 };
 
 export const services: Service[] = [
@@ -56,12 +69,36 @@ export const services: Service[] = [
         q: "Will I know how my child is getting on?",
         a: "Yes. Every family has a dedicated education consultant who oversees progress, keeps you informed and adjusts the plan as your child's needs change.",
       },
+      {
+        q: "How much does tutoring cost?",
+        a: "For ongoing online tutoring, Academic Partner Membership starts at £200 a month for 4 hours, and the full prices are on our membership page. Tailored and face-to-face tutoring is quoted after a short conversation, so you always know the price before you commit.",
+      },
+      {
+        q: "Can my child try a tutor before we commit?",
+        a: "Yes. A trial tutoring lesson is a first one-to-one lesson with a matched tutor, online, so your child can try it before committing. Ask us and we will arrange it, or start with a free 30-minute consultation.",
+      },
     ],
     showSubjects: true,
-    seoTitle: "Private Tutors — UK-Trained, Personally Matched | Britannia Crown",
+    seoTitle: "UK-Trained Private Tutors | Britannia Crown",
     seoDescription:
       "UK-trained private tutors for primary, GCSE and A-Level, matched personally to your child and overseen by a dedicated education consultant. Online or face to face.",
     contactValue: "Tutoring",
+    audience: [
+      "Parents of children from primary school to A-Level who want a tutor who genuinely fits",
+      "Families who have tried marketplaces or social media groups and want more reassurance about who is teaching",
+      "Students preparing for GCSE, IGCSE or A-Level who need targeted, subject-specific support",
+    ],
+    outcomes: [
+      { title: "A tutor chosen for your child", body: "We consider how your child learns, their personality and their goals before introducing anyone, so the match is right from the first lesson." },
+      { title: "Confidence in who is teaching", body: "Every tutor is a UK-trained educator, personally vetted by us. You are not trusting a profile photo." },
+      { title: "Progress you can see", body: "Your dedicated consultant oversees progress, keeps you informed and adjusts the plan as your child grows." },
+      { title: "Help that fits your life", body: "Most tutoring is online, so you can have the best-matched tutor wherever you live. Face to face is available on request." },
+    ],
+    assurances: ["Free first consultation", "UK-trained, personally vetted tutors", "Online or face to face"],
+    start: {
+      kind: "membership",
+      intro: "For ongoing online tutoring, choose a monthly membership and start straight away. For tailored or face-to-face tuition, we quote after a short conversation, so you know the price before you commit.",
+    },
   },
   {
     slug: "home-education",
@@ -96,11 +133,32 @@ export const services: Service[] = [
         q: "Can a home-educated child take GCSEs and A-Levels?",
         a: "Yes, as a private candidate at an exam centre that accepts external candidates. Many home-educated students take International GCSEs, which generally have fewer coursework requirements. We'll help you choose subjects, exam boards and centres, and plan the timeline.",
       },
+      {
+        q: "How much does home education support cost?",
+        a: "It depends on your child's age, subjects and how much support you want, so we quote after a short conversation. You will know the price before you commit. A free 30-minute consultation is the best first step.",
+      },
     ],
     seoTitle: "Home Education Support — British Curriculum | Britannia Crown",
     seoDescription:
-      "Expert home education support for UK families: British-curriculum planning, specialist tutors and guidance on sitting GCSEs and A-Levels, with a dedicated consultant.",
+      "Expert home education support for UK families: British-curriculum planning, specialist tutors and GCSE and A-Level guidance, with a dedicated consultant.",
     contactValue: "Home Education",
+    audience: [
+      "Families who are home educating by choice, or because circumstances have made it the right option",
+      "Parents who want a British-curriculum structure without having to design it alone",
+      "Families who want specialist tutors for the subjects they would rather not teach themselves",
+    ],
+    outcomes: [
+      { title: "Structure you can trust", body: "A clear British-curriculum roadmap for every year, so nothing is left to guesswork." },
+      { title: "Expert help where it counts", body: "Specialist tutors for the subjects you would rather not teach alone." },
+      { title: "A clear route to qualifications", body: "Guidance on sitting GCSEs and A-Levels as a private candidate, including subjects, exam boards and centres." },
+      { title: "Someone to call on", body: "A consultant beside you when you need advice, reassurance or a change of plan." },
+    ],
+    assurances: ["Free first consultation", "British-curriculum structure", "Early Years to Sixth Form"],
+    start: {
+      kind: "quote",
+      intro: "Home education plans depend on your child and your family, so we agree the plan and the price together after a short conversation. You will see a clear price before you commit to anything.",
+      strategy: "An in-depth 60-minute session on your home education plan, with a written summary within two working days.",
+    },
   },
   {
     slug: "school-placement",
@@ -135,11 +193,33 @@ export const services: Service[] = [
         q: "Do you help with nurseries as well as schools?",
         a: "Yes — we support families from nursery right through to Sixth Form, so the same consultant can guide each transition.",
       },
+      {
+        q: "How much does school placement cost?",
+        a: "In the UK it depends on your child and how much support you want, so we quote after a short conversation. You will know the price before you commit. For families moving to Dubai, School Search & Placement is a fixed £1,600 and Nursery Search & Placement a fixed £600.",
+      },
     ],
     seoTitle: "School & Nursery Placement Consultants | Britannia Crown",
     seoDescription:
       "School and nursery placement advice for UK families: research, shortlisting, visits and application support from nursery to Sixth Form, with a dedicated consultant.",
     contactValue: "School Placement",
+    audience: [
+      "Parents choosing a nursery or school, from first nursery to Sixth Form",
+      "Families moving to a new area, including mid-year moves outside the main admissions round",
+      "Families facing a transition, such as moving up to secondary school or into Sixth Form",
+    ],
+    outcomes: [
+      { title: "A shortlist with honest reasoning", body: "We do the groundwork and present a considered shortlist, not a long list of names." },
+      { title: "Deadlines you will not miss", body: "In England, secondary applications close on 31 October and primary (Reception) applications on 15 January. We help you plan well ahead of them." },
+      { title: "Support through every step", body: "Visits, open days, assessments and applications, all guided until a place is confirmed." },
+      { title: "One consultant for every transition", body: "The same person can guide your family from nursery right through to Sixth Form." },
+    ],
+    assurances: ["Free first consultation", "Nursery to Sixth Form", "Clear price before you commit"],
+    start: {
+      kind: "quote",
+      intro: "Every family's search is different, so we quote after a short conversation about your child and your priorities. You will know the price before you commit.",
+      dubai: { slug: "school-search", label: "Moving to Dubai? See School Search & Placement" },
+      strategy: "An in-depth 60-minute session that produces a school shortlist, with a written summary within two working days.",
+    },
   },
   {
     slug: "qualifications",
@@ -174,12 +254,33 @@ export const services: Service[] = [
         q: "When are GCSE and A-Level exams?",
         a: "The main exam series runs from May to June, with A-Level results in mid-August and GCSE results about a week later. There is also a November resit series for GCSE English Language and Maths.",
       },
+      {
+        q: "How much does exam support cost?",
+        a: "For ongoing online tutoring, Academic Partner Membership starts at £200 a month. Tailored qualifications plans and private-candidate support are quoted after a short conversation, so you know the price before you commit.",
+      },
     ],
     showSubjects: true,
     seoTitle: "GCSE & A-Level Qualifications Support | Britannia Crown",
     seoDescription:
       "GCSE and A-Level guidance, exam technique and private-candidate support from UK-trained educators, with pathway advice for students and parents.",
     contactValue: "Qualifications",
+    audience: [
+      "Students from Key Stage 4 to Sixth Form working towards GCSEs, IGCSEs or A-Levels",
+      "Parents helping a child choose subjects and routes towards university and careers",
+      "Private candidates and anyone resitting an exam outside a school setting",
+    ],
+    outcomes: [
+      { title: "Choices made with confidence", body: "Honest guidance on subject choices and routes towards university and careers." },
+      { title: "Technique as well as content", body: "UK-trained educators teach the subject and how to show what you know under exam conditions." },
+      { title: "A plan with dates", body: "We map the qualifications, exam boards and timelines your child needs, so nothing is left late." },
+      { title: "Walk in prepared", body: "Practice, feedback and strategy, including mock exams, ahead of the real thing." },
+    ],
+    assurances: ["Free first consultation", "UK-trained educators", "GCSE, IGCSE and A-Level"],
+    start: {
+      kind: "membership",
+      intro: "For ongoing online tutoring alongside exam preparation, choose a monthly membership. For a tailored qualifications plan or private-candidate support, we quote after a short conversation.",
+      dubai: { slug: "exam-preparation", label: "In Dubai? See GCSE & A-Level Preparation" },
+    },
   },
 ];
 
