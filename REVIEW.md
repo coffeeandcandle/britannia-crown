@@ -94,3 +94,14 @@ Statements to verify (accurate to the best of my knowledge, but rules change):
   children (1 April to 31 August) can request a delayed Reception start, decided by the admission authority.
 - **Returning to the UK:** councils need a UK address; in-year applications; no guaranteed place.
 - **Length:** most of these run about 600 to 730 words, below the 1,000+ ideal for competitive search terms.
+
+## Deepened articles (top 8)
+The tutor costs, GCSE options, admissions criteria, appeals, starting home education, A-Level choices, GCSE resits and
+online-vs-face-to-face guides were expanded to about 900 to 1,300 words with tables, worked examples and timelines.
+Extra statements worth checking:
+- **Appeals:** panels usually have three members; decisions are given in writing within a few days; main-round hearings
+  are usually in the summer term; hearings may be held remotely.
+- **A-Level table:** the subject patterns for medicine, engineering, economics and law are general, not rules; every
+  university and course sets its own requirements.
+- **Resit timeline:** November series entry deadlines fall soon after August results; confirm with the exam centre.
+- **Tutor types table:** descriptive only. It deliberately quotes no market rates.
