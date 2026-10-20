@@ -188,11 +188,10 @@ export default function Nav() {
           </ul>
         </div>
       </div>
-      <header
-        className={`site-chrome site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}`}
-        style={{ viewTransitionName: "site-header" }}
-      >
-        <div className="uk-wrap site-header-inner">
+      <header className={`site-chrome site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}`}>
+        {/* The transition name sits on this inner row, not the <header>: a named element becomes the
+            containing block for position:fixed children, which would trap the mobile menu inside it. */}
+        <div className="uk-wrap site-header-inner" style={{ viewTransitionName: "site-header" }}>
           <Link href="/" className="brand" aria-label="Britannia Crown, home">
             <Crown light />
             <span>

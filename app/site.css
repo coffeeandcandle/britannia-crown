@@ -1216,3 +1216,16 @@ a.ui-stat:hover { transform: translateY(-2px); border-color: var(--brand); color
   .pt-skel-nav { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .pt-skel-brand, .pt-skel-nav { animation: none; } }
+
+/* ── Phone refinements ────────────────────────────────────────────── */
+/* iPhones zoom the page when a field with text under 16px is tapped; keep fields at 16px.
+   Links and headers people tap are at least 44px tall, the size Apple and Google recommend. */
+@media (max-width: 760px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), select, textarea { font-size: 16px; }
+  .footer-col ul { gap: 0; }
+  .footer-col li a, .footer-contact a, .footer-bottom nav a { display: flex; align-items: center; min-height: 44px; }
+  .footer-contact { gap: 0; }
+  .footer-bottom nav { gap: 0 20px; }
+  summary { min-height: 44px; display: flex; align-items: center; justify-content: space-between; }
+  .gd-cta-link { display: inline-block; padding: 10px 0; }
+}
