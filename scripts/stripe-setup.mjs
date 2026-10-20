@@ -33,7 +33,7 @@ if (!force && process.env.VERCEL_ENV !== "production") {
 }
 
 const origin = host.replace(/\/$/, "");
-const mode = key.startsWith("sk_live") ? "live" : "test";
+const mode = /^(sk|rk)_live/.test(key) ? "live" : "test";
 const stripe = new Stripe(key);
 const local = /localhost|127\.0\.0\.1|\/var\/run/.test(url);
 const db = new pg.Client({ connectionString: url, ssl: local ? false : { rejectUnauthorized: true } });

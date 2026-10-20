@@ -18,7 +18,7 @@ function amount(o: OrderRow) {
 export default async function OrdersPage() {
   await requireStaff(["admin"]);
   const orders = await listOrders();
-  const stripeBase = process.env.STRIPE_SECRET_KEY?.startsWith("sk_live") ? "https://dashboard.stripe.com" : "https://dashboard.stripe.com/test";
+  const stripeBase = /^(sk|rk)_live/.test(process.env.STRIPE_SECRET_KEY ?? "") ? "https://dashboard.stripe.com" : "https://dashboard.stripe.com/test";
 
   return (
     <>
