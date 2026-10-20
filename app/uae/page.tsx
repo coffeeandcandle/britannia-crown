@@ -6,6 +6,9 @@ import EnquirySection from "../components/EnquirySection";
 import JsonLd from "../components/JsonLd";
 import { ORG_ID } from "../lib/schema";
 import { SITE_URL } from "../lib/site";
+import BuyButton from "../components/BuyButton";
+import { getProduct } from "../lib/products";
+import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = pageMetadata({
   title: "Moving to Dubai with Children? Schools & Tutoring | Britannia Crown",
@@ -14,7 +17,9 @@ export const metadata: Metadata = pageMetadata({
   path: "/uae",
 });
 
-const offers = [
+type Offer = { age: string; name: string; body: string; price: string; unit: string; value: number; service: string; productId?: string };
+
+const offers: Offer[] = [
   {
     age: "Ages 0 to 4",
     name: "Nursery Search & Placement",
@@ -23,6 +28,7 @@ const offers = [
     unit: "one-time",
     value: 3000,
     service: "Nursery Search & Placement",
+    productId: "uae-nursery-search",
   },
   {
     age: "Ages 4 to 18",
@@ -32,6 +38,7 @@ const offers = [
     unit: "one-time",
     value: 8000,
     service: "School Search & Placement",
+    productId: "uae-school-search",
   },
   {
     age: "All ages",
@@ -50,6 +57,7 @@ const offers = [
     unit: "per term",
     value: 5000,
     service: "GCSE & A-Level Preparation",
+    productId: "uae-exam-prep-term",
   },
   {
     age: "All ages",
@@ -59,6 +67,7 @@ const offers = [
     unit: "per term",
     value: 7000,
     service: "Homeschool Support",
+    productId: "uae-homeschool-term",
   },
   {
     age: "Ongoing",
@@ -68,6 +77,7 @@ const offers = [
     unit: "per month",
     value: 2500,
     service: "Education Concierge",
+    productId: "uae-concierge",
   },
 ];
 
@@ -99,20 +109,30 @@ export default function UaePage() {
           <div className="uk-head">
             <span className="uk-kicker">Services and prices</span>
             <h2 className="uk-h2">Clear, fixed prices for UAE families</h2>
-            <p className="uk-lead">Every service starts with a free consultation, so you know exactly what you need before you pay for anything.</p>
+            <p className="uk-lead">Pay securely online, or start with a free consultation if you&apos;d like to talk it through first.</p>
           </div>
           <div className="price-cards">
-            {offers.map((o) => (
-              <article className="price-card" key={o.name}>
-                <span className="price-card-age">{o.age}</span>
-                <h3>{o.name}</h3>
-                <p>{o.body}</p>
-                <p className="price-card-price">{o.price} <small>{o.unit}</small></p>
-                <Link href={{ pathname: "/contact", query: { service: o.service } }} className="btn-secondary">
-                  Enquire about this
-                </Link>
-              </article>
-            ))}
+            {offers.map((o) => {
+              const product = o.productId ? getProduct(o.productId) : undefined;
+              return (
+                <article className="price-card" key={o.name}>
+                  <span className="price-card-age">{o.age}</span>
+                  <h3>{o.name}</h3>
+                  <p>{o.body}</p>
+                  <p className="price-card-price">{o.price} <small>{o.unit}</small></p>
+                  {product && paymentsEnabled ? (
+                    <div className="price-card-actions">
+                      <BuyButton product={product} enabled label={product.mode === "subscription" ? "Subscribe" : "Buy now"} />
+                      <Link href={{ pathname: "/contact", query: { service: o.service } }}>Ask a question first</Link>
+                    </div>
+                  ) : (
+                    <Link href={{ pathname: "/contact", query: { service: o.service } }} className="btn-secondary">
+                      Enquire about this
+                    </Link>
+                  )}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

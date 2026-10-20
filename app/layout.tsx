@@ -6,6 +6,8 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import LeadTracking from "./components/LeadTracking";
 import MobileCtaBar from "./components/MobileCtaBar";
+import CheckoutNotice from "./components/CheckoutNotice";
+import { Suspense } from "react";
 import { organizationSchema, websiteSchema } from "./lib/schema";
 import { SITE_NAME, SITE_URL } from "./lib/site";
 import "./site.css";
@@ -93,6 +95,9 @@ export default function RootLayout({
         </Script>
 
         <Nav />
+        <Suspense fallback={null}>
+          <CheckoutNotice />
+        </Suspense>
         <main id="main">{children}</main>
         <Footer />
 

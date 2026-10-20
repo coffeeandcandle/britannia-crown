@@ -2,11 +2,13 @@
 
 The site now runs one clear path: a parent searches Google, lands on a guide, tool or service page, gets an answer, and contacts us by booking a call, requesting a call back or sending a WhatsApp message. Every form records which page the visitor first landed on, plus any UTM tags. The next phases build on that path.
 
-## Phase 1: Sell directly on the website
-- **Stripe Checkout** for fixed-price products: UAE placement packages, membership tiers (monthly subscriptions) and tutoring hour bundles.
-- A `/pricing` page that lists what can be bought online; consultancy work that needs a quote stays as an enquiry.
-- Stripe webhooks to confirm payment, email a receipt and notify the team.
-- Needs from the client: sterling prices, which products can be sold without a call first, refund and cancellation terms (the terms page is still a template awaiting legal review).
+## Phase 1: Sell directly on the website (built; switch on with Stripe keys)
+- **Built:** Stripe Checkout for the fixed-price products in `app/lib/products.ts`: four one-off UAE packages, the Education Concierge, and the three membership tiers as monthly subscriptions. Prices are set in that file and sent to Stripe at checkout, so no products need creating in the Stripe dashboard.
+- Buy buttons are on `/membership` and `/uae`. Until `STRIPE_SECRET_KEY` is set, they fall back to the enquiry form, so nothing is broken in the meantime.
+- `/api/stripe/webhook` emails the team (through the Formspree enquiry inbox) for each new order, failed subscription payment and cancellation.
+- `/checkout/success` confirms the order and sends a GA4 `purchase` event; `begin_checkout` fires on click. First landing page and UTM tags are stored on every Stripe payment.
+- **To switch on:** see `.env.example`. Create a Stripe account, add `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in Vercel, add the webhook endpoint in Stripe, and redeploy. Test with test keys first.
+- **Still needed:** sterling prices for UK families; which UK services can be bought without a call first; refund and cancellation terms (the terms page is a template awaiting legal review). Turn on the Stripe customer portal so subscribers can manage or cancel their plan from their emails.
 
 ## Phase 2: Book consultations directly
 - Currently: Calendly embed on `/book-consultation`, tracked as `consultation_booked`.

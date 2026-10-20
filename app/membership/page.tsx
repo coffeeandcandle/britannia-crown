@@ -8,6 +8,9 @@ import JsonLd from "../components/JsonLd";
 import { pageMetadata } from "../lib/seo";
 import { ORG_ID } from "../lib/schema";
 import { SITE_URL } from "../lib/site";
+import BuyButton from "../components/BuyButton";
+import { getProduct } from "../lib/products";
+import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = pageMetadata({
   title: "Online Tutoring Membership | Academic Partner | Britannia Crown",
@@ -41,6 +44,7 @@ const tiers = [
       "Subject strategy notes after each session",
     ],
     service: "Academic Partner Membership - Foundation",
+    productId: "membership-foundation",
   },
   {
     name: "Partner",
@@ -55,6 +59,7 @@ const tiers = [
       "One subject-specific exam strategy session per term",
     ],
     service: "Academic Partner Membership - Partner",
+    productId: "membership-partner",
   },
   {
     name: "Full Partner",
@@ -68,6 +73,7 @@ const tiers = [
       "Direct WhatsApp line to your education consultant",
     ],
     service: "Academic Partner Membership - Full Partner",
+    productId: "membership-full-partner",
   },
 ];
 
@@ -187,14 +193,17 @@ export default function MembershipPage() {
                   <ul>
                     {t.features.map((f) => <li key={f}>{f}</li>)}
                   </ul>
-                  <Link href={{ pathname: "/contact", query: { service: t.service } }} className={t.featured ? "btn-primary" : "btn-secondary mb-btn-dark"}>
-                    Start {t.name}
-                  </Link>
+                  <BuyButton
+                    product={getProduct(t.productId)!}
+                    enabled={paymentsEnabled}
+                    label={paymentsEnabled ? `Join ${t.name}` : `Start ${t.name}`}
+                    className={t.featured ? "btn-primary" : "btn-secondary mb-btn-dark"}
+                  />
                 </div>
               ))}
             </div>
           </Reveal>
-          <p className="mb-note">Cancel or change tiers anytime — no long-term contract. Prices are in UAE dirhams (AED); <Link href="/contact?service=Academic+Partner+Membership">contact us</Link> for sterling pricing.</p>
+          <p className="mb-note">Cancel or change tiers anytime, with no long-term contract. Prices are in UAE dirhams (AED); <Link href="/contact?service=Academic+Partner+Membership">contact us</Link> for sterling pricing.</p>
         </div>
       </section>
 
