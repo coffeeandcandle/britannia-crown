@@ -222,7 +222,7 @@ export default function Nav() {
           <p>British private tutoring and education consultancy for UK families</p>
           <ul>
             <li><Link href="/guides#tools">Free tools</Link></li>
-            <li><Link href="/portal">{signedIn ? "My portal" : "Log in"}</Link></li>
+            <li><Link href={signedIn ? "/portal" : "/portal/login"}>{signedIn ? "My portal" : "Log in"}</Link></li>
             {!signedIn && <li><SignupLink location="utility_bar">Sign up</SignupLink></li>}
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
           </ul>
@@ -311,13 +311,13 @@ export default function Nav() {
           </nav>
 
           <div className="header-actions">
-            <Link href="/portal" className="header-wa header-login">{signedIn ? "My portal" : "Log in"}</Link>
+            <Link href={signedIn ? "/portal" : "/portal/login"} className="header-wa header-login">{signedIn ? "My portal" : "Log in"}</Link>
             {!signedIn && <SignupLink location="header" className="header-signup">Sign up free</SignupLink>}
             <Link href="/book-consultation" className="btn-primary header-cta">Book a free call</Link>
           </div>
 
           {/* Phones and tablets: the desktop actions above are hidden, so the login stays one tap away. */}
-          <Link href="/portal" className="header-account" aria-label={signedIn ? "My portal" : "Log in to the client portal"} onClick={closeAll}>
+          <Link href={signedIn ? "/portal" : "/portal/login"} className="header-account" aria-label={signedIn ? "My portal" : "Log in to the client portal"} onClick={closeAll}>
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <circle cx="12" cy="8" r="3.6" stroke="currentColor" strokeWidth="1.7" />
               <path d="M4.5 20c.6-3.7 3.6-5.6 7.5-5.6s6.9 1.9 7.5 5.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
@@ -364,7 +364,7 @@ export default function Nav() {
             <Link href="/book-consultation" className="btn-primary" onClick={closeAll}>Book a free 30-minute call</Link>
             <Link href="/contact" className="btn-secondary" onClick={closeAll}>Send an enquiry</Link>
             {!signedIn && <SignupLink location="mobile_menu" className="btn-primary" onClick={closeAll}>Create a free account</SignupLink>}
-            <Link href="/portal" className="btn-secondary" onClick={closeAll}>{signedIn ? "Open my portal" : "Log in"}</Link>
+            <Link href={signedIn ? "/portal" : "/portal/login"} className="btn-secondary" onClick={closeAll}>{signedIn ? "Open my portal" : "Log in"}</Link>
           </div>
           <ul className="mobile-menu-extras">
             <li><Link href="/guides#tools" onClick={closeAll}>Free tools</Link></li>

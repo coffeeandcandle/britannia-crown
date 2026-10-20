@@ -125,3 +125,8 @@ Research figures, each linked to its source on the page; please confirm you are 
 - Bloom (1984): the "2 sigma / 98th percentile" finding, labelled on the page as small-sample and contested.
 - The page says these are general research findings, not Britannia Crown's own results. Do not replace them with our own claims unless real data exists.
 - Checked on 2026-10-20 by web search; please re-check the live EEF page before publishing, as figures are updated.
+
+## Admin business overview and account chooser
+- `/portal/admin` for admins now opens a business overview: revenue (this month, MRR, 6-month chart), leads and lead-to-client rate, active clients, lessons, a needs-attention list, lead sources, team workload and a latest-activity feed. All numbers come from our own records (orders, contacts, sessions); revenue is Stripe "paid" amounts before refunds and fees.
+- "Lead to client" = contacts at stage client divided by all contacts.
+- Log in and Sign up now go to a two-option chooser (`/portal/login`, `/portal/join`): parents and families, or tutors, consultants and admins. The form pages carry a two-tab switch.

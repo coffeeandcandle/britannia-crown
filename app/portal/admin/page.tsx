@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { requireStaff, staffUpcoming, staffNeedingNotes, staffStats, canManage } from "../../lib/portal/dal";
 import { greeting } from "../../lib/portal/time";
 import { SessionList, Flash } from "../components";
+import AdminOverview from "./Overview";
 import { PageHeader, Card, EmptyState, StatGrid, Stat, Checklist, HelpBox, type Step } from "../ui";
 
 // Staff see times in UK time; families see their own time zone.
@@ -35,11 +37,20 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
         actions={manager ? <Link href="/portal/admin/families" className="btn-primary">Schedule a lesson</Link> : undefined}
       />
 
+      {staff.role === "admin" && (
+        <>
+          <Suspense fallback={<p className="ui-card-desc">Loading the business overview…</p>}>
+            <AdminOverview />
+          </Suspense>
+          <h2 className="ov-h">Today&apos;s lessons and notes</h2>
+        </>
+      )}
+
       {manager && !setupDone && (
         <Checklist title="Get set up" description="Five quick steps to get families using the portal." steps={setup} />
       )}
 
-      <StatGrid>
+      {staff.role !== "admin" && (<StatGrid>
         <Stat label="Lessons today" value={stats.today} href="/portal/admin/sessions" />
         <Stat label="Next 7 days" value={stats.week} href="/portal/admin/sessions" />
         <Stat
@@ -49,18 +60,8 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
           hint={stats.needs_note > 0 ? "Families are waiting" : "All caught up"}
           href="#needs-note"
         />
-        {staff.role === "admin" ? (
-          <Stat
-            label="New enquiries"
-            value={stats.new_contacts}
-            tone={stats.new_contacts > 0 ? "alert" : "good"}
-            hint={stats.new_contacts > 0 ? "Waiting for a reply" : "All replied to"}
-            href="/portal/admin/contacts?stage=new"
-          />
-        ) : (
-          manager && <Stat label="Families" value={stats.families} href="/portal/admin/families" />
-        )}
-      </StatGrid>
+        {manager && <Stat label="Families" value={stats.families} href="/portal/admin/families" />}
+      </StatGrid>)}
 
       <div className="pt-grid">
         <div className="pt-main">

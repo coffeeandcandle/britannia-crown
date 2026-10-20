@@ -446,3 +446,96 @@ export async function contactIdForFamily(familyId: number) {
   const row = await queryOne<{ id: number }>("SELECT id FROM contacts WHERE family_id = $1", [familyId]);
   return row?.id ?? null;
 }
+
+/* ── Admin business overview (everything here is read from data we already store) ── */
+
+export type Overview = {
+  money: { month: number; last_month: number; d30: number; all_time: number; mrr: number; orders30: number; failed30: number };
+  months: { label: string; pence: number }[];
+  funnel: { stage: string; n: number }[];
+  leads30: number;
+  clients: number;
+  contacts: number;
+  families: number;
+  families30: number;
+  children: number;
+  delivery: { done30: number; next7: number; needs_note: number; unassigned: number };
+  sources: { source: string; n: number }[];
+  team: { role: string; n: number }[];
+  workload: { name: string; role: string; done30: number; next7: number }[];
+  attention: { no_consultant: number; stale_leads: number };
+  activity: { id: number; type: string; summary: string; contact_name: string; contact_id: number; created_at: Date }[];
+};
+
+export async function adminOverview(): Promise<Overview> {
+  const [money, months, funnel, counts, delivery, sources, team, workload, attention, activity] = await Promise.all([
+    queryOne<Overview["money"]>(
+      `SELECT
+         COALESCE(sum(amount_pence) FILTER (WHERE status = 'paid' AND created_at >= date_trunc('month', now())), 0)::int AS month,
+         COALESCE(sum(amount_pence) FILTER (WHERE status = 'paid' AND created_at >= date_trunc('month', now()) - interval '1 month' AND created_at < date_trunc('month', now())), 0)::int AS last_month,
+         COALESCE(sum(amount_pence) FILTER (WHERE status = 'paid' AND created_at >= now() - interval '30 days'), 0)::int AS d30,
+         COALESCE(sum(amount_pence) FILTER (WHERE status = 'paid'), 0)::int AS all_time,
+         COALESCE(sum(amount_pence) FILTER (WHERE status = 'paid' AND recurring), 0)::int AS mrr,
+         (count(*) FILTER (WHERE status = 'paid' AND created_at >= now() - interval '30 days'))::int AS orders30,
+         (count(*) FILTER (WHERE status = 'payment_failed' AND created_at >= now() - interval '30 days'))::int AS failed30
+       FROM orders`,
+    ),
+    query<{ label: string; pence: number }>(
+      `SELECT to_char(m, 'Mon') AS label, COALESCE((SELECT sum(amount_pence) FROM orders o WHERE o.status = 'paid'
+              AND date_trunc('month', o.created_at) = m), 0)::int AS pence
+       FROM generate_series(date_trunc('month', now()) - interval '5 months', date_trunc('month', now()), interval '1 month') AS m ORDER BY m`,
+    ),
+    query<{ stage: string; n: number }>(
+      `SELECT stage, count(*)::int AS n FROM contacts GROUP BY stage`,
+    ),
+    queryOne<{ leads30: number; clients: number; contacts: number; families: number; families30: number; children: number }>(
+      `SELECT
+         (SELECT count(*)::int FROM contacts WHERE created_at >= now() - interval '30 days') AS leads30,
+         (SELECT count(*)::int FROM contacts WHERE stage = 'client') AS clients,
+         (SELECT count(*)::int FROM contacts) AS contacts,
+         (SELECT count(*)::int FROM families) AS families,
+         (SELECT count(*)::int FROM families WHERE created_at >= now() - interval '30 days') AS families30,
+         (SELECT count(*)::int FROM children) AS children`,
+    ),
+    queryOne<Overview["delivery"]>(
+      `SELECT
+         (SELECT count(*)::int FROM sessions WHERE status <> 'cancelled' AND starts_at + make_interval(mins => minutes) < now() AND starts_at >= now() - interval '30 days') AS done30,
+         (SELECT count(*)::int FROM sessions WHERE status = 'scheduled' AND starts_at BETWEEN now() AND now() + interval '7 days') AS next7,
+         (SELECT count(*)::int FROM sessions s WHERE s.status <> 'cancelled' AND s.starts_at + make_interval(mins => s.minutes) < now()
+            AND NOT EXISTS (SELECT 1 FROM session_notes n WHERE n.session_id = s.id)) AS needs_note,
+         (SELECT count(*)::int FROM sessions WHERE status = 'scheduled' AND staff_id IS NULL AND starts_at > now()) AS unassigned`,
+    ),
+    query<{ source: string; n: number }>(
+      `SELECT COALESCE(NULLIF(source, ''), 'Not recorded') AS source, count(*)::int AS n FROM contacts
+       WHERE created_at >= now() - interval '90 days' GROUP BY 1 ORDER BY n DESC LIMIT 6`,
+    ),
+    query<{ role: string; n: number }>("SELECT role, count(*)::int AS n FROM staff WHERE active GROUP BY role ORDER BY role"),
+    query<Overview["workload"][number]>(
+      `SELECT st.name, st.role,
+         (SELECT count(*)::int FROM sessions s WHERE s.staff_id = st.id AND s.status <> 'cancelled' AND s.starts_at + make_interval(mins => s.minutes) < now() AND s.starts_at >= now() - interval '30 days') AS done30,
+         (SELECT count(*)::int FROM sessions s WHERE s.staff_id = st.id AND s.status = 'scheduled' AND s.starts_at BETWEEN now() AND now() + interval '7 days') AS next7
+       FROM staff st WHERE st.active AND st.role IN ('tutor', 'consultant') ORDER BY done30 DESC, st.name LIMIT 10`,
+    ),
+    queryOne<Overview["attention"]>(
+      `SELECT
+         (SELECT count(*)::int FROM families WHERE consultant_id IS NULL) AS no_consultant,
+         (SELECT count(*)::int FROM contacts WHERE stage IN ('new', 'contacted') AND last_activity_at < now() - interval '3 days') AS stale_leads`,
+    ),
+    query<Overview["activity"][number]>(
+      `SELECT a.id, a.type, a.summary, c.name AS contact_name, c.id AS contact_id, a.created_at
+       FROM activities a JOIN contacts c ON c.id = a.contact_id ORDER BY a.created_at DESC LIMIT 15`,
+    ),
+  ]);
+  return {
+    money: money!,
+    months,
+    funnel: funnel.map((f) => ({ stage: f.stage, n: f.n })),
+    ...counts!,
+    delivery: delivery!,
+    sources,
+    team,
+    workload,
+    attention: attention!,
+    activity,
+  };
+}

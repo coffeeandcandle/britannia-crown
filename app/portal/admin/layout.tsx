@@ -17,7 +17,7 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
   const sections: NavSection[] = [
     {
       items: [
-        { href: "/portal/admin", label: manager ? "Dashboard" : "My dashboard", icon: "home", exact: true },
+        { href: "/portal/admin", label: staff.role === "admin" ? "Business overview" : manager ? "Dashboard" : "My dashboard", icon: "home", exact: true },
         { href: "/portal/admin/sessions", label: manager ? "All sessions" : "My sessions", icon: "calendar" },
       ],
     },

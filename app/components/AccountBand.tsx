@@ -19,7 +19,7 @@ export default function AccountBand({ variant = "inline", location }: { variant?
           </p>
           <div className="account-inline-actions">
             <SignupLink location={location} className="btn-primary">Create free account</SignupLink>
-            <Link href="/portal" className="account-login">Log in</Link>
+            <Link href="/portal/login" className="account-login">Log in</Link>
           </div>
         </div>
       </section>
@@ -40,7 +40,7 @@ export default function AccountBand({ variant = "inline", location }: { variant?
           </ul>
           <div className="account-actions">
             <SignupLink location={location} className="btn-primary">Create free account</SignupLink>
-            <Link href="/portal" className="btn-secondary">Log in</Link>
+            <Link href="/portal/login" className="btn-secondary">Log in</Link>
           </div>
           <p className="account-note">Use the same email you gave us, and anything you have bought links up automatically.</p>
         </div>

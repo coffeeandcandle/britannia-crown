@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AudienceSwitch } from "./AudienceChoice";
 
 // Full-screen frame for the portal's sign-in and access pages: a branded panel beside the form.
 export default function AuthFrame({
@@ -7,6 +8,7 @@ export default function AuthFrame({
   lead,
   points,
   switchLink,
+  audience,
   children,
 }: {
   area: string;
@@ -14,6 +16,7 @@ export default function AuthFrame({
   lead: React.ReactNode;
   points?: string[];
   switchLink?: { href: string; label: string };
+  audience?: { who: "family" | "team"; mode: "in" | "up" };
   children: React.ReactNode;
 }) {
   return (
@@ -42,6 +45,7 @@ export default function AuthFrame({
       </section>
       <section className="pt-auth-form">
         <div className="pt-auth-form-inner">
+          {audience && <AudienceSwitch audience={audience.who} mode={audience.mode} />}
           {children}
           {switchLink && (
             <p className="pt-auth-switch">

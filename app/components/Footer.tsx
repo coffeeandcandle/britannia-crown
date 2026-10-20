@@ -57,8 +57,8 @@ export default function Footer() {
             <ul>
               <li><Link href="/about">About</Link></li>
               <li><Link href="/contact">Contact</Link></li>
-              <li><Link href="/portal">Log in</Link></li>
-              <li><Link href="/portal/sign-up">Create an account</Link></li>
+              <li><Link href="/portal/login">Log in</Link></li>
+              <li><Link href="/portal/join">Sign up</Link></li>
               <li><Link href="/ambassador">Ambassador Programme</Link></li>
               <li><Link href="/careers">Careers</Link></li>
               <li><a href={INSTAGRAM_URL}>Instagram</a></li>
@@ -74,7 +74,7 @@ export default function Footer() {
             <Link href="/privacy-policy">Privacy policy</Link>
             <Link href="/terms-and-conditions">Terms and conditions</Link>
             <Link href="/refunds-and-cancellations">Refunds and cancellations</Link>
-            <Link href="/portal/staff/sign-in">Tutor and consultant login</Link>
+            <Link href="/portal/staff/sign-in">Tutor, consultant and admin login</Link>
           </nav>
         </div>
       </div>
