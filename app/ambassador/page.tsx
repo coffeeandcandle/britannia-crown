@@ -1,312 +1,194 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "../lib/seo";
+import Link from "next/link";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
-import {
-  SignUpIcon,
-  ShareCodeIcon,
-  FamilyBooksIcon,
-  PaidIcon,
-  NannyIcon,
-  TeacherIcon,
-  CommunityIcon,
-} from "../components/Icons";
+import Reveal from "../components/Reveal";
+import Breadcrumbs from "../components/Breadcrumbs";
+import FaqSection from "../components/FaqSection";
+import AmbassadorForm from "../components/AmbassadorForm";
+import { pageMetadata } from "../lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ambassador Programme | Britannia Crown",
+  title: "Ambassador Programme | Earn 150 AED per Referral | Britannia Crown",
   description:
-    "Refer a family to Britannia Crown and earn 150 AED for every successful booking. No limit on referrals — join Dubai's British education ambassador programme.",
+    "Refer a family to Britannia Crown and earn 150 AED for every successful booking, with no limit on referrals. Open to nannies, teachers, parents and community members.",
   path: "/ambassador",
 });
+
+const steps = [
+  { title: "Sign up", body: "Fill in the form below. We'll review your application and send you your unique personal ambassador code within 48 hours." },
+  { title: "Share your code", body: "Share it at the park, at school, in WhatsApp groups — wherever you naturally talk to families. No selling, just a trusted recommendation." },
+  { title: "A family books", body: "When a family uses your code and books a paid session with Britannia Crown, the referral is confirmed as successful." },
+  { title: "You get paid", body: "150 AED is transferred directly to you, every time. No caps, no limits: the more families you refer, the more you earn." },
+];
+
+const who = [
+  { title: "Nannies & au pairs", body: "You're at the parks, the nurseries and the school gates, right where the conversations happen. Families trust your judgement on everything to do with the children in your care.", tag: "Perfect fit" },
+  { title: "Teachers & educators", body: "You know which students need extra support, and parents trust your academic expertise. A recommendation from a teacher carries unmatched credibility.", tag: "Perfect fit" },
+  { title: "Parents & community", body: "If your child has benefited from Britannia Crown, share the experience and earn for every family you bring on board.", tag: "Welcome" },
+];
+
+const earnings = [
+  { n: "1 referral", v: "150 AED" },
+  { n: "5 referrals", v: "750 AED" },
+  { n: "10 referrals", v: "1,500 AED" },
+  { n: "25 referrals", v: "3,750 AED" },
+];
+
+const faqs = [
+  {
+    q: "What counts as a successful referral?",
+    a: "A referral is successful when a family uses your personal code and completes a paid booking with Britannia Crown. Free consultations do not count — only confirmed paid sessions.",
+  },
+  {
+    q: "How and when do I get paid?",
+    a: "Once a referral is confirmed as successful we will contact you to arrange payment, directly to your bank account by bank transfer. Payments are processed within 7 days of confirmation.",
+  },
+  {
+    q: "Is there a limit on how many people I can refer?",
+    a: "No. There is no cap on referrals. Refer as many families as you like — every successful booking earns you 150 AED.",
+  },
+  {
+    q: "Do I need to be based in the UAE?",
+    a: "Our ambassador community is currently strongest in the British expat community in the UAE, and rewards are paid in AED. If you're based in the UK or elsewhere, apply anyway and tell us where you are — we'll let you know what's possible.",
+  },
+  {
+    q: "Can I be an ambassador if I already work with Britannia Crown as a tutor?",
+    a: "Yes. Tutors on our platform are welcome to join the Ambassador Programme. Any family you refer who is not already your client and books a new service qualifies.",
+  },
+  {
+    q: "How will I know when my code has been used?",
+    a: "We will notify you by WhatsApp or email whenever your code is used and when a referral is confirmed as successful, so you always know exactly where you stand.",
+  },
+];
 
 export default function AmbassadorPage() {
   return (
     <>
       <Nav />
 
-      <section id="ambassador" style={{ background: "var(--dark-burgundy)", padding: "140px 60px 100px", width: "100%", maxWidth: "100%" }}>
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Britannia Crown · Ambassador Programme</span>
-          </div>
-          <h1 className="section-title" style={{ color: "var(--white)", maxWidth: "700px" }}>Earn While You <em style={{ color: "var(--champagne)" }}>Make a Difference</em> in a Child&apos;s Education</h1>
-          <p style={{ fontSize: "18px", lineHeight: 1.7, color: "rgba(255,255,255,0.7)", fontWeight: 300, maxWidth: "580px", marginBottom: "40px" }}>You&apos;re already trusted by the families we want to reach. Refer a family to Britannia Crown and earn <strong style={{ color: "var(--champagne)" }}>150 AED</strong> for every successful booking. No limit on referrals.</p>
-          <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-            <a href="#signup" className="btn-primary">Become an Ambassador →</a>
-            <a href="#how" className="btn-secondary">How It Works</a>
+      <section className="uk-sub-hero" id="ambassador">
+        <div className="uk-wrap uk-hero-load">
+          <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Ambassador Programme", path: "/ambassador" }]} />
+          <span className="uk-eyebrow">Britannia Crown · Ambassador Programme</span>
+          <h1>Earn while you make a <em>difference</em> in a child&apos;s education.</h1>
+          <p>You&apos;re already trusted by the families we want to reach. Refer a family to Britannia Crown and earn <strong style={{ color: "var(--champagne)", fontWeight: 500 }}>150 AED</strong> for every successful booking. No limit on referrals.</p>
+          <div className="uk-hero-actions uk-sub-actions">
+            <Link href="#signup" className="btn-primary">Become an Ambassador →</Link>
+            <Link href="#how" className="btn-secondary">How It Works</Link>
           </div>
         </div>
       </section>
 
-      {/* Reward Banner */}
-      <div className="reward-banner">
-        <div className="reward-inner">
-          <div>
-            <div className="reward-item-num">150 AED</div>
-            <div className="reward-item-label">Per Successful Referral</div>
-          </div>
-          <div>
-            <div className="reward-item-num">Unlimited</div>
-            <div className="reward-item-label">Referrals You Can Make</div>
-          </div>
-          <div>
-            <div className="reward-item-num">Your Code</div>
-            <div className="reward-item-label">Personal & Unique to You</div>
-          </div>
-        </div>
-      </div>
-
-      {/* How It Works */}
-      <section className="how" id="how">
-        <div className="section-inner">
-          <h2 className="section-title">How It Works — Simple &amp; Transparent</h2>
-          <p className="section-lead">Four simple steps between signing up and getting paid.</p>
-
-          <div className="steps-connector">
-            <div className="connector-line"></div>
-            <span className="connector-arrow">›</span>
-            <div className="connector-line"></div>
-            <span className="connector-arrow">›</span>
-            <div className="connector-line"></div>
-            <span className="connector-arrow">›</span>
-            <div className="connector-line"></div>
-          </div>
-
-          <div className="steps">
-            <div className="step">
-              <div className="step-num">01</div>
-              <div className="step-card">
-                <SignUpIcon className="step-icon" />
-                <h3 className="step-title">Sign Up</h3>
-                <p className="step-desc">Fill in the form below. We&apos;ll review your application and send you your unique personal ambassador code within 48 hours.</p>
-              </div>
+      <section className="uk-section white" style={{ paddingTop: 70, paddingBottom: 70 }}>
+        <div className="uk-wrap">
+          <Reveal>
+            <div className="ab-stats">
+              <div className="ab-stat"><span className="ab-stat-num">150 AED</span><span className="ab-stat-label">Per successful referral</span></div>
+              <div className="ab-stat"><span className="ab-stat-num">Unlimited</span><span className="ab-stat-label">Referrals you can make</span></div>
+              <div className="ab-stat"><span className="ab-stat-num">Your code</span><span className="ab-stat-label">Personal and unique to you</span></div>
             </div>
-            <div className="step">
-              <div className="step-num">02</div>
-              <div className="step-card">
-                <ShareCodeIcon className="step-icon" />
-                <h3 className="step-title">Share Your Code</h3>
-                <p className="step-desc">Share your personal code at the park, at school, in WhatsApp groups, wherever you naturally talk to families. No selling — just a trusted recommendation.</p>
-              </div>
-            </div>
-            <div className="step">
-              <div className="step-num">03</div>
-              <div className="step-card">
-                <FamilyBooksIcon className="step-icon" />
-                <h3 className="step-title">Family Books</h3>
-                <p className="step-desc">When a family uses your code and books a paid session with Britannia Crown, the referral is confirmed as successful.</p>
-              </div>
-            </div>
-            <div className="step">
-              <div className="step-num">04</div>
-              <div className="step-card">
-                <PaidIcon className="step-icon" />
-                <h3 className="step-title">You Get Paid</h3>
-                <p className="step-desc">150 AED is transferred directly to you. Every time. No caps, no limits — the more families you refer, the more you earn.</p>
-              </div>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Who Can Join */}
-      <section className="who" id="who">
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Open to Everyone</span>
-          </div>
-          <h2 className="section-title">Who Can Become an Ambassador?</h2>
-          <p className="section-lead">If you&apos;re trusted by families in Dubai&apos;s British expat community, you&apos;re exactly who we&apos;re looking for.</p>
-
-          <div className="who-grid">
-            <div className="who-card featured">
-              <NannyIcon className="who-icon" />
-              <h3 className="who-title">Nannies & Au Pairs</h3>
-              <p className="who-desc">You&apos;re at the parks, the nurseries, the school gates — right where the conversations happen. Families trust your judgement on everything to do with the children in your care.</p>
-              <span className="who-tag">Perfect Fit</span>
-            </div>
-            <div className="who-card featured" style={{ background: "var(--burgundy-alt)" }}>
-              <TeacherIcon className="who-icon" />
-              <h3 className="who-title">Teachers & Educators</h3>
-              <p className="who-desc">You know exactly which students need extra support. Parents trust your academic expertise completely. A recommendation from a teacher carries unmatched credibility.</p>
-              <span className="who-tag">Perfect Fit</span>
-            </div>
-            <div className="who-card">
-              <CommunityIcon className="who-icon" />
-              <h3 className="who-title">Parents & Community</h3>
-              <p className="who-desc">Already part of the British expat community in Dubai? If your child has benefited from Britannia Crown, share the experience and earn for every family you bring on board.</p>
-              <span className="who-tag">Welcome</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Earnings */}
-      <section className="earnings" id="earnings">
-        <div className="earnings-inner">
-          <div className="earnings-text">
-            <div className="section-eyebrow">
-              <span className="section-eyebrow-line"></span>
-              <span className="section-eyebrow-text">Your Earnings</span>
-            </div>
-            <h2 className="section-title">The More You Share, <em>The More You Earn</em></h2>
-            <p>There are no limits on how many referrals you can make. Every single successful booking earns you 150 AED — whether that&apos;s your first referral or your fiftieth.</p>
-            <p>Think about the nanny networks, the school WhatsApp groups, the parents you speak to every day at pick-up. One message. One code. One booking.</p>
-          </div>
-          <div>
-            <div className="earnings-table">
-              <div className="earnings-row header">
-                <div className="earnings-row-label">Referrals Made</div>
-                <div className="earnings-row-label" style={{ textAlign: "right" }}>Your Earnings</div>
-              </div>
-              <div className="earnings-row">
-                <div className="earnings-row-label main">1 referral</div>
-                <div className="earnings-row-val">150 AED</div>
-              </div>
-              <div className="earnings-row">
-                <div className="earnings-row-label main">5 referrals</div>
-                <div className="earnings-row-val">750 AED</div>
-              </div>
-              <div className="earnings-row">
-                <div className="earnings-row-label main">10 referrals</div>
-                <div className="earnings-row-val">1,500 AED</div>
-              </div>
-              <div className="earnings-row">
-                <div className="earnings-row-label main">25 referrals</div>
-                <div className="earnings-row-val highlight">3,750 AED</div>
-              </div>
-            </div>
-            <p className="earnings-note">* Earnings paid upon successful confirmed booking. No upper limit on referrals.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Your Code */}
-      <section className="code-section">
-        <div className="section-inner">
-          <div style={{ textAlign: "center" }}>
-            <div className="section-eyebrow" style={{ justifyContent: "center" }}>
-              <span className="section-eyebrow-line"></span>
-              <span className="section-eyebrow-text">Your Personal Code</span>
-              <span className="section-eyebrow-line"></span>
-            </div>
-            <h2 className="section-title">Every Ambassador Gets Their Own Unique Code</h2>
-            <p className="section-lead" style={{ maxWidth: "600px", margin: "0 auto 60px" }}>Your code is personal to you. Whoever uses it when booking gets associated with your account — so every successful referral is tracked back to you automatically.</p>
-          </div>
-
-          <div className="code-visual">
-            <div className="code-card">
-              <div className="code-label">Your Ambassador Code</div>
-              <div className="code-display">BC-SARA</div>
-              <div className="code-name">This is an example — your code is created when you sign up</div>
-              <div className="code-reward">
-                <div className="code-reward-num">150 AED</div>
-                <div className="code-reward-text">earned per<br />successful referral</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="faq">
-        <div className="section-inner">
-          <div className="section-eyebrow">
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Questions Answered</span>
-          </div>
-          <h2 className="section-title">Frequently Asked Questions</h2>
-
-          <div className="faq-grid">
-            <div className="faq-item">
-              <h3 className="faq-q">What counts as a successful referral?</h3>
-              <p className="faq-a">A referral is successful when a family uses your personal code and completes a paid booking with Britannia Crown. Free consultations do not count — only confirmed paid sessions.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">How and when do I get paid?</h3>
-              <p className="faq-a">Once a referral is confirmed as successful we will contact you to arrange payment. We pay directly to your bank account or via bank transfer. Payments are processed within 7 days of confirmation.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">Is there a limit on how many people I can refer?</h3>
-              <p className="faq-a">Absolutely not. There is no cap on referrals. Refer as many families as you like — every single successful booking earns you 150 AED.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">Do I need to be based in Dubai?</h3>
-              <p className="faq-a">Yes — our services are focused on the Dubai and GCC market. We work with British expat families, so ambassadors who are embedded in that community will be most effective.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">Can I be an ambassador if I already work with Britannia Crown as a tutor?</h3>
-              <p className="faq-a">Yes. Tutors on our platform are welcome to join the Ambassador Programme. Any family you refer who is not already your client and books a new service qualifies.</p>
-            </div>
-            <div className="faq-item">
-              <h3 className="faq-q">How will I know when my code has been used?</h3>
-              <p className="faq-a">We will notify you by WhatsApp or email whenever your code is used and when a referral is confirmed as successful. You&apos;ll always know exactly where you stand.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sign-Up Form */}
-      <section className="signup" id="signup">
-        <div className="section-inner">
-          <div style={{ textAlign: "center", marginBottom: "60px" }}>
-            <div className="section-eyebrow" style={{ justifyContent: "center" }}>
-              <span className="section-eyebrow-line"></span>
-              <span className="section-eyebrow-text">Join the Programme</span>
-              <span className="section-eyebrow-line"></span>
-            </div>
-            <h2 className="section-title">Apply to Become an Ambassador</h2>
-            <p className="section-lead" style={{ maxWidth: "560px", margin: "0 auto" }}>Fill in the form below and we&apos;ll be in touch within 48 hours with your personal ambassador code and everything you need to get started.</p>
-          </div>
-
-          <div className="signup-inner">
-            <form action="https://formspree.io/f/xgopdnby" method="POST" id="ambassadorForm">
-              <input type="hidden" name="_subject" value="New Ambassador Programme Application - Britannia Crown" />
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="amb-name">Full Name <span className="required">*</span></label>
-                  <input type="text" id="amb-name" name="name" placeholder="Your full name" required />
+      <section className="uk-section cream" id="how">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">How it works</span>
+            <h2 className="uk-h2">Simple and <em>transparent.</em></h2>
+            <p className="uk-lead">Four simple steps between signing up and getting paid.</p>
+          </Reveal>
+          <Reveal>
+            <div className="uk-steps mb-four mb-light-steps">
+              {steps.map((s, i) => (
+                <div className="uk-step mb-light" key={s.title}>
+                  <div className="uk-step-num">0{i + 1}</div>
+                  <h3>{s.title}</h3>
+                  <p>{s.body}</p>
                 </div>
-                <div className="form-group">
-                  <label htmlFor="amb-phone">WhatsApp Number <span className="required">*</span></label>
-                  <input type="tel" id="amb-phone" name="phone" placeholder="+971 50 123 4567" required />
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section white" id="who">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <span className="uk-kicker">Open to everyone</span>
+            <h2 className="uk-h2">Who can become <em>an ambassador?</em></h2>
+            <p className="uk-lead">If families trust your recommendation, you&apos;re exactly who we&apos;re looking for.</p>
+          </Reveal>
+          <Reveal>
+            <div className="uk-points mb-three-points">
+              {who.map((w) => (
+                <div className="uk-point" key={w.title}>
+                  <span className="amb-tag">{w.tag}</span>
+                  <h3>{w.title}</h3>
+                  <p>{w.body}</p>
                 </div>
-              </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
-              <div className="form-group">
-                <label htmlFor="amb-email">Email Address <span className="required">*</span></label>
-                <input type="email" id="amb-email" name="email" placeholder="your.email@example.com" required />
-              </div>
+      <section className="uk-section dark" id="earnings">
+        <div className="uk-wrap uk-split">
+          <Reveal>
+            <span className="uk-kicker">Your earnings</span>
+            <h2 className="uk-h2">The more you share, <em>the more you earn.</em></h2>
+            <p className="uk-lead">There are no limits on how many referrals you can make. Every successful booking earns you 150 AED, whether it&apos;s your first referral or your fiftieth.</p>
+            <p className="uk-lead" style={{ marginTop: 18 }}>Think about the nanny networks, the school WhatsApp groups and the parents you speak to every day at pick-up. One message. One code. One booking.</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <table className="amb-earn">
+              <thead>
+                <tr><th scope="col">Referrals made</th><th scope="col">Your earnings</th></tr>
+              </thead>
+              <tbody>
+                {earnings.map((e) => (
+                  <tr key={e.n}><th scope="row">{e.n}</th><td>{e.v}</td></tr>
+                ))}
+              </tbody>
+            </table>
+            <p className="amb-earn-note">* Earnings paid upon successful confirmed booking. No upper limit on referrals.</p>
+          </Reveal>
+        </div>
+      </section>
 
-              <div className="form-group">
-                <label htmlFor="role">Your Role <span className="required">*</span></label>
-                <select id="role" name="role" required defaultValue="">
-                  <option value="">Select your role...</option>
-                  <option value="Nanny / Au Pair">Nanny / Au Pair</option>
-                  <option value="Teacher / Educator">Teacher / Educator</option>
-                  <option value="Parent">Parent</option>
-                  <option value="Community Member">Community Member</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
+      <section className="uk-section cream">
+        <div className="uk-wrap">
+          <Reveal className="amb-code-wrap">
+            <span className="uk-kicker">Your personal code</span>
+            <h2 className="uk-h2" style={{ marginLeft: "auto", marginRight: "auto" }}>Every ambassador gets <em>their own code.</em></h2>
+            <p className="uk-lead" style={{ margin: "0 auto" }}>Your code is personal to you. Whoever uses it when booking is associated with your account, so every successful referral is tracked back to you.</p>
+            <div className="amb-code">
+              <span className="amb-code-label">Your ambassador code</span>
+              <span className="amb-code-value">BC-SARA</span>
+              <span className="amb-code-note">This is an example — your code is created when you sign up</span>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
-              <div className="form-group">
-                <label htmlFor="code-preference">Preferred Ambassador Code (Optional)</label>
-                <input type="text" id="code-preference" name="code-preference" placeholder="e.g. BC-SARA4 or BC-SMITH22 (we'll confirm availability)" />
-                <small style={{ display: "block", marginTop: "6px", fontSize: "12px", color: "var(--text-mid)" }}>Code must be a mix of letters and numbers e.g. BC-SARA4 or BC-SMITH22</small>
-              </div>
+      <FaqSection faqs={faqs} tone="white" />
 
-              <div className="form-group">
-                <label htmlFor="network">Tell us about your network</label>
-                <textarea id="network" name="network" placeholder="How do you plan to share your code? Who are you connected to? (e.g. nanny network, school staff, parent groups)"></textarea>
-              </div>
-
-              <button type="submit" className="form-submit">Apply to Become an Ambassador →</button>
-              <p className="form-note">We&apos;ll review your application and be in touch within 48 hours.</p>
-            </form>
+      <section className="uk-enquire" id="signup">
+        <div className="uk-wrap uk-enquire-grid">
+          <div>
+            <span className="uk-kicker">Join the programme</span>
+            <h2 className="uk-h2">Apply to become <em>an ambassador.</em></h2>
+            <p className="uk-lead">Fill in the form and we&apos;ll be in touch within 48 hours with your personal ambassador code and everything you need to get started.</p>
+            <ul className="uk-ticks">
+              <li>150 AED for every successful referral</li>
+              <li>No limit on how many families you refer</li>
+              <li>A personal code, tracked back to you</li>
+            </ul>
+          </div>
+          <div className="enq-card">
+            <AmbassadorForm />
           </div>
         </div>
       </section>
