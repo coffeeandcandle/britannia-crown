@@ -144,3 +144,7 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Without the key, lessons keep using the video link added to each lesson.
 - Not enabled: recording, and no whiteboard beyond Daily's built-in screen share and chat. Decide on recording (consent, retention, who can watch back) and safeguarding with your solicitor before turning it on.
 - Check Daily's current free allowance and pricing; usage is billed by Daily if you exceed the free tier.
+
+## 60-minute consultation (buyable)
+- Product `consultation-60` in `app/lib/products.ts`. **The £120 price is a placeholder and has not been confirmed by the client.** Confirm the price, and whether VAT is included, before this goes live.
+- Shown by `ConsultationBand` on the home, Prices, Services, each service, Tutors, each subject, each guide and About pages, plus a footer link. Bought through the normal onboarding form and Stripe.

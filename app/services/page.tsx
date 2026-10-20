@@ -4,6 +4,7 @@ import Link from "next/link";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { services } from "../lib/services";
+import ConsultationBand from "../components/ConsultationBand";
 
 export const metadata: Metadata = pageMetadata({
   title: "Tutoring & Education Consultancy | Britannia Crown",
@@ -55,6 +56,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <ConsultationBand tone="cream" />
     </>
   );
 }

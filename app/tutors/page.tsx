@@ -6,6 +6,7 @@ import SubjectFilter from "../components/SubjectFilter";
 import EnquirySection from "../components/EnquirySection";
 import { pageMetadata } from "../lib/seo";
 import { getService } from "../lib/services";
+import ConsultationBand from "../components/ConsultationBand";
 
 export const metadata: Metadata = pageMetadata({
   title: "Find a Private Tutor | Britannia Crown",
@@ -63,6 +64,7 @@ export default function TutorsPage() {
         </div>
       </section>
 
+      <ConsultationBand tone="cream" />
       <EnquirySection
         title={<>Tell us about your child</>}
         lead="Share the subject and stage, and an education consultant will call you back to talk through the right tutor."

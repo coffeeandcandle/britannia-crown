@@ -18,6 +18,7 @@ import { getSubject } from "../../lib/subjects";
 import { pageMetadata } from "../../lib/seo";
 import { articleSchema } from "../../lib/schema";
 import { EMAIL } from "../../lib/site";
+import ConsultationBand from "../../components/ConsultationBand";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -131,6 +132,7 @@ export default async function GuidePage({ params }: Props) {
 
       <GuideHelp guide={guide} service={relatedServices[0]} />
 
+      <ConsultationBand tone="cream" />
       <AccountBand variant="inline" location="guide_page" />
 
       <FaqSection faqs={guide.faqs} tone="cream" />

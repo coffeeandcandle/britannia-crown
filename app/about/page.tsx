@@ -9,6 +9,7 @@ import { pageMetadata } from "../lib/seo";
 import { services } from "../lib/services";
 import { ORG_ID } from "../lib/schema";
 import { SITE_URL } from "../lib/site";
+import ConsultationBand from "../components/ConsultationBand";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Britannia Crown | British Education Consultants",
@@ -139,6 +140,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <ConsultationBand tone="cream" />
       <EnquirySection
         title={<>Let&apos;s talk about your child</>}
         lead="Tell us a little about your child and an education consultant will call you back, usually within 24 hours."

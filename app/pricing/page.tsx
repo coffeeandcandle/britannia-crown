@@ -8,6 +8,7 @@ import FaqSection from "../components/FaqSection";
 import { products, formatPrice, type Product } from "../lib/products";
 import { sessionTypes, isBookable, priceLabel } from "../lib/sessions";
 import { paymentsEnabled } from "../lib/stripe";
+import ConsultationBand from "../components/ConsultationBand";
 
 export const metadata: Metadata = pageMetadata({
   title: "Prices and Plans | Britannia Crown",
@@ -160,6 +161,7 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <ConsultationBand tone="white" />
       <AccountBand variant="inline" location="pricing_page" />
 
       <FaqSection faqs={faqs} tone="cream" />

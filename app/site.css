@@ -1618,3 +1618,9 @@ a.ui-stat:hover, .shop-card:hover, .plan:hover, .session-card:hover { transform:
 .uk-others .uk-other { padding-bottom: 14px; }
 .hiw-stat { background: transparent; border: 0; border-top: 1px solid rgba(255,255,255,.3); border-radius: 0; padding: 22px 0 0; }
 .hiw-stats { gap: 36px 48px; }
+
+.cb-side { display: grid; gap: 14px; }
+.cb-price { margin: 0; font-size: 1rem; color: var(--ink-2); }
+.cb-price strong { font-family: var(--serif); font-size: var(--fs-stat); font-weight: 400; color: var(--brand-ink); line-height: 1; }
+.cb-list { list-style: none; display: grid; gap: 6px; color: var(--ink-2); }
+.cb-list li { padding-top: 6px; border-top: 1px solid var(--line); }

@@ -13,6 +13,7 @@ import { getService } from "../../lib/services";
 import { guidesFor } from "../../lib/guides";
 import { pageMetadata } from "../../lib/seo";
 import { serviceSchema } from "../../lib/schema";
+import ConsultationBand from "../../components/ConsultationBand";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -116,6 +117,7 @@ export default async function SubjectPage({ params }: Props) {
         </div>
       </section>
 
+      <ConsultationBand tone="cream" />
       <AccountBand variant="inline" location="tutor_page" />
 
       <FaqSection faqs={subject.faqs} tone="white" />

@@ -19,6 +19,7 @@ import { servicePhoto } from "../../lib/images";
 import { products, getProduct, formatPrice } from "../../lib/products";
 import { getOffer, offerPath, offerForProduct } from "../../lib/offers";
 import { paymentsEnabled } from "../../lib/stripe";
+import ConsultationBand from "../../components/ConsultationBand";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -227,6 +228,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
+      <ConsultationBand tone="cream" />
       <AccountBand variant="inline" location="service_page" />
 
       <FaqSection faqs={service.faqs} tone="white" />

@@ -12,6 +12,7 @@ import EnquirySection from "./components/EnquirySection";
 import { services } from "./lib/services";
 import { guides } from "./lib/guides";
 import { pageMetadata } from "./lib/seo";
+import ConsultationBand from "./components/ConsultationBand";
 
 export const metadata: Metadata = pageMetadata({
   title: "Private Tutors & Education Consultants | Britannia Crown",
@@ -102,6 +103,7 @@ export default function Home() {
 
       <HomePlans />
 
+      <ConsultationBand tone="white" />
       <AccountBand variant="band" location="home_band" />
 
       <section className="uk-section white">
