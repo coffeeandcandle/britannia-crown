@@ -4,6 +4,8 @@ import { findCustomerId, billingSummary, type BillingSummary } from "../../../li
 import { paymentsEnabled } from "../../../lib/stripe";
 import { formatDate } from "../../../lib/portal/time";
 import { Flash } from "../../components";
+import { PageHeader, Card, EmptyState, Pill } from "../../ui";
+import { SubmitButton } from "../../client-ui";
 import { openBillingPortal } from "./actions";
 
 const statusText: Record<string, string> = {
@@ -39,30 +41,36 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
 
   return (
     <>
-      <h1 className="pt-title">Billing</h1>
+      <PageHeader
+        title="Billing"
+        description="Your plan, payments and receipts. Changes to your card or plan are made securely through Stripe."
+      />
       <Flash error={error ? errors[error] ?? undefined : loadFailed ? errors.portal : undefined} />
 
       {!summary ? (
-        <section className="pt-card">
-          <h2>No online payments yet</h2>
-          <p className="pt-small">
-            Memberships and packages bought on our website appear here, with invoices and a way to manage your plan.
-          </p>
-          <div className="pt-actions">
-            <Link href="/membership" className="btn-primary">See membership options</Link>
-          </div>
-        </section>
+        <Card>
+          <EmptyState
+            icon="💳"
+            title="No online payments yet"
+            action={<Link href="/membership" className="btn-primary">See membership options</Link>}
+          >
+            Memberships and packages bought on our website appear here, with receipts and a way to manage your plan.
+            If you pay another way, your consultant can help with billing questions.
+          </EmptyState>
+        </Card>
       ) : (
         <>
-          <section className="pt-card">
-            <div className="pt-card-head">
-              <h2>Your plan</h2>
+          <Card
+            title="Your plan"
+            description="Update your card, change or cancel your membership, and download receipts."
+            action={
               <form action={openBillingPortal}>
-                <button type="submit" className="btn-secondary">Manage payment and plan</button>
+                <SubmitButton className="btn-primary" pendingText="Opening…">Manage payment and plan</SubmitButton>
               </form>
-            </div>
+            }
+          >
             {summary.subscriptions.length === 0 ? (
-              <div className="pt-empty">No active subscriptions. One-off purchases are listed under invoices.</div>
+              <EmptyState icon="✓" title="No active subscription">One-off purchases are listed under receipts below.</EmptyState>
             ) : (
               <ul className="pt-list pt-subs">
                 {summary.subscriptions.map((s) => (
@@ -72,20 +80,18 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
                       {s.amount}
                       {s.renews && s.status !== "canceled" && ` · ${s.cancelsAtPeriodEnd ? "ends" : "renews"} ${formatDate(s.renews, family.timezone)}`}
                     </span>
-                    <span className={`pt-status is-${s.status === "active" || s.status === "trialing" ? "scheduled" : "cancelled"}`}>
+                    <Pill tone={s.status === "active" || s.status === "trialing" ? "good" : s.status === "past_due" || s.status === "unpaid" ? "warn" : "muted"}>
                       {statusText[s.status] ?? s.status}
-                    </span>
+                    </Pill>
                   </li>
                 ))}
               </ul>
             )}
-            <p className="pt-small">Update your card, download receipts, or change or cancel your membership through Stripe&apos;s secure billing page.</p>
-          </section>
+          </Card>
 
-          <section className="pt-card">
-            <h2>Invoices and receipts</h2>
+          <Card title="Receipts and invoices">
             {summary.invoices.length === 0 ? (
-              <div className="pt-empty">No invoices yet.</div>
+              <EmptyState icon="🧾" title="No receipts yet" />
             ) : (
               <table className="pt-table">
                 <thead>
@@ -104,7 +110,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
                 </tbody>
               </table>
             )}
-          </section>
+          </Card>
         </>
       )}
     </>

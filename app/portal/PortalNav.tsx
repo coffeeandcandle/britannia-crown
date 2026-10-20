@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export type IconName = "home" | "calendar" | "notes" | "card" | "families" | "team" | "plus" | "chat" | "back" | "switch";
+export type IconName = "home" | "calendar" | "notes" | "card" | "families" | "team" | "plus" | "chat" | "back" | "switch" | "help";
 export type NavItem = { href: string; label: string; icon: IconName; external?: boolean; exact?: boolean };
 export type NavSection = { title?: string; items: NavItem[] };
 
@@ -19,6 +19,7 @@ const paths: Record<IconName, string> = {
   chat: "M4 5h16v11H9l-5 4z",
   back: "M15 6l-6 6 6 6",
   switch: "M7 7h13l-3-3M17 17H4l3 3",
+  help: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01",
 };
 
 function Icon({ name }: { name: IconName }) {

@@ -21,6 +21,7 @@ export default async function FamilyLayout({ children }: { children: React.React
       items: [
         { href: "/book-consultation", label: "Book a session", icon: "plus" },
         { href: `mailto:${consultant?.email ?? EMAIL}`, label: "Email your consultant", icon: "chat", external: true },
+        { href: "/portal/help", label: "Help", icon: "help" },
       ],
     },
     {

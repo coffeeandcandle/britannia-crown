@@ -24,6 +24,7 @@ export default async function StaffLayout({ children }: { children: React.ReactN
       : []),
     {
       items: [
+        { href: "/portal/admin/help", label: "Staff guide", icon: "help" },
         ...(viewer.family ? [{ href: "/portal", label: "Switch to family view", icon: "switch" as const }] : []),
         { href: "/", label: "Back to website", icon: "back" },
       ],

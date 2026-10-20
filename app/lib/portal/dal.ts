@@ -239,3 +239,45 @@ export async function getFamily(id: number) {
 export async function listStaff() {
   return query<Staff & { active: boolean }>("SELECT id, email, name, role, active FROM staff ORDER BY active DESC, name");
 }
+
+/* ── Dashboard figures ─────────────────────────────────────────────── */
+
+export type StaffStats = {
+  today: number;
+  week: number;
+  needs_note: number;
+  families: number;
+  team: number;
+  children: number;
+  sessions: number;
+  notes: number;
+};
+
+// Headline numbers for the staff dashboard. Tutors' figures cover only their own sessions.
+export async function staffStats(staff: Staff) {
+  return (await queryOne<StaffStats>(
+    `SELECT
+       (SELECT count(*)::int FROM sessions s WHERE s.status <> 'cancelled' AND ($1::int IS NULL OR s.staff_id = $1)
+          AND (s.starts_at AT TIME ZONE 'Europe/London')::date = (now() AT TIME ZONE 'Europe/London')::date) AS today,
+       (SELECT count(*)::int FROM sessions s WHERE s.status = 'scheduled' AND ($1::int IS NULL OR s.staff_id = $1)
+          AND s.starts_at BETWEEN now() AND now() + interval '7 days') AS week,
+       (SELECT count(*)::int FROM sessions s WHERE s.status <> 'cancelled' AND ($1::int IS NULL OR s.staff_id = $1)
+          AND s.starts_at + make_interval(mins => s.minutes) < now()
+          AND NOT EXISTS (SELECT 1 FROM session_notes n WHERE n.session_id = s.id)) AS needs_note,
+       (SELECT count(*)::int FROM families) AS families,
+       (SELECT count(*)::int FROM staff WHERE active) AS team,
+       (SELECT count(*)::int FROM children) AS children,
+       (SELECT count(*)::int FROM sessions) AS sessions,
+       (SELECT count(*)::int FROM session_notes) AS notes`,
+    [canManage(staff) ? null : staff.id],
+  ))!;
+}
+
+export async function familyNoteCount(familyId: number) {
+  const row = await queryOne<{ n: number }>(
+    `SELECT count(*)::int AS n FROM session_notes n JOIN sessions s ON s.id = n.session_id
+     WHERE s.family_id = $1 AND n.shared_with_family`,
+    [familyId],
+  );
+  return row?.n ?? 0;
+}

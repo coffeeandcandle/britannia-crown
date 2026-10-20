@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireFamily, familySessions } from "../../../lib/portal/dal";
 import { tzLabel } from "../../../lib/portal/time";
 import { SessionList } from "../../components";
+import { PageHeader, Card, EmptyState } from "../../ui";
 
 export default async function FamilySessionsPage() {
   const { family } = await requireFamily();
@@ -12,16 +13,27 @@ export default async function FamilySessionsPage() {
 
   return (
     <>
-      <h1 className="pt-title">Sessions</h1>
-      <p className="pt-small">Times shown in {tzLabel(family.timezone)}.</p>
-      <section className="pt-card">
-        <h2>Coming up</h2>
-        <SessionList sessions={upcoming} tz={family.timezone} hrefFor={href} empty={<>Nothing booked. <Link href="/book-consultation">Book a session</Link>.</>} />
-      </section>
-      <section className="pt-card">
-        <h2>Past sessions</h2>
-        <SessionList sessions={past} tz={family.timezone} hrefFor={href} empty="Your past sessions will be listed here." />
-      </section>
+      <PageHeader
+        title="Sessions"
+        description={<>All your lessons, past and future. Open one to see its details and your tutor&apos;s notes. Times in {tzLabel(family.timezone)}.</>}
+        actions={<Link href="/book-consultation" className="btn-secondary">Book a session</Link>}
+      />
+      <Card title="Coming up" description="A Join button appears on a lesson 15 minutes before it starts.">
+        <SessionList
+          sessions={upcoming}
+          tz={family.timezone}
+          hrefFor={href}
+          empty={<EmptyState icon="📅" title="Nothing booked yet">Your consultant will add lessons here once they&apos;re arranged.</EmptyState>}
+        />
+      </Card>
+      <Card title="Past lessons">
+        <SessionList
+          sessions={past}
+          tz={family.timezone}
+          hrefFor={href}
+          empty={<EmptyState icon="🕰️" title="No past lessons yet">Lessons you&apos;ve had will be listed here, with their notes.</EmptyState>}
+        />
+      </Card>
     </>
   );
 }

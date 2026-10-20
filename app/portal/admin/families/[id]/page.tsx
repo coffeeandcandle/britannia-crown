@@ -1,9 +1,18 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireStaff, getFamily, familyChildren, familySessions, listStaff } from "../../../../lib/portal/dal";
 import { TIMEZONES, tzLabel } from "../../../../lib/portal/time";
+import { siteOrigin } from "../../../../lib/portal/origin";
+import { SIGN_IN_PATH } from "../../../../lib/portal/config";
 import { SessionList, Flash } from "../../../components";
+import { PageHeader, Card, EmptyState, Checklist, Avatar, Pill, Field } from "../../../ui";
+import { SubmitButton, ConfirmSubmit, CopyButton } from "../../../client-ui";
 import { saveFamily, addChild, removeChild, scheduleSession } from "../../actions";
+
+const subjectSuggestions = [
+  "GCSE Maths", "GCSE English", "GCSE Science", "GCSE Chemistry", "GCSE Biology", "GCSE Physics",
+  "A-Level Maths", "A-Level Chemistry", "A-Level Biology", "A-Level Physics",
+  "Primary Maths", "Primary English", "11+ preparation", "Consultation", "School placement meeting",
+];
 
 export default async function AdminFamilyPage({
   params,
@@ -17,118 +26,173 @@ export default async function AdminFamilyPage({
   if (!Number.isInteger(id)) notFound();
   const family = await getFamily(id);
   if (!family) notFound();
-  const [children, sessions, team, msg] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams]);
+  const [children, sessions, team, msg, origin] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin()]);
   const active = team.filter((s) => s.active);
   const consultants = active.filter((s) => s.role !== "tutor");
+  const consultant = team.find((s) => s.id === family.consultant_id);
+  const upcoming = sessions.filter((s) => s.is_upcoming).reverse();
+  const past = sessions.filter((s) => !s.is_upcoming);
+  const signInLink = `${origin}${SIGN_IN_PATH}`;
+  const href = (s: { id: number }) => `/portal/admin/sessions/${s.id}`;
+
+  const steps = [
+    { done: children.length > 0, title: "Add a child", body: "So lessons and notes can be linked to them.", href: "#children", cta: "Add a child" },
+    { done: sessions.length > 0, title: "Schedule their first lesson", body: "Choose a date, tutor and joining link.", href: "#schedule", cta: "Schedule" },
+    { done: Boolean(family.clerk_user_id), title: "Family signs in", body: `Send ${family.email} the sign-in link. They choose Sign up with that email.` },
+  ];
+  const setupDone = steps.every((s) => s.done);
 
   return (
     <>
-      <p className="pt-back"><Link href="/portal/admin/families">← All families</Link></p>
-      <h1 className="pt-title">{family.name}</h1>
-      <p className="pt-small">
-        {family.email}
-        {family.phone && ` · ${family.phone}`} · {tzLabel(family.timezone)} ·{" "}
-        {family.clerk_user_id ? "Has signed in to the portal" : "Hasn't signed in yet"}
-      </p>
       <Flash {...msg} />
+      <PageHeader
+        back={{ href: "/portal/admin/families", label: "All families" }}
+        title={family.name}
+        description={
+          <span className="ui-inline">
+            {family.email} · {tzLabel(family.timezone)} · {consultant ? `Consultant: ${consultant.name}` : "No consultant yet"} ·{" "}
+            {family.clerk_user_id ? <Pill tone="good">Using portal</Pill> : <Pill tone="warn">Not signed in yet</Pill>}
+          </span>
+        }
+        actions={<a href="#schedule" className="btn-primary">+ Schedule a lesson</a>}
+      />
+
+      {!setupDone && (
+        <>
+          <Checklist title={`Next steps for ${family.name}`} steps={steps} />
+          {!family.clerk_user_id && (
+            <div className="ui-copy-row ui-copy-callout">
+              <span>Portal sign-in link to send them:</span>
+              <code>{signInLink}</code>
+              <CopyButton value={signInLink} />
+            </div>
+          )}
+        </>
+      )}
 
       <div className="pt-grid">
         <div className="pt-main">
-          <section className="pt-card">
-            <h2>Schedule a session</h2>
+          <Card id="schedule" title="Schedule a lesson" description="The family sees it straight away, with a Join button 15 minutes before it starts.">
             <form action={scheduleSession} className="pt-form pt-form-grid">
               <input type="hidden" name="family_id" value={family.id} />
-              <div className="form-group pt-span-2"><label htmlFor="ss-title">Title</label><input id="ss-title" name="title" required placeholder="e.g. GCSE Maths" /></div>
-              <div className="form-group">
-                <label htmlFor="ss-child">Child</label>
+              <Field label="What's the lesson?" htmlFor="ss-title" hint="Start typing or pick a suggestion." span>
+                <input id="ss-title" name="title" required placeholder="e.g. GCSE Maths" list="subject-suggestions" />
+              </Field>
+              <datalist id="subject-suggestions">
+                {subjectSuggestions.map((s) => <option key={s} value={s} />)}
+              </datalist>
+              <Field label="Which child?" htmlFor="ss-child">
                 <select id="ss-child" name="child_id" defaultValue={children.length === 1 ? String(children[0].id) : ""}>
                   <option value="">Whole family</option>
                   {children.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                 </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="ss-staff">Tutor or consultant</label>
+              </Field>
+              <Field label="Who's teaching?" htmlFor="ss-staff" hint="They'll see it in their sessions and write the note.">
                 <select id="ss-staff" name="staff_id" defaultValue="">
-                  <option value="">Not assigned</option>
+                  <option value="">Choose later</option>
                   {active.map((s) => <option key={s.id} value={s.id}>{s.name} ({s.role})</option>)}
                 </select>
-              </div>
-              <div className="form-group"><label htmlFor="ss-start">Date and time</label><input id="ss-start" name="starts_at" type="datetime-local" required /></div>
-              <div className="form-group">
-                <label htmlFor="ss-tz">Entered in</label>
+              </Field>
+              <Field label="Date and time" htmlFor="ss-start">
+                <input id="ss-start" name="starts_at" type="datetime-local" required />
+              </Field>
+              <Field
+                label="That time is in"
+                htmlFor="ss-tz"
+                hint={family.timezone === "Europe/London" ? "The family is in the UK too." : `Enter it in UK time; the family sees it converted to ${tzLabel(family.timezone)}.`}
+              >
                 <select id="ss-tz" name="timezone" defaultValue="Europe/London">
                   {TIMEZONES.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}
                 </select>
-              </div>
-              <div className="form-group"><label htmlFor="ss-min">Length (minutes)</label><input id="ss-min" name="minutes" type="number" min={5} max={480} step={5} defaultValue={60} required /></div>
-              <div className="form-group">
-                <label htmlFor="ss-repeat">Repeat weekly</label>
-                <select id="ss-repeat" name="repeat_weeks" defaultValue="1">
-                  <option value="1">Just once</option>
-                  {[4, 6, 8, 10, 12].map((n) => <option key={n} value={n}>For {n} weeks</option>)}
+              </Field>
+              <Field label="Length" htmlFor="ss-min">
+                <select id="ss-min" name="minutes" defaultValue="60">
+                  {[30, 45, 60, 90, 120].map((m) => <option key={m} value={m}>{m} minutes</option>)}
                 </select>
-              </div>
-              <div className="form-group pt-span-2"><label htmlFor="ss-url">Joining link (Zoom, Google Meet or Teams)</label><input id="ss-url" name="join_url" type="url" placeholder="https://" /></div>
-              <button type="submit" className="form-submit pt-span-2">Schedule</button>
+              </Field>
+              <Field label="How often?" htmlFor="ss-repeat" hint="Weekly lessons are added for you, same day and time.">
+                <select id="ss-repeat" name="repeat_weeks" defaultValue="1">
+                  <option value="1">Just this once</option>
+                  {[4, 6, 8, 10, 12].map((n) => <option key={n} value={n}>Every week for {n} weeks</option>)}
+                </select>
+              </Field>
+              <Field label="Video call link (optional)" htmlFor="ss-url" hint="Paste a Zoom, Google Meet or Teams link. You can add it later." span>
+                <input id="ss-url" name="join_url" type="url" placeholder="https://meet.google.com/…" />
+              </Field>
+              <div className="pt-span-2"><SubmitButton pendingText="Scheduling…">Schedule lesson</SubmitButton></div>
             </form>
-          </section>
+          </Card>
 
-          <section className="pt-card">
-            <h2>Sessions</h2>
-            <SessionList sessions={sessions} tz={family.timezone} hrefFor={(s) => `/portal/admin/sessions/${s.id}`} empty="No sessions yet." />
-            <p className="pt-small">Times shown in the family&apos;s time zone ({tzLabel(family.timezone)}).</p>
-          </section>
+          <Card title="Upcoming lessons" description={`Times shown in the family's time zone (${tzLabel(family.timezone)}).`}>
+            <SessionList
+              sessions={upcoming}
+              tz={family.timezone}
+              hrefFor={href}
+              empty={<EmptyState icon="📅" title="Nothing scheduled">Use the form above to book their next lesson.</EmptyState>}
+            />
+          </Card>
+          {past.length > 0 && (
+            <Card title="Past lessons">
+              <SessionList sessions={past} tz={family.timezone} hrefFor={href} empty={null} />
+            </Card>
+          )}
         </div>
 
         <aside className="pt-side">
-          <section className="pt-card">
-            <h2>Children</h2>
+          <Card id="children" title="Children" description="Lessons and notes can be linked to each child.">
             {children.length > 0 && (
-              <ul className="pt-list">
+              <ul className="ui-people">
                 {children.map((c) => (
                   <li key={c.id}>
-                    <strong>{c.name}</strong>
-                    {c.year_group && <span>{c.year_group}</span>}
+                    <Avatar name={c.name} size="sm" />
+                    <span><strong>{c.name}</strong>{c.year_group && <span>{c.year_group}</span>}</span>
                     <form action={removeChild}>
                       <input type="hidden" name="id" value={c.id} />
                       <input type="hidden" name="family_id" value={family.id} />
-                      <button type="submit" className="pt-link-button" aria-label={`Remove ${c.name}`}>Remove</button>
+                      <ConfirmSubmit message={`Remove ${c.name}? Their past lessons stay, but won't be linked to them.`}>Remove</ConfirmSubmit>
                     </form>
                   </li>
                 ))}
               </ul>
             )}
-            <form action={addChild} className="pt-form">
+            <form action={addChild} className="pt-form ui-inline-form">
               <input type="hidden" name="family_id" value={family.id} />
-              <div className="form-group"><label htmlFor="ac-name">Child&apos;s name</label><input id="ac-name" name="name" required /></div>
-              <div className="form-group"><label htmlFor="ac-year">Year group</label><input id="ac-year" name="year_group" placeholder="e.g. Year 10" /></div>
-              <button type="submit" className="btn-secondary">Add child</button>
+              <Field label="Child's first name" htmlFor="ac-name">
+                <input id="ac-name" name="name" required />
+              </Field>
+              <Field label="Year group" htmlFor="ac-year">
+                <input id="ac-year" name="year_group" placeholder="e.g. Year 10" list="year-groups" />
+              </Field>
+              <datalist id="year-groups">
+                {["Nursery", "Reception", ...Array.from({ length: 13 }, (_, i) => `Year ${i + 1}`)].map((y) => <option key={y} value={y} />)}
+              </datalist>
+              <SubmitButton className="btn-secondary" pendingText="Adding…">Add child</SubmitButton>
             </form>
-          </section>
+          </Card>
 
-          <section className="pt-card">
-            <h2>Family details</h2>
+          <details className="ui-card ui-collapsible">
+            <summary>Edit family details</summary>
             <form action={saveFamily} className="pt-form">
               <input type="hidden" name="id" value={family.id} />
-              <div className="form-group"><label htmlFor="ef-name">Family name</label><input id="ef-name" name="name" defaultValue={family.name} required /></div>
-              <div className="form-group"><label htmlFor="ef-email">Parent&apos;s email</label><input id="ef-email" name="email" type="email" defaultValue={family.email} required /></div>
-              <div className="form-group"><label htmlFor="ef-phone">Phone</label><input id="ef-phone" name="phone" type="tel" defaultValue={family.phone ?? ""} /></div>
-              <div className="form-group">
-                <label htmlFor="ef-tz">Time zone</label>
+              <Field label="Family name" htmlFor="ef-name"><input id="ef-name" name="name" defaultValue={family.name} required /></Field>
+              <Field label="Parent's email" htmlFor="ef-email" hint="Changing this means they'll sign in with the new address.">
+                <input id="ef-email" name="email" type="email" defaultValue={family.email} required />
+              </Field>
+              <Field label="Phone" htmlFor="ef-phone"><input id="ef-phone" name="phone" type="tel" defaultValue={family.phone ?? ""} /></Field>
+              <Field label="Where they live" htmlFor="ef-tz">
                 <select id="ef-tz" name="timezone" defaultValue={family.timezone}>
                   {TIMEZONES.map((t) => <option key={t.id} value={t.id}>{t.label}</option>)}
                 </select>
-              </div>
-              <div className="form-group">
-                <label htmlFor="ef-consultant">Consultant</label>
+              </Field>
+              <Field label="Their consultant" htmlFor="ef-consultant">
                 <select id="ef-consultant" name="consultant_id" defaultValue={family.consultant_id ?? ""}>
                   <option value="">Not assigned</option>
                   {consultants.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
                 </select>
-              </div>
-              <button type="submit" className="btn-secondary">Save details</button>
+              </Field>
+              <SubmitButton className="btn-secondary">Save changes</SubmitButton>
             </form>
-          </section>
+          </details>
         </aside>
       </div>
     </>

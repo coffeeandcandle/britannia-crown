@@ -1,80 +1,139 @@
 import Link from "next/link";
-import { requireFamily, familyChildren, familyConsultant, familyUpcoming, familyNotes } from "../../lib/portal/dal";
-import { tzLabel } from "../../lib/portal/time";
+import { requireFamily, familyChildren, familyConsultant, familyUpcoming, familyNotes, familyNoteCount } from "../../lib/portal/dal";
+import { tzLabel, sessionWhen, greeting } from "../../lib/portal/time";
 import { EMAIL } from "../../lib/site";
-import { SessionList, NoteCard } from "../components";
+import { SessionList, NoteCard, DateTile } from "../components";
+import { PageHeader, Card, EmptyState, StatGrid, Stat, HelpBox, Avatar } from "../ui";
 
 export default async function FamilyDashboard() {
   const { viewer, family } = await requireFamily();
-  const [children, consultant, upcoming, notes] = await Promise.all([
+  const [children, consultant, upcoming, notes, noteCount] = await Promise.all([
     familyChildren(family.id),
     familyConsultant(family),
-    familyUpcoming(family.id, 4),
-    familyNotes(family.id, { limit: 3 }),
+    familyUpcoming(family.id, 6),
+    familyNotes(family.id, { limit: 2 }),
+    familyNoteCount(family.id),
   ]);
+  const [next, ...later] = upcoming;
+  const tz = family.timezone;
+  const nextWhen = next ? sessionWhen(new Date(next.starts_at), next.minutes, tz) : null;
+  const contactEmail = consultant?.email ?? EMAIL;
 
   return (
-    <div className="pt-grid">
-      <div className="pt-main">
-        <h1 className="pt-title">Hello{viewer.firstName ? `, ${viewer.firstName}` : ""}</h1>
+    <>
+      <PageHeader
+        title={`${greeting(tz)}${viewer.firstName ? `, ${viewer.firstName}` : ""}`}
+        description={<>Everything about {family.name}&apos;s lessons in one place. Times are shown in {tzLabel(tz)}.</>}
+      />
 
-        <section className="pt-card">
-          <div className="pt-card-head">
-            <h2>Upcoming sessions</h2>
-            <Link href="/portal/sessions">All sessions →</Link>
+      {next && nextWhen ? (
+        <section className={`ui-next${next.is_joinable ? " is-live" : ""}`} aria-labelledby="next-title">
+          <DateTile date={new Date(next.starts_at)} tz={tz} />
+          <div className="ui-next-main">
+            <p className="ui-next-kicker">{next.is_joinable ? "Your lesson is ready to join" : "Your next lesson"}</p>
+            <h2 id="next-title">{next.title}</h2>
+            <p className="ui-next-meta">
+              <strong>{nextWhen.label}</strong> · {next.minutes} minutes · {nextWhen.relative}
+            </p>
+            <p className="ui-next-people">
+              {[next.child_name, next.tutor_name ? `with ${next.tutor_name}` : null].filter(Boolean).join(" · ")}
+            </p>
           </div>
-          <SessionList
-            sessions={upcoming}
-            tz={family.timezone}
-            hrefFor={(s) => `/portal/sessions/${s.id}`}
-            empty={<>No sessions booked yet. <Link href="/book-consultation">Book a session</Link> or message your consultant.</>}
-          />
-          <p className="pt-small">Times shown in {tzLabel(family.timezone)}. A &ldquo;Join now&rdquo; button appears 15 minutes before each online session.</p>
+          <div className="ui-next-action">
+            {next.is_joinable && next.join_url ? (
+              <a href={next.join_url} className="btn-primary" target="_blank" rel="noopener noreferrer">Join lesson now</a>
+            ) : next.join_url ? (
+              <p className="ui-next-hint">The <strong>Join</strong> button appears here 15 minutes before the lesson starts.</p>
+            ) : (
+              <p className="ui-next-hint">Your tutor will add the joining link before the lesson.</p>
+            )}
+            <Link href={`/portal/sessions/${next.id}`} className="ui-link">Lesson details</Link>
+          </div>
         </section>
+      ) : (
+        <Card>
+          <EmptyState
+            icon="📅"
+            title="No lessons booked yet"
+            action={<Link href="/book-consultation" className="btn-primary">Book a session</Link>}
+          >
+            When your consultant schedules lessons, the next one will appear here with a button to join it.
+          </EmptyState>
+        </Card>
+      )}
 
-        <section className="pt-card">
-          <div className="pt-card-head">
-            <h2>Latest notes</h2>
-            <Link href="/portal/notes">All notes →</Link>
-          </div>
-          {notes.length === 0 ? (
-            <div className="pt-empty">Notes from your tutor will appear here after each session.</div>
-          ) : (
-            <div className="pt-notes">{notes.map((n) => <NoteCard key={n.id} note={n} tz={family.timezone} />)}</div>
+      <StatGrid>
+        <Stat label="Lessons coming up" value={upcoming.length} href="/portal/sessions" />
+        <Stat label="Tutor notes" value={noteCount} href="/portal/notes" />
+        <Stat label={children.length === 1 ? "Child" : "Children"} value={children.length} />
+      </StatGrid>
+
+      <div className="pt-grid">
+        <div className="pt-main">
+          {later.length > 0 && (
+            <Card title="Also coming up" action={<Link href="/portal/sessions" className="ui-link">All sessions →</Link>}>
+              <SessionList sessions={later} tz={tz} hrefFor={(s) => `/portal/sessions/${s.id}`} empty={null} />
+            </Card>
           )}
-        </section>
+
+          <Card
+            title="Latest notes from your tutor"
+            description="After each lesson your tutor writes what was covered, how it went and any homework."
+            action={notes.length > 0 ? <Link href="/portal/notes" className="ui-link">All notes →</Link> : undefined}
+          >
+            {notes.length === 0 ? (
+              <EmptyState icon="📝" title="No notes yet">Notes appear here after your first lesson.</EmptyState>
+            ) : (
+              <div className="ui-notes">{notes.map((n) => <NoteCard key={n.id} note={n} tz={tz} />)}</div>
+            )}
+          </Card>
+        </div>
+
+        <aside className="pt-side">
+          <Card tone="brand" title="Your consultant">
+            {consultant ? (
+              <div className="ui-person">
+                <Avatar name={consultant.name} size="lg" />
+                <div>
+                  <p className="ui-person-name">{consultant.name}</p>
+                  <p className="ui-person-role">Education consultant</p>
+                </div>
+              </div>
+            ) : (
+              <p>We&apos;ll introduce your consultant shortly.</p>
+            )}
+            <p className="ui-small-on-dark">Questions about lessons, timings or progress? Your consultant usually replies within a working day.</p>
+            <div className="pt-actions">
+              <a href={`mailto:${contactEmail}`} className="btn-primary">Email {consultant ? consultant.name.split(" ")[0] : "us"}</a>
+              <Link href="/book-consultation" className="btn-secondary">Book a session</Link>
+            </div>
+          </Card>
+
+          <Card title={children.length === 1 ? "Your child" : "Your children"}>
+            {children.length === 0 ? (
+              <p className="ui-muted">Your consultant will add your children&apos;s details.</p>
+            ) : (
+              <ul className="ui-people">
+                {children.map((c) => (
+                  <li key={c.id}>
+                    <Avatar name={c.name} size="sm" />
+                    <span><strong>{c.name}</strong>{c.year_group && <span>{c.year_group}</span>}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Card>
+
+          <HelpBox title="New here? How the portal works">
+            <ol>
+              <li><strong>Your consultant books lessons.</strong> They appear on this page and under Sessions.</li>
+              <li><strong>Join from here.</strong> A Join button appears 15 minutes before each online lesson.</li>
+              <li><strong>Read the notes.</strong> After each lesson your tutor adds notes and any homework.</li>
+            </ol>
+            <p><Link href="/portal/help">More help →</Link></p>
+          </HelpBox>
+        </aside>
       </div>
-
-      <aside className="pt-side">
-        <section className="pt-card">
-          <h2>Your children</h2>
-          {children.length === 0 ? (
-            <p className="pt-small">Your consultant will add your children&apos;s details.</p>
-          ) : (
-            <ul className="pt-list">
-              {children.map((c) => (
-                <li key={c.id}><strong>{c.name}</strong>{c.year_group && <span>{c.year_group}</span>}</li>
-              ))}
-            </ul>
-          )}
-        </section>
-
-        <section className="pt-card pt-card-dark">
-          <h2>Your consultant</h2>
-          {consultant ? (
-            <>
-              <p className="pt-consultant">{consultant.name}</p>
-              <p><a href={`mailto:${consultant.email}`}>{consultant.email}</a></p>
-            </>
-          ) : (
-            <p>We&apos;ll introduce your consultant shortly.</p>
-          )}
-          <div className="pt-actions">
-            <a href={`mailto:${consultant?.email ?? EMAIL}`} className="btn-primary">Email your consultant</a>
-            <Link href="/book-consultation" className="btn-secondary">Book a session</Link>
-          </div>
-        </section>
-      </aside>
-    </div>
+    </>
   );
 }
