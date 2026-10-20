@@ -63,3 +63,19 @@ Written from stable UK education facts; please check these before relying on the
   (grade 6) are general; schools set their own rules.
 - **Private candidates:** centres set their own deadlines and fees; practical and non-exam elements are the hardest.
 - **Costs:** the cost article quotes only the site's own published prices and gives no market rates.
+
+## Articles, batch 2 (admissions, early years, home education)
+Please check these statements before relying on them (they are accurate to the best of my knowledge but the rules change):
+- **Admissions:** the national priority order (looked-after children, then EHCP-named schools, then each school's own
+  criteria); admission authority types; local authorities coordinate applications (preference numbers vary by area).
+- **Appeals:** at least 20 school days to lodge a main-round appeal; the two-stage panel test; infant class size limit of 30
+  and the narrower grounds for appeals in Reception to Year 2; panel decisions are binding.
+- **In-year admissions:** processes differ by local authority; fair access protocols exist for some vulnerable children.
+- **11-plus:** timings, registration and test content differ by area; a pass does not guarantee a place.
+- **Independent schools:** typical entry points (4, 7, 11, 13 and sixth form); scholarships versus means-tested bursaries.
+- **Nurseries:** EYFS, Ofsted inspection (report formats have been changing) and funded childcare rules (check the
+  government's childcare information, as entitlements have been changing).
+- **Starting home education:** withdraw by writing to the head teacher; the school informs the local authority; consent
+  may be needed first for a child at a special school under local authority arrangements; no duty to follow the National
+  Curriculum; no funding for home education.
+- **Length:** these articles are about 650 to 850 words each, shorter than ideal for the most competitive search terms.
