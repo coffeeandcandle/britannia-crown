@@ -1597,3 +1597,24 @@ a.ui-stat:hover, .shop-card:hover, .plan:hover, .session-card:hover { transform:
 .ch-card:hover, .ch-card:focus-visible { box-shadow: none; }
 .finder, .nudge, .offer-panel { box-shadow: none; }
 .ui-empty-icon { display: none; }
+
+/* ── Open layouts instead of boxes ───────────────────────────────────
+   Content items sit on the page with a hairline above them, not inside cards. */
+:is(.uk-point, .uk-step, .uk-other, .ab-stat, .hm-tool, .hiw-steps li, .hiw-benefit, .gd-next-option, .subject-filter-empty) {
+  background: transparent !important;
+  border: 0;
+  border-top: 1px solid var(--line-strong);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 20px 0 0;
+}
+.uk-section.dark :is(.uk-point, .uk-step) { border-top-color: rgba(255,255,255,.28); }
+:is(.uk-points, .uk-steps, .uk-others, .ab-stats, .hm-tools, .hiw-steps, .hiw-benefits) { gap: 36px 40px; }
+:is(.uk-point, .uk-other, .hm-tool, .gd-next-option):hover { border-top-color: var(--brand); }
+.uk-step-num { width: auto; height: auto; margin-bottom: 10px; border-radius: 0; background: none !important; color: var(--brand); font-family: var(--serif); font-size: 1.9rem; font-weight: 400; line-height: 1; }
+.uk-section.dark .uk-step-num { color: var(--champagne); }
+.hiw-num { width: auto; height: auto; border-radius: 0; background: none; color: var(--brand); font-family: var(--serif); font-size: 1.9rem; font-weight: 400; }
+.ab-stat-num { font-size: var(--fs-stat); }
+.uk-others .uk-other { padding-bottom: 14px; }
+.hiw-stat { background: transparent; border: 0; border-top: 1px solid rgba(255,255,255,.3); border-radius: 0; padding: 22px 0 0; }
+.hiw-stats { gap: 36px 48px; }
