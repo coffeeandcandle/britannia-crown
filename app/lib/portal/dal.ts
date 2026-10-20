@@ -23,7 +23,7 @@ export type Family = {
   clerk_user_id: string | null;
   stripe_customer_id: string | null;
 };
-export type Viewer = { userId: string; email: string; firstName: string; staff: Staff | null; family: Family | null };
+export type Viewer = { userId: string; email: string; firstName: string; fullName: string; staff: Staff | null; family: Family | null };
 
 const FAMILY_COLS = "id, name, email, phone, timezone, consultant_id, clerk_user_id, stripe_customer_id";
 
@@ -48,6 +48,33 @@ async function getIdentity() {
 const adminEmails = () =>
   (process.env.ADMIN_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
 
+// Someone who has signed up through the client portal with a verified email we do not recognise gets an
+// account of their own, so the portal works straight away (purchases made under this email link up
+// automatically). They also appear in the CRM as a new lead, and the team is told.
+// This runs only when a person reaches the client area, never in the staff area, so a tutor who signs up
+// before an admin has added them is not turned into a parent account.
+async function createFamilyFor(viewer: Viewer): Promise<Family | null> {
+  const { email, userId, firstName } = viewer;
+  const name = viewer.fullName || firstName || email.split("@")[0];
+  const family = await queryOne<Family>(
+    `INSERT INTO families (name, email, clerk_user_id) VALUES ($1, $2, $3)
+     ON CONFLICT (email) DO UPDATE SET clerk_user_id = COALESCE(families.clerk_user_id, EXCLUDED.clerk_user_id)
+     RETURNING ${FAMILY_COLS}`,
+    [name, email, userId],
+  );
+  if (family) {
+    try {
+      await recordEvent({ name, email, type: "enquiry", summary: "Created a portal account", source: "portal sign-up" });
+      await query("UPDATE contacts SET family_id = $1 WHERE lower(email) = $2 AND family_id IS NULL", [family.id, email]);
+      await query("UPDATE orders SET family_id = $1 WHERE family_id IS NULL AND lower(customer_email) = $2", [family.id, email]);
+      await alertTeam("New portal sign-up", { Name: name, Email: email }, email);
+    } catch (error) {
+      console.error("Portal sign-up follow-up failed (the account was created)", error);
+    }
+  }
+  return family;
+}
+
 export const getViewer = cache(async (): Promise<Viewer | null> => {
   const id = await getIdentity();
   if (!id) return null;
@@ -62,34 +89,12 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
   }
 
   // A login already linked to a family wins; otherwise match the family by verified email and link it.
-  let family = await queryOne<Family>(
+  const family = await queryOne<Family>(
     `SELECT ${FAMILY_COLS} FROM families
      WHERE clerk_user_id = $1 OR (clerk_user_id IS NULL AND lower(email) = $2)
      ORDER BY (clerk_user_id = $1) DESC NULLS LAST LIMIT 1`,
     [id.userId, id.email],
   );
-  // Someone who has signed up with a verified email we do not recognise gets an account of their own,
-  // so the portal works straight away (purchases made under this email link up automatically). They also
-  // appear in the CRM as a new lead, and the team is told.
-  if (!family && !staff) {
-    const name = id.fullName || id.email.split("@")[0];
-    family = await queryOne<Family>(
-      `INSERT INTO families (name, email, clerk_user_id) VALUES ($1, $2, $3)
-       ON CONFLICT (email) DO UPDATE SET clerk_user_id = COALESCE(families.clerk_user_id, EXCLUDED.clerk_user_id)
-       RETURNING ${FAMILY_COLS}`,
-      [name, id.email, id.userId],
-    );
-    if (family) {
-      try {
-        await recordEvent({ name, email: id.email, type: "enquiry", summary: "Created a portal account", source: "portal sign-up" });
-        await query("UPDATE contacts SET family_id = $1 WHERE lower(email) = $2 AND family_id IS NULL", [family.id, id.email]);
-        await query("UPDATE orders SET family_id = $1 WHERE family_id IS NULL AND lower(customer_email) = $2", [family.id, id.email]);
-        await alertTeam("New portal sign-up", { Name: name, Email: id.email }, id.email);
-      } catch (error) {
-        console.error("Portal sign-up follow-up failed (the account was created)", error);
-      }
-    }
-  }
   if (family && !family.clerk_user_id) {
     await query("UPDATE families SET clerk_user_id = $1 WHERE id = $2 AND clerk_user_id IS NULL", [id.userId, family.id]);
     family.clerk_user_id = id.userId;
@@ -108,6 +113,8 @@ export async function requireViewer(signInPath = SIGN_IN_PATH) {
 
 export async function requireFamily() {
   const viewer = await requireViewer();
+  // Only people who are not on the team get a client account made for them.
+  if (!viewer.family && !viewer.staff) viewer.family = await createFamilyFor(viewer);
   if (!viewer.family) redirect(viewer.staff ? "/portal/admin" : "/portal/no-account");
   return { viewer, family: viewer.family };
 }

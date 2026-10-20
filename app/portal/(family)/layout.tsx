@@ -10,7 +10,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
   // Staff without a family record, and people with no account, are moved on with the skeleton
   // still showing (getViewer is cached, so requireFamily below doesn't query twice).
   const who = await getViewer();
-  if (who && !who.family) return <PortalRedirect to={who.staff ? "/portal/admin" : "/portal/no-account"} />;
+  if (who && !who.family && who.staff) return <PortalRedirect to="/portal/admin" />;
   const { viewer, family } = await requireFamily();
   const consultant = await familyConsultant(family);
 
