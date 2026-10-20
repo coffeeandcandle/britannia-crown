@@ -1147,3 +1147,39 @@ a.ui-stat:hover { transform: translateY(-2px); border-color: var(--brand); color
 @media (max-width: 600px) {
   .crm-details div { grid-template-columns: 1fr; gap: 0; }
 }
+
+/* ── Soft page transitions ────────────────────────────────────────── */
+/* Old content leaves quickly, new content arrives a little slower, so pages feel like they
+   settle into place. Opacity, a hint of blur and a tiny rise only: no sliding. */
+:root { --vt-out: 140ms; --vt-in: 280ms; }
+::view-transition-old(.page-out) { animation: var(--vt-out) ease-in both vt-fade reverse; }
+::view-transition-new(.page-in) { animation: var(--vt-in) ease-out var(--vt-out) both vt-fade, 360ms ease-out var(--vt-out) both vt-rise; }
+@keyframes vt-fade { from { opacity: 0; filter: blur(2px); } to { opacity: 1; filter: blur(0); } }
+@keyframes vt-rise { from { translate: 0 8px; } to { translate: 0 0; } }
+/* Everything not wrapped in a transition (footer, backgrounds) simply swaps; the header holds still. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+::view-transition-group(site-header) { animation: none; z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+/* ── Portal loading skeleton ──────────────────────────────────────── */
+.pt-skel { display: grid; gap: 20px; min-width: 0; }
+.pt-skel-bar, .pt-skel-card {
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(42,13,26,.06) 25%, rgba(42,13,26,.11) 37%, rgba(42,13,26,.06) 63%);
+  background-size: 400% 100%;
+  animation: pt-shimmer 1.6s ease-in-out infinite;
+}
+.pt-skel-bar { height: 16px; }
+.pt-skel-title { height: 30px; width: min(320px, 60%); }
+.pt-skel-sub { width: min(480px, 85%); }
+.pt-skel-short { width: 55%; }
+.pt-skel-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+.pt-skel-card { height: 96px; border-radius: 14px; }
+.pt-skel-panel { display: grid; gap: 14px; padding: 24px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; }
+.pt-skel-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@keyframes pt-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .pt-skel-bar, .pt-skel-card { animation: none; } }

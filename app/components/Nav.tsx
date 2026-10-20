@@ -188,7 +188,10 @@ export default function Nav() {
           </ul>
         </div>
       </div>
-      <header className={`site-chrome site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}`}>
+      <header
+        className={`site-chrome site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}`}
+        style={{ viewTransitionName: "site-header" }}
+      >
         <div className="uk-wrap site-header-inner">
           <Link href="/" className="brand" aria-label="Britannia Crown, home">
             <Crown light />
