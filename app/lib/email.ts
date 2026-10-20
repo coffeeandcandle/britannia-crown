@@ -1,5 +1,6 @@
 import "server-only";
-import { EMAIL } from "./site";
+import { EMAIL, SITE_URL } from "./site";
+import { orderConfirmationEmail } from "./orderEmail";
 
 // Sends email through Resend (resend.com) when RESEND_API_KEY is set. Team alerts go to
 // NOTIFY_EMAIL (default: the main contact address). Until a sending domain is verified in
@@ -32,5 +33,17 @@ export async function alertTeam(subject: string, fields: Record<string, string |
     await sendEmail({ to: teamInbox(), subject: `${subject} | Britannia Crown`, text: lines.join("\n"), replyTo });
   } catch (error) {
     console.error("Team alert email not sent (saved in the CRM)", error);
+  }
+}
+
+// Emails the buyer a confirmation that points them to their client portal. Like alertTeam it never
+// throws: the order is already saved, so a failed email is logged rather than failing the webhook.
+export async function sendOrderConfirmation(to: string, order: { name: string; productName: string; amountLabel: string }) {
+  if (!to) return;
+  try {
+    const { subject, text } = orderConfirmationEmail({ ...order, siteUrl: SITE_URL, contactEmail: EMAIL });
+    await sendEmail({ to: [to], subject, text, replyTo: teamInbox()[0] });
+  } catch (error) {
+    console.error("Order confirmation email not sent (the order is saved in the portal)", error);
   }
 }

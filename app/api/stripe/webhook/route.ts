@@ -4,7 +4,7 @@ import { getProduct } from "../../../lib/products";
 import { query, queryOne } from "../../../lib/portal/db";
 import { getSetting } from "../../../lib/settings";
 import { recordEvent } from "../../../lib/crm";
-import { alertTeam } from "../../../lib/email";
+import { alertTeam, sendOrderConfirmation } from "../../../lib/email";
 
 const hasDatabase = Boolean(process.env.DATABASE_URL);
 
@@ -55,6 +55,7 @@ export async function POST(request: Request) {
               await query("UPDATE contacts SET family_id = $1 WHERE lower(email) = $2 AND family_id IS NULL", [familyId, order.email.toLowerCase()]);
             }
           }
+          await sendOrderConfirmation(order.email, order);
           await notifyTeam(`New online order: ${order.productName}`, {
             product: order.productName,
             amount: order.amountLabel,
