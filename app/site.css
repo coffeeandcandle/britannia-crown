@@ -1574,3 +1574,12 @@ html.rv-ready [data-rv=""] { opacity: 0; transform: translateY(16px); }
 .lr-fullscreen .lr-box.is-full { flex: 1; height: auto; min-height: 0; }
 .lr-exit { padding: 10px 14px; color: #fff; background: var(--brand-ink); font-weight: 650; text-decoration: none; font-size: .95rem; }
 .lr-error { margin-top: 10px; color: var(--error); font-weight: 600; }
+
+/* Camera and microphone step before the call */
+.rg { display: grid; gap: 14px; justify-items: start; max-width: 560px; padding: 24px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.rg h2 { font-size: 1.3rem; }
+.rg p, .rg li { color: var(--ink-2); line-height: 1.55; }
+.rg ul { display: grid; gap: 8px; padding-left: 18px; }
+.rg-warn { display: grid; gap: 10px; justify-items: start; padding: 14px 16px; border-radius: var(--radius-sm); background: #fff4e5; border: 1px solid #f0cf9a; color: #6a4300; }
+.rg-link { padding: 8px 0; background: none; border: 0; color: var(--brand); font-weight: 650; text-decoration: underline; cursor: pointer; font-size: .95rem; }
+.rg-note { color: var(--ink-2); padding: 16px 0; }

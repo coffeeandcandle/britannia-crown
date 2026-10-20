@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Entry } from "../lib/portal/daily";
 import DailyFrame from "./DailyFrame";
+import RoomGate from "./RoomGate";
 import { Card, EmptyState } from "./ui";
 
 // The lesson itself, shown inside the portal. The room address carries a personal token, so the iframe
@@ -11,21 +12,19 @@ export default function LessonRoom({ entry, backHref, roomHref, full = false, fa
       return (
         <div className="lr-fullscreen">
           <a href={backHref} className="lr-exit">← Back to the lesson page</a>
-          <DailyFrame url={entry.url} token={entry.token} full />
+          <RoomGate><DailyFrame url={entry.url} token={entry.token} full /></RoomGate>
         </div>
       );
     }
     return (
-      <>
+      <RoomGate>
         <div className="lr-frame">
           <DailyFrame url={entry.url} token={entry.token} />
         </div>
         <p className="lr-help">
-          Camera or microphone not turning on, or on a phone?{" "}
-          <a href={`${roomHref}?full=1`}>Open the lesson in full screen</a>. Your browser will ask to use your camera and microphone. Choose{" "}
-          <strong>Allow</strong>. If you opened this from WhatsApp or another app, open it in Safari or Chrome instead.
+          Having trouble on a phone? <a href={`${roomHref}?full=1`}>Open the lesson in full screen</a>. If you opened this from WhatsApp or another app, open it in Safari or Chrome instead.
         </p>
-      </>
+      </RoomGate>
     );
   }
   const early = entry.state === "early";
