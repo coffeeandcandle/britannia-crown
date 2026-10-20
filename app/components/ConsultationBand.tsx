@@ -1,34 +1,48 @@
 import Link from "next/link";
-import BuyButton from "./BuyButton";
-import { getProduct, formatPrice } from "../lib/products";
-import { paymentsEnabled } from "../lib/stripe";
+import { getSessionType, priceLabel } from "../lib/sessions";
 
-// The 60-minute paid consultation, shown across the site. Open layout, no card.
-export default function ConsultationBand({ tone = "white", heading = "Book a 60-minute consultation" }: { tone?: "white" | "cream"; heading?: string }) {
-  const product = getProduct("consultation-60");
-  if (!product) return null;
+// A paid session (strategy session or trial lesson), shown across the site. Open layout, no card.
+// It leads to the booking flow, which collects the family's details and then opens Calendly to pick a time.
+const copy = {
+  strategy: {
+    heading: "Book a strategy session",
+    lead: "A full hour with an education consultant to work through a school choice, an exam plan, tutoring or home education, with a written summary afterwards.",
+    cta: "Book a strategy session",
+  },
+  "trial-lesson": {
+    heading: "Try a tutoring lesson first",
+    lead: "A first one-to-one lesson with a matched tutor, online, so your child can try it before committing.",
+    cta: "Book a trial lesson",
+  },
+} as const;
+
+export default function ConsultationBand({
+  session = "strategy",
+  tone = "white",
+}: {
+  session?: keyof typeof copy;
+  tone?: "white" | "cream";
+}) {
+  const type = getSessionType(session);
+  if (!type) return null;
+  const c = copy[session];
   return (
-    <section className={`uk-section ${tone}`} id="consultation">
+    <section className={`uk-section ${tone}`} id={session === "strategy" ? "consultation" : "trial-lesson"}>
       <div className="uk-wrap uk-split">
         <div>
-          <h2 className="uk-h2">{heading}</h2>
-          <p className="uk-lead">
-            A full hour with an education consultant to work through a school choice, an exam plan, tutoring or home education,
-            with a written summary afterwards. Pay online and we will contact you within one working day to set a time.
-          </p>
+          <h2 className="uk-h2">{c.heading}</h2>
+          <p className="uk-lead">{c.lead}</p>
         </div>
         <div className="cb-side">
           <p className="cb-price">
-            <strong>{formatPrice(product)}</strong> <span>one-time</span>
+            <strong>{priceLabel(type)}</strong> <span>{type.minutes} minutes</span>
           </p>
           <ul className="cb-list">
-            <li>A detailed review of your child&apos;s situation</li>
-            <li>A school shortlist, exam plan or tutoring plan</li>
-            <li>A written summary within two working days</li>
+            {type.includes.map((x) => <li key={x}>{x}</li>)}
           </ul>
           <div className="uk-hero-actions">
-            <BuyButton product={product} enabled={paymentsEnabled} label="Book the 60-minute consultation" />
-            <Link href="/book-consultation" className="btn-secondary">Free 30-minute call first</Link>
+            <Link href={`/book-consultation?session=${type.id}`} className="btn-primary">{c.cta}</Link>
+            <Link href="/book-consultation?session=consultation" className="btn-secondary">Free 30-minute call first</Link>
           </div>
         </div>
       </div>

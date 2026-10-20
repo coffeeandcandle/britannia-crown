@@ -19,17 +19,6 @@ export type Product = {
 
 export const products: Product[] = [
   {
-    id: "consultation-60",
-    name: "60-minute consultation",
-    description: "An in-depth session with an education consultant on a school choice, an exam plan, tutoring or home education, with a written summary afterwards.",
-    // PLACEHOLDER: £120 has not been confirmed by the client. Change it here before this goes live.
-    amount: 120,
-    currency: "gbp",
-    mode: "payment",
-    unit: "one-time",
-    service: "General Enquiry",
-  },
-  {
     id: "uae-nursery-search",
     name: "Nursery Search & Placement (Dubai)",
     description: "Research, shortlisting, visit coordination and application support for an EYFS nursery place.",

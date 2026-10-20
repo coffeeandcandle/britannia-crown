@@ -228,6 +228,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
+      {service.slug === "tutoring" && <ConsultationBand session="trial-lesson" tone="white" />}
       <ConsultationBand tone="cream" />
       <AccountBand variant="inline" location="service_page" />
 

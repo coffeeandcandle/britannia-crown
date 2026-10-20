@@ -30,7 +30,7 @@ export default function Footer() {
               {services.map((s) => (
                 <li key={s.slug}><Link href={`/services/${s.slug}`}>{s.name}</Link></li>
               ))}
-              <li><Link href="/pricing#consultation">60-minute consultation</Link></li>
+              <li><Link href="/pricing#consultation">Strategy session</Link></li>
               <li><Link href="/pricing">Prices</Link></li>
               <li><Link href="/how-it-works">How it works</Link></li>
               <li><Link href="/membership">Academic Partner Membership</Link></li>

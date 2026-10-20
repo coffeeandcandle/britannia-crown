@@ -64,6 +64,7 @@ export default function TutorsPage() {
         </div>
       </section>
 
+      <ConsultationBand session="trial-lesson" tone="white" />
       <ConsultationBand tone="cream" />
       <EnquirySection
         title={<>Tell us about your child</>}

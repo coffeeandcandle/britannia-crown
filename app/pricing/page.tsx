@@ -99,7 +99,7 @@ export default function PricingPage() {
               <article className={`shop-card${s.price === null ? " is-featured" : ""}`} key={s.id}>
                 <h3>{s.name}</h3>
                 <p className="shop-price">
-                  <span>{isBookable(s) || s.price === null ? priceLabel(s) : "Paid session"}</span> {s.minutes} minutes
+                  <span>{priceLabel(s)}</span> {s.minutes} minutes
                 </p>
                 <p className="shop-desc">{s.summary}</p>
                 <ul className="shop-perks">{s.includes.map((x) => <li key={x}>{x}</li>)}</ul>

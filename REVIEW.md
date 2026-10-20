@@ -145,6 +145,8 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Not enabled: recording, and no whiteboard beyond Daily's built-in screen share and chat. Decide on recording (consent, retention, who can watch back) and safeguarding with your solicitor before turning it on.
 - Check Daily's current free allowance and pricing; usage is billed by Daily if you exceed the free tier.
 
-## 60-minute consultation (buyable)
-- Product `consultation-60` in `app/lib/products.ts`. **The £120 price is a placeholder and has not been confirmed by the client.** Confirm the price, and whether VAT is included, before this goes live.
-- Shown by `ConsultationBand` on the home, Prices, Services, each service, Tutors, each subject, each guide and About pages, plus a footer link. Bought through the normal onboarding form and Stripe.
+## Strategy session and trial lesson (paid, booked through Calendly)
+- Client confirmed: strategy session £150 for 60 minutes, trial tutoring lesson £50. Prices are in `app/lib/sessions.ts`. The trial lesson's length (45 minutes) is still my assumption, so please confirm it.
+- Both are booked through the existing booking flow (details form, then Calendly picks the time and takes the card payment through Calendly's Stripe link). They only become bookable once a Calendly link is pasted into `calendlyUrl` for each session in `sessions.ts`.
+- Needed in Calendly: an event type for each, with the price set and Stripe connected, plus "Minimum scheduling notice" set to 2 days so the next 48 hours are greyed out.
+- Shown by `ConsultationBand` on the home, Prices, Services, tutoring, subject, guide and About pages and in the footer.

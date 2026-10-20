@@ -132,7 +132,7 @@ export default function BookingFlow() {
                 onClick={() => chooseSession(s)}
               >
                 <span className="session-card-meta">
-                  {s.minutes} minutes{isBookable(s) || s.price === null ? ` · ${priceLabel(s)}` : " · Paid session"}
+                  {s.minutes} minutes · {priceLabel(s)}
                 </span>
                 <strong>{s.name}</strong>
                 <span>{s.summary}</span>
@@ -148,7 +148,7 @@ export default function BookingFlow() {
           <div className="booking-summary">
             <p className="booking-summary-label">You&apos;re booking</p>
             <p className="booking-summary-name">{session.name}</p>
-            <p>{session.minutes} minutes{bookable || session.price === null ? ` · ${priceLabel(session)}` : ""}</p>
+            <p>{session.minutes} minutes · {priceLabel(session)}</p>
             <ul className="uk-ticks">
               {session.includes.map((x) => <li key={x}>{x}</li>)}
             </ul>
@@ -185,7 +185,7 @@ export default function BookingFlow() {
           ) : (
             <div className="enq-card">
               <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Request a {session.name.toLowerCase()}</h2>
-              <p className="booking-hint">Online booking for this session is coming soon. Leave your details and we&apos;ll arrange a time and confirm the price, usually within 24 hours.</p>
+              <p className="booking-hint">Online booking for this session is opening soon. Leave your details and we&apos;ll arrange a time with you, usually within 24 hours.</p>
               <EnquiryForm source="booking_request" defaultService={session.service} context={`Session request: ${session.name}`} compact />
             </div>
           )}

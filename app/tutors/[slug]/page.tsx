@@ -117,6 +117,7 @@ export default async function SubjectPage({ params }: Props) {
         </div>
       </section>
 
+      <ConsultationBand session="trial-lesson" tone="white" />
       <ConsultationBand tone="cream" />
       <AccountBand variant="inline" location="tutor_page" />
 
