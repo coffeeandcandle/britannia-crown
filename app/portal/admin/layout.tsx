@@ -33,6 +33,8 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
             items: [
               { href: "/portal/admin/contacts", label: "Contacts", icon: "chat" as const },
               { href: "/portal/admin/orders", label: "Orders", icon: "card" as const },
+              { href: "/portal/admin/consultants", label: "Consultants", icon: "team" as const },
+              { href: "/portal/admin/tutors", label: "Tutors", icon: "team" as const },
               { href: "/portal/admin/staff", label: "Team and access", icon: "team" as const },
             ],
           },

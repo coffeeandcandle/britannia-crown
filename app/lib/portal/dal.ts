@@ -539,3 +539,51 @@ export async function adminOverview(): Promise<Overview> {
     activity,
   };
 }
+
+/* ── Admin: team profiles, calendars and assigning work ───────────── */
+
+export type TeamCard = Staff & { active: boolean; families: number; next7: number; done30: number };
+
+export async function listTeamCards(roles: Role[]) {
+  return query<TeamCard>(
+    `SELECT st.id, st.email, st.name, st.role, st.active,
+       (SELECT count(*)::int FROM families f WHERE f.consultant_id = st.id) AS families,
+       (SELECT count(*)::int FROM sessions s WHERE s.staff_id = st.id AND s.status = 'scheduled' AND s.starts_at BETWEEN now() AND now() + interval '7 days') AS next7,
+       (SELECT count(*)::int FROM sessions s WHERE s.staff_id = st.id AND s.status <> 'cancelled' AND s.starts_at + make_interval(mins => s.minutes) < now() AND s.starts_at >= now() - interval '30 days') AS done30
+     FROM staff st WHERE st.role = ANY($1::text[]) ORDER BY st.active DESC, st.name`,
+    [roles],
+  );
+}
+
+export async function getTeamMember(id: number) {
+  return queryOne<Staff & { active: boolean }>("SELECT id, email, name, role, active FROM staff WHERE id = $1", [id]);
+}
+
+// One person's lessons between two instants (their calendar).
+export async function staffCalendar(staffId: number, from: Date, to: Date) {
+  return query<SessionRow>(`${SESSION_SELECT} WHERE s.staff_id = $1 AND s.starts_at >= $2 AND s.starts_at < $3 ORDER BY s.starts_at`, [staffId, from, to]);
+}
+
+export async function familiesOfConsultant(staffId: number) {
+  return query<{ id: number; name: string; email: string; child_count: number }>(
+    `SELECT f.id, f.name, f.email, (SELECT count(*)::int FROM children c WHERE c.family_id = f.id) AS child_count
+     FROM families f WHERE f.consultant_id = $1 ORDER BY f.name`,
+    [staffId],
+  );
+}
+
+export async function familiesOfTutor(staffId: number) {
+  return query<{ id: number; name: string; email: string; child_count: number }>(
+    `SELECT f.id, f.name, f.email, (SELECT count(*)::int FROM children c WHERE c.family_id = f.id) AS child_count
+     FROM families f WHERE EXISTS (SELECT 1 FROM sessions s WHERE s.family_id = f.id AND s.staff_id = $1 AND s.status <> 'cancelled') ORDER BY f.name`,
+    [staffId],
+  );
+}
+
+export async function unassignedFamilies() {
+  return query<{ id: number; name: string; email: string }>("SELECT id, name, email FROM families WHERE consultant_id IS NULL ORDER BY created_at DESC LIMIT 50");
+}
+
+export async function unassignedSessions() {
+  return query<SessionRow>(`${SESSION_SELECT} WHERE s.staff_id IS NULL AND s.status = 'scheduled' AND s.starts_at > now() ORDER BY s.starts_at LIMIT 50`);
+}

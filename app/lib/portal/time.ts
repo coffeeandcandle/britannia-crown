@@ -91,3 +91,30 @@ export function greeting(tz = "Europe/London") {
   const hour = Number(new Intl.DateTimeFormat("en-GB", { hour: "numeric", hourCycle: "h23", timeZone: tz }).format(new Date()));
   return hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 }
+
+// "YYYY-MM-DD" for an instant in `tz`.
+export const dayKeyOf = (d: Date, tz: string) =>
+  new Intl.DateTimeFormat("en-CA", { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+
+// Adds days to a "YYYY-MM-DD" key (calendar arithmetic, so clock changes never matter).
+export function addDaysKey(key: string, days: number) {
+  const [y, m, d] = key.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
+}
+
+// The Monday of the week containing a "YYYY-MM-DD" key.
+export function mondayOfKey(key: string) {
+  const [y, m, d] = key.split("-").map(Number);
+  const dow = (new Date(Date.UTC(y, m - 1, d)).getUTCDay() + 6) % 7; // Monday = 0
+  return addDaysKey(key, -dow);
+}
+
+// Value for an <input type="datetime-local"> showing `date` in `tz`.
+export function toLocalInput(date: Date, tz: string) {
+  const p = Object.fromEntries(
+    new Intl.DateTimeFormat("en-GB", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
+      .formatToParts(date)
+      .map((x) => [x.type, x.value]),
+  );
+  return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`;
+}
