@@ -1,10 +1,15 @@
-import { requireStaff, canManage } from "../../lib/portal/dal";
+import { getViewer, requireStaff, canManage } from "../../lib/portal/dal";
+import { Suspense } from "react";
 import PortalShell from "../PortalShell";
+import PortalFrameSkeleton from "../PortalFrameSkeleton";
+import PortalRedirect from "../PortalRedirect";
 import type { NavSection } from "../PortalNav";
 
 const roleNames = { admin: "Admin", consultant: "Consultant", tutor: "Tutor" } as const;
 
-export default async function StaffLayout({ children }: { children: React.ReactNode }) {
+async function StaffFrame({ children }: { children: React.ReactNode }) {
+  const who = await getViewer();
+  if (who && !who.staff) return <PortalRedirect to="/portal/staff/no-access" />;
   const { viewer, staff } = await requireStaff();
   const manager = canManage(staff);
 
@@ -46,5 +51,14 @@ export default async function StaffLayout({ children }: { children: React.ReactN
     <PortalShell viewer={viewer} areaLabel="Staff area" who={staff.name} role={roleNames[staff.role]} sections={sections}>
       {children}
     </PortalShell>
+  );
+}
+
+// The layout itself returns at once: the skeleton frame shows while staff details load.
+export default function StaffLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<PortalFrameSkeleton />}>
+      <StaffFrame>{children}</StaffFrame>
+    </Suspense>
   );
 }

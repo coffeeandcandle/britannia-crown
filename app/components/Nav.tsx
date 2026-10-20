@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { services } from "../lib/services";
 import { subjects, levels } from "../lib/subjects";
-import { EMAIL } from "../lib/site";
+import { EMAIL, INSTAGRAM_URL } from "../lib/site";
 import Crown from "./Crown";
 
 type PanelLink = { href: string; label: string; desc?: string };
@@ -272,6 +272,15 @@ export default function Nav() {
             <Link href="/book-consultation" className="btn-primary header-cta">Book a free call</Link>
           </div>
 
+          {/* Phones and tablets: the desktop actions above are hidden, so the login stays one tap away. */}
+          <Link href="/portal" className="header-account" aria-label={signedIn ? "My portal" : "Log in to the client portal"} onClick={closeAll}>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.6" stroke="currentColor" strokeWidth="1.7" />
+              <path d="M4.5 20c.6-3.7 3.6-5.6 7.5-5.6s6.9 1.9 7.5 5.6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+            </svg>
+            <span>{signedIn ? "My portal" : "Log in"}</span>
+          </Link>
+
           <button
             type="button"
             className="menu-button"
@@ -310,7 +319,13 @@ export default function Nav() {
           <div className="mobile-menu-actions">
             <Link href="/book-consultation" className="btn-primary" onClick={closeAll}>Book a free 30-minute call</Link>
             <Link href="/contact" className="btn-secondary" onClick={closeAll}>Send an enquiry</Link>
+            <Link href="/portal" className="btn-secondary" onClick={closeAll}>{signedIn ? "Open my portal" : "Log in to your portal"}</Link>
           </div>
+          <ul className="mobile-menu-extras">
+            <li><Link href="/guides#tools" onClick={closeAll}>Free tools</Link></li>
+            <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+            <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          </ul>
         </div>
       </header>
     </>
