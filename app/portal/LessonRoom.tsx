@@ -1,24 +1,29 @@
 import Link from "next/link";
 import type { Entry } from "../lib/portal/daily";
+import DailyFrame from "./DailyFrame";
 import { Card, EmptyState } from "./ui";
 
 // The lesson itself, shown inside the portal. The room address carries a personal token, so the iframe
 // only works for the person it was issued to.
-export default function LessonRoom({ entry, backHref, fallbackUrl }: { entry: Entry; backHref: string; fallbackUrl?: string | null }) {
+export default function LessonRoom({ entry, backHref, roomHref, full = false, fallbackUrl }: { entry: Entry; backHref: string; roomHref: string; full?: boolean; fallbackUrl?: string | null }) {
   if (entry.state === "ready") {
+    if (full) {
+      return (
+        <div className="lr-fullscreen">
+          <a href={backHref} className="lr-exit">← Back to the lesson page</a>
+          <DailyFrame url={entry.url} token={entry.token} full />
+        </div>
+      );
+    }
     return (
       <>
         <div className="lr-frame">
-          <iframe
-            src={entry.url}
-            title="Video lesson"
-            allow="camera; microphone; fullscreen; display-capture; autoplay; clipboard-write"
-          />
+          <DailyFrame url={entry.url} token={entry.token} />
         </div>
         <p className="lr-help">
           Camera or microphone not turning on, or on a phone?{" "}
-          <a href={entry.url} target="_blank" rel="noopener noreferrer">Open the lesson in full screen</a>. Your browser will ask to use your camera and
-          microphone. Choose <strong>Allow</strong>. If you opened this from WhatsApp or another app, open it in Safari or Chrome instead.
+          <a href={`${roomHref}?full=1`}>Open the lesson in full screen</a>. Your browser will ask to use your camera and microphone. Choose{" "}
+          <strong>Allow</strong>. If you opened this from WhatsApp or another app, open it in Safari or Chrome instead.
         </p>
       </>
     );

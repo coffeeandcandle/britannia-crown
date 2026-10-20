@@ -42,7 +42,7 @@ async function ensureRoom(sessionId: number, closes: Date) {
   return saved?.room_url ?? room.url;
 }
 
-export type Entry = { state: "ready"; url: string } | { state: "early"; opens: Date } | { state: "closed" } | { state: "unavailable" };
+export type Entry = { state: "ready"; url: string; token: string } | { state: "early"; opens: Date } | { state: "closed" } | { state: "unavailable" };
 
 // Works out whether this person may enter now and, if so, returns their personal room address.
 export async function entryFor(session: { id: number; starts_at: Date; minutes: number; status: string }, person: { name: string; owner: boolean }): Promise<Entry> {
@@ -64,5 +64,5 @@ export async function entryFor(session: { id: number; starts_at: Date; minutes: 
       exp: Math.floor(closes.getTime() / 1000),
     },
   });
-  return { state: "ready", url: `${roomUrl}?t=${encodeURIComponent(token)}` };
+  return { state: "ready", url: roomUrl, token };
 }
