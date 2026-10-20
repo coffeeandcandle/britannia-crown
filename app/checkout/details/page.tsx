@@ -22,7 +22,6 @@ export default async function CheckoutDetailsPage({ searchParams }: Props) {
     <>
       <section className="uk-sub-hero">
         <div className="uk-wrap">
-          <span className="uk-eyebrow">Step 1 of 2</span>
           <h1>A few details before you pay</h1>
           <p>
             You are buying <strong>{product.name}</strong> ({formatPrice(product)} {product.unit}). Tell us about your child so we can match the right tutor

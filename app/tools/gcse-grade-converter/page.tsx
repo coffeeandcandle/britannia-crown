@@ -40,7 +40,6 @@ export default function GradeConverterPage() {
               { name: "GCSE grade converter", path: "/tools/gcse-grade-converter" },
             ]}
           />
-          <span className="uk-eyebrow">Free tool</span>
           <h1>GCSE grade converter</h1>
           <p>Choose a grade to see what it means and how it compares with the old A* to G letter grades.</p>
         </div>

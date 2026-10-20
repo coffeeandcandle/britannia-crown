@@ -40,7 +40,7 @@ export default async function AdminOverview() {
         <div className="pt-main">
           <Card title="Needs attention" description="Things to look at today.">
             {attention.length === 0 ? (
-              <EmptyState icon="🎉" title="Nothing needs attention">Notes, tutors, leads and payments are all up to date.</EmptyState>
+              <EmptyState title="Nothing needs attention">Notes, tutors, leads and payments are all up to date.</EmptyState>
             ) : (
               <ul className="ov-list">
                 {attention.map((a) => (
@@ -77,7 +77,7 @@ export default async function AdminOverview() {
 
           <Card title="Where leads come from" description="New contacts in the last 90 days, by source.">
             {o.sources.length === 0 ? (
-              <EmptyState icon="📈" title="No leads yet">Sources appear here as enquiries come in.</EmptyState>
+              <EmptyState title="No leads yet">Sources appear here as enquiries come in.</EmptyState>
             ) : (
               <ul className="ov-funnel">
                 {o.sources.map((s) => (
@@ -95,7 +95,7 @@ export default async function AdminOverview() {
         <aside className="pt-side">
           <Card title="Latest activity" action={<Link href="/portal/admin/contacts" className="ui-link">All contacts →</Link>}>
             {o.activity.length === 0 ? (
-              <EmptyState icon="🕒" title="No activity yet">Enquiries, bookings and orders appear here.</EmptyState>
+              <EmptyState title="No activity yet">Enquiries, bookings and orders appear here.</EmptyState>
             ) : (
               <ul className="ov-feed">
                 {o.activity.map((a) => (

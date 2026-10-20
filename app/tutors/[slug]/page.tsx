@@ -49,7 +49,6 @@ export default async function SubjectPage({ params }: Props) {
               { name: `${subject.name} Tutors`, path },
             ]}
           />
-          <span className="uk-eyebrow">{subject.level} Tutoring</span>
           <h1>
             {subject.name} Tutors <em className="uk-h1-line">{subject.tagline}</em>
           </h1>
@@ -65,7 +64,6 @@ export default async function SubjectPage({ params }: Props) {
       <section className="uk-section white">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">At a glance</span>
             <h2 className="uk-h2">{subject.name} at a glance</h2>
           </Reveal>
           <Reveal>
@@ -84,7 +82,6 @@ export default async function SubjectPage({ params }: Props) {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">How we help</span>
             <h2 className="uk-h2">Where students get stuck, and how we help</h2>
           </Reveal>
           <Reveal>
@@ -103,7 +100,6 @@ export default async function SubjectPage({ params }: Props) {
       <section className="uk-section dark">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">How it works</span>
             <h2 className="uk-h2">From first call to first lesson</h2>
           </Reveal>
           <Reveal>
@@ -126,7 +122,7 @@ export default async function SubjectPage({ params }: Props) {
 
       <EnquirySection
         title={<>Find the right {subject.name} tutor</>}
-        lead={`Tell us about your child and an education consultant will call you back to talk through ${subject.name} tutoring — usually within 24 hours.`}
+        lead={`Tell us about your child and an education consultant will call you back to talk through ${subject.name} tutoring, usually within 24 hours.`}
         source="subject_page"
         defaultService="Tutoring"
         context={`${subject.name} tutoring`}
@@ -135,7 +131,6 @@ export default async function SubjectPage({ params }: Props) {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">Related</span>
             <h2 className="uk-h2">You might also be looking for</h2>
           </Reveal>
           <Reveal>

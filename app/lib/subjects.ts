@@ -22,7 +22,7 @@ export const subjects: Subject[] = [
     level: "Primary",
     name: "Primary School",
     tagline: "building confidence that lasts.",
-    lead: "The primary years lay the foundations for everything that follows. Our tutors help children read with fluency and understanding, become confident with number and write clearly — while keeping learning positive, so children enjoy making progress.",
+    lead: "The primary years lay the foundations for everything that follows. Our tutors help children read with fluency and understanding, become confident with number and write clearly, while keeping learning positive, so children enjoy making progress.",
     glance: [
       { label: "Key Stage 1", value: "Years 1 and 2 (ages 5 to 7)" },
       { label: "Key Stage 2", value: "Years 3 to 6 (ages 7 to 11)" },
@@ -46,7 +46,7 @@ export const subjects: Subject[] = [
       },
       {
         q: "Can you support a child who is ahead?",
-        a: "Yes. Tutoring isn't only for catching up — we can stretch confident learners with challenge that goes beyond the classroom.",
+        a: "Yes. Tutoring isn't only for catching up. We can stretch confident learners with challenge that goes beyond the classroom.",
       },
     ],
     related: ["gcse-english", "gcse-maths"],
@@ -59,18 +59,18 @@ export const subjects: Subject[] = [
     level: "GCSE",
     name: "GCSE Maths",
     tagline: "built on understanding, not memorising.",
-    lead: "A strong GCSE Maths grade opens doors to A-Levels, apprenticeships and university — and a grade 4 or above is widely expected by sixth forms, colleges and employers. Our UK-trained tutors close gaps, build problem-solving confidence and make sure your child knows exactly how marks are won and lost on each paper.",
+    lead: "A strong GCSE Maths grade opens doors to A-Levels, apprenticeships and university, and a grade 4 or above is widely expected by sixth forms, colleges and employers. Our UK-trained tutors close gaps, build problem-solving confidence and make sure your child knows exactly how marks are won and lost on each paper.",
     glance: [
       { label: "Grades", value: "9 to 1, with 4 a standard pass and 5 a strong pass" },
       { label: "Tiers", value: "Foundation (grades 1–5) or Higher (grades 4–9)" },
       { label: "Exams", value: "Three 1 hour 30 minute papers, one without a calculator" },
-      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR — plus International GCSE" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR, plus International GCSE" },
     ],
     help: [
       { title: "Multi-step problem solving", body: "Many questions combine several topics in an unfamiliar context. We teach students to break problems into steps they recognise, rather than freezing when a question looks new." },
-      { title: "The non-calculator paper", body: "Fluency with fractions, percentages, ratio and mental methods makes the non-calculator paper far less daunting — and frees up time for harder questions." },
+      { title: "The non-calculator paper", body: "Fluency with fractions, percentages, ratio and mental methods makes the non-calculator paper far less daunting, and frees up time for harder questions." },
       { title: "Choosing the right tier", body: "Foundation caps at grade 5; Higher is needed for grades 6 to 9. We help you understand what your child is capable of, so the right entry decision can be made with their school." },
-      { title: "Method marks and exam technique", body: "Clear working earns marks even when the final answer is wrong. We build the habits — showing method, checking units, reading the question twice — that protect every mark." },
+      { title: "Method marks and exam technique", body: "Clear working earns marks even when the final answer is wrong. We build the habits, showing method, checking units, reading the question twice. That protect every mark." },
     ],
     faqs: [
       {
@@ -100,9 +100,9 @@ export const subjects: Subject[] = [
     level: "GCSE",
     name: "GCSE English",
     tagline: "for readers and writers who think for themselves.",
-    lead: "Most students take two English GCSEs — Language and Literature — and both reward independent thinking, precise analysis and confident writing under time pressure. Our tutors help students move beyond spotting techniques to explaining their effects, and to write with structure, control and flair.",
+    lead: "Most students take two English GCSEs, Language and Literature, and both reward independent thinking, precise analysis and confident writing under time pressure. Our tutors help students move beyond spotting techniques to explaining their effects, and to write with structure, control and flair.",
     glance: [
-      { label: "Qualifications", value: "English Language and English Literature — two separate GCSEs" },
+      { label: "Qualifications", value: "English Language and English Literature, two separate GCSEs" },
       { label: "English Language", value: "Two exams on reading and writing, plus a spoken language endorsement" },
       { label: "English Literature", value: "Closed-book exams on Shakespeare, a 19th-century novel, a modern text and poetry" },
       { label: "Grades", value: "9 to 1, with 4 a standard pass and 5 a strong pass" },
@@ -124,7 +124,7 @@ export const subjects: Subject[] = [
       },
       {
         q: "Can you help with my child's set texts?",
-        a: "Yes. Tell us the texts and exam board your child's school uses — Macbeth, A Christmas Carol and An Inspector Calls are common examples — and we'll match a tutor who knows them well.",
+        a: "Yes. Tell us the texts and exam board your child's school uses, Macbeth, A Christmas Carol and An Inspector Calls are common examples, and we'll match a tutor who knows them well.",
       },
     ],
     related: ["gcse-maths", "gcse-science", "primary"],
@@ -145,7 +145,7 @@ export const subjects: Subject[] = [
       { label: "Practicals", value: "Required practicals are assessed through questions in the written exams" },
     ],
     help: [
-      { title: "Required practicals", body: "Exams test how practicals are planned and carried out — variables, accuracy, results and conclusions. We make sure students can explain each one confidently." },
+      { title: "Required practicals", body: "Exams test how practicals are planned and carried out: variables, accuracy, results and conclusions. We make sure students can explain each one confidently." },
       { title: "Maths in science", body: "Calculations, graphs and rearranging equations appear across all three sciences, particularly physics. We build the maths fluency science questions assume." },
       { title: "Extended answers", body: "Longer six-mark questions reward clear, logically ordered explanations. We teach a structure students can rely on under pressure." },
       { title: "A lot of content", body: "Three sciences add up to a great deal to remember. Regular retrieval practice and a clear revision plan keep knowledge secure through to the exams." },
@@ -157,7 +157,7 @@ export const subjects: Subject[] = [
       },
       {
         q: "Can one tutor cover all three sciences?",
-        a: "Often, yes — particularly for Combined Science. For Triple Science, or students aiming for the very top grades, we may suggest a specialist for the subject your child finds hardest.",
+        a: "Often, yes, particularly for Combined Science. For Triple Science, or students aiming for the very top grades, we may suggest a specialist for the subject your child finds hardest.",
       },
       {
         q: "Do you tutor IGCSE Science?",
@@ -174,7 +174,7 @@ export const subjects: Subject[] = [
     level: "A-Level",
     name: "A-Level Maths",
     tagline: "for the leap beyond GCSE.",
-    lead: "A-Level Maths is required or preferred for many university courses in science, engineering, economics and beyond — and it is one of the biggest steps up from GCSE. Our tutors strengthen the algebra everything else depends on, then build the reasoning and problem-solving the top grades require.",
+    lead: "A-Level Maths is required or preferred for many university courses in science, engineering, economics and beyond, and it is one of the biggest steps up from GCSE. Our tutors strengthen the algebra everything else depends on, then build the reasoning and problem-solving the top grades require.",
     glance: [
       { label: "Content", value: "Pure maths (about two-thirds), plus statistics and mechanics" },
       { label: "Exams", value: "Three 2-hour papers at the end of the two-year course" },
@@ -211,7 +211,7 @@ export const subjects: Subject[] = [
     level: "A-Level",
     name: "A-Level Chemistry",
     tagline: "where understanding beats memorising.",
-    lead: "A-Level Chemistry is a gateway to medicine, pharmacy, chemical engineering and many other degrees — and it rewards students who understand why reactions happen, not just what happens. Our tutors untangle the trickiest topics and build the calculation and practical skills the exams test.",
+    lead: "A-Level Chemistry is a gateway to medicine, pharmacy, chemical engineering and many other degrees, and it rewards students who understand why reactions happen, not just what happens. Our tutors untangle the trickiest topics and build the calculation and practical skills the exams test.",
     glance: [
       { label: "Exams", value: "Three written papers at the end of the two-year course" },
       { label: "Practical endorsement", value: "Reported separately as Pass or Not Classified" },
@@ -227,7 +227,7 @@ export const subjects: Subject[] = [
     faqs: [
       {
         q: "What is the A-Level practical endorsement?",
-        a: "Over the course, students carry out at least 12 practical activities and are assessed on their practical competence by their teachers. The result — Pass or Not Classified — is reported alongside their A-Level grade.",
+        a: "Over the course, students carry out at least 12 practical activities and are assessed on their practical competence by their teachers. The result, Pass or Not Classified, is reported alongside their A-Level grade.",
       },
       {
         q: "Can a private candidate take A-Level Chemistry?",
@@ -258,7 +258,7 @@ export const subjects: Subject[] = [
     help: [
       { title: "Precise terminology", body: "Marks are often lost to vague wording. We train students to use exact scientific language that matches what examiners look for." },
       { title: "Data and statistics", body: "Students must interpret graphs, analyse data and apply statistical tests. We make these questions familiar and manageable." },
-      { title: "Extended writing", body: "Longer answers — including AQA's 25-mark essay — reward breadth and connections across the course. We practise planning and writing them." },
+      { title: "Extended writing", body: "Longer answers, including AQA's 25-mark essay, reward breadth and connections across the course. We practise planning and writing them." },
       { title: "Retaining a large course", body: "Spaced retrieval practice and well-organised notes keep two years of content secure for the final exams." },
     ],
     faqs: [

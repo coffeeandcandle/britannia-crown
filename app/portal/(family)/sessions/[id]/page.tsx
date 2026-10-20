@@ -54,7 +54,7 @@ export default async function FamilySessionPage({ params }: { params: Promise<{ 
 
       <Card title="Notes from this lesson" description="What was covered, how it went and any homework.">
         {notes.length === 0 ? (
-          <EmptyState icon="📝" title={session.is_upcoming ? "Notes come after the lesson" : "No notes yet"}>
+          <EmptyState title={session.is_upcoming ? "Notes come after the lesson" : "No notes yet"}>
             {session.is_upcoming ? "Your tutor writes notes once the lesson has finished." : "Your tutor hasn't added notes for this lesson yet."}
           </EmptyState>
         ) : (

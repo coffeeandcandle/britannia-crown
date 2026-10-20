@@ -11,7 +11,7 @@ import SignupLink from "./SignupLink";
 import { useSignedIn } from "../lib/useSignedIn";
 
 type PanelLink = { href: string; label: string; desc?: string };
-type Feature = { kicker: string; title: string; body: string; href: string; cta: string };
+type Feature = { title: string; body: string; href: string; cta: string };
 type Menu = {
   id: string;
   label: string;
@@ -33,7 +33,6 @@ const menus: Menu[] = [
       { href: "/uae", label: "Moving to the UAE", desc: "Schools, nurseries and tutoring for families relocating to Dubai." },
     ],
     feature: {
-      kicker: "Not sure where to start?",
       title: "Free 30-minute consultation",
       body: "Talk it through with an education consultant and get a clear recommendation.",
       href: "/book-consultation",
@@ -50,7 +49,6 @@ const menus: Menu[] = [
       links: subjects.filter((s) => s.level === level).map((s) => ({ href: `/tutors/${s.slug}`, label: s.name })),
     })),
     feature: {
-      kicker: "Personally matched",
       title: "50+ UK-trained tutors",
       body: "Tell us your child's subject, exam board and target grade, and we'll introduce the right tutor.",
       href: "/contact?service=Tutoring",
@@ -81,7 +79,6 @@ const menus: Menu[] = [
       },
     ],
     feature: {
-      kicker: "Free tool",
       title: "When does your child apply?",
       body: "Enter a date of birth to see their year group and every school application deadline.",
       href: "/tools/school-dates",
@@ -291,7 +288,6 @@ export default function Nav() {
                         </div>
                       </div>
                       <Link href={m.feature.href} className="nav-feature" onClick={closeAll}>
-                        <span className="nav-feature-kicker">{m.feature.kicker}</span>
                         <strong>{m.feature.title}</strong>
                         <span>{m.feature.body}</span>
                         <span className="nav-feature-cta">{m.feature.cta} →</span>

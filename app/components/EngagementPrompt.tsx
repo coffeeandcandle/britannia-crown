@@ -103,7 +103,6 @@ export default function EngagementPrompt() {
       <button type="button" className="nudge-close" onClick={() => close("dismiss")} aria-label="Close this message">
         ×
       </button>
-      <p className="nudge-kicker">{returning ? "Welcome back" : "Not sure where to start?"}</p>
       <p className="nudge-title" id="nudge-title">
         {returning ? "Ready for a free 30-minute call?" : "Talk it through with an education consultant"}
       </p>

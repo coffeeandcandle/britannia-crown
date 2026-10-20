@@ -137,7 +137,7 @@ export default async function TeamProfilePage({ params, searchParams }: Props) {
             description={`Lessons with no tutor yet. Give them to ${person.name.split(" ")[0]} with one click.`}
           >
             {freeSessions.length === 0 ? (
-              <EmptyState icon="✅" title="Every upcoming lesson has someone assigned" />
+              <EmptyState title="Every upcoming lesson has someone assigned" />
             ) : (
               <ul className="ui-rows">
                 {freeSessions.map((s) => (
@@ -162,7 +162,7 @@ export default async function TeamProfilePage({ params, searchParams }: Props) {
           {isConsultant && (
             <Card title="Assign families" description={`Families with no consultant yet.`}>
               {freeFamilies.length === 0 ? (
-                <EmptyState icon="✅" title="Every family has a consultant" />
+                <EmptyState title="Every family has a consultant" />
               ) : (
                 <ul className="ui-rows">
                   {freeFamilies.map((f) => (
@@ -188,7 +188,7 @@ export default async function TeamProfilePage({ params, searchParams }: Props) {
         <aside className="pt-side">
           <Card title={isConsultant ? `${person.name.split(" ")[0]}'s families` : "Families they teach"}>
             {families.length === 0 ? (
-              <EmptyState icon="👪" title="None yet">{isConsultant ? "Assign families from the list on the left." : "Families appear once they have a lesson."}</EmptyState>
+              <EmptyState title="None yet">{isConsultant ? "Assign families from the list on the left." : "Families appear once they have a lesson."}</EmptyState>
             ) : (
               <ul className="ui-rows">
                 {families.map((f) => (

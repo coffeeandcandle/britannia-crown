@@ -591,7 +591,7 @@ export const guides: Guide[] = [
     title: "How to revise for GCSEs and A-Levels: methods that work",
     seoTitle: "How to Revise for GCSEs & A-Levels | Britannia Crown",
     description:
-      "Evidence-based revision techniques — retrieval practice, spacing, interleaving and past papers — plus how to build a realistic plan and how parents can help.",
+      "Evidence-based revision techniques, retrieval practice, spacing, interleaving and past papers, plus how to build a realistic plan and how parents can help.",
     category: "Exams & Qualifications",
     published: "2026-10-19",
     updated: "2026-10-19",

@@ -36,7 +36,7 @@ const earnings = [
 const faqs = [
   {
     q: "What counts as a successful referral?",
-    a: "A referral is successful when a family uses your personal code and completes a paid booking with Britannia Crown. Free consultations do not count — only confirmed paid sessions.",
+    a: "A referral is successful when a family uses your personal code and completes a paid booking with Britannia Crown. Free consultations do not count, only confirmed paid sessions.",
   },
   {
     q: "How and when do I get paid?",
@@ -44,7 +44,7 @@ const faqs = [
   },
   {
     q: "Is there a limit on how many people I can refer?",
-    a: "No. There is no cap on referrals. Refer as many families as you like — every successful booking earns you £30.",
+    a: "No. There is no cap on referrals. Refer as many families as you like. Every successful booking earns you £30.",
   },
   {
     q: "Do I need to be based in the UAE?",
@@ -67,7 +67,6 @@ export default function AmbassadorPage() {
       <section className="uk-sub-hero" id="ambassador">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Ambassador Programme", path: "/ambassador" }]} />
-          <span className="uk-eyebrow">Britannia Crown · Ambassador Programme</span>
           <h1>Earn £30 for every family you refer</h1>
           <p>You&apos;re already trusted by the families we want to reach. Refer a family to Britannia Crown and earn <strong style={{ color: "var(--champagne)", fontWeight: 500 }}>£30</strong> for every successful booking. No limit on referrals.</p>
           <div className="uk-hero-actions uk-sub-actions">
@@ -92,7 +91,6 @@ export default function AmbassadorPage() {
       <section className="uk-section cream" id="how">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">How it works</span>
             <h2 className="uk-h2">How the programme works</h2>
             <p className="uk-lead">Four simple steps between signing up and getting paid.</p>
           </Reveal>
@@ -113,7 +111,6 @@ export default function AmbassadorPage() {
       <section className="uk-section white" id="who">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">Open to everyone</span>
             <h2 className="uk-h2">Who can become an ambassador?</h2>
             <p className="uk-lead">If families trust your recommendation, you&apos;re exactly who we&apos;re looking for.</p>
           </Reveal>
@@ -134,7 +131,6 @@ export default function AmbassadorPage() {
       <section className="uk-section dark" id="earnings">
         <div className="uk-wrap uk-split">
           <Reveal>
-            <span className="uk-kicker">Your earnings</span>
             <h2 className="uk-h2">What you could earn</h2>
             <p className="uk-lead">There are no limits on how many referrals you can make. Every successful booking earns you £30, whether it&apos;s your first referral or your fiftieth.</p>
             <p className="uk-lead" style={{ marginTop: 18 }}>Think about the nanny networks, the school parent groups and the parents you speak to every day at pick-up. One message. One code. One booking.</p>
@@ -158,13 +154,12 @@ export default function AmbassadorPage() {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <Reveal className="amb-code-wrap">
-            <span className="uk-kicker">Your personal code</span>
             <h2 className="uk-h2" style={{ marginLeft: "auto", marginRight: "auto" }}>Every ambassador gets their own code</h2>
             <p className="uk-lead" style={{ margin: "0 auto" }}>Your code is personal to you. Whoever uses it when booking is associated with your account, so every successful referral is tracked back to you.</p>
             <div className="amb-code">
               <span className="amb-code-label">Your ambassador code</span>
               <span className="amb-code-value">BC-SARA</span>
-              <span className="amb-code-note">This is an example — your code is created when you sign up</span>
+              <span className="amb-code-note">This is an example. Your code is created when you sign up</span>
             </div>
           </Reveal>
         </div>
@@ -175,7 +170,6 @@ export default function AmbassadorPage() {
       <section className="uk-enquire" id="signup">
         <div className="uk-wrap uk-enquire-grid">
           <div>
-            <span className="uk-kicker">Join the programme</span>
             <h2 className="uk-h2">Apply to become an ambassador</h2>
             <p className="uk-lead">Fill in the form and we&apos;ll be in touch within 48 hours with your personal ambassador code and everything you need to get started.</p>
             <ul className="uk-ticks">

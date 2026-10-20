@@ -39,7 +39,6 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
     <>
       <section className="uk-sub-hero">
         <div className="uk-wrap">
-          <span className="uk-eyebrow">Payment received</span>
           <h1>{order?.name ? `Thank you, ${order.name}` : "Thank you"}</h1>
           <p>
             {order?.product
@@ -53,7 +52,6 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
       <section className="uk-section cream">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">What happens next</span>
             <h2 className="uk-h2">We&apos;ll be in touch within one working day</h2>
           </div>
           <div className="uk-prose">

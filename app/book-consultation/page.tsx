@@ -19,7 +19,6 @@ export default function BookConsultationPage() {
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Book online", path: "/book-consultation" }]} />
-          <span className="uk-eyebrow">Book online</span>
           <h1>Book a consultation</h1>
           <p>Start with a free 30-minute call, or book a strategy session or trial lesson. It takes about two minutes.</p>
         </div>

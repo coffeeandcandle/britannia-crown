@@ -71,7 +71,6 @@ export default function PricingPage() {
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Prices", path: "/pricing" }]} />
-          <span className="uk-eyebrow">Prices</span>
           <h1>Clear prices, and you can pay online</h1>
           <p>Choose a service and pay securely, or start with a free consultation if you&apos;d like advice first.</p>
           <ul className="shop-trust">
@@ -92,7 +91,6 @@ export default function PricingPage() {
       <section className="uk-section cream" id="consultations">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">Start here</span>
             <h2 className="uk-h2">Consultations and trial lessons</h2>
             <p className="uk-lead">Not sure what you need? Most families start with a free call.</p>
           </div>
@@ -119,7 +117,6 @@ export default function PricingPage() {
       <section className="uk-section white" id="membership">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">Ongoing tutoring</span>
             <h2 className="uk-h2">Academic Partner Membership</h2>
             <p className="uk-lead">
               Regular online tutoring with vetted UK tutors, overseen by your own education consultant.{" "}
@@ -137,7 +134,6 @@ export default function PricingPage() {
       <section className="uk-section cream" id="tailored">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">Tailored to your child</span>
             <h2 className="uk-h2">Tutoring, home education and school placement in the UK</h2>
           </div>
           <div className="uk-prose">
@@ -153,7 +149,6 @@ export default function PricingPage() {
       <section className="uk-section white" id="uae">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">Moving to the UAE</span>
             <h2 className="uk-h2">Packages for families relocating to Dubai</h2>
             <p className="uk-lead">
               Fixed prices for school and nursery placement, exam preparation and ongoing support.{" "}

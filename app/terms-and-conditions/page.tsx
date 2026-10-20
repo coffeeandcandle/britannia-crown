@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 export default function TermsPage() {
   return (
     <>
-      <PageHero eyebrow="Legal" title="Terms and Conditions" />
+      <PageHero title="Terms and Conditions" />
 
       <section className="uk-section white">
         <div className="uk-wrap">

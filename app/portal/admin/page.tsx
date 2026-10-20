@@ -63,7 +63,7 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
               hrefFor={href}
               showFamily
               action={(s) => <Link href={`${href(s)}#write-note`} className="btn-primary ui-btn-sm">Write note</Link>}
-              empty={<EmptyState icon="🎉" title="All caught up">Every finished lesson has a note.</EmptyState>}
+              empty={<EmptyState title="All caught up">Every finished lesson has a note.</EmptyState>}
             />
           </Card>
           <Card title="Coming up" action={<Link href="/portal/admin/sessions" className="ui-link">All sessions →</Link>}>
@@ -74,7 +74,6 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
               showFamily
               empty={
                 <EmptyState
-                  icon="📅"
                   title="No upcoming lessons"
                   action={manager ? <Link href="/portal/admin/families" className="btn-secondary">Schedule a lesson</Link> : undefined}
                 >

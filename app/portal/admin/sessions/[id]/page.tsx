@@ -99,7 +99,7 @@ export default async function AdminSessionPage({
 
           <Card title={`Notes (${notes.length})`}>
             {notes.length === 0 ? (
-              <EmptyState icon="📝" title="No notes yet">{finished ? "Write the first note above." : "Notes appear here after the lesson."}</EmptyState>
+              <EmptyState title="No notes yet">{finished ? "Write the first note above." : "Notes appear here after the lesson."}</EmptyState>
             ) : (
               <div className="ui-notes">
                 {notes.map((n) => (

@@ -7,7 +7,6 @@ export default function FaqSection({ faqs, tone = "cream" }: { faqs: Faq[]; tone
     <section className={`uk-section ${tone}`} id="faqs">
       <div className="uk-wrap uk-split">
         <Reveal>
-          <span className="uk-kicker">Questions parents ask</span>
           <h2 className="uk-h2">Common questions</h2>
         </Reveal>
         <Reveal>

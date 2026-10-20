@@ -41,7 +41,6 @@ export default function Home() {
         </div>
         <div className="uk-wrap hm-hero-grid">
           <div>
-            <span className="uk-eyebrow">British education consultants</span>
             <h1>Tutoring, school places and exam support for your child</h1>
             <p className="hm-hero-lead">
               Personal advice and teaching from UK-trained educators, from early years to A-Level, with one consultant
@@ -73,7 +72,6 @@ export default function Home() {
       <section className="uk-section white">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">What we do</span>
             <h2 className="uk-h2">How we can help</h2>
             <p className="uk-lead">From a single subject to a whole education plan, each service is led by a consultant who takes responsibility for the result.</p>
           </div>
@@ -92,7 +90,6 @@ export default function Home() {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">Free guides and tools</span>
             <h2 className="uk-h2">Answers for parents</h2>
             <p className="uk-lead">Plain-English guides to school applications, exams, tutors and home education, written by our consultants.</p>
           </div>
@@ -114,7 +111,6 @@ export default function Home() {
       <section className="uk-section dark">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">How it works</span>
             <h2 className="uk-h2">Three steps to the right support</h2>
           </div>
           <ol className="uk-steps">
@@ -132,7 +128,6 @@ export default function Home() {
       <section className="uk-section white">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">Why Britannia Crown</span>
             <h2 className="uk-h2">Education consultants, not a tutoring marketplace</h2>
             <p className="uk-lead">One relationship for the whole journey, from first nursery to final exam.</p>
             <div className="uk-sub-actions"><Link href="/about" className="btn-secondary">About us</Link></div>
@@ -151,7 +146,6 @@ export default function Home() {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">Find a tutor</span>
             <h2 className="uk-h2">Tutors by subject</h2>
             <p className="uk-lead">Choose a subject to see how we help, or <Link href="/tutors">browse all tutoring</Link>.</p>
           </div>
@@ -162,7 +156,6 @@ export default function Home() {
       <section className="uk-uae">
         <div className="uk-uae-inner">
           <div>
-            <span className="uk-kicker">Relocating abroad</span>
             <h2>Moving to the UAE?</h2>
             <p>We help UK families relocating to Dubai find the right nursery or school, and keep British-curriculum tutoring going without a break.</p>
           </div>

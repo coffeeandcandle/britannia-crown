@@ -18,7 +18,6 @@ export default function GuideHelp({ guide, service }: { guide: Guide; service?: 
     <section className="uk-section white" id="help" aria-labelledby="help-title">
       <div className="uk-wrap">
         <div className="uk-head">
-          <span className="uk-kicker">{help.kicker}</span>
           <h2 className="uk-h2" id="help-title">{help.title}</h2>
           <p className="uk-lead">{help.lead}</p>
         </div>

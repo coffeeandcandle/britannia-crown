@@ -93,7 +93,7 @@ const faqs = [
   },
   {
     q: "Can I change subjects?",
-    a: "Yes. Your monthly hours are flexible and can be allocated across subjects as your child's needs change — just let your consultant know.",
+    a: "Yes. Your monthly hours are flexible and can be allocated across subjects as your child's needs change. Just let your consultant know.",
   },
   {
     q: "Is this different from a one-off consultation?",
@@ -101,7 +101,7 @@ const faqs = [
   },
   {
     q: "Can I cancel anytime?",
-    a: "Yes — there is no long-term contract. You can cancel or change tiers at any time.",
+    a: "Yes. There is no long-term contract. You can cancel or change tiers at any time.",
   },
   {
     q: "Is membership available to families in the UK?",
@@ -126,7 +126,6 @@ export default function MembershipPage() {
               { name: "Academic Partner Membership", path: "/membership" },
             ]}
           />
-          <span className="uk-eyebrow">Academic Partner Membership</span>
           <h1>Tired of starting over with a new tutor?</h1>
           <p>Academic Partner Membership gives your child ongoing access to vetted, UK-qualified tutors online, with a dedicated education consultant personally overseeing their academic journey, so you never have to search for a tutor again.</p>
           <div className="uk-hero-actions uk-sub-actions">
@@ -141,7 +140,6 @@ export default function MembershipPage() {
       <section className="uk-section white">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">We understand</span>
             <h2 className="uk-h2">The problems we hear about most</h2>
             <p className="uk-lead">We hear the same frustrations from families every week.</p>
           </Reveal>
@@ -161,7 +159,6 @@ export default function MembershipPage() {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">How it&apos;s different</span>
             <h2 className="uk-h2">How membership is different</h2>
             <p className="uk-lead">Membership isn&apos;t another tutoring app. It&apos;s backed by Britannia Crown&apos;s full education consultancy, the same team behind our school placement and home education services.</p>
           </Reveal>
@@ -182,7 +179,6 @@ export default function MembershipPage() {
       <section className="uk-section white" id="tiers">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">Membership tiers</span>
             <h2 className="uk-h2">Membership tiers and prices</h2>
             <p className="uk-lead">All tiers include vetted British tutors, online delivery and direct access to Britannia Crown&apos;s consultancy team.</p>
           </Reveal>
@@ -216,7 +212,6 @@ export default function MembershipPage() {
       <section className="uk-section dark">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">Peace of mind</span>
             <h2 className="uk-h2">No lock-in, and no gaps in tutoring</h2>
           </Reveal>
           <Reveal>

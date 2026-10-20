@@ -39,7 +39,6 @@ export default async function FamiliesPage({ searchParams }: { searchParams: Pro
             )}
             {shown.length === 0 ? (
               <EmptyState
-                icon="👪"
                 title={term ? "No families match that search" : "No families yet"}
                 action={!term ? <a href="#add-family" className="btn-primary">Add your first family</a> : undefined}
               >

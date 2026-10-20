@@ -13,7 +13,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
 
-      <PageHero eyebrow="Legal" title="Privacy Policy" />
+      <PageHero title="Privacy Policy" />
 
       <section className="uk-section white">
         <div className="uk-wrap">
@@ -26,7 +26,7 @@ export default function PrivacyPolicyPage() {
 
             <h2>2. Information We Collect</h2>
             <ul>
-              <li>Contact details you provide via our forms — name, email address, phone number, and any details about your child&apos;s age or the service you&apos;re enquiring about.</li>
+              <li>Contact details you provide via our forms, name, email address, phone number, and any details about your child&apos;s age or the service you&apos;re enquiring about.</li>
               <li>Messages you send us by email, or through our contact, booking and guide-request forms.</li>
               <li>Basic usage data collected automatically via Google Analytics and Google Tag Manager (pages visited, general location, device type).</li>
             </ul>
@@ -40,7 +40,7 @@ export default function PrivacyPolicyPage() {
             </ul>
 
             <h2>4. Sharing Your Information</h2>
-            <p>We do not sell your personal information. We may share it with trusted third parties who help us operate our business — for example, our tutors and school-placement partners (only as needed to deliver the service you&apos;ve requested), the services that run our website and records (Vercel for hosting, Neon for our secure database, Clerk for portal sign-in, Resend for email, and Stripe for payments), and our analytics providers (Google). Enquiries you send through our website are kept in our own secure client records so our team can follow up with you.</p>
+            <p>We do not sell your personal information. We may share it with trusted third parties who help us operate our business, for example, our tutors and school-placement partners (only as needed to deliver the service you&apos;ve requested), the services that run our website and records (Vercel for hosting, Neon for our secure database, Clerk for portal sign-in, Resend for email, and Stripe for payments), and our analytics providers (Google). Enquiries you send through our website are kept in our own secure client records so our team can follow up with you.</p>
 
             <h2>5. Data Retention</h2>
             <p>We retain your information for as long as necessary to provide our services and comply with our legal obligations. You can ask us to delete your information at any time by contacting us.</p>

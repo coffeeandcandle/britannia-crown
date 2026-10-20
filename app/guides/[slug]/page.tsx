@@ -69,7 +69,6 @@ export default async function GuidePage({ params }: Props) {
               { name: guide.title, path },
             ]}
           />
-          <span className="uk-eyebrow">{guide.category}</span>
           <h1>{guide.title}</h1>
           <p>{guide.description}</p>
           <p className="gd-meta">
@@ -147,7 +146,6 @@ export default async function GuidePage({ params }: Props) {
       <section className="uk-section white">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">Keep reading</span>
             <h2 className="uk-h2">Related guides</h2>
           </div>
           <GuideCards items={relatedGuides} />

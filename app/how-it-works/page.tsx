@@ -62,7 +62,6 @@ export default function HowItWorksPage() {
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "How it works", path: "/how-it-works" }]} />
-          <span className="uk-eyebrow">How it works</span>
           <h1>From first hello to first lesson, in four steps</h1>
           <p>
             Every family follows the same simple path, so we always know your child, your goals and your deadlines before the first lesson begins.
@@ -76,7 +75,6 @@ export default function HowItWorksPage() {
 
       <section className="uk-section cream">
         <div className="uk-wrap">
-          <span className="uk-kicker">Onboarding</span>
           <h2 className="uk-h2">How we welcome every family</h2>
           <ol className="hiw-steps">
             {steps.map((s, i) => (
@@ -92,7 +90,6 @@ export default function HowItWorksPage() {
 
       <section className="uk-section dark">
         <div className="uk-wrap">
-          <span className="uk-kicker">The evidence</span>
           <h2 className="uk-h2">What the research says about tutoring</h2>
           <p className="hiw-lede">
             These figures come from independent studies of tutoring in general. They are not Britannia Crown&apos;s own results, and effects vary with the quality of the tutoring.
@@ -116,7 +113,6 @@ export default function HowItWorksPage() {
 
       <section className="uk-section">
         <div className="uk-wrap">
-          <span className="uk-kicker">The benefits</span>
           <h2 className="uk-h2">What you get with Britannia Crown</h2>
           <div className="hiw-benefits">
             {benefits.map((b) => (
@@ -131,7 +127,6 @@ export default function HowItWorksPage() {
       </section>
 
       <section className="uk-cta">
-        <span className="uk-kicker">Ready when you are</span>
         <h2>Start with a free conversation</h2>
         <p>Tell us about your child and we will recommend the right next step.</p>
         <div className="uk-hero-actions">

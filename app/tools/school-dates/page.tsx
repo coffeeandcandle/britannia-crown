@@ -44,7 +44,6 @@ export default function SchoolDatesPage() {
               { name: "School dates calculator", path: "/tools/school-dates" },
             ]}
           />
-          <span className="uk-eyebrow">Free tool</span>
           <h1>School dates calculator</h1>
           <p>Enter your child&apos;s date of birth to see their year group, when they start school, and every application deadline from Reception to Year 7, for state schools in England.</p>
         </div>

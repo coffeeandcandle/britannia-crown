@@ -18,7 +18,7 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
 
       <Card title={`Waiting for approval (${pending.length})`}>
         {pending.length === 0 ? (
-          <EmptyState icon="✅" title="No requests waiting">New requests appear here and in your email.</EmptyState>
+          <EmptyState title="No requests waiting">New requests appear here and in your email.</EmptyState>
         ) : (
           <ul className="ui-rows">
             {pending.map((r) => (

@@ -27,7 +27,7 @@ export default function GuideRequestForm({ guide, id }: { guide: string; subject
   }
 
   if (status === "sent") {
-    return <p className="gd-dl-done" role="status">Thank you — we&apos;ll email your guide to you shortly.</p>;
+    return <p className="gd-dl-done" role="status">Thank you. We&apos;ll email your guide to you shortly.</p>;
   }
 
   return (
@@ -41,7 +41,7 @@ export default function GuideRequestForm({ guide, id }: { guide: string; subject
       <label className="sr-only" htmlFor={`${id}-email`}>Your email address</label>
       <input type="email" id={`${id}-email`} name="email" autoComplete="email" placeholder="Your email address" required />
       {status === "error" && (
-        <p className="gd-dl-error" role="alert">Sorry — that didn&apos;t send. Please try again.</p>
+        <p className="gd-dl-error" role="alert">Sorry. That didn&apos;t send. Please try again.</p>
       )}
       <button type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send Me This Guide →"}

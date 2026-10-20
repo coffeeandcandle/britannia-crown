@@ -57,7 +57,6 @@ export default async function ServicePage({ params }: Props) {
               { name: service.name, path },
             ]}
           />
-          <span className="uk-eyebrow">{service.name}</span>
           <h1>{service.headline}</h1>
           <p>{service.lead}</p>
           <p className="offer-price offer-price--sm">
@@ -84,7 +83,6 @@ export default async function ServicePage({ params }: Props) {
       <section className="uk-section white">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">Who it is for</span>
             <h2 className="uk-h2">Is {service.name.toLowerCase()} right for your family?</h2>
           </div>
           <div className="uk-prose">
@@ -100,7 +98,6 @@ export default async function ServicePage({ params }: Props) {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">The difference it makes</span>
             <h2 className="uk-h2">What changes for your child and for you</h2>
           </div>
           <div className="uk-points">
@@ -117,7 +114,6 @@ export default async function ServicePage({ params }: Props) {
       <section className="uk-section white">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">What you get</span>
             <h2 className="uk-h2">What&apos;s included</h2>
           </Reveal>
           <Reveal>
@@ -136,7 +132,6 @@ export default async function ServicePage({ params }: Props) {
       <section className="uk-section dark">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">How it works</span>
             <h2 className="uk-h2">How it works</h2>
           </Reveal>
           <Reveal>
@@ -157,9 +152,8 @@ export default async function ServicePage({ params }: Props) {
         <section className="uk-section white">
           <div className="uk-wrap">
             <Reveal className="uk-head">
-              <span className="uk-kicker">By subject</span>
               <h2 className="uk-h2">Find a tutor by subject</h2>
-              <p className="uk-lead">Specialist support for the subjects families ask us about most — and we tutor across the curriculum.</p>
+              <p className="uk-lead">Specialist support for the subjects families ask us about most, and we tutor across the curriculum.</p>
             </Reveal>
             <Reveal>
               <SubjectGrid />
@@ -171,7 +165,6 @@ export default async function ServicePage({ params }: Props) {
       <section className="uk-section cream" id="start">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">How to get started</span>
             <h2 className="uk-h2">Start in the way that suits you</h2>
             <p className="uk-lead">{service.start.intro}</p>
           </div>
@@ -251,7 +244,6 @@ export default async function ServicePage({ params }: Props) {
           {reading.length > 0 && (
             <div className="gd-reading">
               <Reveal className="uk-head">
-                <span className="uk-kicker">Further reading</span>
                 <h2 className="uk-h2">Guides for parents</h2>
               </Reveal>
               <Reveal>
@@ -259,9 +251,6 @@ export default async function ServicePage({ params }: Props) {
               </Reveal>
             </div>
           )}
-          <Reveal className="uk-head">
-            <span className="uk-kicker">Also from Britannia Crown</span>
-          </Reveal>
           <Reveal>
             <div className="uk-others">
               {others.map((o) => (

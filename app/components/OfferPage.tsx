@@ -50,7 +50,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
               { name: offer.shortName, path },
             ]}
           />
-          <span className="uk-eyebrow">{offer.eyebrow}</span>
           <h1>{offer.headline}</h1>
           <p>{offer.lead}</p>
           <p className="offer-price">
@@ -69,7 +68,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
       <section className="uk-section white">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">Who it is for</span>
             <h2 className="uk-h2">Is this right for you?</h2>
           </div>
           <div className="uk-prose">
@@ -85,7 +83,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">What you get</span>
             <h2 className="uk-h2">The difference it makes</h2>
           </div>
           <div className="uk-points">
@@ -102,7 +99,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
       <section className="uk-section white">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">What is included</span>
             <h2 className="uk-h2">Everything in {offer.shortName}</h2>
           </div>
           <div className="uk-prose">
@@ -118,7 +114,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
       <section className="uk-section dark">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">How it works</span>
             <h2 className="uk-h2">From your first step to your first result</h2>
           </div>
           <ol className="uk-steps">
@@ -137,7 +132,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
         <div className="uk-wrap">
           <div className="offer-panel">
             <div>
-              <span className="uk-kicker">Ready to start?</span>
               <h2 className="uk-h2">{offer.shortName}</h2>
               <p className="offer-panel-price">
                 {price} <small>{product.unit}</small>
@@ -159,7 +153,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
         <section className="uk-section white">
           <div className="uk-wrap">
             <div className="uk-head">
-              <span className="uk-kicker">Compare your options</span>
               <h2 className="uk-h2">{offer.section === "membership" ? "Other membership tiers" : "Other ways we can help"}</h2>
             </div>
             <div className="price-cards">
@@ -195,7 +188,6 @@ export default function OfferPage({ offer }: { offer: Offer }) {
         <section className="uk-section white">
           <div className="uk-wrap">
             <div className="uk-head">
-              <span className="uk-kicker">Further reading</span>
               <h2 className="uk-h2">Guides for parents</h2>
             </div>
             <GuideCards items={reading} />

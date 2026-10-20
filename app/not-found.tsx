@@ -7,7 +7,6 @@ export default function NotFound() {
   return (
     <section className="uk-section">
       <div className="uk-wrap nf">
-        <span className="uk-eyebrow">Page not found</span>
         <h1 className="uk-h2">We can&apos;t find that page</h1>
         <p>It may have moved, or you may not have access to it. Here are some places to go instead.</p>
         <div className="uk-hero-actions">

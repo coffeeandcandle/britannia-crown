@@ -45,7 +45,7 @@ export default async function RequestLessonPage({ searchParams }: { searchParams
         <aside className="pt-side">
           <Card title="Your requests">
             {requests.length === 0 ? (
-              <EmptyState icon="📝" title="No requests yet">Requests you send appear here with their status.</EmptyState>
+              <EmptyState title="No requests yet">Requests you send appear here with their status.</EmptyState>
             ) : (
               <ul className="ui-rows">
                 {requests.map((r) => (

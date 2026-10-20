@@ -82,7 +82,6 @@ export default function HomePlans() {
     <section className="uk-section cream" id="plans" aria-labelledby="plans-title">
       <div className="uk-wrap">
         <div className="uk-head plans-head">
-          <span className="uk-kicker">Start today</span>
           <h2 className="uk-h2" id="plans-title">Choose a plan and get started in minutes</h2>
           <p className="uk-lead">Pay securely online and we get to work straight away. Not ready? Your first consultation is free.</p>
         </div>

@@ -92,7 +92,7 @@ export function NoteCard({ note, tz, showSession = true, staffView = false }: { 
       <p className="ui-note-body">{note.body}</p>
       {note.homework && (
         <div className="ui-homework">
-          <strong>📝 Homework</strong>
+          <strong>Homework</strong>
           <p>{note.homework}</p>
         </div>
       )}

@@ -6,7 +6,6 @@ export default function ComingSoon() {
     <>
       <section className="uk-sub-hero">
         <div className="uk-wrap">
-          <span className="uk-eyebrow">Client portal</span>
           <h1>Your family&apos;s portal is on its way</h1>
           <p>Soon you&apos;ll be able to see upcoming lessons, read your tutor&apos;s notes after each session and manage your membership here.</p>
         </div>

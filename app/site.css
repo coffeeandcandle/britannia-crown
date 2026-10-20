@@ -32,11 +32,11 @@
   --warm-gold-text: var(--gold-ink);
 
   /* One scale for the whole site and the portal. */
-  --radius: 14px;        /* cards, panels, media */
-  --radius-sm: 8px;      /* buttons, inputs, chips */
-  --radius-lg: 20px;     /* large hero media */
-  --shadow-sm: 0 1px 2px rgba(42,13,26,.05), 0 6px 20px rgba(42,13,26,.05);
-  --shadow-md: 0 6px 24px rgba(42,13,26,.10);
+  --radius: 6px;         /* cards, panels, media */
+  --radius-sm: 4px;      /* buttons, inputs, chips */
+  --radius-lg: 8px;      /* large hero media */
+  --shadow-sm: none;
+  --shadow-md: 0 1px 3px rgba(42,13,26,.12);
   --shadow-lg: 0 24px 56px rgba(20,3,11,.25);
   --fs-h1: clamp(2.2rem, 4.6vw, 3.4rem);
   --fs-h2: clamp(1.8rem, 3.2vw, 2.5rem);
@@ -1583,3 +1583,17 @@ html.rv-ready [data-rv=""] { opacity: 0; transform: translateY(16px); }
 .rg-warn { display: grid; gap: 10px; justify-items: start; padding: 14px 16px; border-radius: var(--radius-sm); background: #fff4e5; border: 1px solid #f0cf9a; color: #6a4300; }
 .rg-link { padding: 8px 0; background: none; border: 0; color: var(--brand); font-weight: 650; text-decoration: underline; cursor: pointer; font-size: .95rem; }
 .rg-note { color: var(--ink-2); padding: 16px 0; }
+
+/* ── Plain, editorial finish ─────────────────────────────────────────
+   Flat colour instead of gradients, borders instead of glows, no hover lifts, no icon discs. */
+.uk-sub-hero, .hm-hero { background: var(--brand-ink); }
+.nav-feature, .ui-next, .ui-card.is-brand { background: var(--brand-ink); box-shadow: none; }
+.ui-avatar { background: var(--champagne); }
+.ui-checklist { background: var(--white); }
+.ui-progress span { background: var(--brand); }
+.nav-panel::before { background: var(--champagne); }
+a.ui-stat:hover, .shop-card:hover, .plan:hover, .session-card:hover { transform: none; box-shadow: none; border-color: var(--brand); }
+.brand:hover svg { transform: none; }
+.ch-card:hover, .ch-card:focus-visible { box-shadow: none; }
+.finder, .nudge, .offer-panel { box-shadow: none; }
+.ui-empty-icon { display: none; }

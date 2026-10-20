@@ -30,7 +30,7 @@ const body = Public_Sans({
   display: "swap",
 });
 
-const defaultTitle = "Britannia Crown | British Education Consultants — Tutoring, Home Education & School Placement";
+const defaultTitle = "Britannia Crown | British Education Consultants for Tutoring, Home Education & School Placement";
 const defaultDescription =
   "British education consultants offering private tutoring, home education, school and nursery placement, and GCSE & A-Level support from UK-trained educators. Also advising families relocating to the UAE.";
 

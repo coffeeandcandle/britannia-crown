@@ -9,16 +9,16 @@ import { SubmitButton, ConfirmSubmit } from "../../../client-ui";
 import { updateContact, setStage, logActivity, deleteActivity, createFamilyFromContact, deleteContact } from "../../crm-actions";
 import { stageTone, kindLabel } from "../shared";
 
-const typeInfo: Record<ActivityRow["type"], { icon: string; label: string }> = {
-  enquiry: { icon: "✉️", label: "Website enquiry" },
-  guide: { icon: "📘", label: "Guide request" },
-  ambassador: { icon: "🤝", label: "Ambassador application" },
-  booking: { icon: "📅", label: "Booking" },
-  order: { icon: "💳", label: "Online order" },
-  note: { icon: "📝", label: "Note" },
-  call: { icon: "📞", label: "Call" },
-  email: { icon: "📧", label: "Email" },
-  stage: { icon: "➜", label: "Stage" },
+const typeInfo: Record<ActivityRow["type"], { label: string }> = {
+  enquiry: { label: "Website enquiry" },
+  guide: { label: "Guide request" },
+  ambassador: { label: "Ambassador application" },
+  booking: { label: "Booking" },
+  order: { label: "Online order" },
+  note: { label: "Note" },
+  call: { label: "Call" },
+  email: { label: "Email" },
+  stage: { label: "Stage" },
 };
 
 // Labels for the details saved with website submissions.
@@ -118,7 +118,7 @@ export default async function ContactPage({
                 {(["call", "email", "note"] as const).map((t, i) => (
                   <label key={t} className="ui-choice-pill">
                     <input type="radio" name="type" value={t} defaultChecked={i === 0} />
-                    <span>{typeInfo[t].icon} {typeInfo[t].label}</span>
+                    <span>{typeInfo[t].label}</span>
                   </label>
                 ))}
               </div>
@@ -136,7 +136,6 @@ export default async function ContactPage({
                 const details = Object.entries(a.details ?? {}).filter(([k]) => detailLabels[k]);
                 return (
                   <li key={a.id} className={`crm-item is-${a.type}`}>
-                    <span className="crm-icon" aria-hidden="true">{info.icon}</span>
                     <div className="crm-body">
                       <p className="crm-meta">
                         <strong>{info.label}</strong> · {when(new Date(a.created_at))}

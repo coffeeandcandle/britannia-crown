@@ -23,7 +23,7 @@ export default async function FamilySessionsPage() {
           sessions={upcoming}
           tz={family.timezone}
           hrefFor={href}
-          empty={<EmptyState icon="📅" title="Nothing booked yet">Your consultant will add lessons here once they&apos;re arranged.</EmptyState>}
+          empty={<EmptyState title="Nothing booked yet">Your consultant will add lessons here once they&apos;re arranged.</EmptyState>}
         />
       </Card>
       <Card title="Past lessons">
@@ -31,7 +31,7 @@ export default async function FamilySessionsPage() {
           sessions={past}
           tz={family.timezone}
           hrefFor={href}
-          empty={<EmptyState icon="🕰️" title="No past lessons yet">Lessons you&apos;ve had will be listed here, with their notes.</EmptyState>}
+          empty={<EmptyState title="No past lessons yet">Lessons you&apos;ve had will be listed here, with their notes.</EmptyState>}
         />
       </Card>
     </>

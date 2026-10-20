@@ -30,7 +30,6 @@ export default async function StaffSessionsPage({ searchParams }: { searchParams
           action={past ? (s) => (s.note_count === 0 && s.status !== "cancelled" ? <Link href={`${href(s)}#write-note`} className="btn-primary ui-btn-sm">Write note</Link> : null) : undefined}
           empty={
             <EmptyState
-              icon={past ? "🕰️" : "📅"}
               title={past ? "No past lessons yet" : "Nothing coming up"}
               action={!past && manager ? <Link href="/portal/admin/families" className="btn-secondary">Schedule a lesson</Link> : undefined}
             >

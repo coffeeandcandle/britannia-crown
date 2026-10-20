@@ -30,7 +30,7 @@ export default async function OrdersPage() {
         <div className="pt-main">
           <Card>
             {orders.length === 0 ? (
-              <EmptyState icon="🧾" title="No orders yet">
+              <EmptyState title="No orders yet">
                 When a family pays online, the order appears here straight away.
               </EmptyState>
             ) : (

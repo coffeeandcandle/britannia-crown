@@ -58,7 +58,6 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
       {!summary ? (
         orders.length > 0 ? null : <Card>
           <EmptyState
-            icon="💳"
             title="No online payments yet"
             action={<Link href="/membership" className="btn-primary">See membership options</Link>}
           >
@@ -78,7 +77,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
             }
           >
             {summary.subscriptions.length === 0 ? (
-              <EmptyState icon="✓" title="No active subscription">One-off purchases are listed under receipts below.</EmptyState>
+              <EmptyState title="No active subscription">One-off purchases are listed under receipts below.</EmptyState>
             ) : (
               <ul className="pt-list pt-subs">
                 {summary.subscriptions.map((s) => (
@@ -99,7 +98,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
 
           <Card title="Receipts and invoices">
             {summary.invoices.length === 0 ? (
-              <EmptyState icon="🧾" title="No receipts yet" />
+              <EmptyState title="No receipts yet" />
             ) : (
               <table className="pt-table">
                 <thead>

@@ -1,7 +1,7 @@
 import { renderOg } from "../../lib/og";
 import { getSubject, subjects } from "../../lib/subjects";
 
-export const alt = "Britannia Crown — UK-trained private tutors";
+export const alt = "Britannia Crown | UK-trained private tutors";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

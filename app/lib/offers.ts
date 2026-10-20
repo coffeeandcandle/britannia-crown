@@ -13,7 +13,6 @@ export type Offer = {
   name: string;
   // Short label for cards and breadcrumbs.
   shortName: string;
-  eyebrow: string;
   headline: string;
   lead: string;
   seoTitle: string;
@@ -46,7 +45,6 @@ export const offers: Offer[] = [
     productId: "uae-nursery-search",
     name: "Nursery Search & Placement (Dubai)",
     shortName: "Nursery search",
-    eyebrow: "Dubai nursery search",
     headline: "Find the right British nursery in Dubai, without the guesswork",
     lead: "We research, shortlist and coordinate visits, then guide you through every application, so your child starts at an EYFS nursery you can trust.",
     seoTitle: "Dubai Nursery Search & Placement | Britannia Crown",
@@ -92,7 +90,6 @@ export const offers: Offer[] = [
     productId: "uae-school-search",
     name: "School Search & Placement (Dubai)",
     shortName: "School search",
-    eyebrow: "Dubai school search",
     headline: "Get your child's British school in Dubai sorted before you land",
     lead: "Expert guidance through Dubai's British-curriculum schools, from FS1 to Sixth Form, with a shortlist, visits and application support handled for you.",
     seoTitle: "Dubai School Search & Placement | Britannia Crown",
@@ -138,7 +135,6 @@ export const offers: Offer[] = [
     productId: "uae-exam-prep-term",
     name: "GCSE & A-Level Preparation (one term)",
     shortName: "GCSE & A-Level preparation",
-    eyebrow: "Exam preparation in Dubai",
     headline: "Exam preparation from people who know how the papers are marked",
     lead: "A term of structured GCSE and A-Level preparation for students in Dubai, built around exam technique, past papers and mock exams.",
     seoTitle: "GCSE & A-Level Exam Preparation in Dubai | Britannia Crown",
@@ -183,7 +179,6 @@ export const offers: Offer[] = [
     productId: "uae-homeschool-term",
     name: "British Homeschool Support (one term)",
     shortName: "British homeschool support",
-    eyebrow: "British homeschooling in Dubai",
     headline: "British-curriculum homeschooling in Dubai, planned and supported",
     lead: "Curriculum design, UK tutor coordination, term planning and progress tracking, so homeschooling in Dubai and the GCC is structured, not stressful.",
     seoTitle: "British Homeschool Support in Dubai | Britannia Crown",
@@ -228,7 +223,6 @@ export const offers: Offer[] = [
     productId: "uae-concierge",
     name: "Education Concierge (monthly)",
     shortName: "Education concierge",
-    eyebrow: "Education concierge",
     headline: "A dedicated education manager for your family in Dubai",
     lead: "One person who knows your child, plans each month, answers your messages and deals with tutors and schools on your behalf.",
     seoTitle: "Education Concierge for Dubai Families | Britannia Crown",
@@ -272,7 +266,6 @@ export const offers: Offer[] = [
     productId: "membership-foundation",
     name: "Academic Partner Membership: Foundation",
     shortName: "Foundation",
-    eyebrow: "Academic Partner Membership",
     headline: "Foundation: steady, flexible tutoring support at a fixed monthly price",
     lead: "Four hours of online tutoring a month, flexible across subjects, with a monthly parent check-in and notes after every session. That is £50 an hour.",
     seoTitle: "Foundation Tutoring Membership | Britannia Crown",
@@ -317,7 +310,6 @@ export const offers: Offer[] = [
     productId: "membership-partner",
     name: "Academic Partner Membership: Partner",
     shortName: "Partner",
-    eyebrow: "Academic Partner Membership",
     headline: "Partner: your own tutor, every week, with a consultant overseeing it all",
     lead: "Eight hours of online tutoring a month with a dedicated weekly tutor and a monthly consultant call. £45 an hour, with the consultant included.",
     seoTitle: "Partner Tutoring Membership | Britannia Crown",
@@ -363,7 +355,6 @@ export const offers: Offer[] = [
     productId: "membership-full-partner",
     name: "Academic Partner Membership: Full Partner",
     shortName: "Full Partner",
-    eyebrow: "Academic Partner Membership",
     headline: "Full Partner: the most complete support, with a direct line to your consultant",
     lead: "Fourteen hours of online tutoring a month across up to two subjects, termly plan reviews and a direct line to your education consultant.",
     seoTitle: "Full Partner Tutoring Membership | Britannia Crown",

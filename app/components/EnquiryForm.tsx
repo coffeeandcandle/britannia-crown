@@ -27,9 +27,9 @@ const SERVICE_OPTIONS = {
   ],
   "Academic Partner Membership": [
     ["Academic Partner Membership", "Academic Partner Membership"],
-    ["Academic Partner Membership - Foundation", "Membership — Foundation"],
-    ["Academic Partner Membership - Partner", "Membership — Partner"],
-    ["Academic Partner Membership - Full Partner", "Membership — Full Partner"],
+    ["Academic Partner Membership - Foundation", "Membership: Foundation"],
+    ["Academic Partner Membership - Partner", "Membership: Partner"],
+    ["Academic Partner Membership - Full Partner", "Membership: Full Partner"],
   ],
 } as const;
 
@@ -174,7 +174,7 @@ export default function EnquiryForm({
 
       {status === "error" && (
         <p className="enq-error" role="alert">
-          Sorry — your enquiry didn&apos;t send. Please try again, or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+          Sorry. Your enquiry didn&apos;t send. Please try again, or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
         </p>
       )}
 

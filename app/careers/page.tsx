@@ -15,7 +15,6 @@ export default function CareersPage() {
   return (
     <>
       <PageHero
-        eyebrow="Careers"
         title="Work with Britannia Crown"
         subtitle="We're always keen to hear from UK-qualified tutors and experienced education professionals who want to work with families in the UK, Dubai and the GCC."
       >

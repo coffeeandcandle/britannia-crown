@@ -58,7 +58,6 @@ export default async function FamilyDashboard() {
       ) : (
         <Card>
           <EmptyState
-            icon="📅"
             title="No lessons booked yet"
             action={<><Link href="/portal/shop" className="btn-primary">Browse plans and services</Link> <Link href="/portal/request" className="btn-secondary">Request a lesson</Link></>}
           >
@@ -96,7 +95,7 @@ export default async function FamilyDashboard() {
             action={notes.length > 0 ? <Link href="/portal/notes" className="ui-link">All notes →</Link> : undefined}
           >
             {notes.length === 0 ? (
-              <EmptyState icon="📝" title="No notes yet">Notes appear here after your first lesson.</EmptyState>
+              <EmptyState title="No notes yet">Notes appear here after your first lesson.</EmptyState>
             ) : (
               <div className="ui-notes">{notes.map((n) => <NoteCard key={n.id} note={n} tz={tz} />)}</div>
             )}

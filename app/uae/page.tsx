@@ -96,7 +96,6 @@ export default function UaePage() {
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Moving to the UAE", path: "/uae" }]} />
-          <span className="uk-eyebrow">Moving to the UAE</span>
           <h1>Relocating to Dubai? Get your child&apos;s school sorted before you land.</h1>
           <p>We advise UK families moving to the UAE, from nursery and school placement to British-curriculum tutors in Dubai, so your child&apos;s education continues without a break.</p>
           <div className="uk-hero-actions uk-sub-actions">
@@ -110,7 +109,6 @@ export default function UaePage() {
       <section className="uk-section white" id="prices">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">Services and prices</span>
             <h2 className="uk-h2">Clear, fixed prices for UAE families</h2>
             <p className="uk-lead">Pay securely online, or start with a free consultation if you&apos;d like to talk it through first.</p>
           </div>
@@ -145,7 +143,6 @@ export default function UaePage() {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <div className="uk-head">
-            <span className="uk-kicker">How it works</span>
             <h2 className="uk-h2">From first call to first day at school</h2>
           </div>
           <ol className="uk-steps mb-four">
@@ -163,7 +160,6 @@ export default function UaePage() {
       <section className="uk-section white">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">Early years</span>
             <h2 className="uk-h2">EYFS nursery search for expat families</h2>
           </div>
           <div className="uk-prose">
@@ -177,7 +173,6 @@ export default function UaePage() {
       <section className="uk-section cream">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">GCSE and A-Level</span>
             <h2 className="uk-h2">Exam preparation from people who mark the papers</h2>
           </div>
           <div className="uk-prose">
@@ -191,7 +186,6 @@ export default function UaePage() {
       <section className="uk-section white">
         <div className="uk-wrap uk-split">
           <div>
-            <span className="uk-kicker">Online tutoring</span>
             <h2 className="uk-h2">UK-qualified tutors, on Dubai time</h2>
           </div>
           <div className="uk-prose">

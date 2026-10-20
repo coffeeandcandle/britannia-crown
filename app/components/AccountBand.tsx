@@ -30,7 +30,6 @@ export default function AccountBand({ variant = "inline", location }: { variant?
     <section className="uk-section white account-band" id="account" aria-labelledby="account-title">
       <div className="uk-wrap account-band-inner">
         <div>
-          <span className="uk-kicker">Free account</span>
           <h2 className="uk-h2" id="account-title">Create your free account in a minute</h2>
           <p className="uk-lead">Everything for your child in one place, from your first consultation to every lesson.</p>
           <ul className="account-points">

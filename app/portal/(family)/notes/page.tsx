@@ -21,7 +21,7 @@ export default async function FamilyNotesPage() {
       )}
       {notes.length === 0 ? (
         <Card>
-          <EmptyState icon="📝" title="No notes yet">Your tutor&apos;s notes appear here after your first lesson.</EmptyState>
+          <EmptyState title="No notes yet">Your tutor&apos;s notes appear here after your first lesson.</EmptyState>
         </Card>
       ) : (
         <div className="ui-notes">{notes.map((n) => <NoteCard key={n.id} note={n} tz={family.timezone} />)}</div>

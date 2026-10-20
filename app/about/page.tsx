@@ -24,11 +24,11 @@ const reasons = [
   },
   {
     title: "British curriculum specialists",
-    body: "Built over six years running a UK tutoring company. Deep expertise in GCSE, IGCSE, A-Level, Cambridge and Edexcel — we teach and advise on the curriculum, not just match names to a list.",
+    body: "Built over six years running a UK tutoring company. Deep expertise in GCSE, IGCSE, A-Level, Cambridge and Edexcel. We teach and advise on the curriculum, not just match names to a list.",
   },
   {
     title: "A network of 50+ vetted tutors",
-    body: "UK-trained educators, vetted by us before they work with your child — including tutors teaching in British schools today. Personally matched, never assigned from a list.",
+    body: "UK-trained educators, vetted by us before they work with your child, including tutors teaching in British schools today. Personally matched, never assigned from a list.",
   },
   {
     title: "A consultant who stays involved",
@@ -49,7 +49,6 @@ export default function AboutPage() {
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} />
-          <span className="uk-eyebrow">About Britannia Crown</span>
           <h1>Education advice you can trust, from early years to A-Level</h1>
           <p>We are not a tutoring marketplace, and we are not a school directory. Britannia Crown is a British education consultancy: UK-trained educators and a dedicated consultant for every family, with one relationship for the whole journey.</p>
           <div className="uk-hero-actions uk-sub-actions">
@@ -75,7 +74,6 @@ export default function AboutPage() {
       <section className="uk-section cream">
         <div className="uk-wrap uk-split">
           <Reveal>
-            <span className="uk-kicker">Why Britannia Crown</span>
             <h2 className="uk-h2">Why families choose us</h2>
             <p className="uk-lead">Choosing education support is a high-stakes decision, often made in a hurry. We built Britannia Crown to make it easier to get right.</p>
           </Reveal>
@@ -95,7 +93,6 @@ export default function AboutPage() {
       <section className="uk-section dark">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">How we work</span>
             <h2 className="uk-h2">How we work</h2>
           </Reveal>
           <Reveal>
@@ -115,7 +112,6 @@ export default function AboutPage() {
       <section className="uk-section white">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">What we do</span>
             <h2 className="uk-h2">What we do</h2>
           </Reveal>
           <Reveal>
@@ -136,7 +132,6 @@ export default function AboutPage() {
       <section className="uk-uae">
         <div className="uk-uae-inner">
           <Reveal>
-            <span className="uk-kicker" style={{ color: "var(--champagne)" }}>Also in the UAE</span>
             <h2>Advising families who are moving to Dubai</h2>
             <p>We also help UK families relocating to the UAE: understanding KHDA ratings, fees and waitlists, finding a British-curriculum school or nursery, and keeping tutoring going without a break. There are around 144,000 students in UK-curriculum schools in Dubai and more than 240,000 British nationals living there, so the choices are many and the competition for places is real.</p>
           </Reveal>

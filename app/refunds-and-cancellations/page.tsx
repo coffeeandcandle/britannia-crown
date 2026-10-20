@@ -23,7 +23,6 @@ export default function RefundsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Legal"
         title="Refunds and cancellations"
         subtitle="Clear, fair rules for cancelling, rescheduling and refunds. Your legal rights as a consumer are not affected."
       >

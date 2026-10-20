@@ -15,7 +15,6 @@ export default function EnquirySection({ title, lead, source, defaultService, co
     <section className="uk-enquire" id="enquire">
       <div className="uk-wrap uk-enquire-grid">
         <div>
-          <span className="uk-kicker">Free consultation</span>
           <h2 className="uk-h2">{title}</h2>
           <p className="uk-lead">{lead}</p>
           <ul className="uk-ticks">

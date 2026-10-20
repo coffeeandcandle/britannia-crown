@@ -31,7 +31,6 @@ export default function LessonRoom({ entry, backHref, roomHref, full = false, fa
   return (
     <Card>
       <EmptyState
-        icon={early ? "⏳" : "🔒"}
         title={early ? "Your lesson room opens 15 minutes before the start" : entry.state === "closed" ? "This lesson has finished or was cancelled" : "In-portal video isn't switched on yet"}
         action={
           <>

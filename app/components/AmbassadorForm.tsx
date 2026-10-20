@@ -37,7 +37,7 @@ export default function AmbassadorForm() {
     return (
       <div className="enq-done" role="status" ref={doneRef} tabIndex={-1}>
         <svg className="enq-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" strokeWidth="2.5" /><path d="M15 27l8 8 14-16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
-        <p className="enq-done-title">Thank you — your application is with us.</p>
+        <p className="enq-done-title">Thank you. Your application is with us.</p>
         <p>We&apos;ll review it and be in touch within 48 hours with your personal ambassador code.</p>
       </div>
     );
@@ -100,7 +100,7 @@ export default function AmbassadorForm() {
       </div>
 
       {status === "error" && (
-        <p className="enq-error" role="alert">Sorry — your application didn&apos;t send. Please try again, or email us at hello@britanniacrown.com.</p>
+        <p className="enq-error" role="alert">Sorry. Your application didn&apos;t send. Please try again, or email us at hello@britanniacrown.com.</p>
       )}
 
       <button type="submit" className="form-submit" disabled={status === "sending"}>

@@ -15,7 +15,7 @@ export default async function TeamList({ role, title, blurb }: { role: Role; tit
       />
       <Card>
         {people.length === 0 ? (
-          <EmptyState icon="👥" title={`No ${title.toLowerCase()} yet`} action={<Link href="/portal/admin/staff#add-staff" className="btn-secondary">Add one</Link>}>
+          <EmptyState title={`No ${title.toLowerCase()} yet`} action={<Link href="/portal/admin/staff#add-staff" className="btn-secondary">Add one</Link>}>
             Add them under Team and access, then they appear here.
           </EmptyState>
         ) : (

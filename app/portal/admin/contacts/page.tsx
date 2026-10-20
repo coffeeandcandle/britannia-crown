@@ -61,7 +61,7 @@ export default async function ContactsPage({
             </form>
 
             {contacts.length === 0 ? (
-              <EmptyState icon="📇" title={term || activeStage || mine ? "No contacts match" : "No contacts yet"}>
+              <EmptyState title={term || activeStage || mine ? "No contacts match" : "No contacts yet"}>
                 {term || activeStage || mine
                   ? "Try another stage or search."
                   : "When someone fills in a form on the website, books a call or buys online, they appear here."}

@@ -58,10 +58,9 @@ export function Card({
   );
 }
 
-export function EmptyState({ icon = "✦", title, children, action }: { icon?: string; title: string; children?: React.ReactNode; action?: React.ReactNode }) {
+export function EmptyState({ title, children, action }: { title: string; children?: React.ReactNode; action?: React.ReactNode }) {
   return (
     <div className="ui-empty">
-      <span className="ui-empty-icon" aria-hidden="true">{icon}</span>
       <p className="ui-empty-title">{title}</p>
       {children && <p className="ui-empty-body">{children}</p>}
       {action && <div className="ui-empty-action">{action}</div>}

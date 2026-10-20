@@ -131,7 +131,7 @@ export default async function AdminFamilyPage({
               sessions={upcoming}
               tz={family.timezone}
               hrefFor={href}
-              empty={<EmptyState icon="📅" title="Nothing scheduled">Use the form above to book their next lesson.</EmptyState>}
+              empty={<EmptyState title="Nothing scheduled">Use the form above to book their next lesson.</EmptyState>}
             />
           </Card>
           {past.length > 0 && (

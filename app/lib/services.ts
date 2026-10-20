@@ -36,9 +36,9 @@ export const services: Service[] = [
     slug: "tutoring",
     numeral: "I",
     name: "Private Tutoring",
-    short: "UK-qualified tutors, matched personally to your child — online or face to face.",
-    headline: "The right tutor, chosen for your child — not assigned from a list.",
-    lead: "Every Britannia Crown tutor is a UK-trained educator. We take time to understand how your child learns, then match them with a tutor who fits — and we stay involved, so progress is overseen, not left to chance.",
+    short: "UK-qualified tutors, matched personally to your child, online or face to face.",
+    headline: "The right tutor, chosen for your child, not assigned from a list.",
+    lead: "Every Britannia Crown tutor is a UK-trained educator. We take time to understand how your child learns, then match them with a tutor who fits, and we stay involved, so progress is overseen, not left to chance.",
     ages: "Primary to A-Level",
     serviceType: "Private tutoring",
     points: [
@@ -55,7 +55,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "How do you choose the right tutor for my child?",
-        a: "It starts with a free consultation. We learn about your child's subjects, stage, goals and how they like to learn, then introduce a UK-trained tutor we believe is the right fit — not simply whoever is available.",
+        a: "It starts with a free consultation. We learn about your child's subjects, stage, goals and how they like to learn, then introduce a UK-trained tutor we believe is the right fit, not simply whoever is available.",
       },
       {
         q: "Is tutoring online or face to face?",
@@ -106,7 +106,7 @@ export const services: Service[] = [
     name: "Home Education",
     short: "Structured British-curriculum home education, with expert planning and support.",
     headline: "Home education with the structure of a great school.",
-    lead: "Whether you are home educating by choice or by circumstance, we help you build a British-curriculum programme that is rigorous, flexible and sustainable — with specialist tutors and a consultant alongside you.",
+    lead: "Whether you are home educating by choice or by circumstance, we help you build a British-curriculum programme that is rigorous, flexible and sustainable, with specialist tutors and a consultant alongside you.",
     ages: "Early Years to Sixth Form",
     serviceType: "Home education support",
     points: [
@@ -117,7 +117,7 @@ export const services: Service[] = [
     ],
     steps: [
       { title: "Understand your family", body: "Your reasons, your child, your routines and your ambitions." },
-      { title: "Build the programme", body: "A curriculum and timetable that fits — with tutors where they add most value." },
+      { title: "Build the programme", body: "A curriculum and timetable that fits, with tutors where they add most value." },
       { title: "Review and refine", body: "Regular reviews keep the plan responsive as your child develops." },
     ],
     faqs: [
@@ -127,7 +127,7 @@ export const services: Service[] = [
       },
       {
         q: "Do we have to follow the National Curriculum?",
-        a: "No — home-educated children in England don't have to follow the National Curriculum. Many families still choose a British-curriculum structure because it keeps the route to GCSEs and A-Levels clear, and that's where we help most.",
+        a: "No, home-educated children in England don't have to follow the National Curriculum. Many families still choose a British-curriculum structure because it keeps the route to GCSEs and A-Levels clear, and that's where we help most.",
       },
       {
         q: "Can a home-educated child take GCSEs and A-Levels?",
@@ -166,7 +166,7 @@ export const services: Service[] = [
     name: "School & Nursery Placement",
     short: "Expert advice to find, shortlist and secure the right school or nursery.",
     headline: "Finding the right school is a decision worth getting right.",
-    lead: "From nursery to Sixth Form, we research, shortlist and guide you through visits and applications — with advice built around your child, your priorities and your family's practical needs.",
+    lead: "From nursery to Sixth Form, we research, shortlist and guide you through visits and applications, with advice built around your child, your priorities and your family's practical needs.",
     ages: "Nursery to Sixth Form",
     serviceType: "School placement consultancy",
     points: [
@@ -176,14 +176,14 @@ export const services: Service[] = [
       { title: "Every transition", body: "Starting nursery or school, moving up to secondary, Sixth Form, and moves between schools." },
     ],
     steps: [
-      { title: "Brief", body: "We learn what matters most to your family — and what doesn't." },
+      { title: "Brief", body: "We learn what matters most to your family, and what doesn't." },
       { title: "Shortlist", body: "A researched shortlist with honest reasoning, not a long list of names." },
       { title: "Secure", body: "Guidance through visits, applications and decisions until a place is confirmed." },
     ],
     faqs: [
       {
         q: "When should we start looking for a school?",
-        a: "As early as you can — ideally a year or more ahead. For state schools in England, applications for secondary places close on 31 October and for primary (Reception) places on 15 January, in the school year before your child starts. Independent schools set their own timelines, often with assessments.",
+        a: "As early as you can, ideally a year or more ahead. For state schools in England, applications for secondary places close on 31 October and for primary (Reception) places on 15 January, in the school year before your child starts. Independent schools set their own timelines, often with assessments.",
       },
       {
         q: "Can you help if we're moving to a new area mid-year?",
@@ -191,7 +191,7 @@ export const services: Service[] = [
       },
       {
         q: "Do you help with nurseries as well as schools?",
-        a: "Yes — we support families from nursery right through to Sixth Form, so the same consultant can guide each transition.",
+        a: "Yes. We support families from nursery right through to Sixth Form, so the same consultant can guide each transition.",
       },
       {
         q: "How much does school placement cost?",
@@ -248,7 +248,7 @@ export const services: Service[] = [
       },
       {
         q: "Can my child sit exams as a private candidate?",
-        a: "Yes. Students who aren't at school — or who want to resit — can enter as private candidates through an exam centre that accepts them. Science A-Levels need extra planning because of the practical endorsement.",
+        a: "Yes. Students who aren't at school, or who want to resit, can enter as private candidates through an exam centre that accepts them. Science A-Levels need extra planning because of the practical endorsement.",
       },
       {
         q: "When are GCSE and A-Level exams?",

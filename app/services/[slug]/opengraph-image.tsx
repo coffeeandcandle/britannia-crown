@@ -1,7 +1,7 @@
 import { renderOg } from "../../lib/og";
 import { getService, services } from "../../lib/services";
 
-export const alt = "Britannia Crown — British Education Consultants";
+export const alt = "Britannia Crown | British Education Consultants";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

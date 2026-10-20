@@ -10,7 +10,7 @@ import { getService } from "../lib/services";
 export const metadata: Metadata = pageMetadata({
   title: "Find a Private Tutor | Britannia Crown",
   description:
-    "UK-trained private tutors for primary, GCSE and A-Level — maths, English, the sciences and more — personally matched to your child and overseen by a consultant.",
+    "UK-trained private tutors for primary, GCSE and A-Level, maths, English, the sciences and more, personally matched to your child and overseen by a consultant.",
   path: "/tutors",
 });
 
@@ -23,9 +23,8 @@ export default function TutorsPage() {
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Find a Tutor", path: "/tutors" }]} />
-          <span className="uk-eyebrow">Find a Tutor</span>
           <h1>Private tutors, personally matched to your child</h1>
-          <p>Every Britannia Crown tutor is a UK-trained educator. Tell us about your child and we&apos;ll introduce a tutor chosen for their subject, stage and the way they learn — with a dedicated consultant overseeing progress.</p>
+          <p>Every Britannia Crown tutor is a UK-trained educator. Tell us about your child and we&apos;ll introduce a tutor chosen for their subject, stage and the way they learn, with a dedicated consultant overseeing progress.</p>
           <div className="uk-hero-actions uk-sub-actions">
             <Link href="#enquire" className="btn-primary">Request a call back</Link>
             <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
@@ -36,9 +35,8 @@ export default function TutorsPage() {
       <section className="uk-section cream">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">By subject and stage</span>
             <h2 className="uk-h2">Choose a subject</h2>
-            <p className="uk-lead">Our most-requested subjects are below. We tutor across the curriculum — if your child&apos;s subject isn&apos;t listed, just ask.</p>
+            <p className="uk-lead">Our most-requested subjects are below. We tutor across the curriculum, so if your child&apos;s subject isn&apos;t listed, just ask.</p>
           </Reveal>
           <Reveal>
             <SubjectFilter />
@@ -49,7 +47,6 @@ export default function TutorsPage() {
       <section className="uk-section dark">
         <div className="uk-wrap">
           <Reveal className="uk-head">
-            <span className="uk-kicker">How it works</span>
             <h2 className="uk-h2">How we find the right tutor</h2>
           </Reveal>
           <Reveal>

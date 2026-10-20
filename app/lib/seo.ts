@@ -4,7 +4,7 @@ import { SITE_NAME } from "./site";
 // Default share image (app/opengraph-image.tsx). Setting openGraph on a page replaces the
 // inherited image, so it is added back here. Routes with their own opengraph-image file pass
 // ownImage, because an explicit image here would override the generated one.
-const defaultImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Britannia Crown — British Education Consultants" };
+const defaultImage = { url: "/opengraph-image", width: 1200, height: 630, alt: "Britannia Crown | British Education Consultants" };
 
 // Every page gets its own canonical URL and matching Open Graph/Twitter tags.
 // Paths are relative; the root layout's metadataBase turns them into absolute URLs.

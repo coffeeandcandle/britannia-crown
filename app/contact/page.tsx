@@ -19,7 +19,6 @@ export default function ContactPage() {
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]} />
-          <span className="uk-eyebrow">Contact</span>
           <h1>Talk to an education consultant</h1>
           <p>Looking for a tutor, planning home education, choosing a school, preparing for exams or moving to the UAE? Choose whichever way suits you. We reply within 24 hours.</p>
         </div>
