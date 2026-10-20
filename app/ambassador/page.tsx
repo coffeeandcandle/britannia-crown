@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
 import FaqSection from "../components/FaqSection";
@@ -65,17 +63,16 @@ const faqs = [
 export default function AmbassadorPage() {
   return (
     <>
-      <Nav />
 
       <section className="uk-sub-hero" id="ambassador">
-        <div className="uk-wrap uk-hero-load">
+        <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Ambassador Programme", path: "/ambassador" }]} />
           <span className="uk-eyebrow">Britannia Crown · Ambassador Programme</span>
-          <h1>Earn while you make a <em>difference</em> in a child&apos;s education.</h1>
+          <h1>Earn 150 AED for every family you refer</h1>
           <p>You&apos;re already trusted by the families we want to reach. Refer a family to Britannia Crown and earn <strong style={{ color: "var(--champagne)", fontWeight: 500 }}>150 AED</strong> for every successful booking. No limit on referrals.</p>
           <div className="uk-hero-actions uk-sub-actions">
-            <Link href="#signup" className="btn-primary">Become an Ambassador →</Link>
-            <Link href="#how" className="btn-secondary">How It Works</Link>
+            <Link href="#signup" className="btn-primary">Apply to be an ambassador</Link>
+            <Link href="#how" className="btn-secondary">How it works</Link>
           </div>
         </div>
       </section>
@@ -96,14 +93,14 @@ export default function AmbassadorPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">How it works</span>
-            <h2 className="uk-h2">Simple and <em>transparent.</em></h2>
+            <h2 className="uk-h2">How the programme works</h2>
             <p className="uk-lead">Four simple steps between signing up and getting paid.</p>
           </Reveal>
           <Reveal>
             <div className="uk-steps mb-four mb-light-steps">
               {steps.map((s, i) => (
                 <div className="uk-step mb-light" key={s.title}>
-                  <div className="uk-step-num">0{i + 1}</div>
+                  <div className="uk-step-num">{i + 1}</div>
                   <h3>{s.title}</h3>
                   <p>{s.body}</p>
                 </div>
@@ -117,7 +114,7 @@ export default function AmbassadorPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">Open to everyone</span>
-            <h2 className="uk-h2">Who can become <em>an ambassador?</em></h2>
+            <h2 className="uk-h2">Who can become an ambassador?</h2>
             <p className="uk-lead">If families trust your recommendation, you&apos;re exactly who we&apos;re looking for.</p>
           </Reveal>
           <Reveal>
@@ -138,11 +135,11 @@ export default function AmbassadorPage() {
         <div className="uk-wrap uk-split">
           <Reveal>
             <span className="uk-kicker">Your earnings</span>
-            <h2 className="uk-h2">The more you share, <em>the more you earn.</em></h2>
+            <h2 className="uk-h2">What you could earn</h2>
             <p className="uk-lead">There are no limits on how many referrals you can make. Every successful booking earns you 150 AED, whether it&apos;s your first referral or your fiftieth.</p>
             <p className="uk-lead" style={{ marginTop: 18 }}>Think about the nanny networks, the school WhatsApp groups and the parents you speak to every day at pick-up. One message. One code. One booking.</p>
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal>
             <table className="amb-earn">
               <thead>
                 <tr><th scope="col">Referrals made</th><th scope="col">Your earnings</th></tr>
@@ -162,7 +159,7 @@ export default function AmbassadorPage() {
         <div className="uk-wrap">
           <Reveal className="amb-code-wrap">
             <span className="uk-kicker">Your personal code</span>
-            <h2 className="uk-h2" style={{ marginLeft: "auto", marginRight: "auto" }}>Every ambassador gets <em>their own code.</em></h2>
+            <h2 className="uk-h2" style={{ marginLeft: "auto", marginRight: "auto" }}>Every ambassador gets their own code</h2>
             <p className="uk-lead" style={{ margin: "0 auto" }}>Your code is personal to you. Whoever uses it when booking is associated with your account, so every successful referral is tracked back to you.</p>
             <div className="amb-code">
               <span className="amb-code-label">Your ambassador code</span>
@@ -179,7 +176,7 @@ export default function AmbassadorPage() {
         <div className="uk-wrap uk-enquire-grid">
           <div>
             <span className="uk-kicker">Join the programme</span>
-            <h2 className="uk-h2">Apply to become <em>an ambassador.</em></h2>
+            <h2 className="uk-h2">Apply to become an ambassador</h2>
             <p className="uk-lead">Fill in the form and we&apos;ll be in touch within 48 hours with your personal ambassador code and everything you need to get started.</p>
             <ul className="uk-ticks">
               <li>150 AED for every successful referral</li>
@@ -193,7 +190,6 @@ export default function AmbassadorPage() {
         </div>
       </section>
 
-      <Footer />
     </>
   );
 }

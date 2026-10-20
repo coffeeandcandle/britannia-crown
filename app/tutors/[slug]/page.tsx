@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Nav from "../../components/Nav";
-import Footer from "../../components/Footer";
 import Reveal from "../../components/Reveal";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import FaqSection from "../../components/FaqSection";
@@ -40,10 +38,9 @@ export default async function SubjectPage({ params }: Props) {
 
   return (
     <>
-      <Nav />
 
       <section className="uk-sub-hero">
-        <div className="uk-wrap uk-hero-load">
+        <div className="uk-wrap">
           <Breadcrumbs
             crumbs={[
               { name: "Home", path: "/" },
@@ -57,8 +54,8 @@ export default async function SubjectPage({ params }: Props) {
           </h1>
           <p>{subject.lead}</p>
           <div className="uk-hero-actions uk-sub-actions">
-            <Link href="#enquire" className="btn-primary">Request a Call Back</Link>
-            <Link href="/book-consultation" className="btn-secondary">Book Free Consultation</Link>
+            <Link href="#enquire" className="btn-primary">Request a call back</Link>
+            <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
           </div>
           <span className="uk-chip">UK-trained tutors · Online or face to face</span>
         </div>
@@ -68,7 +65,7 @@ export default async function SubjectPage({ params }: Props) {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">At a glance</span>
-            <h2 className="uk-h2">{subject.name}, <em>explained.</em></h2>
+            <h2 className="uk-h2">{subject.name} at a glance</h2>
           </Reveal>
           <Reveal>
             <dl className="uk-glance">
@@ -87,7 +84,7 @@ export default async function SubjectPage({ params }: Props) {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">How we help</span>
-            <h2 className="uk-h2">Where students get stuck — <em>and how we help.</em></h2>
+            <h2 className="uk-h2">Where students get stuck, and how we help</h2>
           </Reveal>
           <Reveal>
             <div className="uk-points">
@@ -106,13 +103,13 @@ export default async function SubjectPage({ params }: Props) {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">How it works</span>
-            <h2 className="uk-h2">From first call to <em>first lesson.</em></h2>
+            <h2 className="uk-h2">From first call to first lesson</h2>
           </Reveal>
           <Reveal>
             <div className="uk-steps">
               {steps.map((st, i) => (
                 <div className="uk-step" key={st.title}>
-                  <div className="uk-step-num">0{i + 1}</div>
+                  <div className="uk-step-num">{i + 1}</div>
                   <h3>{st.title}</h3>
                   <p>{st.body}</p>
                 </div>
@@ -125,7 +122,7 @@ export default async function SubjectPage({ params }: Props) {
       <FaqSection faqs={subject.faqs} tone="white" />
 
       <EnquirySection
-        title={<>Find the right <em>{subject.name} tutor.</em></>}
+        title={<>Find the right {subject.name} tutor</>}
         lead={`Tell us about your child and an education consultant will call you back to talk through ${subject.name} tutoring — usually within 24 hours.`}
         source="subject_page"
         defaultService="Tutoring"
@@ -136,7 +133,7 @@ export default async function SubjectPage({ params }: Props) {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">Related</span>
-            <h2 className="uk-h2">You might also <em>be looking for.</em></h2>
+            <h2 className="uk-h2">You might also be looking for</h2>
           </Reveal>
           <Reveal>
             <div className="uk-others">
@@ -169,7 +166,6 @@ export default async function SubjectPage({ params }: Props) {
         })}
       />
 
-      <Footer />
     </>
   );
 }

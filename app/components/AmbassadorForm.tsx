@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { track } from "../lib/track";
+import { appendAttribution } from "../lib/attribution";
 import { FORMSPREE_AMBASSADOR } from "../lib/site";
 
 // Ambassador application. Submits in place, shows a confirmation and records a lead.
@@ -15,7 +16,7 @@ export default function AmbassadorForm() {
     try {
       const res = await fetch(FORMSPREE_AMBASSADOR, {
         method: "POST",
-        body: new FormData(form),
+        body: appendAttribution(new FormData(form)),
         headers: { Accept: "application/json" },
       });
       if (!res.ok) throw new Error(`Formspree responded ${res.status}`);

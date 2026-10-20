@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
+import Breadcrumbs from "../components/Breadcrumbs";
 import CalendlyEmbed from "../components/CalendlyEmbed";
-import { CALENDLY_URL } from "../lib/site";
+import { CALENDLY_URL, WHATSAPP_URL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Book a Free Consultation | Britannia Crown",
@@ -15,27 +15,41 @@ export const metadata: Metadata = pageMetadata({
 export default function BookConsultationPage() {
   return (
     <>
-      <Nav />
-
-      <section className="cta-section" style={{ paddingTop: "140px" }}>
-        <div className="cta-inner">
-          <div className="section-eyebrow" style={{ justifyContent: "center" }}>
-            <span className="section-eyebrow-line"></span>
-            <span className="section-eyebrow-text">Free 30-Minute Consultation</span>
-            <span className="section-eyebrow-line"></span>
-          </div>
-          <h1 className="section-title">Book Your Free Consultation</h1>
-          <p className="cta-desc">Pick a time that works for you. We&apos;ll talk through your child&apos;s needs — nursery search, school placement, tutoring, or homeschool support — and map out next steps. Free, no obligation.</p>
-
-          <CalendlyEmbed url={CALENDLY_URL} />
-
-          <p className="form-note" style={{ marginTop: "24px" }}>
-            Prefer to message us first? <a href="https://wa.me/971502635427" style={{ color: "var(--champagne)" }}>Start on WhatsApp</a> or use our <a href="/contact" style={{ color: "var(--champagne)" }}>contact form</a>.
-          </p>
+      <section className="uk-sub-hero">
+        <div className="uk-wrap">
+          <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Book a free consultation", path: "/book-consultation" }]} />
+          <span className="uk-eyebrow">Free 30-minute consultation</span>
+          <h1>Book your free consultation</h1>
+          <p>Pick a time that works for you. We&apos;ll talk through your child&apos;s needs and agree the next steps. It&apos;s free, with no obligation.</p>
         </div>
       </section>
 
-      <Footer />
+      <section className="uk-section cream">
+        <div className="uk-wrap book-grid">
+          <aside className="book-side">
+            <div className="uk-point">
+              <h2 className="book-side-title">What happens on the call</h2>
+              <ol className="book-steps">
+                <li><strong>You tell us about your child.</strong> Their age, school, strengths and what&apos;s worrying you.</li>
+                <li><strong>We ask a few questions.</strong> About goals, timings and how your child learns best.</li>
+                <li><strong>You get a clear recommendation.</strong> The right tutor, school route or plan, and what it costs.</li>
+              </ol>
+            </div>
+            <div className="uk-point">
+              <h2 className="book-side-title">Good to know</h2>
+              <ul className="uk-ticks">
+                <li>30 minutes, by phone or video</li>
+                <li>With an education consultant, not a salesperson</li>
+                <li>No obligation to go ahead</li>
+              </ul>
+            </div>
+            <p className="book-alt">
+              Can&apos;t find a time? <a href={WHATSAPP_URL}>Message us on WhatsApp</a> or <Link href="/contact">request a call back</Link>.
+            </p>
+          </aside>
+          <CalendlyEmbed url={CALENDLY_URL} />
+        </div>
+      </section>
     </>
   );
 }

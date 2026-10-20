@@ -9,8 +9,8 @@ export default function ContactForm() {
 
   return (
     <div className="contact-form-wrapper">
-      <h3 className="contact-form-title">Get in Touch</h3>
-      <p className="contact-form-subtitle">Fill out the form below and we&apos;ll respond within 24 hours</p>
+      <h3 className="contact-form-title">Send us a message</h3>
+      <p className="contact-form-subtitle">We&apos;ll reply within 24 hours.</p>
       <p className="contact-form-reassurance">Free, no-obligation 30-minute consultation — we&apos;ll never share your details.</p>
 
       <EnquiryForm source="contact_page" defaultService={preselectedService} showReferral showNote={false} />

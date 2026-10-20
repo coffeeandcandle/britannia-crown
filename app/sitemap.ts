@@ -20,6 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...subjects.map((s): Entry => ({ path: `/tutors/${s.slug}`, changeFrequency: 'monthly', priority: 0.8 })),
     { path: '/guides', changeFrequency: 'weekly', priority: 0.8 },
     ...guides.map((g): Entry => ({ path: `/guides/${g.slug}`, changeFrequency: 'monthly', priority: 0.7, lastModified: g.updated })),
+    { path: '/tools/school-dates', changeFrequency: 'monthly', priority: 0.7 },
+    { path: '/tools/gcse-grade-converter', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/book-consultation', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/contact', changeFrequency: 'yearly', priority: 0.7 },
     { path: '/uae', changeFrequency: 'monthly', priority: 0.7 },

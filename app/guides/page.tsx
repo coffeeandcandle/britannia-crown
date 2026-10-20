@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
 import GuideCards from "../components/GuideCards";
@@ -51,35 +49,51 @@ const dubaiGuides = [
 export default function GuidesPage() {
   return (
     <>
-      <Nav />
 
       <section className="uk-sub-hero">
-        <div className="uk-wrap uk-hero-load">
+        <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Guides", path: "/guides" }]} />
-          <span className="uk-eyebrow">Guides for Parents</span>
-          <h1>Clear, honest guidance on <em>schools, exams and home education.</em></h1>
-          <p>Practical guides from our education consultants on the questions parents ask us most — from school applications and GCSE grades to revision, tutors and home education.</p>
+          <span className="uk-eyebrow">Guides for parents</span>
+          <h1>Guides for parents on schools, exams and home education</h1>
+          <p>Practical guides from our education consultants on the questions parents ask us most, from school applications and GCSE grades to revision, tutors and home education.</p>
         </div>
       </section>
 
       <section className="uk-section cream">
         <div className="uk-wrap">
-          <Reveal className="uk-head">
-            <span className="uk-kicker">Latest guides</span>
-            <h2 className="uk-h2">Read, then decide <em>with confidence.</em></h2>
-          </Reveal>
-          <Reveal>
-            <GuideCards items={guides} feature />
-          </Reveal>
+          <div className="uk-head">
+            <span className="uk-kicker">All guides</span>
+            <h2 className="uk-h2">Latest guides</h2>
+          </div>
+          <GuideCards items={guides} feature />
         </div>
       </section>
 
-      <section className="uk-section white" id="dubai-guides">
+      <section className="uk-section white" id="tools">
+        <div className="uk-wrap">
+          <div className="uk-head">
+            <span className="uk-kicker">Free tools</span>
+            <h2 className="uk-h2">Check your child&apos;s dates and grades</h2>
+          </div>
+          <div className="hm-tools">
+            <Link href="/tools/school-dates" className="hm-tool">
+              <strong>School dates calculator</strong>
+              <span>Enter your child&apos;s date of birth to see their year group and every application deadline.</span>
+            </Link>
+            <Link href="/tools/gcse-grade-converter" className="hm-tool">
+              <strong>GCSE grade converter</strong>
+              <span>See what each 9 to 1 grade means, and how it compares with the old A* to G grades.</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="uk-section cream" id="dubai-guides">
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">Moving to Dubai</span>
-            <h2 className="uk-h2">Free downloadable guides <em>for families relocating.</em></h2>
-            <p className="uk-lead">Four practical guides for British families moving to Dubai. Enter your name and email and we&apos;ll send the PDF to your inbox — free, no obligation. See also our <Link href="/uae">relocation advice</Link>.</p>
+            <h2 className="uk-h2">Free downloadable guides for families relocating</h2>
+            <p className="uk-lead">Four practical guides for British families moving to Dubai. Enter your name and email and we&apos;ll send the PDF to your inbox. It&apos;s free. See also our <Link href="/uae">relocation advice</Link>.</p>
           </Reveal>
           <Reveal>
             <div className="gd-dl-grid">
@@ -103,16 +117,15 @@ export default function GuidesPage() {
       <section className="uk-cta">
         <Reveal>
           <span className="uk-kicker">Prefer to talk?</span>
-          <h2>Every family is different. <em>Let&apos;s talk about yours.</em></h2>
+          <h2>Have a question about your child?</h2>
           <p>Book a free 30-minute consultation with one of our education consultants for advice tailored to your child.</p>
           <div className="uk-hero-actions">
-            <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
-            <Link href="/contact" className="btn-secondary">Contact Us</Link>
+            <Link href="/book-consultation" className="btn-primary">Book a free call</Link>
+            <Link href="/contact" className="btn-secondary">Contact us</Link>
           </div>
         </Reveal>
       </section>
 
-      <Footer />
     </>
   );
 }

@@ -2,67 +2,71 @@ import Link from "next/link";
 import { services } from "../lib/services";
 import { subjects } from "../lib/subjects";
 import { EMAIL, INSTAGRAM_URL, WHATSAPP_URL } from "../lib/site";
+import Crown from "./Crown";
 
 export default function Footer() {
   return (
-    <footer id="about">
-      <div className="footer-grid">
-        <div className="footer-brand">
-          <div className="footer-logo">
-            <svg className="footer-crown" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M20,120 L35,50 L70,90 L100,30 L130,90 L165,50 L180,120 Z" fill="#E8C89C" />
-              <rect x="15" y="120" width="170" height="26" fill="#E8C89C" rx="3" />
-            </svg>
-            <span className="footer-brand-name">BRITANNIA CROWN</span>
+    <footer className="site-footer">
+      <div className="uk-wrap">
+        <div className="footer-top">
+          <div className="footer-brand">
+            <Link href="/" className="brand" aria-label="Britannia Crown, home">
+              <Crown light />
+              <span>
+                <span className="brand-name">Britannia Crown</span>
+                <span className="brand-sub">Education Consultants</span>
+              </span>
+            </Link>
+            <p>British education consultants: private tutoring, home education, school placement and qualifications, plus advice for families moving to the UAE.</p>
+            <div className="footer-contact">
+              <Link href="/book-consultation">Book a free 30-minute call →</Link>
+              <a href={WHATSAPP_URL}>WhatsApp us</a>
+              <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            </div>
           </div>
-          <p className="footer-tagline">British education consultants. Private tutoring, home education, school placement and qualifications from UK-trained educators — and advice for families relocating to the UAE.</p>
-          <Link href="/book-consultation" className="footer-cta">Book a free consultation →</Link>
+          <div className="footer-col">
+            <h2>Services</h2>
+            <ul>
+              {services.map((s) => (
+                <li key={s.slug}><Link href={`/services/${s.slug}`}>{s.name}</Link></li>
+              ))}
+              <li><Link href="/membership">Academic Partner Membership</Link></li>
+              <li><Link href="/uae">Moving to the UAE</Link></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h2>Tutors</h2>
+            <ul>
+              {subjects.map((s) => (
+                <li key={s.slug}><Link href={`/tutors/${s.slug}`}>{s.name}</Link></li>
+              ))}
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h2>Resources</h2>
+            <ul>
+              <li><Link href="/guides">Guides for parents</Link></li>
+              <li><Link href="/tools/school-dates">School dates calculator</Link></li>
+              <li><Link href="/tools/gcse-grade-converter">GCSE grade converter</Link></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h2>Company</h2>
+            <ul>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
+              <li><Link href="/ambassador">Ambassador Programme</Link></li>
+              <li><Link href="/careers">Careers</Link></li>
+              <li><a href={INSTAGRAM_URL}>Instagram</a></li>
+            </ul>
+          </div>
         </div>
-        <div className="footer-col">
-          <h3 className="footer-col-title">Services</h3>
-          <ul className="footer-links">
-            {services.map((s) => (
-              <li key={s.slug}><Link href={`/services/${s.slug}`}>{s.name}</Link></li>
-            ))}
-            <li><Link href="/uae">Moving to the UAE</Link></li>
-            <li><Link href="/membership">Academic Partner Membership</Link></li>
-          </ul>
-        </div>
-        <div className="footer-col">
-          <h3 className="footer-col-title">Tutors</h3>
-          <ul className="footer-links">
-            {subjects.map((s) => (
-              <li key={s.slug}><Link href={`/tutors/${s.slug}`}>{s.name} tutors</Link></li>
-            ))}
-          </ul>
-        </div>
-        <div className="footer-col">
-          <h3 className="footer-col-title">Company</h3>
-          <ul className="footer-links">
-            <li><Link href="/about">About</Link></li>
-            <li><Link href="/guides">Guides for Parents</Link></li>
-            <li><Link href="/ambassador">Ambassador Programme</Link></li>
-            <li><Link href="/careers">Careers</Link></li>
-            <li><Link href="/contact">Contact</Link></li>
-          </ul>
-        </div>
-        <div className="footer-col">
-          <h3 className="footer-col-title">Contact</h3>
-          <ul className="footer-links">
-            <li><a href={WHATSAPP_URL}>WhatsApp</a></li>
-            <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
-            <li><a href={INSTAGRAM_URL}>Instagram</a></li>
-            <li><Link href="/contact">Contact Form</Link></li>
-          </ul>
-        </div>
-      </div>
-      <div className="footer-bottom">
-        <span className="footer-copy">© 2026 Britannia Crown Education Consultants. UK Registered.</span>
-        <div className="footer-social">
-          <Link href="/privacy-policy">Privacy</Link>
-          <Link href="/terms-and-conditions">Terms</Link>
-          <a href={INSTAGRAM_URL}>Instagram</a>
-          <a href={WHATSAPP_URL}>WhatsApp</a>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} Britannia Crown Education Consultants</span>
+          <nav aria-label="Legal">
+            <Link href="/privacy-policy">Privacy policy</Link>
+            <Link href="/terms-and-conditions">Terms and conditions</Link>
+          </nav>
         </div>
       </div>
     </footer>

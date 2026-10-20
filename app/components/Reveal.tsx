@@ -1,44 +1,12 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-
+// Plain wrapper kept so existing pages don't need restructuring. Content renders immediately:
+// no scroll-triggered fade-ins, which hid content from readers and slowed perceived load.
 export default function Reveal({
   children,
   className = "",
-  delay = 0,
 }: {
   children: React.ReactNode;
   className?: string;
   delay?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (
-      typeof IntersectionObserver === "undefined" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      el.classList.add("in");
-      return;
-    }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("in");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className={`reveal ${className}`} style={{ transitionDelay: `${delay}ms` }}>
-      {children}
-    </div>
-  );
+  return <div className={className || undefined}>{children}</div>;
 }

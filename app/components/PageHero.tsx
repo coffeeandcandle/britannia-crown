@@ -1,19 +1,18 @@
 type PageHeroProps = {
   eyebrow: string;
   title: React.ReactNode;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
+  children?: React.ReactNode;
 };
 
-export default function PageHero({ eyebrow, title, subtitle }: PageHeroProps) {
+export default function PageHero({ eyebrow, title, subtitle, children }: PageHeroProps) {
   return (
-    <section className="page-hero">
-      <div className="page-hero-inner">
-        <div className="hero-eyebrow">
-          <span className="hero-eyebrow-line"></span>
-          <span className="hero-eyebrow-text">{eyebrow}</span>
-        </div>
+    <section className="uk-sub-hero">
+      <div className="uk-wrap">
+        {children}
+        <span className="uk-eyebrow">{eyebrow}</span>
         <h1>{title}</h1>
-        {subtitle && <p className="page-hero-desc">{subtitle}</p>}
+        {subtitle && <p>{subtitle}</p>}
       </div>
     </section>
   );

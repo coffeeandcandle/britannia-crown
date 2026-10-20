@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { track } from "../lib/track";
+import { appendAttribution } from "../lib/attribution";
 import { FORMSPREE_GUIDES } from "../lib/site";
 
 // Email capture for a downloadable PDF guide. Submits in place and records a lead.
@@ -15,7 +16,7 @@ export default function GuideRequestForm({ guide, subject, id }: { guide: string
     try {
       const res = await fetch(FORMSPREE_GUIDES, {
         method: "POST",
-        body: new FormData(form),
+        body: appendAttribution(new FormData(form)),
         headers: { Accept: "application/json" },
       });
       if (!res.ok) throw new Error(`Formspree responded ${res.status}`);

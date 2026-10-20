@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
-import Reveal from "./components/Reveal";
 import SubjectGrid from "./components/SubjectGrid";
 import GuideCards from "./components/GuideCards";
+import Finder from "./components/Finder";
+import EnquirySection from "./components/EnquirySection";
 import { services } from "./lib/services";
 import { guides } from "./lib/guides";
 import { pageMetadata } from "./lib/seo";
@@ -16,160 +15,151 @@ export const metadata: Metadata = pageMetadata({
   path: "/",
 });
 
-const stages = ["Early Years", "Primary", "Secondary", "GCSE", "A-Level", "Home Education", "School Placement", "Private Tutoring"];
+const reasons = [
+  { title: "UK-trained educators", body: "A network of 50+ tutors, vetted by us, including teachers working in British schools today. Personally matched to your child, never picked from a list." },
+  { title: "One consultant for the whole journey", body: "The same person oversees tutoring, school choices and exams, so nothing falls between the gaps as your child grows." },
+  { title: "Six years running a UK tutoring company", body: "We know the curriculum, the exam boards and the admissions process in detail, and we explain our advice so you can question it." },
+];
 
-const principles = [
-  { mark: "i", title: "UK-trained educators", body: "Every tutor is trained in the British curriculum. No anonymous marketplace, no guesswork." },
-  { mark: "ii", title: "One consultant, one relationship", body: "A dedicated consultant who knows your child and oversees the whole journey." },
-  { mark: "iii", title: "Honest, child-first advice", body: "Our recommendations are built around your child, your priorities and your family's circumstances." },
+const steps = [
+  { title: "Tell us about your child", body: "Book a free 30-minute call or send a message. We'll ask about your child, your goals and what's worrying you." },
+  { title: "Get a clear recommendation", body: "The right tutor, school route or plan, with honest reasons and clear prices." },
+  { title: "We stay involved", body: "Your consultant checks progress and adjusts the plan as your child's needs change." },
 ];
 
 export default function Home() {
   return (
     <>
-      <Nav />
-
-      <section className="uk-hero" id="home">
-        <svg className="uk-hero-crown" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M20,120 L35,50 L70,90 L100,30 L130,90 L165,50 L180,120 Z" fill="#E8C89C" />
-          <rect x="15" y="120" width="170" height="26" fill="#E8C89C" rx="3" />
-        </svg>
-        <div className="uk-hero-inner uk-hero-load">
-          <span className="uk-eyebrow">British Education Consultants</span>
-          <h1>Education, <em>considered</em> with care.</h1>
-          <p className="uk-hero-lead">Private tutoring, home education, school placement and qualifications — personal advice from UK-trained educators, for families who want it done properly.</p>
-          <div className="uk-hero-actions">
-            <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
-            <Link href="/services" className="btn-secondary">Explore Our Services</Link>
-          </div>
-        </div>
-        <div className="uk-hero-stats">
-          <div className="uk-hero-stats-inner">
-            <div className="uk-stat"><span className="uk-stat-num">6+</span><span className="uk-stat-label">Years of UK<br />experience</span></div>
-            <div className="uk-stat"><span className="uk-stat-num">50+</span><span className="uk-stat-label">UK-trained<br />educators</span></div>
-            <div className="uk-stat"><span className="uk-stat-num">100%</span><span className="uk-stat-label">British curriculum<br />focus</span></div>
-          </div>
-        </div>
-      </section>
-
-      <div className="uk-strip" aria-hidden="true">
-        <div className="uk-strip-track">
-          {[0, 1].map((n) => (
-            <span key={n}>{stages.map((s) => <span key={s + n} style={{ gap: 0 }}>{s}</span>)}</span>
-          ))}
-        </div>
-      </div>
-
-      <section className="uk-section cream">
-        <div className="uk-wrap">
-          <Reveal className="uk-head">
-            <span className="uk-kicker">What we do</span>
-            <h2 className="uk-h2">Four ways we help your child <em>thrive.</em></h2>
-            <p className="uk-lead">From a single subject to a whole education plan, every service is led by a consultant who takes responsibility for the result.</p>
-          </Reveal>
-          <Reveal>
-            <div className="uk-rows">
-              {services.map((s) => (
-                <Link href={`/services/${s.slug}`} className="uk-row" key={s.slug}>
-                  <span className="uk-row-num">{s.numeral}</span>
-                  <span className="uk-row-name">{s.name}</span>
-                  <span className="uk-row-desc">{s.short}</span>
-                  <span className="uk-row-arrow" aria-hidden="true">→</span>
-                </Link>
-              ))}
+      <section className="hm-hero">
+        <div className="uk-wrap hm-hero-grid">
+          <div>
+            <span className="uk-eyebrow">British education consultants</span>
+            <h1>Tutoring, school places and exam support for your child</h1>
+            <p className="hm-hero-lead">
+              Personal advice and teaching from UK-trained educators, from early years to A-Level, with one consultant
+              who knows your child and stays involved.
+            </p>
+            <div className="uk-hero-actions">
+              <Link href="/book-consultation" className="btn-primary">Book a free 30-minute call</Link>
+              <Link href="/contact" className="btn-secondary">Request a call back</Link>
             </div>
-          </Reveal>
+            <ul className="hm-proof">
+              <li>50+ vetted UK-trained tutors</li>
+              <li>Reply within 24 hours</li>
+              <li>First consultation free</li>
+            </ul>
+          </div>
+          <Finder />
         </div>
       </section>
 
       <section className="uk-section white">
         <div className="uk-wrap">
-          <Reveal className="uk-head">
-            <span className="uk-kicker">Find a tutor</span>
-            <h2 className="uk-h2">Specialist tutors, <em>subject by subject.</em></h2>
-            <p className="uk-lead">From first phonics to final A-Level papers — choose a subject to see how we help, or <Link href="/tutors">browse all tutoring</Link>.</p>
-          </Reveal>
-          <Reveal>
-            <SubjectGrid />
-          </Reveal>
+          <div className="uk-head">
+            <span className="uk-kicker">What we do</span>
+            <h2 className="uk-h2">How we can help</h2>
+            <p className="uk-lead">From a single subject to a whole education plan, each service is led by a consultant who takes responsibility for the result.</p>
+          </div>
+          <div className="uk-rows">
+            {services.map((s) => (
+              <Link href={`/services/${s.slug}`} className="uk-row" key={s.slug}>
+                <span className="uk-row-name">{s.name}</span>
+                <span className="uk-row-desc">{s.short}</span>
+                <span className="uk-row-arrow" aria-hidden="true">→</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="uk-section cream">
+        <div className="uk-wrap">
+          <div className="uk-head">
+            <span className="uk-kicker">Free guides and tools</span>
+            <h2 className="uk-h2">Answers for parents</h2>
+            <p className="uk-lead">Plain-English guides to school applications, exams, tutors and home education, written by our consultants.</p>
+          </div>
+          <GuideCards items={guides.slice(0, 3)} />
+          <div className="hm-tools">
+            <Link href="/tools/school-dates" className="hm-tool">
+              <strong>School dates calculator</strong>
+              <span>Enter your child&apos;s date of birth to see their year group and every application deadline.</span>
+            </Link>
+            <Link href="/tools/gcse-grade-converter" className="hm-tool">
+              <strong>GCSE grade converter</strong>
+              <span>See what each 9 to 1 grade means, and how it compares with the old A* to G grades.</span>
+            </Link>
+          </div>
+          <p className="hm-more"><Link href="/guides">See all guides →</Link></p>
         </div>
       </section>
 
       <section className="uk-section dark">
         <div className="uk-wrap">
-          <Reveal className="uk-head">
-            <span className="uk-kicker">How we work</span>
-            <h2 className="uk-h2">Simple to start. <em>Thorough throughout.</em></h2>
-          </Reveal>
-          <Reveal>
-            <div className="uk-steps">
-              <div className="uk-step"><div className="uk-step-num">01</div><h3>Talk to us</h3><p>A free 30-minute consultation to understand your child, your goals and your concerns.</p></div>
-              <div className="uk-step"><div className="uk-step-num">02</div><h3>A plan, personally made</h3><p>We recommend the right tutor, school or programme — and explain exactly why.</p></div>
-              <div className="uk-step"><div className="uk-step-num">03</div><h3>We stay involved</h3><p>Your consultant oversees progress and adapts the plan as your child grows.</p></div>
-            </div>
-          </Reveal>
+          <div className="uk-head">
+            <span className="uk-kicker">How it works</span>
+            <h2 className="uk-h2">Three steps to the right support</h2>
+          </div>
+          <ol className="uk-steps">
+            {steps.map((s, i) => (
+              <li className="uk-step" key={s.title}>
+                <div className="uk-step-num" aria-hidden="true">{i + 1}</div>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       <section className="uk-section white">
         <div className="uk-wrap uk-split">
-          <Reveal>
+          <div>
             <span className="uk-kicker">Why Britannia Crown</span>
-            <h2 className="uk-h2">Not an agency. <em>A partner.</em></h2>
-            <p className="uk-lead">We are not a tutoring marketplace and we are not a school directory. We are education consultants — one relationship for the whole journey, from first nursery to final exam.</p>
-            <div style={{ marginTop: 36 }}><Link href="/about" className="btn-primary">About Us</Link></div>
-          </Reveal>
-          <Reveal delay={120}>
-            <div className="uk-principles">
-              {principles.map((p) => (
-                <div className="uk-principle" key={p.title}>
-                  <span className="uk-principle-mark">{p.mark}</span>
-                  <div><h3>{p.title}</h3><p>{p.body}</p></div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="uk-uae">
-        <div className="uk-uae-inner">
-          <Reveal>
-            <span className="uk-kicker" style={{ color: "var(--champagne)" }}>Relocating abroad</span>
-            <h2>Moving to the UAE? <em>We advise families on the move.</em></h2>
-            <p>We help UK families relocating to Dubai find the right nursery or school, and keep British-curriculum tutoring going without a break.</p>
-          </Reveal>
-          <Link href="/uae" className="btn-primary">Moving to the UAE →</Link>
+            <h2 className="uk-h2">Education consultants, not a tutoring marketplace</h2>
+            <p className="uk-lead">One relationship for the whole journey, from first nursery to final exam.</p>
+            <div className="uk-sub-actions"><Link href="/about" className="btn-secondary">About us</Link></div>
+          </div>
+          <div className="uk-principles">
+            {reasons.map((r) => (
+              <div className="uk-principle" key={r.title}>
+                <h3>{r.title}</h3>
+                <p>{r.body}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="uk-section cream">
         <div className="uk-wrap">
-          <Reveal className="uk-head">
-            <span className="uk-kicker">Guides for parents</span>
-            <h2 className="uk-h2">Practical guidance, <em>freely shared.</em></h2>
-            <p className="uk-lead">Clear, honest guides on school applications, exams, tutors and home education.</p>
-          </Reveal>
-          <Reveal>
-            <GuideCards items={guides.slice(0, 3)} />
-          </Reveal>
-          <div style={{ marginTop: 40 }}><Link href="/guides" className="btn-primary">All Guides</Link></div>
+          <div className="uk-head">
+            <span className="uk-kicker">Find a tutor</span>
+            <h2 className="uk-h2">Tutors by subject</h2>
+            <p className="uk-lead">Choose a subject to see how we help, or <Link href="/tutors">browse all tutoring</Link>.</p>
+          </div>
+          <SubjectGrid />
         </div>
       </section>
 
-      <section className="uk-cta">
-        <Reveal>
-          <span className="uk-kicker">Get started</span>
-          <h2>Let&apos;s talk about <em>your child.</em></h2>
-          <p>Book a free 30-minute consultation with one of our education consultants. No obligation — just a clear, honest conversation.</p>
-          <div className="uk-hero-actions">
-            <Link href="/book-consultation" className="btn-primary">Book Free Consultation</Link>
-            <Link href="/contact" className="btn-secondary">Contact Us</Link>
+      <section className="uk-uae">
+        <div className="uk-uae-inner">
+          <div>
+            <span className="uk-kicker">Relocating abroad</span>
+            <h2>Moving to the UAE?</h2>
+            <p>We help UK families relocating to Dubai find the right nursery or school, and keep British-curriculum tutoring going without a break.</p>
           </div>
-        </Reveal>
+          <Link href="/uae" className="btn-primary">Education advice for the UAE</Link>
+        </div>
       </section>
 
-      <Footer />
+      <EnquirySection
+        title="Talk to an education consultant"
+        lead="Tell us a little about your child and we'll call you back, usually within 24 hours."
+        source="home_page"
+        defaultService=""
+        context="Home page"
+      />
     </>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { track } from "../lib/track";
+import { recordAttribution } from "../lib/attribution";
 
 // One delegated listener tracks every lead-intent link on the site,
 // so new pages and buttons are covered without extra wiring.
@@ -15,6 +16,7 @@ function eventFor(href: string) {
 
 export default function LeadTracking() {
   useEffect(() => {
+    recordAttribution();
     function onClick(e: MouseEvent) {
       const link = (e.target as Element | null)?.closest?.("a");
       const href = link?.getAttribute("href");

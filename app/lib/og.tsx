@@ -7,11 +7,11 @@ const font = (file: string) => readFile(join(process.cwd(), "assets/fonts", file
 
 export async function renderOg({ kicker, title, italic }: { kicker: string; title: string; italic?: string }) {
   const [serif, serifItalic, sans] = await Promise.all([
-    font("CormorantGaramond-Medium.ttf"),
-    font("CormorantGaramond-MediumItalic.ttf"),
-    font("Jost-Medium.ttf"),
+    font("LibreCaslonText-Regular.woff"),
+    font("LibreCaslonText-Italic.woff"),
+    font("PublicSans-Medium.ttf"),
   ]);
-  const titleSize = title.length + (italic?.length ?? 0) > 60 ? 66 : 84;
+  const titleSize = title.length + (italic?.length ?? 0) > 60 ? 56 : 70;
 
   return new ImageResponse(
     (
@@ -25,7 +25,7 @@ export async function renderOg({ kicker, title, italic }: { kicker: string; titl
           padding: "64px 72px",
           background: "linear-gradient(160deg, #4A0E29 0%, #38091f 100%)",
           color: "#ffffff",
-          fontFamily: "Jost",
+          fontFamily: "Public Sans",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
@@ -34,16 +34,16 @@ export async function renderOg({ kicker, title, italic }: { kicker: string; titl
             <rect x="15" y="120" width="170" height="26" fill="#E8C89C" rx="3" />
           </svg>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontFamily: "Cormorant", fontSize: 30, letterSpacing: 4, color: "#E8C89C" }}>BRITANNIA CROWN</span>
+            <span style={{ fontFamily: "Caslon", fontSize: 26, letterSpacing: 3, color: "#E8C89C" }}>BRITANNIA CROWN</span>
             <span style={{ fontSize: 13, letterSpacing: 4, color: "rgba(232,200,156,0.6)" }}>EDUCATION CONSULTANTS</span>
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span style={{ fontSize: 20, letterSpacing: 6, color: "#E8C89C", textTransform: "uppercase", marginBottom: 22 }}>{kicker}</span>
-          <span style={{ fontFamily: "Cormorant", fontSize: titleSize, lineHeight: 1.05, maxWidth: 1000 }}>{title}</span>
+          <span style={{ fontFamily: "Caslon", fontSize: titleSize, lineHeight: 1.15, maxWidth: 1000 }}>{title}</span>
           {italic && (
-            <span style={{ fontFamily: "Cormorant", fontStyle: "italic", fontSize: titleSize, lineHeight: 1.05, color: "#E8C89C", maxWidth: 1000 }}>
+            <span style={{ fontFamily: "Caslon", fontStyle: "italic", fontSize: titleSize, lineHeight: 1.15, color: "#E8C89C", maxWidth: 1000 }}>
               {italic}
             </span>
           )}
@@ -69,9 +69,9 @@ export async function renderOg({ kicker, title, italic }: { kicker: string; titl
       width: 1200,
       height: 630,
       fonts: [
-        { name: "Cormorant", data: serif, style: "normal", weight: 500 },
-        { name: "Cormorant", data: serifItalic, style: "italic", weight: 500 },
-        { name: "Jost", data: sans, style: "normal", weight: 500 },
+        { name: "Caslon", data: serif, style: "normal", weight: 500 },
+        { name: "Caslon", data: serifItalic, style: "italic", weight: 500 },
+        { name: "Public Sans", data: sans, style: "normal", weight: 500 },
       ],
     },
   );

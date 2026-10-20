@@ -1,22 +1,26 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Cormorant_Garamond, Jost } from "next/font/google";
+import { Libre_Caslon_Text, Public_Sans } from "next/font/google";
 import JsonLd from "./components/JsonLd";
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 import LeadTracking from "./components/LeadTracking";
 import MobileCtaBar from "./components/MobileCtaBar";
 import { organizationSchema, websiteSchema } from "./lib/schema";
 import { SITE_NAME, SITE_URL } from "./lib/site";
-import "./globals.css";
-import "./uk.css";
+import "./site.css";
 
-const display = Cormorant_Garamond({
+// Headings: Libre Caslon, a revival of William Caslon's 18th-century London type.
+// Body and interface: Public Sans, a plain, highly legible sans.
+const display = Libre_Caslon_Text({
   subsets: ["latin"],
+  weight: ["400", "700"],
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
 });
 
-const body = Jost({
+const body = Public_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
@@ -48,7 +52,7 @@ export const viewport = {
   width: "device-width",
   initialScale: 1.0,
   maximumScale: 5.0,
-  themeColor: "#4A0E29",
+  themeColor: "#FBF8F4",
 };
 
 export default function RootLayout({
@@ -62,6 +66,7 @@ export default function RootLayout({
         <JsonLd data={[organizationSchema, websiteSchema]} />
       </head>
       <body>
+        <a href="#main" className="skip-link">Skip to content</a>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
@@ -87,7 +92,9 @@ export default function RootLayout({
           gtag('config', 'G-CNNVL7TWK0');`}
         </Script>
 
-        {children}
+        <Nav />
+        <main id="main">{children}</main>
+        <Footer />
 
         <MobileCtaBar />
         <LeadTracking />

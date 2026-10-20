@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
 import EnquirySection from "../components/EnquirySection";
@@ -46,17 +44,16 @@ const approach = [
 export default function AboutPage() {
   return (
     <>
-      <Nav />
 
       <section className="uk-sub-hero">
-        <div className="uk-wrap uk-hero-load">
+        <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]} />
           <span className="uk-eyebrow">About Britannia Crown</span>
-          <h1>Education advice you can <em>trust,</em> from early years to A-Level.</h1>
+          <h1>Education advice you can trust, from early years to A-Level</h1>
           <p>We are not a tutoring marketplace, and we are not a school directory. Britannia Crown is a British education consultancy: UK-trained educators and a dedicated consultant for every family, with one relationship for the whole journey.</p>
           <div className="uk-hero-actions uk-sub-actions">
-            <Link href="#enquire" className="btn-primary">Request a Call Back</Link>
-            <Link href="/book-consultation" className="btn-secondary">Book Free Consultation</Link>
+            <Link href="#enquire" className="btn-primary">Request a call back</Link>
+            <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
           </div>
         </div>
       </section>
@@ -77,10 +74,10 @@ export default function AboutPage() {
         <div className="uk-wrap uk-split">
           <Reveal>
             <span className="uk-kicker">Why Britannia Crown</span>
-            <h2 className="uk-h2">Four reasons families <em>choose us.</em></h2>
+            <h2 className="uk-h2">Why families choose us</h2>
             <p className="uk-lead">Choosing education support is a high-stakes decision, often made in a hurry. We built Britannia Crown to make it easier to get right.</p>
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal>
             <div className="uk-principles">
               {reasons.map((r, i) => (
                 <div className="uk-principle" key={r.title}>
@@ -97,13 +94,13 @@ export default function AboutPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">How we work</span>
-            <h2 className="uk-h2">Simple to start. <em>Thorough throughout.</em></h2>
+            <h2 className="uk-h2">How we work</h2>
           </Reveal>
           <Reveal>
             <div className="uk-steps">
               {approach.map((a, i) => (
                 <div className="uk-step" key={a.title}>
-                  <div className="uk-step-num">0{i + 1}</div>
+                  <div className="uk-step-num">{i + 1}</div>
                   <h3>{a.title}</h3>
                   <p>{a.body}</p>
                 </div>
@@ -117,7 +114,7 @@ export default function AboutPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">What we do</span>
-            <h2 className="uk-h2">Four services, <em>one consultancy.</em></h2>
+            <h2 className="uk-h2">What we do</h2>
           </Reveal>
           <Reveal>
             <div className="uk-rows">
@@ -138,7 +135,7 @@ export default function AboutPage() {
         <div className="uk-uae-inner">
           <Reveal>
             <span className="uk-kicker" style={{ color: "var(--champagne)" }}>Also in the UAE</span>
-            <h2>Advising families who are <em>moving to Dubai.</em></h2>
+            <h2>Advising families who are moving to Dubai</h2>
             <p>We also help UK families relocating to the UAE: understanding KHDA ratings, fees and waitlists, finding a British-curriculum school or nursery, and keeping tutoring going without a break. There are around 144,000 students in UK-curriculum schools in Dubai and more than 240,000 British nationals living there, so the choices are many and the competition for places is real.</p>
           </Reveal>
           <Link href="/uae" className="btn-primary">Moving to the UAE →</Link>
@@ -146,7 +143,7 @@ export default function AboutPage() {
       </section>
 
       <EnquirySection
-        title={<>Let&apos;s talk about <em>your child.</em></>}
+        title={<>Let&apos;s talk about your child</>}
         lead="Tell us a little about your child and an education consultant will call you back, usually within 24 hours."
         source="about_page"
         defaultService=""
@@ -164,7 +161,6 @@ export default function AboutPage() {
         }}
       />
 
-      <Footer />
     </>
   );
 }

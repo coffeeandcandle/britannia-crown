@@ -1,18 +1,11 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "../lib/seo";
-import Image from "next/image";
 import Link from "next/link";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
-import PageHero from "../components/PageHero";
-import {
-  NurseryIcon,
-  SchoolIcon,
-  TutorIcon,
-  ExamPrepIcon,
-  HomeschoolIcon,
-  ConciergeIcon,
-} from "../components/Icons";
+import { pageMetadata } from "../lib/seo";
+import Breadcrumbs from "../components/Breadcrumbs";
+import EnquirySection from "../components/EnquirySection";
+import JsonLd from "../components/JsonLd";
+import { ORG_ID } from "../lib/schema";
+import { SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Moving to Dubai with Children? Schools & Tutoring | Britannia Crown",
@@ -21,149 +14,194 @@ export const metadata: Metadata = pageMetadata({
   path: "/uae",
 });
 
-export default function ServicesPage() {
+const offers = [
+  {
+    age: "Ages 0 to 4",
+    name: "Nursery Search & Placement",
+    body: "Finding the right EYFS nursery for your child. We research, shortlist, coordinate visits and handle the entire application process.",
+    price: "AED 3,000",
+    unit: "one-time",
+    value: 3000,
+    service: "Nursery Search & Placement",
+  },
+  {
+    age: "Ages 4 to 18",
+    name: "School Search & Placement",
+    body: "Expert guidance through Dubai's British-curriculum schools, from FS1 through to Sixth Form, to find the right match for your family.",
+    price: "AED 8,000",
+    unit: "one-time",
+    value: 8000,
+    service: "School Search & Placement",
+  },
+  {
+    age: "All ages",
+    name: "UK Curriculum Tutors in Dubai",
+    body: "Private British tutors across all subjects: UK-qualified educators and experienced Dubai-based tutors for one-to-one tuition aligned to the British national curriculum.",
+    price: "AED 300 to 350",
+    unit: "per hour",
+    value: 300,
+    service: "Subject Tutoring",
+  },
+  {
+    age: "Ages 14 to 18",
+    name: "GCSE & A-Level Preparation",
+    body: "Exam technique coaching from specialists, including actual GCSE examiners. Past papers, mark schemes, revision planning and mock exams.",
+    price: "AED 5,000",
+    unit: "per term",
+    value: 5000,
+    service: "GCSE & A-Level Preparation",
+  },
+  {
+    age: "All ages",
+    name: "British Homeschool Support",
+    body: "Full British-curriculum homeschool support for Dubai and GCC families: Cambridge and Edexcel curriculum design, UK tutor coordination, term planning and progress tracking.",
+    price: "AED 7,000",
+    unit: "per term",
+    value: 7000,
+    service: "Homeschool Support",
+  },
+  {
+    age: "Ongoing",
+    name: "Education Concierge",
+    body: "Your dedicated UK-curriculum education manager in Dubai: monthly strategy, unlimited WhatsApp support, and liaison with tutors and schools.",
+    price: "AED 2,500",
+    unit: "per month",
+    value: 2500,
+    service: "Education Concierge",
+  },
+];
+
+const steps = [
+  { title: "Tell us about the move", body: "Your timeline, where you'll live, your child's age and current school, and what matters most to you." },
+  { title: "We research and shortlist", body: "KHDA ratings, fees, waitlists, curriculum fit and the commute, narrowed to a shortlist with honest reasoning." },
+  { title: "Visits and applications", body: "We coordinate visits and assessments and guide you through each application, so nothing is missed from abroad." },
+  { title: "Learning carries on", body: "UK-qualified tutors online, timed to Dubai, so your child keeps progressing before, during and after the move." },
+];
+
+export default function UaePage() {
   return (
     <>
-      <Nav />
-
-      <PageHero
-        eyebrow="Moving to the UAE"
-        title="Relocating to Dubai? Your Child's Education, Sorted Before You Land"
-        subtitle="We advise UK families moving to the UAE — from nursery and school placement to British-curriculum tutors in Dubai — so your child's education continues without a break."
-      />
-
-      <section className="services" id="services">
-        <div className="section-inner">
-          <div className="services-grid">
-            <div className="service-card">
-              <NurseryIcon className="service-icon" />
-              <span className="service-age">Ages 0-4</span>
-              <h2 className="service-title">Nursery Search & Placement</h2>
-              <p className="service-desc">Finding the right EYFS nursery for your child. We research, shortlist, coordinate visits, and handle the entire application process.</p>
-              <div className="service-price">
-                <span className="service-price-amount">AED 3,000</span>
-                <span className="service-price-unit">one-time</span>
-              </div>
-              <Link href={{ pathname: "/contact", query: { service: "Nursery Search & Placement" } }} className="service-cta">Learn More</Link>
-            </div>
-
-            <div className="service-card featured">
-              <SchoolIcon className="service-icon" />
-              <span className="service-age">Ages 4-18</span>
-              <h2 className="service-title">School Search & Placement</h2>
-              <p className="service-desc">Expert guidance through Dubai&apos;s British curriculum school landscape. From FS1 through to Sixth Form, we find the perfect match for your family.</p>
-              <div className="service-price">
-                <span className="service-price-amount">AED 8,000</span>
-                <span className="service-price-unit">one-time</span>
-              </div>
-              <Link href={{ pathname: "/contact", query: { service: "School Search & Placement" } }} className="service-cta">Get Started</Link>
-            </div>
-
-            <div className="service-card">
-              <TutorIcon className="service-icon" />
-              <span className="service-age">All Ages</span>
-              <h2 className="service-title">UK Curriculum Tutors Dubai</h2>
-              <p className="service-desc">Private British tutors in Dubai across all subjects. UK-qualified educators and experienced Dubai-based tutors for 1-to-1 tuition aligned to the British national curriculum.</p>
-              <div className="service-price">
-                <span className="service-price-amount">AED 300-350</span>
-                <span className="service-price-unit">per hour</span>
-              </div>
-              <Link href={{ pathname: "/contact", query: { service: "Subject Tutoring" } }} className="service-cta">Find a Tutor</Link>
-            </div>
-
-            <div className="service-card">
-              <ExamPrepIcon className="service-icon" />
-              <span className="service-age">Ages 14-18</span>
-              <h2 className="service-title">GCSE & A-Level Preparation</h2>
-              <p className="service-desc">Exam technique coaching from specialists, including actual GCSE examiners. Past papers, mark schemes, revision planning, and mock exams.</p>
-              <div className="service-price">
-                <span className="service-price-amount">AED 5,000</span>
-                <span className="service-price-unit">per term</span>
-              </div>
-              <Link href={{ pathname: "/contact", query: { service: "GCSE & A-Level Preparation" } }} className="service-cta">Start Prep</Link>
-            </div>
-
-            <div className="service-card">
-              <HomeschoolIcon className="service-icon" />
-              <span className="service-age">All Ages</span>
-              <h2 className="service-title">British Homeschool Support Dubai</h2>
-              <p className="service-desc">Full British curriculum homeschool support for Dubai and GCC families. Cambridge and Edexcel curriculum design, UK tutor coordination, term planning and progress tracking.</p>
-              <div className="service-price">
-                <span className="service-price-amount">AED 7,000</span>
-                <span className="service-price-unit">per term</span>
-              </div>
-              <Link href={{ pathname: "/contact", query: { service: "Homeschool Support" } }} className="service-cta">Explore Homeschool</Link>
-            </div>
-
-            <div className="service-card featured">
-              <ConciergeIcon className="service-icon" />
-              <span className="service-age">Ongoing</span>
-              <h2 className="service-title">Education Concierge Dubai</h2>
-              <p className="service-desc">Dubai&apos;s only full-service British education concierge. Your dedicated UK curriculum education manager — monthly strategy, unlimited WhatsApp support, tutor and school liaison.</p>
-              <div className="service-price">
-                <span className="service-price-amount">AED 2,500</span>
-                <span className="service-price-unit">per month</span>
-              </div>
-              <Link href={{ pathname: "/contact", query: { service: "Education Concierge" } }} className="service-cta">Partner With Us</Link>
-            </div>
-          </div>
-
-          {/* Early Years Image Section */}
-          <div className="image-text-section">
-            <div className="image-text-media">
-              <Image
-                src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=800&q=80"
-                alt="EYFS nursery search Dubai expat families British curriculum"
-                fill
-                sizes="(max-width: 900px) 100vw, 50vw"
-              />
-            </div>
-            <div className="image-text-content">
-              <h3>EYFS Nursery Search — Dubai Expat Specialists</h3>
-              <p>Finding the right British EYFS nursery in Dubai sets the foundation for your child&apos;s entire educational journey. We understand Dubai&apos;s nursery landscape and match expat families with settings that align with UK early years standards.</p>
-              <p>From full-day care to part-time nursery sessions, we guide you through KHDA ratings, staff qualifications, and the transition to FS1 at a British curriculum school.</p>
-              <Link href={{ pathname: "/contact", query: { service: "Nursery Search & Placement" } }} className="btn-primary">Find the Right Nursery</Link>
-            </div>
-          </div>
-
-          {/* GCSE Prep Image Section */}
-          <div className="image-text-section reverse">
-            <div className="image-text-media">
-              <Image
-                src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80"
-                alt="IGCSE GCSE A-Level tutor Dubai British curriculum exam preparation"
-                fill
-                sizes="(max-width: 900px) 100vw, 50vw"
-              />
-            </div>
-            <div className="image-text-content">
-              <h3>GCSE & A-Level Excellence</h3>
-              <p>Exam technique coaching from actual GCSE and A-Level examiners. We don&apos;t just teach content—we teach how to demonstrate knowledge under exam conditions.</p>
-              <p>Past paper practice, mark scheme analysis, revision planning, and mock exams that replicate real assessment environments.</p>
-              <Link href={{ pathname: "/contact", query: { service: "GCSE & A-Level Preparation" } }} className="btn-primary">Start Exam Prep</Link>
-            </div>
-          </div>
-
-          {/* Video Call Learning Image */}
-          <div className="full-width-image">
-            <Image
-              src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1600&q=80"
-              alt="British tutor Dubai online UK curriculum tutoring expat families"
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="100vw"
-            />
-            <div className="full-width-image-overlay">
-              <div>
-                <h3>British Tutors Dubai — UK-Qualified, Dubai Time Zone</h3>
-                <p>Access qualified British tutors currently working in UK schools today. Online sessions timed to Dubai, delivering authentic UK curriculum tuition direct to your home across Dubai and the GCC.</p>
-              </div>
-            </div>
+      <section className="uk-sub-hero">
+        <div className="uk-wrap">
+          <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Moving to the UAE", path: "/uae" }]} />
+          <span className="uk-eyebrow">Moving to the UAE</span>
+          <h1>Relocating to Dubai? Get your child&apos;s school sorted before you land.</h1>
+          <p>We advise UK families moving to the UAE, from nursery and school placement to British-curriculum tutors in Dubai, so your child&apos;s education continues without a break.</p>
+          <div className="uk-hero-actions uk-sub-actions">
+            <Link href="/book-consultation" className="btn-primary">Book a free 30-minute call</Link>
+            <Link href="#prices" className="btn-secondary">See services and prices</Link>
           </div>
         </div>
       </section>
 
-      <Footer />
+      <section className="uk-section white" id="prices">
+        <div className="uk-wrap">
+          <div className="uk-head">
+            <span className="uk-kicker">Services and prices</span>
+            <h2 className="uk-h2">Clear, fixed prices for UAE families</h2>
+            <p className="uk-lead">Every service starts with a free consultation, so you know exactly what you need before you pay for anything.</p>
+          </div>
+          <div className="price-cards">
+            {offers.map((o) => (
+              <article className="price-card" key={o.name}>
+                <span className="price-card-age">{o.age}</span>
+                <h3>{o.name}</h3>
+                <p>{o.body}</p>
+                <p className="price-card-price">{o.price} <small>{o.unit}</small></p>
+                <Link href={{ pathname: "/contact", query: { service: o.service } }} className="btn-secondary">
+                  Enquire about this
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="uk-section cream">
+        <div className="uk-wrap">
+          <div className="uk-head">
+            <span className="uk-kicker">How it works</span>
+            <h2 className="uk-h2">From first call to first day at school</h2>
+          </div>
+          <ol className="uk-steps mb-four">
+            {steps.map((s, i) => (
+              <li className="uk-step" key={s.title}>
+                <div className="uk-step-num" aria-hidden="true">{i + 1}</div>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="uk-section white">
+        <div className="uk-wrap uk-split">
+          <div>
+            <span className="uk-kicker">Early years</span>
+            <h2 className="uk-h2">EYFS nursery search for expat families</h2>
+          </div>
+          <div className="uk-prose">
+            <p>The right British EYFS nursery in Dubai sets the foundation for your child&apos;s whole education. We know Dubai&apos;s nursery landscape and match families with settings that meet UK early years standards.</p>
+            <p>From full-day care to part-time sessions, we guide you through KHDA ratings, staff qualifications and the move into FS1 at a British-curriculum school.</p>
+            <Link href={{ pathname: "/contact", query: { service: "Nursery Search & Placement" } }} className="btn-primary">Ask about nurseries</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="uk-section cream">
+        <div className="uk-wrap uk-split">
+          <div>
+            <span className="uk-kicker">GCSE and A-Level</span>
+            <h2 className="uk-h2">Exam preparation from people who mark the papers</h2>
+          </div>
+          <div className="uk-prose">
+            <p>Exam technique coaching from actual GCSE and A-Level examiners. We don&apos;t just teach content: we teach students how to show what they know under exam conditions.</p>
+            <p>Past paper practice, mark scheme analysis, revision planning, and mock exams that replicate the real thing.</p>
+            <Link href={{ pathname: "/contact", query: { service: "GCSE & A-Level Preparation" } }} className="btn-primary">Ask about exam preparation</Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="uk-section white">
+        <div className="uk-wrap uk-split">
+          <div>
+            <span className="uk-kicker">Online tutoring</span>
+            <h2 className="uk-h2">UK-qualified tutors, on Dubai time</h2>
+          </div>
+          <div className="uk-prose">
+            <p>Work with qualified British tutors who teach in UK schools today. Online sessions are timed for the UAE, so your child gets authentic UK-curriculum tuition at home anywhere in Dubai and the GCC.</p>
+            <p>Families moving mid-year often keep the same tutor through the move, so there is no gap in learning.</p>
+            <Link href="/tutors" className="btn-secondary">Browse tutoring by subject</Link>
+          </div>
+        </div>
+      </section>
+
+      <EnquirySection
+        title="Planning a move to the UAE?"
+        lead="Tell us your timeline and your child's age, and an education consultant will call you back, usually within 24 hours."
+        source="uae_page"
+        defaultService="School Search & Placement"
+        context="Moving to the UAE"
+      />
+
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Education consultancy for families moving to the UAE",
+          serviceType: "Education consultancy",
+          areaServed: { "@type": "Country", name: "United Arab Emirates" },
+          url: `${SITE_URL}/uae`,
+          provider: { "@id": ORG_ID },
+          offers: offers.map((o) => ({
+            "@type": "Offer",
+            name: o.name,
+            price: o.value,
+            priceCurrency: "AED",
+          })),
+        }}
+      />
     </>
   );
 }

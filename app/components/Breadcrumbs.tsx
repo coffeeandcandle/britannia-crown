@@ -5,8 +5,7 @@ import { breadcrumbSchema, type Crumb } from "../lib/schema";
 export default function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
   return (
     <>
-      {/* Not a <nav>: globals.css styles every nav element as the fixed site header. */}
-      <div className="uk-crumbs" role="navigation" aria-label="Breadcrumb">
+      <nav className="uk-crumbs" aria-label="Breadcrumb">
         <ol>
           {crumbs.map((c, i) => (
             <li key={c.path}>
@@ -14,7 +13,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
             </li>
           ))}
         </ol>
-      </div>
+      </nav>
       <JsonLd data={breadcrumbSchema(crumbs)} />
     </>
   );

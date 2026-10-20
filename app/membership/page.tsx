@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
 import FaqSection from "../components/FaqSection";
@@ -110,10 +108,9 @@ const faqs = [
 export default function MembershipPage() {
   return (
     <>
-      <Nav />
 
       <section className="uk-sub-hero">
-        <div className="uk-wrap uk-hero-load">
+        <div className="uk-wrap">
           <Breadcrumbs
             crumbs={[
               { name: "Home", path: "/" },
@@ -122,11 +119,11 @@ export default function MembershipPage() {
             ]}
           />
           <span className="uk-eyebrow">Academic Partner Membership</span>
-          <h1>Tired of starting over with a <em>new tutor?</em></h1>
+          <h1>Tired of starting over with a new tutor?</h1>
           <p>Academic Partner Membership gives your child ongoing access to vetted, UK-qualified tutors online, with a dedicated education consultant personally overseeing their academic journey, so you never have to search for a tutor again.</p>
           <div className="uk-hero-actions uk-sub-actions">
-            <Link href="#tiers" className="btn-primary">See Membership Tiers</Link>
-            <Link href="#enquire" className="btn-secondary">Book a Free 15-Minute Call</Link>
+            <Link href="#tiers" className="btn-primary">See membership tiers</Link>
+            <Link href="#enquire" className="btn-secondary">Book a free 15-minute call</Link>
           </div>
           <span className="uk-chip">Online · Cancel anytime · No lock-in</span>
         </div>
@@ -136,7 +133,7 @@ export default function MembershipPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">We understand</span>
-            <h2 className="uk-h2">The tutor search every parent <em>knows too well.</em></h2>
+            <h2 className="uk-h2">The problems we hear about most</h2>
             <p className="uk-lead">We hear the same frustrations from families every week.</p>
           </Reveal>
           <Reveal>
@@ -156,14 +153,14 @@ export default function MembershipPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">How it&apos;s different</span>
-            <h2 className="uk-h2">A consultancy relationship, <em>not just a subscription.</em></h2>
+            <h2 className="uk-h2">How membership is different</h2>
             <p className="uk-lead">Membership isn&apos;t another tutoring app. It&apos;s backed by Britannia Crown&apos;s full education consultancy, the same team behind our school placement and home education services.</p>
           </Reveal>
           <Reveal>
             <div className="uk-steps mb-three">
               {different.map((d, i) => (
                 <div className="uk-step mb-light" key={d.title}>
-                  <div className="uk-step-num">0{i + 1}</div>
+                  <div className="uk-step-num">{i + 1}</div>
                   <h3>{d.title}</h3>
                   <p>{d.body}</p>
                 </div>
@@ -177,14 +174,14 @@ export default function MembershipPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">Membership tiers</span>
-            <h2 className="uk-h2">Choose your <em>Academic Partner tier.</em></h2>
+            <h2 className="uk-h2">Membership tiers and prices</h2>
             <p className="uk-lead">All tiers include vetted British tutors, online delivery and direct access to Britannia Crown&apos;s consultancy team.</p>
           </Reveal>
           <Reveal>
             <div className="mb-tiers">
               {tiers.map((t) => (
                 <div className={`mb-tier${t.featured ? " featured" : ""}`} key={t.name}>
-                  {t.featured && <span className="mb-badge">Most Popular</span>}
+                  {t.featured && <span className="mb-badge">Most popular</span>}
                   <p className="mb-tier-name">{t.name}</p>
                   <p className="mb-price"><span>AED {t.price}</span> / month</p>
                   <ul>
@@ -205,7 +202,7 @@ export default function MembershipPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">Peace of mind</span>
-            <h2 className="uk-h2">Built around flexibility, <em>not lock-in.</em></h2>
+            <h2 className="uk-h2">No lock-in, and no gaps in tutoring</h2>
           </Reveal>
           <Reveal>
             <div className="uk-steps mb-four">
@@ -223,7 +220,7 @@ export default function MembershipPage() {
       <FaqSection faqs={faqs} tone="cream" />
 
       <EnquirySection
-        title={<>Book a free <em>15-minute call.</em></>}
+        title={<>Book a free 15-minute call</>}
         lead="A short, no-pressure call to understand your child's needs and find the right Academic Partner tier, before you commit to anything."
         source="membership_page"
         defaultService="Academic Partner Membership"
@@ -256,7 +253,6 @@ export default function MembershipPage() {
         }}
       />
 
-      <Footer />
     </>
   );
 }

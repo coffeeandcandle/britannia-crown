@@ -8,9 +8,9 @@ export default function FaqSection({ faqs, tone = "cream" }: { faqs: Faq[]; tone
       <div className="uk-wrap uk-split">
         <Reveal>
           <span className="uk-kicker">Questions parents ask</span>
-          <h2 className="uk-h2">Frequently asked <em>questions.</em></h2>
+          <h2 className="uk-h2">Common questions</h2>
         </Reveal>
-        <Reveal delay={120}>
+        <Reveal>
           <div className="uk-faqs">
             {faqs.map((f, i) => (
               <details className="uk-faq" key={f.q} open={i === 0}>

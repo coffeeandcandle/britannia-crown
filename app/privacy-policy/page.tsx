@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "../lib/seo";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
 import PageHero from "../components/PageHero";
 
 export const metadata: Metadata = pageMetadata({
@@ -14,12 +12,11 @@ export const metadata: Metadata = pageMetadata({
 export default function PrivacyPolicyPage() {
   return (
     <>
-      <Nav />
 
       <PageHero eyebrow="Legal" title="Privacy Policy" />
 
-      <section className="services">
-        <div className="section-inner">
+      <section className="uk-section white">
+        <div className="uk-wrap">
           <div className="legal-content">
             <p className="legal-updated">Last updated: 8 July 2026</p>
 
@@ -57,7 +54,6 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      <Footer />
     </>
   );
 }

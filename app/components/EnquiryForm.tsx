@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { track } from "../lib/track";
+import { appendAttribution } from "../lib/attribution";
 import { EMAIL, FORMSPREE_ENQUIRY, WHATSAPP_URL } from "../lib/site";
 
 // Values must match the ?service= links used across the site so preselection works.
@@ -57,8 +58,7 @@ export default function EnquiryForm({
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = new FormData(form);
-    data.set("page", window.location.pathname);
+    const data = appendAttribution(new FormData(form));
     setStatus("sending");
     try {
       const res = await fetch(FORMSPREE_ENQUIRY, {
@@ -82,11 +82,11 @@ export default function EnquiryForm({
   if (status === "sent") {
     return (
       <div className="enq-done" role="status">
-        <p className="enq-done-title">Thank you — your enquiry is with us.</p>
+        <p className="enq-done-title">Thank you. Your enquiry is with us.</p>
         <p>An education consultant will be in touch within 24 hours. Want to talk sooner?</p>
         <div className="enq-done-actions">
-          <Link href="/book-consultation" className="btn-primary">Book a Free Consultation</Link>
-          <a href={WHATSAPP_URL} className="btn-secondary">Message on WhatsApp</a>
+          <Link href="/book-consultation" className="btn-primary">Book a free call</Link>
+          <a href={WHATSAPP_URL} className="btn-secondary">Message us on WhatsApp</a>
         </div>
       </div>
     );
@@ -103,17 +103,17 @@ export default function EnquiryForm({
 
       <div className="form-row">
         <div className="form-group">
-          <label htmlFor={`${source}-name`}>Full Name <span className="required">*</span></label>
+          <label htmlFor={`${source}-name`}>Full name <span className="required">*</span></label>
           <input type="text" id={`${source}-name`} name="name" autoComplete="name" placeholder="Your full name" required />
         </div>
         <div className="form-group">
-          <label htmlFor={`${source}-phone`}>Phone Number <span className="required">*</span></label>
+          <label htmlFor={`${source}-phone`}>Phone number <span className="required">*</span></label>
           <input type="tel" id={`${source}-phone`} name="phone" autoComplete="tel" placeholder="07700 900123" required />
         </div>
       </div>
 
       <div className="form-group">
-        <label htmlFor={`${source}-email`}>Email Address <span className="required">*</span></label>
+        <label htmlFor={`${source}-email`}>Email address <span className="required">*</span></label>
         <input type="email" id={`${source}-email`} name="email" autoComplete="email" placeholder="you@example.com" required />
       </div>
 
@@ -121,9 +121,9 @@ export default function EnquiryForm({
         <input type="hidden" name="service" value={defaultService} />
       ) : (
         <div className="form-group">
-          <label htmlFor={`${source}-service`}>Service Interested In <span className="required">*</span></label>
+          <label htmlFor={`${source}-service`}>What do you need help with? <span className="required">*</span></label>
           <select key={defaultService} id={`${source}-service`} name="service" required defaultValue={defaultService}>
-            <option value="">Select a service...</option>
+            <option value="">Choose one…</option>
             {Object.entries(SERVICE_OPTIONS).map(([group, options]) => (
               <optgroup key={group} label={group}>
                 {options.map(([value, label]) => (
@@ -137,13 +137,13 @@ export default function EnquiryForm({
       )}
 
       <div className="form-group">
-        <label htmlFor={`${source}-age`}>Child&apos;s Age or Year Group</label>
+        <label htmlFor={`${source}-age`}>Child&apos;s age or year group</label>
         <input type="text" id={`${source}-age`} name="child-age" placeholder="e.g. Year 10, or 7 years old" />
       </div>
 
       <div className="form-group">
         <label htmlFor={`${source}-message`}>
-          {compact ? "What would you like help with?" : "Your Message"} {!compact && <span className="required">*</span>}
+          {compact ? "What would you like help with?" : "Your message"} {!compact && <span className="required">*</span>}
         </label>
         <textarea
           id={`${source}-message`}
@@ -157,7 +157,7 @@ export default function EnquiryForm({
         <details className="referral-disclosure">
           <summary>Have an ambassador referral code?</summary>
           <div className="form-group" style={{ marginTop: "16px" }}>
-            <label htmlFor={`${source}-referral`}>Ambassador Referral Code</label>
+            <label htmlFor={`${source}-referral`}>Ambassador referral code</label>
             <input type="text" id={`${source}-referral`} name="referral-code" placeholder="Enter ambassador code e.g. BC-SARA" />
           </div>
         </details>
@@ -171,7 +171,7 @@ export default function EnquiryForm({
       )}
 
       <button type="submit" className="form-submit" disabled={status === "sending"}>
-        {status === "sending" ? "Sending…" : compact ? "Request a Call Back" : "Send Message"}
+        {status === "sending" ? "Sending…" : compact ? "Request a call back" : "Send message"}
       </button>
       {showNote && <p className="enq-note">Free, no-obligation consultation. We&apos;ll never share your details.</p>}
     </form>

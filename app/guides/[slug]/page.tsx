@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Nav from "../../components/Nav";
-import Footer from "../../components/Footer";
-import Reveal from "../../components/Reveal";
+import { ReadingProgress, GuideToc } from "../../components/GuideReader";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
@@ -15,6 +13,7 @@ import { getService } from "../../lib/services";
 import { getSubject } from "../../lib/subjects";
 import { pageMetadata } from "../../lib/seo";
 import { articleSchema } from "../../lib/schema";
+import { WHATSAPP_URL } from "../../lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -55,10 +54,10 @@ export default async function GuidePage({ params }: Props) {
 
   return (
     <>
-      <Nav />
+      <ReadingProgress target="#guide-body" />
 
       <section className="uk-sub-hero gd-hero">
-        <div className="uk-wrap uk-hero-load">
+        <div className="uk-wrap">
           <Breadcrumbs
             crumbs={[
               { name: "Home", path: "/" },
@@ -77,28 +76,46 @@ export default async function GuidePage({ params }: Props) {
 
       <div className="gd-body">
         <div className="uk-wrap gd-layout">
-          <article className="gd-prose">
-            <Body />
-          </article>
+          <div>
+            {toc.length > 0 && (
+              <details className="gd-toc-mobile">
+                <summary>On this page</summary>
+                <ol>
+                  {toc.map((t) => (
+                    <li key={t.id}><a href={`#${t.id}`}>{t.text}</a></li>
+                  ))}
+                </ol>
+              </details>
+            )}
+            <article className="gd-prose" id="guide-body">
+              <Body />
+            </article>
+            <section className="gd-next" aria-labelledby="gd-next-title">
+              <h2 id="gd-next-title">Want advice on your child&apos;s situation?</h2>
+              <p>Our consultants answer questions like these every day. Choose whichever is easiest for you.</p>
+              <div className="gd-next-options">
+                <Link href="/book-consultation" className="gd-next-option">
+                  <strong>Book a free call</strong>
+                  <span>Pick a 30-minute slot with an education consultant.</span>
+                </Link>
+                <Link href="#enquire" className="gd-next-option">
+                  <strong>Request a call back</strong>
+                  <span>Leave your details and we&apos;ll ring you within 24 hours.</span>
+                </Link>
+                <a href={WHATSAPP_URL} className="gd-next-option">
+                  <strong>Message us on WhatsApp</strong>
+                  <span>Ask a quick question and get a reply from a person.</span>
+                </a>
+              </div>
+            </section>
+          </div>
           <aside className="gd-aside">
             <div className="gd-aside-inner">
-              {toc.length > 0 && (
-                // Not a <nav>: globals.css styles every nav element as the fixed site header.
-                <div className="gd-toc" role="navigation" aria-label="On this page">
-                  <p className="gd-toc-title">On this page</p>
-                  <ol>
-                    {toc.map((t) => (
-                      <li key={t.id}>
-                        <a href={`#${t.id}`}>{t.text}</a>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              )}
+              {toc.length > 0 && <GuideToc toc={toc} />}
               <div className="gd-aside-cta">
                 <p className="gd-aside-cta-title">Talk to an education consultant</p>
                 <p>A free, no-obligation 30-minute consultation about your child.</p>
-                <Link href="#enquire" className="btn-primary">Request a Call Back</Link>
+                <Link href="#enquire" className="btn-primary">Request a call back</Link>
                 <Link href="/book-consultation" className="gd-cta-link">or book a consultation →</Link>
               </div>
             </div>
@@ -109,7 +126,7 @@ export default async function GuidePage({ params }: Props) {
       <FaqSection faqs={guide.faqs} tone="cream" />
 
       <EnquirySection
-        title={<>{guide.enquiry.title} <em>{guide.enquiry.emphasis}</em></>}
+        title={`${guide.enquiry.title} ${guide.enquiry.emphasis}`}
         lead={guide.enquiry.lead}
         source="guide_page"
         defaultService={guide.enquiry.service}
@@ -118,16 +135,13 @@ export default async function GuidePage({ params }: Props) {
 
       <section className="uk-section white">
         <div className="uk-wrap">
-          <Reveal className="uk-head">
+          <div className="uk-head">
             <span className="uk-kicker">Keep reading</span>
-            <h2 className="uk-h2">Related <em>guides.</em></h2>
-          </Reveal>
-          <Reveal>
-            <GuideCards items={relatedGuides} />
-          </Reveal>
+            <h2 className="uk-h2">Related guides</h2>
+          </div>
+          <GuideCards items={relatedGuides} />
           {(relatedServices.length > 0 || relatedSubjects.length > 0) && (
-            <Reveal>
-              <div className="uk-others gd-related-links">
+            <div className="uk-others gd-related-links">
                 {relatedServices.map((s) => (
                   <Link href={`/services/${s.slug}`} className="uk-other" key={s.slug}>
                     <span>Service</span>
@@ -140,8 +154,7 @@ export default async function GuidePage({ params }: Props) {
                     <strong>{s.name} tutors</strong>
                   </Link>
                 ))}
-              </div>
-            </Reveal>
+            </div>
           )}
         </div>
       </section>
@@ -156,7 +169,6 @@ export default async function GuidePage({ params }: Props) {
         })}
       />
 
-      <Footer />
     </>
   );
 }

@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Nav from "../../components/Nav";
-import Footer from "../../components/Footer";
 import Reveal from "../../components/Reveal";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import FaqSection from "../../components/FaqSection";
@@ -39,10 +37,9 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <>
-      <Nav />
 
       <section className="uk-sub-hero">
-        <div className="uk-wrap uk-hero-load">
+        <div className="uk-wrap">
           <Breadcrumbs
             crumbs={[
               { name: "Home", path: "/" },
@@ -54,8 +51,8 @@ export default async function ServicePage({ params }: Props) {
           <h1>{service.headline}</h1>
           <p>{service.lead}</p>
           <div className="uk-hero-actions uk-sub-actions">
-            <Link href="#enquire" className="btn-primary">Request a Call Back</Link>
-            <Link href="/book-consultation" className="btn-secondary">Book Free Consultation</Link>
+            <Link href="#enquire" className="btn-primary">Request a call back</Link>
+            <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
           </div>
           <span className="uk-chip">{service.ages}</span>
         </div>
@@ -65,7 +62,7 @@ export default async function ServicePage({ params }: Props) {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">What you get</span>
-            <h2 className="uk-h2">Considered, personal and <em>accountable.</em></h2>
+            <h2 className="uk-h2">What&apos;s included</h2>
           </Reveal>
           <Reveal>
             <div className="uk-points">
@@ -84,13 +81,13 @@ export default async function ServicePage({ params }: Props) {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <span className="uk-kicker">How it works</span>
-            <h2 className="uk-h2">Three steps, <em>one relationship.</em></h2>
+            <h2 className="uk-h2">How it works</h2>
           </Reveal>
           <Reveal>
             <div className="uk-steps">
               {service.steps.map((st, i) => (
                 <div className="uk-step" key={st.title}>
-                  <div className="uk-step-num">0{i + 1}</div>
+                  <div className="uk-step-num">{i + 1}</div>
                   <h3>{st.title}</h3>
                   <p>{st.body}</p>
                 </div>
@@ -105,7 +102,7 @@ export default async function ServicePage({ params }: Props) {
           <div className="uk-wrap">
             <Reveal className="uk-head">
               <span className="uk-kicker">By subject</span>
-              <h2 className="uk-h2">Find a tutor for <em>your child&apos;s subject.</em></h2>
+              <h2 className="uk-h2">Find a tutor by subject</h2>
               <p className="uk-lead">Specialist support for the subjects families ask us about most — and we tutor across the curriculum.</p>
             </Reveal>
             <Reveal>
@@ -118,7 +115,7 @@ export default async function ServicePage({ params }: Props) {
       <FaqSection faqs={service.faqs} tone="cream" />
 
       <EnquirySection
-        title={<>Let&apos;s talk about <em>your child.</em></>}
+        title={<>Let&apos;s talk about your child</>}
         lead={`Tell us a little about your child and an education consultant will call you back to discuss ${service.name.toLowerCase()}.`}
         source="service_page"
         defaultService={service.contactValue}
@@ -131,7 +128,7 @@ export default async function ServicePage({ params }: Props) {
             <div className="gd-reading">
               <Reveal className="uk-head">
                 <span className="uk-kicker">Further reading</span>
-                <h2 className="uk-h2">Guides for <em>parents.</em></h2>
+                <h2 className="uk-h2">Guides for parents</h2>
               </Reveal>
               <Reveal>
                 <GuideCards items={reading} />
@@ -163,7 +160,6 @@ export default async function ServicePage({ params }: Props) {
         })}
       />
 
-      <Footer />
     </>
   );
 }
