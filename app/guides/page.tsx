@@ -8,9 +8,9 @@ import { pageMetadata } from "../lib/seo";
 import { guides, guideCategories } from "../lib/guides";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Guides for Parents: Schools, Exams & Home Education | Britannia Crown",
+  title: "Guides for Parents: Schools & Exams | Britannia Crown",
   description:
-    "Clear, practical guides for parents on school admissions, GCSE grades, revision, choosing a tutor, IGCSEs and home education — from British education consultants.",
+    "Practical guides for parents on school admissions, GCSE grades, revision, choosing a tutor, IGCSEs and home education, from British education consultants.",
   path: "/guides",
 });
 

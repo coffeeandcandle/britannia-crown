@@ -15,9 +15,9 @@ import { offerForProduct, offerPath } from "../lib/offers";
 import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Online Tutoring Membership | Academic Partner | Britannia Crown",
+  title: "Online Tutoring Membership | Britannia Crown",
   description:
-    "Ongoing online tutoring with vetted UK-qualified tutors and a dedicated education consultant overseeing your child's progress. Flexible monthly tiers from £200 a month. Cancel anytime.",
+    "Ongoing online tutoring with vetted UK-qualified tutors and a consultant overseeing progress. Monthly tiers from £200. Cancel or pause anytime.",
   path: "/membership",
 });
 

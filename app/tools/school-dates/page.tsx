@@ -7,7 +7,7 @@ import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
 
 export const metadata: Metadata = pageMetadata({
-  title: "School Start Date & Application Deadline Calculator (England) | Britannia Crown",
+  title: "School Start Date Calculator | Britannia Crown",
   description:
     "Enter your child's date of birth to see their year group, when they start school, and every primary, secondary and 11+ application deadline in England.",
   path: "/tools/school-dates",

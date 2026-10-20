@@ -91,9 +91,9 @@ export const subjects: Subject[] = [
       },
     ],
     related: ["a-level-maths", "gcse-science", "gcse-english"],
-    seoTitle: "GCSE Maths Tutors | UK-Trained, Personally Matched | Britannia Crown",
+    seoTitle: "GCSE Maths Tutors (UK-Trained) | Britannia Crown",
     seoDescription:
-      "GCSE Maths tutoring from UK-trained educators. Foundation and Higher tier, AQA, Edexcel, OCR and IGCSE — personally matched and overseen by an education consultant.",
+      "GCSE Maths tutoring from UK-trained educators. Foundation and Higher tier, AQA, Edexcel, OCR and IGCSE, matched to your child and overseen by a consultant.",
   },
   {
     slug: "gcse-english",
@@ -128,9 +128,9 @@ export const subjects: Subject[] = [
       },
     ],
     related: ["gcse-maths", "gcse-science", "primary"],
-    seoTitle: "GCSE English Tutors | Language & Literature | Britannia Crown",
+    seoTitle: "GCSE English Tutors: Language & Literature | Britannia Crown",
     seoDescription:
-      "GCSE English Language and Literature tutoring from UK-trained educators: analysis, essay writing, set texts and exam technique, personally matched to your child.",
+      "GCSE English Language and Literature tutoring from UK-trained educators: analysis, essay writing, set texts and exam technique, matched to your child.",
   },
   {
     slug: "gcse-science",
@@ -165,7 +165,7 @@ export const subjects: Subject[] = [
       },
     ],
     related: ["a-level-chemistry", "a-level-biology", "a-level-physics"],
-    seoTitle: "GCSE Science Tutors | Biology, Chemistry & Physics | Britannia Crown",
+    seoTitle: "GCSE Science Tutors: Bio, Chem & Physics | Britannia Crown",
     seoDescription:
       "GCSE Combined and Triple Science tutoring from UK-trained educators: required practicals, maths skills and exam technique, personally matched to your child.",
   },
@@ -202,9 +202,9 @@ export const subjects: Subject[] = [
       },
     ],
     related: ["gcse-maths", "a-level-physics", "a-level-chemistry"],
-    seoTitle: "A-Level Maths Tutors | Pure, Statistics & Mechanics | Britannia Crown",
+    seoTitle: "A-Level Maths Tutors (UK-Trained) | Britannia Crown",
     seoDescription:
-      "A-Level Maths tutoring from UK-trained educators: pure maths, statistics, mechanics and exam technique for AQA, Edexcel and OCR, personally matched to your child.",
+      "A-Level Maths tutoring from UK-trained educators: pure maths, statistics, mechanics and exam technique for AQA, Edexcel and OCR, matched to your child.",
   },
   {
     slug: "a-level-chemistry",
@@ -239,7 +239,7 @@ export const subjects: Subject[] = [
       },
     ],
     related: ["a-level-biology", "a-level-physics", "gcse-science"],
-    seoTitle: "A-Level Chemistry Tutors | UK-Trained Specialists | Britannia Crown",
+    seoTitle: "A-Level Chemistry Tutors | Britannia Crown",
     seoDescription:
       "A-Level Chemistry tutoring from UK-trained educators: organic mechanisms, calculations, practical skills and exam technique, personally matched to your child.",
   },
@@ -276,9 +276,9 @@ export const subjects: Subject[] = [
       },
     ],
     related: ["a-level-chemistry", "a-level-physics", "gcse-science"],
-    seoTitle: "A-Level Biology Tutors | UK-Trained Specialists | Britannia Crown",
+    seoTitle: "A-Level Biology Tutors | Britannia Crown",
     seoDescription:
-      "A-Level Biology tutoring from UK-trained educators: precise terminology, data and statistics, essay writing and exam technique, personally matched to your child.",
+      "A-Level Biology tutoring from UK-trained educators: terminology, data and statistics, essay writing and exam technique, matched to your child.",
   },
   {
     slug: "a-level-physics",
@@ -313,9 +313,9 @@ export const subjects: Subject[] = [
       },
     ],
     related: ["a-level-maths", "a-level-chemistry", "gcse-science"],
-    seoTitle: "A-Level Physics Tutors | UK-Trained Specialists | Britannia Crown",
+    seoTitle: "A-Level Physics Tutors | Britannia Crown",
     seoDescription:
-      "A-Level Physics tutoring from UK-trained educators: maths skills, core concepts, practical and data questions and exam technique, personally matched to your child.",
+      "A-Level Physics tutoring from UK-trained educators: maths skills, core concepts, practical and data questions and exam technique, matched to your child.",
   },
 ];
 

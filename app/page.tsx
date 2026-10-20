@@ -12,7 +12,7 @@ import { guides } from "./lib/guides";
 import { pageMetadata } from "./lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Britannia Crown | British Education Consultants & Private Tutors",
+  title: "Private Tutors & Education Consultants | Britannia Crown",
   description:
     "Private tutoring, home education, school placement and GCSE & A-Level support from UK-trained educators, overseen by a dedicated education consultant.",
   path: "/",

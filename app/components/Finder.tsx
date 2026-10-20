@@ -5,7 +5,7 @@ import Link from "next/link";
 import { subjects } from "../lib/subjects";
 import { track } from "../lib/track";
 
-type Need = "tutor" | "exams" | "school" | "home" | "uae";
+type Need = "tutor" | "guidance" | "exams" | "school" | "home" | "uae";
 type Recommendation = {
   title: string;
   body: string;
@@ -17,10 +17,20 @@ type Recommendation = {
 
 const needs: { value: Need; label: string }[] = [
   { value: "tutor", label: "A tutor" },
+  { value: "guidance", label: "Educational guidance" },
   { value: "exams", label: "GCSE or A-Level exams" },
   { value: "school", label: "Choosing a school" },
   { value: "home", label: "Home education" },
   { value: "uae", label: "Moving to the UAE" },
+];
+
+// "Educational guidance": advice rather than a service. Each topic points to the best guide and the right consultancy.
+const guidanceTopics = [
+  { value: "subjects", label: "Choosing GCSE or A-Level subjects" },
+  { value: "school", label: "Which school route to take" },
+  { value: "tutor", label: "Whether my child needs a tutor" },
+  { value: "exams", label: "Exams, resits or results" },
+  { value: "other", label: "Something else" },
 ];
 
 const tutorStages = ["Primary", "GCSE", "A-Level"] as const;
@@ -28,6 +38,52 @@ const examStages = ["GCSE", "A-Level"] as const;
 const schoolStages = ["Nursery or Reception", "Primary", "Secondary"] as const;
 
 function recommend(need: Need, stage: string, subject: string): Recommendation | null {
+  if (need === "guidance") {
+    if (!stage) return null;
+    const topics: Record<string, Recommendation> = {
+      subjects: {
+        title: "Subject and pathway guidance",
+        body: "Honest advice on GCSE options, A-Level choices and routes towards university and careers, based on your child's strengths.",
+        href: "/services/qualifications",
+        linkLabel: "See qualifications guidance",
+        service: "Qualifications",
+        extra: { href: "/guides/how-to-choose-gcse-options", label: "Read: how to choose GCSE options" },
+      },
+      school: {
+        title: "School route guidance",
+        body: "Help weighing up state, selective and independent routes, and what the admissions rules mean for your family.",
+        href: "/services/school-placement",
+        linkLabel: "See school placement",
+        service: "School Placement",
+        extra: { href: "/guides/how-school-admissions-criteria-work", label: "Read: how admissions criteria work" },
+      },
+      tutor: {
+        title: "Is a tutor the right step?",
+        body: "A frank conversation about whether extra help would make a difference, what kind, and when a tutor is not the answer.",
+        href: "/services/tutoring",
+        linkLabel: "See private tutoring",
+        service: "Tutoring",
+        extra: { href: "/guides/signs-your-child-needs-a-tutor", label: "Read: signs your child needs a tutor" },
+      },
+      exams: {
+        title: "Exam, resit and results guidance",
+        body: "Plan resits, private-candidate entries and what to do after results, with clear next steps.",
+        href: "/services/qualifications",
+        linkLabel: "See exam support",
+        service: "Qualifications",
+        extra: { href: "/guides/results-day-gcse-a-level-what-to-do", label: "Read: what to do after results" },
+      },
+      other: {
+        title: "A free consultation",
+        body: "Tell us what is on your mind and an education consultant will give you honest, practical guidance. It is free and there is no obligation.",
+        href: "/book-consultation",
+        linkLabel: "Book a free call",
+        service: "General Enquiry",
+        extra: { href: "/guides", label: "Browse our guides for parents" },
+      },
+    };
+    return topics[stage] ?? null;
+  }
   if (need === "tutor") {
     if (!stage) return null;
     if (stage === "Primary") {
@@ -135,7 +191,7 @@ export default function Finder() {
   const [stage, setStage] = useState("");
   const [subject, setSubject] = useState("");
 
-  const stages = need === "tutor" ? tutorStages : need === "exams" ? examStages : need === "school" ? schoolStages : null;
+  const stages = need === "guidance" ? null : need === "tutor" ? tutorStages : need === "exams" ? examStages : need === "school" ? schoolStages : null;
   const subjectOptions =
     need === "tutor" && (stage === "GCSE" || stage === "A-Level")
       ? subjects.filter((s) => s.level === stage).map((s) => ({ value: s.slug, label: s.name.replace(`${stage} `, "") }))
@@ -166,6 +222,21 @@ export default function Finder() {
           }, { need: v, stage: "", subject: "" })
         }
       />
+
+      {need === "guidance" && (
+        <Options
+          name="topic"
+          legend="What would you like guidance on?"
+          options={guidanceTopics}
+          value={stage}
+          onChange={(v) =>
+            choose(() => {
+              setStage(v);
+              setSubject("");
+            }, { need, stage: v, subject: "" })
+          }
+        />
+      )}
 
       {stages && (
         <Options

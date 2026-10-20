@@ -47,13 +47,13 @@ export const guides: Guide[] = [
       { q: "How much should we practise?", a: "Little and often works best. Ten focused minutes a day is more useful than one long session a week." },
       { q: "When should we consider a tutor?", a: "When there is a clear gap, falling confidence, a big exam ahead or homework is becoming a battle at home." },
     ],
-    related: { services: ["tutoring"], subjects: ["primary", "gcse-maths", "a-level-maths"], guides: ["signs-your-child-needs-a-tutor", "how-to-revise-gcse-a-level", "gcse-grades-explained"] },
+    related: { services: ["tutoring"], subjects: ["primary", "gcse-maths", "a-level-maths"], guides: ["signs-your-child-needs-a-tutor", "how-to-revise-gcse-a-level", "gcse-grades-explained", "online-vs-face-to-face-tutoring"] },
     enquiry: { service: "Tutoring", title: "Struggling with maths at home?", emphasis: "Let's help.", lead: "Tell us about your child and an education consultant will suggest the right level of support." },
   },
   {
     slug: "how-to-improve-gcse-english-language-and-literature",
     title: "How to improve GCSE English Language and Literature",
-    seoTitle: "Improve GCSE English Language and Literature | Britannia Crown",
+    seoTitle: "How to Improve GCSE English | Britannia Crown",
     description: "How the two English GCSEs work, what examiners reward and practical habits that raise grades, from planning answers to using quotations.",
     category: "Exams & Qualifications",
     published: "2026-10-20",
@@ -207,7 +207,7 @@ export const guides: Guide[] = [
       { q: "Does living in the catchment area guarantee a place?", a: "No. If a school is oversubscribed, children are ranked by its criteria, and catchment is only one of them. Some schools have no catchment at all." },
       { q: "How is distance measured?", a: "Usually as a straight line from your home to the school gate, though some schools or authorities use walking distance. The admission policy states exactly how." },
     ],
-    related: { services: ["school-placement"], subjects: ["primary"], guides: ["school-admissions-england", "school-admission-appeals-england", "questions-to-ask-when-visiting-a-school"] },
+    related: { services: ["school-placement"], subjects: ["primary"], guides: ["school-admissions-england", "school-admission-appeals-england", "questions-to-ask-when-visiting-a-school", "11-plus-and-grammar-schools-explained", "independent-school-entry-assessments-and-bursaries"] },
     enquiry: { service: "School Placement", title: "Reading the admission rules?", emphasis: "Let's talk it through.", lead: "Tell us your postcode and the schools you like and an education consultant will explain your realistic chances." },
   },
   {
@@ -230,7 +230,7 @@ export const guides: Guide[] = [
     slug: "in-year-school-admissions-moving-mid-year",
     title: "In-year school admissions: finding a place when you move mid-year",
     seoTitle: "In-Year School Admissions: Moving Mid-Year | Britannia Crown",
-    description: "How to apply for a school place outside the main admissions round in England: who handles applications, waiting lists, moving from abroad and what to do if refused.",
+    description: "How to apply for a school place outside the main admissions round in England: who handles applications, waiting lists, moving from abroad and refusals.",
     category: "Choosing a School",
     published: "2026-10-20",
     updated: "2026-10-20",
@@ -239,7 +239,7 @@ export const guides: Guide[] = [
       { q: "Is a place guaranteed if I move?", a: "No. Places depend on availability in the year group, and oversubscription criteria apply if there are more applicants than places." },
       { q: "What if my child has no school place?", a: "Tell the local authority, which has duties to help. Some vulnerable children are covered by fair access protocols that give them priority." },
     ],
-    related: { services: ["school-placement"], subjects: [], guides: ["how-school-admissions-criteria-work", "school-admission-appeals-england", "questions-to-ask-when-visiting-a-school"] },
+    related: { services: ["school-placement"], subjects: [], guides: ["how-school-admissions-criteria-work", "school-admission-appeals-england", "questions-to-ask-when-visiting-a-school", "returning-to-the-uk-with-children-school-places"] },
     enquiry: { service: "School Placement", title: "Moving mid-year?", emphasis: "We can move fast.", lead: "Tell us your dates and area and an education consultant will help you find and apply for the right school." },
   },
   {
@@ -303,7 +303,7 @@ export const guides: Guide[] = [
       { q: "How many schools should we visit?", a: "More than one, so you can compare. If possible, see a normal school day as well as an open event." },
       { q: "What questions should I ask about behaviour and wellbeing?", a: "How the school handles behaviour and bullying in practice, who a worried child goes to, and how it supports wellbeing and special educational needs." },
     ],
-    related: { services: ["school-placement"], subjects: [], guides: ["how-school-admissions-criteria-work", "school-admissions-england", "in-year-school-admissions-moving-mid-year"] },
+    related: { services: ["school-placement"], subjects: [], guides: ["how-school-admissions-criteria-work", "school-admissions-england", "in-year-school-admissions-moving-mid-year", "independent-school-entry-assessments-and-bursaries", "11-plus-and-grammar-schools-explained"] },
     enquiry: { service: "School Placement", title: "Comparing schools?", emphasis: "Get a second opinion.", lead: "Tell us about your child and an education consultant will help you compare the schools you have seen." },
   },
   {
@@ -325,7 +325,7 @@ export const guides: Guide[] = [
   {
     slug: "how-much-does-a-private-tutor-cost-uk",
     title: "How much does a private tutor cost in the UK?",
-    seoTitle: "How Much Does a Private Tutor Cost in the UK? | Britannia Crown",
+    seoTitle: "Private Tutor Cost in the UK | Britannia Crown",
     description: "What affects the price of a private tutor in the UK, what to compare besides the hourly rate, and how to keep the cost sensible without losing quality.",
     category: "Tutoring",
     published: "2026-10-20",
@@ -367,13 +367,13 @@ export const guides: Guide[] = [
       { q: "Should I talk to the school first?", a: "Yes. The teacher can tell you where exactly your child is struggling, which keeps any tutoring focused. For wider concerns, the school's SENCo is the right person to speak to." },
       { q: "When is a tutor not the answer?", a: "When the real issue is wellbeing, tiredness or a possible learning need that should be assessed first, or when your child is not yet ready to be helped." },
     ],
-    related: { services: ["tutoring"], subjects: ["primary", "gcse-maths", "gcse-english"], guides: ["choosing-a-private-tutor", "how-much-does-a-private-tutor-cost-uk", "how-to-revise-gcse-a-level"] },
+    related: { services: ["tutoring"], subjects: ["primary", "gcse-maths", "gcse-english"], guides: ["choosing-a-private-tutor", "how-much-does-a-private-tutor-cost-uk", "how-to-revise-gcse-a-level", "online-vs-face-to-face-tutoring"] },
     enquiry: { service: "Tutoring", title: "Wondering if tutoring would help?", emphasis: "Let's find out.", lead: "Book a free consultation and we will give you an honest view, including when tutoring is not the answer." },
   },
   {
     slug: "how-to-choose-gcse-options",
     title: "How to choose GCSE options: a guide for parents",
-    seoTitle: "How to Choose GCSE Options: A Guide for Parents | Britannia Crown",
+    seoTitle: "How to Choose GCSE Options | Britannia Crown",
     description: "How GCSE options work in England, what to consider when choosing, common mistakes to avoid and the questions to ask your child's school.",
     category: "Exams & Qualifications",
     published: "2026-10-20",
@@ -405,7 +405,7 @@ export const guides: Guide[] = [
   {
     slug: "gcse-resits-english-and-maths",
     title: "GCSE resits in English and maths: how they work",
-    seoTitle: "GCSE Resits in English and Maths: How They Work | Britannia Crown",
+    seoTitle: "GCSE Resits in English and Maths | Britannia Crown",
     description: "How GCSE English and maths resits work in England, who has to retake, when the exams are held and how to improve a grade.",
     category: "Exams & Qualifications",
     published: "2026-10-20",
@@ -437,7 +437,7 @@ export const guides: Guide[] = [
   {
     slug: "ks2-sats-explained",
     title: "KS2 SATs explained: what parents need to know",
-    seoTitle: "KS2 SATs Explained: What Parents Need to Know | Britannia Crown",
+    seoTitle: "KS2 SATs Explained for Parents | Britannia Crown",
     description: "What KS2 SATs are, when they happen, how scaled scores work, whether they matter and how to support your child without adding pressure.",
     category: "Early Years & Primary",
     published: "2026-10-20",
@@ -453,9 +453,9 @@ export const guides: Guide[] = [
   {
     slug: "school-admissions-england",
     title: "School admissions in England: key dates and how to apply",
-    seoTitle: "School Admissions in England: Key Dates & How to Apply | Britannia Crown",
+    seoTitle: "School Admissions in England: Key Dates | Britannia Crown",
     description:
-      "Key dates for September 2027 entry, how primary and secondary applications work, how places are allocated, and what to do if you don't get the school you wanted.",
+      "Key dates for September 2027 entry, how primary and secondary applications work, how places are allocated and what to do if you miss your first choice.",
     category: "Choosing a School",
     published: "2026-10-19",
     updated: "2026-10-19",
@@ -473,7 +473,7 @@ export const guides: Guide[] = [
         a: "No. Schools don't see how you ranked them, and listing a single school gives you no advantage. Naming several schools reduces the risk of being offered a school you didn't choose.",
       },
     ],
-    related: { services: ["school-placement"], subjects: ["primary"], guides: ["home-education-england", "igcse-vs-gcse"] },
+    related: { services: ["school-placement"], subjects: ["primary"], guides: ["home-education-england", "igcse-vs-gcse", "11-plus-and-grammar-schools-explained", "independent-school-entry-assessments-and-bursaries", "how-to-choose-a-nursery-england"] },
     enquiry: {
       service: "School Placement",
       title: "Choosing a school?",
@@ -484,7 +484,7 @@ export const guides: Guide[] = [
   {
     slug: "gcse-grades-explained",
     title: "GCSE grades explained: what 9 to 1 means for your child",
-    seoTitle: "GCSE Grades Explained: The 9 to 1 Scale for Parents | Britannia Crown",
+    seoTitle: "GCSE Grades Explained: 9 to 1 | Britannia Crown",
     description:
       "What GCSE grades 9 to 1 mean, how they compare with A* to G, what counts as a pass, how grade boundaries work and what to do on results day.",
     category: "Exams & Qualifications",
@@ -519,9 +519,9 @@ export const guides: Guide[] = [
   {
     slug: "home-education-england",
     title: "Home education in England: a practical guide for parents",
-    seoTitle: "Home Education in England: A Parent's Guide | Britannia Crown",
+    seoTitle: "Home Education in England: A Guide | Britannia Crown",
     description:
-      "What the law requires, how to take your child out of school, what the council's role is, how to plan a suitable education and how home-educated children sit exams.",
+      "What the law requires, how to take your child out of school, the council's role, how to plan a suitable education and how home-educated children sit exams.",
     category: "Home Education",
     published: "2026-10-19",
     updated: "2026-10-19",
@@ -554,9 +554,9 @@ export const guides: Guide[] = [
   {
     slug: "choosing-a-private-tutor",
     title: "How to choose a private tutor: 10 questions to ask",
-    seoTitle: "How to Choose a Private Tutor: 10 Questions to Ask | Britannia Crown",
+    seoTitle: "How to Choose a Private Tutor | Britannia Crown",
     description:
-      "Tutoring isn't regulated in the UK, so quality varies. Ten questions to ask about experience, safeguarding, progress and fit before you choose a tutor for your child.",
+      "Tutoring isn't regulated in the UK, so quality varies. Ten questions to ask about experience, safeguarding, progress and fit before you choose a tutor.",
     category: "Tutoring",
     published: "2026-10-19",
     updated: "2026-10-19",
@@ -577,7 +577,7 @@ export const guides: Guide[] = [
     related: {
       services: ["tutoring"],
       subjects: ["gcse-maths", "gcse-english", "primary"],
-      guides: ["how-to-revise-gcse-a-level", "gcse-grades-explained"],
+      guides: ["how-to-revise-gcse-a-level", "gcse-grades-explained", "online-vs-face-to-face-tutoring"],
     },
     enquiry: {
       service: "Tutoring",
@@ -589,7 +589,7 @@ export const guides: Guide[] = [
   {
     slug: "how-to-revise-gcse-a-level",
     title: "How to revise for GCSEs and A-Levels: methods that work",
-    seoTitle: "How to Revise for GCSEs & A-Levels: Methods That Work | Britannia Crown",
+    seoTitle: "How to Revise for GCSEs & A-Levels | Britannia Crown",
     description:
       "Evidence-based revision techniques — retrieval practice, spacing, interleaving and past papers — plus how to build a realistic plan and how parents can help.",
     category: "Exams & Qualifications",
@@ -624,7 +624,7 @@ export const guides: Guide[] = [
   {
     slug: "igcse-vs-gcse",
     title: "IGCSE vs GCSE: what's the difference?",
-    seoTitle: "IGCSE vs GCSE: What's the Difference? A Parent's Guide | Britannia Crown",
+    seoTitle: "IGCSE vs GCSE: The Difference | Britannia Crown",
     description:
       "How International GCSEs differ from GCSEs in who offers them, content, assessment and grading, how universities view them, and which suits your child.",
     category: "Exams & Qualifications",
@@ -647,7 +647,7 @@ export const guides: Guide[] = [
     related: {
       services: ["qualifications", "home-education"],
       subjects: ["gcse-maths", "gcse-science"],
-      guides: ["gcse-grades-explained", "home-education-england"],
+      guides: ["gcse-grades-explained", "home-education-england", "returning-to-the-uk-with-children-school-places"],
     },
     enquiry: {
       service: "Qualifications",

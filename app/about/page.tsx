@@ -13,7 +13,7 @@ import { SITE_URL } from "../lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "About Britannia Crown | British Education Consultants",
   description:
-    "Britannia Crown is a British education consultancy built on six years of running a UK tutoring company: UK-trained tutors, expert advice on schools and qualifications, and one relationship from early years to A-Level.",
+    "A British education consultancy built on six years of running a UK tutoring company: UK-trained tutors and advice on schools, qualifications and exams.",
   path: "/about",
 });
 

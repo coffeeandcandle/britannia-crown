@@ -8,7 +8,7 @@ import { pageMetadata } from "../lib/seo";
 import { getService } from "../lib/services";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Find a Private Tutor | Primary, GCSE & A-Level Tutors | Britannia Crown",
+  title: "Find a Private Tutor | Britannia Crown",
   description:
     "UK-trained private tutors for primary, GCSE and A-Level — maths, English, the sciences and more — personally matched to your child and overseen by a consultant.",
   path: "/tutors",

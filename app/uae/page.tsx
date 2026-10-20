@@ -13,7 +13,7 @@ import { offerForProduct, offerPath } from "../lib/offers";
 import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Moving to Dubai with Children? Schools & Tutoring | Britannia Crown",
+  title: "Moving to Dubai: Schools & Tutoring | Britannia Crown",
   description:
     "Relocating to Dubai or the UAE? Nursery search, British school placement, IGCSE & A-Level tutoring and education concierge for families moving from the UK.",
   path: "/uae",

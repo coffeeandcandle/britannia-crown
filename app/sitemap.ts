@@ -39,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routes.map((route) => ({
     url: route.path === '/' ? SITE_URL : `${SITE_URL}${route.path}`,
-    lastModified: route.lastModified ? new Date(route.lastModified) : new Date(),
+    lastModified: route.lastModified ? new Date(route.lastModified) : undefined,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }))

@@ -7,7 +7,7 @@ import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
 
 export const metadata: Metadata = pageMetadata({
-  title: "GCSE Grade Converter: 9 to 1 vs Old A* to G Grades | Britannia Crown",
+  title: "GCSE Grade Converter: 9-1 vs A*-G | Britannia Crown",
   description:
     "See what each GCSE grade from 9 to 1 means and how it compares with the old A* to G letter grades, including what counts as a standard and strong pass.",
   path: "/tools/gcse-grade-converter",

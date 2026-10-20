@@ -6,7 +6,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import { services } from "../lib/services";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Tutoring, Home Education & School Placement Services | Britannia Crown",
+  title: "Tutoring & Education Consultancy | Britannia Crown",
   description:
     "Private tutoring, home education, school and nursery placement, and qualifications support from UK-trained educators and dedicated education consultants.",
   path: "/services",

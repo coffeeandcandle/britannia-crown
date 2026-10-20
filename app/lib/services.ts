@@ -81,7 +81,7 @@ export const services: Service[] = [
     showSubjects: true,
     seoTitle: "UK-Trained Private Tutors | Britannia Crown",
     seoDescription:
-      "UK-trained private tutors for primary, GCSE and A-Level, matched personally to your child and overseen by a dedicated education consultant. Online or face to face.",
+      "UK-trained private tutors for primary, GCSE and A-Level, matched to your child and overseen by an education consultant. Online or face to face.",
     contactValue: "Tutoring",
     audience: [
       "Parents of children from primary school to A-Level who want a tutor who genuinely fits",
@@ -138,7 +138,7 @@ export const services: Service[] = [
         a: "It depends on your child's age, subjects and how much support you want, so we quote after a short conversation. You will know the price before you commit. A free 30-minute consultation is the best first step.",
       },
     ],
-    seoTitle: "Home Education Support — British Curriculum | Britannia Crown",
+    seoTitle: "Home Education Support | Britannia Crown",
     seoDescription:
       "Expert home education support for UK families: British-curriculum planning, specialist tutors and GCSE and A-Level guidance, with a dedicated consultant.",
     contactValue: "Home Education",
@@ -200,7 +200,7 @@ export const services: Service[] = [
     ],
     seoTitle: "School & Nursery Placement Consultants | Britannia Crown",
     seoDescription:
-      "School and nursery placement advice for UK families: research, shortlisting, visits and application support from nursery to Sixth Form, with a dedicated consultant.",
+      "School and nursery placement advice for UK families: research, shortlisting, visits and applications from nursery to Sixth Form, with a dedicated consultant.",
     contactValue: "School Placement",
     audience: [
       "Parents choosing a nursery or school, from first nursery to Sixth Form",

@@ -105,3 +105,10 @@ Extra statements worth checking:
   university and course sets its own requirements.
 - **Resit timeline:** November series entry deadlines fall soon after August results; confirm with the exam centre.
 - **Tutor types table:** descriptive only. It deliberately quotes no market rates.
+
+## Technical SEO sweep
+- Titles: every page title is now 60 characters or fewer (keyword first, brand last); descriptions 70 to 160.
+- The home page title changed to "Private Tutors & Education Consultants | Britannia Crown".
+- Sitemap no longer claims every page was modified at each build; only guides carry a real "updated" date.
+- Newer guides were cross-linked so every page has at least three internal links pointing to it.
+- Finder: new "Educational guidance" path (subjects, school route, whether a tutor is needed, exams and results, other).

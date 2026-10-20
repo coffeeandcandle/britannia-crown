@@ -7,9 +7,9 @@ import AmbassadorForm from "../components/AmbassadorForm";
 import { pageMetadata } from "../lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ambassador Programme | Earn £30 per Referral | Britannia Crown",
+  title: "Ambassador Programme: Earn £30 | Britannia Crown",
   description:
-    "Refer a family to Britannia Crown and earn £30 for every successful booking, with no limit on referrals. Open to nannies, teachers, parents and community members.",
+    "Refer a family to Britannia Crown and earn £30 for every successful booking, with no limit on referrals. Open to nannies, teachers, parents and others.",
   path: "/ambassador",
 });
 

@@ -9,7 +9,7 @@ import { sessionTypes, isBookable, priceLabel } from "../lib/sessions";
 import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Prices | Tutoring Membership & Education Services | Britannia Crown",
+  title: "Prices and Plans | Britannia Crown",
   description:
     "Clear prices for Britannia Crown's tutoring membership, consultations and UAE relocation packages. Pay securely online or start with a free consultation.",
   path: "/pricing",
