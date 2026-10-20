@@ -79,3 +79,18 @@ Please check these statements before relying on them (they are accurate to the b
   may be needed first for a child at a special school under local authority arrangements; no duty to follow the National
   Curriculum; no funding for home education.
 - **Length:** these articles are about 650 to 850 words each, shorter than ideal for the most competitive search terms.
+
+## Articles, batch 3 (maths and English help, sciences, exam support, early years, home education, returning to the UK)
+Statements to verify (accurate to the best of my knowledge, but rules change):
+- **GCSE maths tiers:** foundation covers grades 1 to 5 and higher covers 4 to 9.
+- **Combined vs separate science:** combined science is two GCSEs with a double grade; separate sciences are three GCSEs.
+  Sixth-form entry requirements vary.
+- **Access arrangements:** extra time commonly up to 25 per cent; applications are made by the exam centre through the JCQ
+  system, usually need evidence and must be the student's normal way of working. JCQ rules are updated each year.
+- **Results days:** A-Level results mid-August, GCSE about a week later; Clearing, Adjustment and reviews of marking (marks
+  can go down). Check current UCAS and exam board rules.
+- **Phonics check:** Year 1, June, 40 words, threshold published each year (historically 32).
+- **Starting school:** compulsory school age starts on 31 August, 31 December or 31 March after the fifth birthday; summer-born
+  children (1 April to 31 August) can request a delayed Reception start, decided by the admission authority.
+- **Returning to the UK:** councils need a UK address; in-year applications; no guaranteed place.
+- **Length:** most of these run about 600 to 730 words, below the 1,000+ ideal for competitive search terms.
