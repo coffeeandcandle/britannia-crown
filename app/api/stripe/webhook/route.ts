@@ -5,6 +5,8 @@ import { FORMSPREE_ENQUIRY } from "../../../lib/site";
 import { query } from "../../../lib/portal/db";
 import { getSetting } from "../../../lib/settings";
 
+const SITE_ORIGIN = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://britannia-crown.vercel.app";
+
 // Stripe calls this endpoint after payments and subscription changes. Each event is
 // verified with the webhook's signing secret (STRIPE_WEBHOOK_SECRET, or the one saved by
 // scripts/stripe-setup.mjs), then the team is emailed via the enquiry form inbox so a new
@@ -85,13 +87,19 @@ export async function POST(request: Request) {
   return Response.json({ received: true });
 }
 
+// Posts like the site's own enquiry form (form-encoded, from the site's origin), so Formspree
+// treats it the same as a browser submission.
 async function notifyTeam(subject: string, fields: Record<string, string>) {
   const res = await fetch(FORMSPREE_ENQUIRY, {
     method: "POST",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ _subject: `${subject} | Britannia Crown`, source: "stripe", ...fields }),
+    headers: {
+      Accept: "application/json",
+      Origin: SITE_ORIGIN,
+      Referer: `${SITE_ORIGIN}/pricing`,
+    },
+    body: new URLSearchParams({ _subject: `${subject} | Britannia Crown`, source: "stripe", ...fields }),
   });
-  if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+  if (!res.ok) throw new Error(`Formspree responded ${res.status}: ${(await res.text()).slice(0, 300)}`);
 }
 
 // If the buyer already has a portal account, remember their Stripe customer for the billing page.
