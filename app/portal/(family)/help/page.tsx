@@ -6,11 +6,11 @@ import { PageHeader, Card } from "../../ui";
 const faqs = [
   {
     q: "How do I join a lesson?",
-    a: "Go to Overview or Sessions. Fifteen minutes before an online lesson starts, a Join button appears next to it. Click it to open the video call in a new tab.",
+    a: "Go to Overview or Sessions. Fifteen minutes before an online lesson starts, a Join button appears next to it. Click it to join the lesson inside your portal.",
   },
   {
     q: "I can't see a Join button",
-    a: "The button only appears from 15 minutes before the start until the lesson ends. If it still isn't there at the start time, your tutor may not have added the link yet. Email your consultant and they'll sort it out.",
+    a: "The button only appears from 15 minutes before the start until the lesson ends. If it still isn't there at the start time, refresh the page, and if it still isn't there email your consultant and they'll sort it out.",
   },
   {
     q: "Where are my tutor's notes and homework?",
