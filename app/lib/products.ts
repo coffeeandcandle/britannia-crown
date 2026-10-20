@@ -59,7 +59,7 @@ export const products: Product[] = [
   {
     id: "uae-concierge",
     name: "Education Concierge (monthly)",
-    description: "A dedicated education manager: monthly strategy, unlimited WhatsApp support, and tutor and school liaison.",
+    description: "A dedicated education manager: monthly strategy, unlimited message support, and tutor and school liaison.",
     amount: 2500,
     currency: "aed",
     mode: "subscription",
@@ -69,7 +69,7 @@ export const products: Product[] = [
   {
     id: "membership-foundation",
     name: "Academic Partner Membership: Foundation",
-    description: "4 hours a month of online tutoring credit, a monthly parent check-in and WhatsApp support.",
+    description: "4 hours a month of online tutoring credit, a monthly parent check-in and message support.",
     amount: 1000,
     currency: "aed",
     mode: "subscription",

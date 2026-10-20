@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
-import { EMAIL, FORMSPREE_ENQUIRY, WHATSAPP_URL } from "../lib/site";
+import { EMAIL, FORMSPREE_ENQUIRY } from "../lib/site";
 
 // Values must match the ?service= links used across the site so preselection works.
 const SERVICE_OPTIONS = {
@@ -86,7 +86,7 @@ export default function EnquiryForm({
         <p>An education consultant will be in touch within 24 hours. Want to talk sooner?</p>
         <div className="enq-done-actions">
           <Link href="/book-consultation" className="btn-primary">Book a free call</Link>
-          <a href={WHATSAPP_URL} className="btn-secondary">Message us on WhatsApp</a>
+          <a href={`mailto:${EMAIL}`} className="btn-secondary">Email us</a>
         </div>
       </div>
     );
@@ -165,8 +165,7 @@ export default function EnquiryForm({
 
       {status === "error" && (
         <p className="enq-error" role="alert">
-          Sorry — your enquiry didn&apos;t send. Please try again, or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> or{" "}
-          <a href={WHATSAPP_URL}>message us on WhatsApp</a>.
+          Sorry — your enquiry didn&apos;t send. Please try again, or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
         </p>
       )}
 

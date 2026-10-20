@@ -4,7 +4,7 @@ import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
 import Breadcrumbs from "../components/Breadcrumbs";
 import ContactForm from "../components/ContactForm";
-import { EMAIL, INSTAGRAM_URL, WHATSAPP_URL } from "../lib/site";
+import { EMAIL, INSTAGRAM_URL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact Britannia Crown | British Education Consultants",
@@ -32,9 +32,9 @@ export default function ContactPage() {
               <strong>Book a free call</strong>
               <span>Pick a 30-minute slot that suits you. Free, with no obligation.</span>
             </Link>
-            <a href={WHATSAPP_URL} className="contact-option">
-              <strong>WhatsApp</strong>
-              <span>+971 50 263 5427. The quickest way to reach us.</span>
+            <a href="#enquiry-form" className="contact-option">
+              <strong>Send an enquiry</strong>
+              <span>Tell us about your child and we&apos;ll reply within 24 hours.</span>
             </a>
             <a href={`mailto:${EMAIL}`} className="contact-option">
               <strong>Email</strong>
@@ -42,7 +42,7 @@ export default function ContactPage() {
             </a>
           </div>
 
-          <div className="contact-layout">
+          <div className="contact-layout" id="enquiry-form">
             <div>
               <h2 className="uk-h2">Or send us a message</h2>
               <p className="uk-lead">Tell us a little about your child and what you need. An education consultant will read it and get back to you, usually the same day.</p>

@@ -47,7 +47,7 @@ export default function AmbassadorForm() {
           <input type="text" id="amb-name" name="name" autoComplete="name" placeholder="Your full name" required />
         </div>
         <div className="form-group">
-          <label htmlFor="amb-phone">WhatsApp Number <span className="required">*</span></label>
+          <label htmlFor="amb-phone">Phone number <span className="required">*</span></label>
           <input type="tel" id="amb-phone" name="phone" autoComplete="tel" placeholder="+44 7700 900123" required />
         </div>
       </div>

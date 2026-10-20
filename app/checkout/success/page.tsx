@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getStripe } from "../../lib/stripe";
 import { getProduct, formatPrice } from "../../lib/products";
-import { WHATSAPP_URL } from "../../lib/site";
+import { EMAIL } from "../../lib/site";
 import PurchaseTracker from "../../components/PurchaseTracker";
 
 export const metadata: Metadata = {
@@ -60,9 +60,9 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
             <ol className="book-steps">
               <li><strong>An education consultant calls you.</strong> We&apos;ll confirm your child&apos;s details, goals and any deadlines.</li>
               <li><strong>We get to work.</strong> Your consultant sets out the plan and the first steps, and matches a tutor where needed.</li>
-              <li><strong>You hear from us regularly.</strong> Progress updates come by WhatsApp or email, whichever you prefer.</li>
+              <li><strong>You hear from us regularly.</strong> Progress updates come by email, and through your family portal.</li>
             </ol>
-            <p>Want to speak sooner? <a href={WHATSAPP_URL}>Message us on WhatsApp</a>, or <Link href="/book-consultation">book a call</Link> at a time that suits you.</p>
+            <p>Want to speak sooner? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>, or <Link href="/book-consultation">book a call</Link> at a time that suits you.</p>
           </div>
         </div>
       </section>

@@ -663,20 +663,75 @@ button[aria-busy="true"] { opacity: .7; cursor: progress; }
   .session-cards, .booking-panel { grid-template-columns: 1fr; }
 }
 
-/* ── Client portal ────────────────────────────────────────────────── */
-.pt { min-height: 60vh; background: var(--paper); padding-bottom: 72px; }
-.pt-bar { background: var(--white); border-bottom: 1px solid var(--line); }
-.pt-bar-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-top: 22px; padding-bottom: 14px; }
-.pt-area { font-size: .8rem; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--gold-ink); }
-.pt-who { font-family: var(--serif); font-size: 1.5rem; color: var(--brand-ink); }
-.pt-account { display: flex; align-items: center; gap: 16px; }
-.pt-switch { font-weight: 600; }
-.pt-dev { font-size: .85rem; color: var(--ink-3); }
-.pt-tabs { display: flex; gap: 4px; overflow-x: auto; }
-.pt-tabs a { padding: 10px 14px 12px; border-bottom: 3px solid transparent; font-weight: 600; color: var(--ink-2); text-decoration: none; white-space: nowrap; }
-.pt-tabs a:hover { color: var(--brand-ink); }
+/* ── Client portal: app shell ─────────────────────────────────────── */
+/* Portal pages use their own navigation, so the marketing header and footer are hidden. */
+body:has(.pt-app) .site-chrome { display: none; }
+.pt-app { display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: 100vh; background: linear-gradient(to right, var(--brand-ink) 264px, var(--paper) 264px); }
+.ptn { position: sticky; top: 0; display: flex; flex-direction: column; gap: 24px; height: 100vh; overflow-y: auto; padding: 24px 16px; background: var(--brand-ink); color: rgba(255,255,255,.82); }
+.ptn-topbar { display: none; }
+.ptn-brand { display: flex; align-items: center; gap: 10px; padding: 0 8px; color: var(--white); text-decoration: none; }
+.ptn-brand:hover { color: var(--white); }
+.ptn-crown { width: 34px; height: 28px; flex-shrink: 0; }
+.ptn-brand-name { display: block; font-family: var(--serif); font-size: 1.15rem; line-height: 1.1; }
+.ptn-brand-sub { display: block; margin-top: 3px; font-size: .66rem; font-weight: 650; letter-spacing: .12em; text-transform: uppercase; color: var(--champagne); }
+.ptn nav { display: grid; align-content: start; gap: 20px; flex: 1; }
+.ptn-section ul { list-style: none; display: grid; gap: 2px; }
+.ptn-section + .ptn-section { padding-top: 16px; border-top: 1px solid rgba(255,255,255,.1); }
+.ptn-section-title { margin: 0 10px 8px; font-size: .7rem; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; color: rgba(232,200,156,.75); }
+.ptn-link { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius-sm); color: rgba(255,255,255,.82); font-size: .95rem; font-weight: 550; text-decoration: none; transition: background-color .15s, color .15s; }
+.ptn-link:hover { background: rgba(255,255,255,.07); color: var(--white); }
+.ptn-link[aria-current="page"] { background: rgba(232,200,156,.14); color: var(--white); box-shadow: inset 3px 0 0 var(--champagne); }
+.ptn-icon { width: 20px; height: 20px; flex-shrink: 0; opacity: .9; }
+.ptn-link[aria-current="page"] .ptn-icon { color: var(--champagne); opacity: 1; }
+.ptn :focus-visible { outline-color: var(--champagne); }
+.ptn-account { padding-top: 16px; border-top: 1px solid rgba(255,255,255,.1); }
+.ptn-user { display: flex; align-items: center; gap: 12px; padding: 4px 8px; }
+.ptn-avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--champagne); color: var(--brand-ink); font-weight: 700; }
+.ptn-user-text { display: grid; min-width: 0; line-height: 1.3; }
+.ptn-user-text strong { color: var(--white); font-size: .92rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ptn-user-text span { font-size: .8rem; color: var(--champagne); }
+.ptn-user-text .ptn-user-email { color: rgba(255,255,255,.6); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ptn-backdrop { display: none; }
+.pt-content { min-width: 0; }
+.pt-body { max-width: 1180px; padding: 40px 40px 72px; }
+.pt-tabs { display: flex; gap: 4px; margin-top: 16px; border-bottom: 1px solid var(--line); }
+.pt-tabs a { padding: 10px 14px 12px; border-bottom: 3px solid transparent; font-weight: 600; color: var(--ink-2); text-decoration: none; }
 .pt-tabs a[aria-current="page"] { border-bottom-color: var(--brand); color: var(--brand-ink); }
-.pt-body { padding-top: 32px; }
+
+/* Sign-in and access pages */
+.pt-auth { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); background: var(--paper); }
+.pt-auth-panel { display: flex; flex-direction: column; gap: 40px; padding: 40px 48px; background: linear-gradient(165deg, var(--brand-ink) 0%, #3d0b22 100%); color: rgba(255,255,255,.84); }
+.pt-auth-copy { margin: auto 0; max-width: 460px; }
+.pt-auth-copy h1 { font-size: clamp(2rem, 3.4vw, 2.8rem); color: var(--white); }
+.pt-auth-copy p { margin-top: 14px; font-size: 1.08rem; }
+.pt-auth-copy strong { color: var(--champagne); }
+.pt-auth-copy ul { list-style: none; display: grid; gap: 10px; margin-top: 24px; }
+.pt-auth-copy li { position: relative; padding-left: 28px; }
+.pt-auth-copy li::before { content: ""; position: absolute; left: 4px; top: .45em; width: 12px; height: 7px; border-left: 2px solid var(--champagne); border-bottom: 2px solid var(--champagne); transform: rotate(-45deg); }
+.pt-auth-back { color: rgba(255,255,255,.75); font-weight: 600; text-decoration: none; }
+.pt-auth-back:hover { color: var(--white); }
+.pt-auth-form { display: grid; place-items: center; padding: 40px 24px; }
+.pt-auth-form-inner { display: grid; gap: 20px; justify-items: center; width: 100%; max-width: 440px; }
+.pt-auth-form-inner > .enq-card { width: 100%; }
+.pt-auth-form-inner .uk-prose { justify-items: stretch; }
+.pt-auth-switch { font-weight: 600; text-align: center; }
+
+@media (max-width: 960px) {
+  .pt-app { grid-template-columns: 1fr; background: var(--paper); }
+  .ptn-topbar { position: sticky; top: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--brand-ink); }
+  .ptn-menu-button { min-height: 40px; padding: 0 14px; border: 1px solid rgba(232,200,156,.5); border-radius: var(--radius-sm); background: transparent; font: inherit; font-weight: 600; color: var(--white); cursor: pointer; }
+  .ptn { position: fixed; top: 0; bottom: 0; left: 0; z-index: 60; width: min(300px, 86vw); transform: translateX(-100%); transition: transform .2s ease; }
+  .ptn.is-open { transform: none; }
+  .ptn-brand-side { display: none; }
+  .ptn-backdrop { position: fixed; inset: 0; z-index: 55; display: block; border: 0; background: rgba(20,3,11,.5); }
+  .pt-body { padding: 24px 16px 56px; }
+  .pt-auth { grid-template-columns: 1fr; }
+  .pt-auth-panel { gap: 24px; padding: 24px 20px 32px; }
+  .pt-auth-copy ul, .pt-auth-back { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .ptn { transition: none; } }
+
+/* ── Client portal: content ───────────────────────────────────────── */
 .pt-title { margin-bottom: 6px; font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 400; }
 .pt-back { margin-bottom: 10px; font-weight: 600; }
 .pt-small { font-size: .9rem; color: var(--ink-3); }
@@ -751,15 +806,13 @@ button[aria-busy="true"] { opacity: .7; cursor: progress; }
 .pt-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
 .pt-table th { padding: 10px 12px; text-align: left; font-size: .8rem; font-weight: 650; color: var(--ink-3); border-bottom: 1px solid var(--line); }
 .pt-table td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-.pt-signin { display: grid; grid-template-columns: 1fr minmax(0, 420px); gap: 48px; align-items: start; }
 @media (max-width: 960px) {
-  .pt-grid, .pt-signin { grid-template-columns: 1fr; }
+  .pt-grid { grid-template-columns: 1fr; }
   .pt-session { grid-template-columns: 1fr; gap: 6px; }
   .pt-session-side { flex-direction: row; align-items: center; justify-content: flex-start; }
   .pt-form-grid { grid-template-columns: 1fr; }
   .pt-table { display: block; overflow-x: auto; }
 }
-
 /* ── Mobile action bar ────────────────────────────────────────────── */
 .mcta { display: none; }
 @media (max-width: 760px) {

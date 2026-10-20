@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import CalendlyEmbed from "./CalendlyEmbed";
 import EnquiryForm from "./EnquiryForm";
 import { sessionTypes, getSessionType, isBookable, priceLabel, type SessionType } from "../lib/sessions";
-import { WHATSAPP_URL } from "../lib/site";
+import { EMAIL } from "../lib/site";
 import { track } from "../lib/track";
 
 type Details = { name: string; email: string; yearGroup: string; notes: string };
@@ -203,7 +203,7 @@ export default function BookingFlow() {
           <ul className="uk-ticks">
             <li>Add the time to your calendar from the confirmation email</li>
             <li>Need to change it? Use the reschedule link in the email</li>
-            <li>Questions before the call? <a href={WHATSAPP_URL}>Message us on WhatsApp</a></li>
+            <li>Questions before the call? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
           </ul>
           <div className="uk-hero-actions">
             <Link href="/guides" className="btn-secondary">Read our guides while you wait</Link>

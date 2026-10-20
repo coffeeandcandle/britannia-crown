@@ -4,7 +4,7 @@ import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
 import Breadcrumbs from "../components/Breadcrumbs";
 import BookingFlow from "../components/BookingFlow";
-import { WHATSAPP_URL } from "../lib/site";
+import { EMAIL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Book a Free Consultation | Britannia Crown",
@@ -31,7 +31,7 @@ export default function BookConsultationPage() {
             <BookingFlow />
           </Suspense>
           <p className="book-alt">
-            Can&apos;t find a time that works? <a href={WHATSAPP_URL}>Message us on WhatsApp</a> or <Link href="/contact">request a call back</Link>.
+            Can&apos;t find a time that works? <Link href="/contact">Request a call back</Link> or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
           </p>
         </div>
       </section>

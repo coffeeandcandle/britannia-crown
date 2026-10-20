@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "../lib/seo";
 import PageHero from "../components/PageHero";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { EMAIL, WHATSAPP_URL } from "../lib/site";
+import { EMAIL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Careers | Britannia Crown",
@@ -36,7 +36,7 @@ export default function CareersPage() {
             <p>We don&apos;t have specific roles listed right now, but we review every application we receive. If you think you&apos;d be a good fit, we&apos;d love to hear from you.</p>
 
             <h2>How to apply</h2>
-            <p>Send your CV and a short note about your experience to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>, or message us on <a href={WHATSAPP_URL}>WhatsApp</a>.</p>
+            <p>Send your CV and a short note about your experience to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.</p>
           </div>
         </div>
       </section>

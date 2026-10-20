@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect, notFound } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import { query, queryOne } from "./db";
-import { devAuth, SIGN_IN_PATH } from "./config";
+import { devAuth, SIGN_IN_PATH, STAFF_SIGN_IN_PATH } from "./config";
 
 // Data access layer: every portal page and action gets the signed-in person here, and every
 // query is scoped to what that person may see. Pages never query the database directly.
@@ -69,9 +69,9 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
   return { ...id, staff, family };
 });
 
-export async function requireViewer() {
+export async function requireViewer(signInPath = SIGN_IN_PATH) {
   const viewer = await getViewer();
-  if (!viewer) redirect(SIGN_IN_PATH);
+  if (!viewer) redirect(signInPath);
   return viewer;
 }
 
@@ -81,9 +81,12 @@ export async function requireFamily() {
   return { viewer, family: viewer.family };
 }
 
+// Signed-in people without a staff record are sent to an explanation page; staff without the
+// required role for a page get a 404, so the page's existence isn't revealed.
 export async function requireStaff(roles: Role[] = ["admin", "consultant", "tutor"]) {
-  const viewer = await requireViewer();
-  if (!viewer.staff || !roles.includes(viewer.staff.role)) notFound();
+  const viewer = await requireViewer(STAFF_SIGN_IN_PATH);
+  if (!viewer.staff) redirect("/portal/staff/no-access");
+  if (!roles.includes(viewer.staff.role)) notFound();
   return { viewer, staff: viewer.staff };
 }
 
@@ -185,6 +188,14 @@ export async function staffUpcoming(staff: Staff, limit = 20) {
   return query<SessionRow>(
     `${SESSION_SELECT} WHERE s.status = 'scheduled' AND s.starts_at + make_interval(mins => s.minutes) > now()
      AND ($1::int IS NULL OR s.staff_id = $1) ORDER BY s.starts_at LIMIT $2`,
+    [canManage(staff) ? null : staff.id, limit],
+  );
+}
+
+export async function staffPast(staff: Staff, limit = 60) {
+  return query<SessionRow>(
+    `${SESSION_SELECT} WHERE NOT (s.status = 'scheduled' AND s.starts_at + make_interval(mins => s.minutes) > now())
+     AND ($1::int IS NULL OR s.staff_id = $1) ORDER BY s.starts_at DESC LIMIT $2`,
     [canManage(staff) ? null : staff.id, limit],
   );
 }

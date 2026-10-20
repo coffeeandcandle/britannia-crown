@@ -1,6 +1,6 @@
 import Link from "next/link";
 import EnquiryForm from "./EnquiryForm";
-import { WHATSAPP_URL } from "../lib/site";
+import { EMAIL } from "../lib/site";
 
 type Props = {
   title: React.ReactNode;
@@ -24,7 +24,7 @@ export default function EnquirySection({ title, lead, source, defaultService, co
             <li>UK-trained educators, personally matched to your child</li>
           </ul>
           <p className="uk-enquire-alt">
-            Prefer to talk now? <Link href="/book-consultation">Book a call</Link> or <a href={WHATSAPP_URL}>message us on WhatsApp</a>.
+            Prefer to talk now? <Link href="/book-consultation">Book a call</Link> or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
           </p>
         </div>
         <div className="enq-card">

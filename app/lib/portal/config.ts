@@ -9,3 +9,4 @@ export const devAuth = process.env.NODE_ENV === "development" && process.env.POR
 export const portalEnabled = Boolean(process.env.DATABASE_URL) && (clerkConfigured || devAuth);
 
 export const SIGN_IN_PATH = "/portal/sign-in";
+export const STAFF_SIGN_IN_PATH = "/portal/staff/sign-in";

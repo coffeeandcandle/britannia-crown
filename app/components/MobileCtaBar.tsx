@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { WHATSAPP_URL } from "../lib/site";
 
 // Phone-only action bar that slides in once the visitor scrolls past the hero.
 export default function MobileCtaBar() {
@@ -22,7 +21,7 @@ export default function MobileCtaBar() {
   return (
     <div className={`mcta${show ? " show" : ""}`} inert={!show}>
       <Link href="/book-consultation" className="mcta-primary">Book a free call</Link>
-      <a href={WHATSAPP_URL} className="mcta-secondary" aria-label="Message us on WhatsApp">WhatsApp</a>
+      <Link href="/contact" className="mcta-secondary">Enquire</Link>
     </div>
   );
 }

@@ -13,7 +13,7 @@ import { getService } from "../../lib/services";
 import { getSubject } from "../../lib/subjects";
 import { pageMetadata } from "../../lib/seo";
 import { articleSchema } from "../../lib/schema";
-import { WHATSAPP_URL } from "../../lib/site";
+import { EMAIL } from "../../lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -102,9 +102,9 @@ export default async function GuidePage({ params }: Props) {
                   <strong>Request a call back</strong>
                   <span>Leave your details and we&apos;ll ring you within 24 hours.</span>
                 </Link>
-                <a href={WHATSAPP_URL} className="gd-next-option">
-                  <strong>Message us on WhatsApp</strong>
-                  <span>Ask a quick question and get a reply from a person.</span>
+                <a href={`mailto:${EMAIL}`} className="gd-next-option">
+                  <strong>Email us</strong>
+                  <span>Ask a quick question at {EMAIL} and get a reply from a person.</span>
                 </a>
               </div>
             </section>

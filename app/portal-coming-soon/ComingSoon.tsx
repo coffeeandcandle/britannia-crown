@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WHATSAPP_URL } from "../lib/site";
+import { EMAIL } from "../lib/site";
 
 export default function ComingSoon() {
   return (
@@ -15,7 +15,7 @@ export default function ComingSoon() {
         <div className="uk-wrap uk-prose">
           <p>In the meantime, your consultant is a message away.</p>
           <div className="uk-hero-actions">
-            <a href={WHATSAPP_URL} className="btn-primary">Message us on WhatsApp</a>
+            <a href={`mailto:${EMAIL}`} className="btn-primary">Email us</a>
             <Link href="/contact" className="btn-secondary">Contact us</Link>
           </div>
         </div>

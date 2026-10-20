@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
 
 const steps = [
   { title: "Sign up", body: "Fill in the form below. We'll review your application and send you your unique personal ambassador code within 48 hours." },
-  { title: "Share your code", body: "Share it at the park, at school, in WhatsApp groups — wherever you naturally talk to families. No selling, just a trusted recommendation." },
+  { title: "Share your code", body: "Share it at the park, at school, in parent group chats, wherever you naturally talk to families. No selling, just a trusted recommendation." },
   { title: "A family books", body: "When a family uses your code and books a paid session with Britannia Crown, the referral is confirmed as successful." },
   { title: "You get paid", body: "150 AED is transferred directly to you, every time. No caps, no limits: the more families you refer, the more you earn." },
 ];
@@ -56,7 +56,7 @@ const faqs = [
   },
   {
     q: "How will I know when my code has been used?",
-    a: "We will notify you by WhatsApp or email whenever your code is used and when a referral is confirmed as successful, so you always know exactly where you stand.",
+    a: "We will email you whenever your code is used and when a referral is confirmed as successful, so you always know exactly where you stand.",
   },
 ];
 
@@ -137,7 +137,7 @@ export default function AmbassadorPage() {
             <span className="uk-kicker">Your earnings</span>
             <h2 className="uk-h2">What you could earn</h2>
             <p className="uk-lead">There are no limits on how many referrals you can make. Every successful booking earns you 150 AED, whether it&apos;s your first referral or your fiftieth.</p>
-            <p className="uk-lead" style={{ marginTop: 18 }}>Think about the nanny networks, the school WhatsApp groups and the parents you speak to every day at pick-up. One message. One code. One booking.</p>
+            <p className="uk-lead" style={{ marginTop: 18 }}>Think about the nanny networks, the school parent groups and the parents you speak to every day at pick-up. One message. One code. One booking.</p>
           </Reveal>
           <Reveal>
             <table className="amb-earn">

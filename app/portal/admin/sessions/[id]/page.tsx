@@ -29,7 +29,7 @@ export default async function AdminSessionPage({
   return (
     <>
       <p className="pt-back">
-        {manager ? <Link href={`/portal/admin/families/${session.family_id}`}>← {session.family_name}</Link> : <Link href="/portal/admin">← Your sessions</Link>}
+        {manager ? <Link href={`/portal/admin/families/${session.family_id}`}>← {session.family_name}</Link> : <Link href="/portal/admin/sessions">← My sessions</Link>}
       </p>
       <h1 className="pt-title">{session.title}</h1>
       <p className="pt-small">

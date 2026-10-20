@@ -1,4 +1,4 @@
-import { EMAIL, INSTAGRAM_URL, LEGAL_NAME, PHONE_E164, SITE_NAME, SITE_URL, WHATSAPP_URL } from "./site";
+import { EMAIL, INSTAGRAM_URL, LEGAL_NAME, SITE_NAME, SITE_URL } from "./site";
 
 export const ORG_ID = `${SITE_URL}/#organization`;
 
@@ -17,12 +17,11 @@ export const organizationSchema = {
     "British education consultants providing private tutoring, home education support, school and nursery placement and qualifications guidance, and advising UK families relocating to the UAE.",
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: PHONE_E164,
     email: EMAIL,
     contactType: "customer service",
     availableLanguage: "English",
   },
-  sameAs: [INSTAGRAM_URL, WHATSAPP_URL],
+  sameAs: [INSTAGRAM_URL],
   areaServed: [
     { "@type": "Country", name: "United Kingdom" },
     { "@type": "Country", name: "United Arab Emirates" },

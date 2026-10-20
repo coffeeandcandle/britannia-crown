@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { services } from "../lib/services";
 import { subjects, levels } from "../lib/subjects";
-import { EMAIL, WHATSAPP_URL } from "../lib/site";
+import { EMAIL } from "../lib/site";
 import Crown from "./Crown";
 
 type PanelLink = { href: string; label: string; desc?: string };
@@ -104,17 +104,6 @@ function Caret() {
   );
 }
 
-function WhatsAppIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="wa-icon">
-      <path
-        fill="currentColor"
-        d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"
-      />
-    </svg>
-  );
-}
-
 function PanelItem({ link, onNavigate }: { link: PanelLink; onNavigate: () => void }) {
   return (
     <li>
@@ -181,18 +170,17 @@ export default function Nav() {
 
   return (
     <>
-      <div className="utility-bar">
+      <div className="utility-bar site-chrome">
         <div className="uk-wrap utility-bar-inner">
           <p>British education consultants for families in the UK and the UAE</p>
           <ul>
             <li><Link href="/guides#tools">Free tools</Link></li>
             <li><Link href="/portal">Client login</Link></li>
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
-            <li><a href={WHATSAPP_URL}><WhatsAppIcon /> +971 50 263 5427</a></li>
           </ul>
         </div>
       </div>
-      <header className={`site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}`}>
+      <header className={`site-chrome site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}`}>
         <div className="uk-wrap site-header-inner">
           <Link href="/" className="brand" aria-label="Britannia Crown, home">
             <Crown light />
@@ -269,10 +257,7 @@ export default function Nav() {
           </nav>
 
           <div className="header-actions">
-            <a href={WHATSAPP_URL} className="header-wa" aria-label="Message us on WhatsApp">
-              <WhatsAppIcon />
-              <span>WhatsApp</span>
-            </a>
+            <Link href="/contact" className="header-wa">Send an enquiry</Link>
             <Link href="/book-consultation" className="btn-primary header-cta">Book a free call</Link>
           </div>
 
@@ -313,7 +298,7 @@ export default function Nav() {
           </nav>
           <div className="mobile-menu-actions">
             <Link href="/book-consultation" className="btn-primary" onClick={closeAll}>Book a free 30-minute call</Link>
-            <a href={WHATSAPP_URL} className="btn-secondary"><WhatsAppIcon /> Message us on WhatsApp</a>
+            <Link href="/contact" className="btn-secondary" onClick={closeAll}>Send an enquiry</Link>
           </div>
         </div>
       </header>

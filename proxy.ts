@@ -1,14 +1,18 @@
 import { NextResponse, type NextFetchEvent, type NextRequest } from "next/server";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { clerkConfigured, portalEnabled } from "./app/lib/portal/config";
+import { clerkConfigured, portalEnabled, SIGN_IN_PATH, STAFF_SIGN_IN_PATH } from "./app/lib/portal/config";
 
 // Clerk only runs on the client portal, and only once its keys are set. The public site never
 // passes through it, so marketing pages stay static and fast.
-const isPublicPortalRoute = createRouteMatcher(["/portal/sign-in(.*)"]);
+const isSignInRoute = createRouteMatcher(["/portal/sign-in(.*)", "/portal/staff/sign-in(.*)"]);
+const isStaffRoute = createRouteMatcher(["/portal/admin(.*)", "/portal/staff(.*)"]);
 
 const clerk = clerkConfigured
   ? clerkMiddleware(async (auth, request) => {
-      if (!isPublicPortalRoute(request)) await auth.protect();
+      if (isSignInRoute(request)) return;
+      // Signed-out visitors go to the sign-in page for the area they were trying to reach.
+      const signIn = isStaffRoute(request) ? STAFF_SIGN_IN_PATH : SIGN_IN_PATH;
+      await auth.protect({ unauthenticatedUrl: new URL(signIn, request.url).toString() });
     })
   : null;
 

@@ -72,7 +72,7 @@ const offers: Offer[] = [
   {
     age: "Ongoing",
     name: "Education Concierge",
-    body: "Your dedicated UK-curriculum education manager in Dubai: monthly strategy, unlimited WhatsApp support, and liaison with tutors and schools.",
+    body: "Your dedicated UK-curriculum education manager in Dubai: monthly strategy, unlimited message support, and liaison with tutors and schools.",
     price: "AED 2,500",
     unit: "per month",
     value: 2500,

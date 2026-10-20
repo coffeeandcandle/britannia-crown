@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireFamily, familyChildren, familyConsultant, familyUpcoming, familyNotes } from "../../lib/portal/dal";
 import { tzLabel } from "../../lib/portal/time";
-import { WHATSAPP_URL } from "../../lib/site";
+import { EMAIL } from "../../lib/site";
 import { SessionList, NoteCard } from "../components";
 
 export default async function FamilyDashboard() {
@@ -70,7 +70,7 @@ export default async function FamilyDashboard() {
             <p>We&apos;ll introduce your consultant shortly.</p>
           )}
           <div className="pt-actions">
-            <a href={WHATSAPP_URL} className="btn-primary">Message on WhatsApp</a>
+            <a href={`mailto:${consultant?.email ?? EMAIL}`} className="btn-primary">Email your consultant</a>
             <Link href="/book-consultation" className="btn-secondary">Book a session</Link>
           </div>
         </section>

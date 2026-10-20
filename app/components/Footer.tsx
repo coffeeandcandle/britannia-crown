@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { services } from "../lib/services";
 import { subjects } from "../lib/subjects";
-import { EMAIL, INSTAGRAM_URL, WHATSAPP_URL } from "../lib/site";
+import { EMAIL, INSTAGRAM_URL } from "../lib/site";
 import Crown from "./Crown";
 
 export default function Footer() {
   return (
-    <footer className="site-footer">
+    <footer className="site-footer site-chrome">
       <div className="uk-wrap">
         <div className="footer-top">
           <div className="footer-brand">
@@ -20,7 +20,7 @@ export default function Footer() {
             <p>British education consultants: private tutoring, home education, school placement and qualifications, plus advice for families moving to the UAE.</p>
             <div className="footer-contact">
               <Link href="/book-consultation">Book a free 30-minute call →</Link>
-              <a href={WHATSAPP_URL}>WhatsApp us</a>
+              <Link href="/contact">Send an enquiry</Link>
               <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </div>
           </div>
@@ -67,6 +67,7 @@ export default function Footer() {
           <nav aria-label="Legal">
             <Link href="/privacy-policy">Privacy policy</Link>
             <Link href="/terms-and-conditions">Terms and conditions</Link>
+            <Link href="/portal/staff/sign-in">Staff login</Link>
           </nav>
         </div>
       </div>
