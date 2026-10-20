@@ -3,6 +3,8 @@ import { requireFamily, familySession, familyNotes } from "../../../../lib/porta
 import { sessionWhen, tzLabel } from "../../../../lib/portal/time";
 import { NoteCard } from "../../../components";
 import { PageHeader, Card, EmptyState, Pill } from "../../../ui";
+import { dailyEnabled } from "../../../../lib/portal/daily";
+import Link from "next/link";
 
 export default async function FamilySessionPage({ params }: { params: Promise<{ id: string }> }) {
   const { family } = await requireFamily();
@@ -24,7 +26,9 @@ export default async function FamilySessionPage({ params }: { params: Promise<{ 
         back={{ href: "/portal/sessions", label: "All sessions" }}
         title={session.title}
         description={`${when.label} (${tzLabel(family.timezone)})`}
-        actions={session.is_joinable && session.join_url ? (
+        actions={session.is_joinable && dailyEnabled() ? (
+          <Link href={`/portal/sessions/${session.id}/room`} className="btn-primary">Join lesson now</Link>
+        ) : session.is_joinable && session.join_url ? (
           <a href={session.join_url} className="btn-primary" target="_blank" rel="noopener noreferrer">Join lesson now</a>
         ) : undefined}
       />
@@ -38,7 +42,9 @@ export default async function FamilySessionPage({ params }: { params: Promise<{ 
           <div>
             <dt>Joining link</dt>
             <dd>
-              {session.join_url
+              {dailyEnabled()
+                ? session.is_upcoming ? "In your portal. The Join button appears 15 minutes before the start." : "No longer needed"
+                : session.join_url
                 ? session.is_upcoming ? "Ready. The Join button appears 15 minutes before the start." : "No longer needed"
                 : session.is_upcoming ? "Your tutor will add it before the lesson" : "None"}
             </dd>

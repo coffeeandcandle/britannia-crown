@@ -148,3 +148,6 @@ CREATE TABLE IF NOT EXISTS lesson_requests (
 );
 CREATE INDEX IF NOT EXISTS lesson_requests_status ON lesson_requests (status, created_at DESC);
 CREATE INDEX IF NOT EXISTS lesson_requests_family ON lesson_requests (family_id, created_at DESC);
+
+-- In-portal video lessons (Daily). One private room per lesson, created the first time someone joins.
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS room_url text;

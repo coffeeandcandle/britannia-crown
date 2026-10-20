@@ -154,7 +154,7 @@ const sessionSelect = (sharedOnly: boolean) => `
   SELECT s.id, s.title, s.starts_at, s.minutes, s.join_url, s.status, s.family_id, s.staff_id,
          c.name AS child_name, st.name AS tutor_name, f.name AS family_name,
          (s.status = 'scheduled' AND s.starts_at + make_interval(mins => s.minutes) > now()) AS is_upcoming,
-         (s.status = 'scheduled' AND s.join_url IS NOT NULL AND now() BETWEEN s.starts_at - interval '15 minutes' AND s.starts_at + make_interval(mins => s.minutes)) AS is_joinable,
+         (s.status = 'scheduled' AND now() BETWEEN s.starts_at - interval '15 minutes' AND s.starts_at + make_interval(mins => s.minutes)) AS is_joinable,
          (SELECT count(*)::int FROM session_notes n WHERE n.session_id = s.id${sharedOnly ? " AND n.shared_with_family" : ""}) AS note_count
   FROM sessions s
   JOIN families f ON f.id = s.family_id

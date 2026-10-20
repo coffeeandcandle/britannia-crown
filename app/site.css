@@ -1556,3 +1556,7 @@ html.rv-ready [data-rv=""] { opacity: 0; transform: translateY(16px); }
 .form-submit { padding: 12px 22px; font-size: 1rem; }
 .btn-primary:focus-visible, .btn-secondary:focus-visible, .form-submit:focus-visible { outline-offset: 3px; }
 :is(input:not([type="checkbox"], [type="radio"], [type="hidden"]), select, textarea) { border-radius: var(--radius-sm); }
+
+/* In-portal lesson room */
+.lr-frame { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #000; box-shadow: var(--shadow-md); }
+.lr-frame iframe { display: block; width: 100%; height: min(78vh, 760px); min-height: 420px; border: 0; }

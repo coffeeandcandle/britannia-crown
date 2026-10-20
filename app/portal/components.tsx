@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { NoteRow, SessionRow } from "../lib/portal/dal";
 import { formatDate, sessionWhen, dateTile } from "../lib/portal/time";
 import { Pill, Avatar } from "./ui";
+import { dailyEnabled } from "../lib/portal/daily";
 import { Toast } from "./client-ui";
 
 const statusPill = {
@@ -57,7 +58,9 @@ export function SessionList({
             </div>
             <div className="ui-session-side">
               {/* Join links appear from 15 minutes before a session until it ends. */}
-              {s.is_joinable && s.join_url ? (
+              {s.is_joinable && dailyEnabled() ? (
+                <Link href={`${hrefFor(s)}/room`} className="btn-primary ui-btn-sm">Join now</Link>
+              ) : s.is_joinable && s.join_url ? (
                 <a href={s.join_url} className="btn-primary ui-btn-sm" target="_blank" rel="noopener noreferrer">Join now</a>
               ) : (
                 statusPill[s.status]

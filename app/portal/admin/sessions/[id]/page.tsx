@@ -5,6 +5,8 @@ import { NoteCard, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Pill, Field, HelpBox } from "../../../ui";
 import { SubmitButton, ConfirmSubmit } from "../../../client-ui";
 import { addNote, deleteNote, updateSession } from "../../actions";
+import { dailyEnabled } from "../../../../lib/portal/daily";
+import Link from "next/link";
 
 export default async function AdminSessionPage({
   params,
@@ -43,7 +45,9 @@ export default async function AdminSessionPage({
         back={manager ? { href: `/portal/admin/families/${session.family_id}`, label: session.family_name } : { href: "/portal/admin/sessions", label: "My sessions" }}
         title={session.title}
         description={`${session.family_name}${session.child_name ? ` · ${session.child_name}` : ""} · ${ukWhen.label} UK time`}
-        actions={session.join_url && session.is_upcoming ? (
+        actions={dailyEnabled() && session.status !== "cancelled" ? (
+          <Link href={`/portal/admin/sessions/${session.id}/room`} className="btn-primary">Open lesson room</Link>
+        ) : session.join_url && session.is_upcoming ? (
           <a href={session.join_url} className="btn-primary" target="_blank" rel="noopener noreferrer">Open video call</a>
         ) : undefined}
       />
@@ -55,7 +59,7 @@ export default async function AdminSessionPage({
           {tz !== "Europe/London" && <div><dt>Family&apos;s time ({tzLabel(tz)})</dt><dd>{familyWhen.label}</dd></div>}
           <div><dt>Length</dt><dd>{session.minutes} minutes</dd></div>
           <div><dt>Teaching</dt><dd>{session.tutor_name ?? "Not assigned"}</dd></div>
-          <div><dt>Video link</dt><dd>{session.join_url ? "Added" : "Not added yet"}</dd></div>
+          <div><dt>Video</dt><dd>{dailyEnabled() ? "In the portal (room opens 15 minutes before)" : session.join_url ? "Link added" : "Not added yet"}</dd></div>
         </dl>
       </Card>
 

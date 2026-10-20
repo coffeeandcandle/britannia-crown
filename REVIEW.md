@@ -138,3 +138,9 @@ Research figures, each linked to its source on the page; please confirm you are 
 
 ## Unified UI style
 One design scale now covers the public site and the portal: radii (cards 14px, controls 8px), shadows, heading sizes, stat sizes and section spacing are shared variables at the top of `app/site.css`. Change them there to restyle everything at once.
+
+## In-portal video lessons (Daily)
+- Set `DAILY_API_KEY` in Vercel (add it yourself) to switch on video inside the portal. Each lesson gets a private room, created on first join; people enter with a personal token valid from 15 minutes before the start until 30 minutes after the end. Only the lesson's family, assigned tutor, and admins/consultants can open it.
+- Without the key, lessons keep using the video link added to each lesson.
+- Not enabled: recording, and no whiteboard beyond Daily's built-in screen share and chat. Decide on recording (consent, retention, who can watch back) and safeguarding with your solicitor before turning it on.
+- Check Daily's current free allowance and pricing; usage is billed by Daily if you exceed the free tier.

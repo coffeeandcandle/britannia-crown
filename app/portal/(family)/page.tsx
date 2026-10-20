@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { dailyEnabled } from "../../lib/portal/daily";
 import { requireFamily, familyChildren, familyConsultant, familyUpcoming, familyNotes, familyNoteCount, familyOrders } from "../../lib/portal/dal";
 import { tzLabel, sessionWhen, greeting } from "../../lib/portal/time";
 import { EMAIL } from "../../lib/site";
@@ -42,9 +43,11 @@ export default async function FamilyDashboard() {
             </p>
           </div>
           <div className="ui-next-action">
-            {next.is_joinable && next.join_url ? (
+            {next.is_joinable && dailyEnabled() ? (
+              <Link href={`/portal/sessions/${next.id}/room`} className="btn-primary">Join lesson now</Link>
+            ) : next.is_joinable && next.join_url ? (
               <a href={next.join_url} className="btn-primary" target="_blank" rel="noopener noreferrer">Join lesson now</a>
-            ) : next.join_url ? (
+            ) : dailyEnabled() || next.join_url ? (
               <p className="ui-next-hint">The <strong>Join</strong> button appears here 15 minutes before the lesson starts.</p>
             ) : (
               <p className="ui-next-hint">Your tutor will add the joining link before the lesson.</p>
