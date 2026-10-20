@@ -38,7 +38,6 @@ const faqs = [
 function ProductCard({ p, perks, featured }: { p: Product; perks?: string[]; featured?: boolean }) {
   return (
     <article className={`shop-card${featured ? " is-featured" : ""}`}>
-      {featured && <span className="shop-badge">Most popular</span>}
       <h3>{p.name.replace("Academic Partner Membership: ", "").replace(" (Dubai)", "")}</h3>
       <p className="shop-price">
         <span>{formatPrice(p)}</span> {p.unit}

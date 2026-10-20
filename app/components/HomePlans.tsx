@@ -26,7 +26,6 @@ export default function HomePlans() {
           if (!p || !o) return null;
           return (
             <article className={`plan${t.featured ? " is-featured" : ""}`} key={t.id}>
-              <span className="plan-tag">{t.tag}</span>
               <h3>{o.shortName}</h3>
               <p className="plan-price">{formatPrice(p)} <small>a month</small></p>
               <p className="plan-value">{t.hours} hours of tutoring · about {hourly(p.amount, t.hours)} an hour</p>
@@ -62,7 +61,6 @@ export default function HomePlans() {
           const svc = c.slug ? getService(c.slug) : undefined;
           return (
             <article className={`plan${c.featured ? " is-featured" : ""}`} key={c.title}>
-              <span className="plan-tag">{c.tag}</span>
               <h3>{c.title}</h3>
               <p className={`plan-price${c.price === "Tailored" ? " plan-price--text" : ""}`}>{c.price === "Tailored" ? "Tailored quote" : c.price} <small>{c.price === "Tailored" ? "after a free call" : c.unit}</small></p>
               <p className="plan-value">{c.body ?? svc?.short}</p>

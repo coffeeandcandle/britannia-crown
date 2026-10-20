@@ -17,7 +17,6 @@ export default function FlagshipBand() {
     <section className="flagship" id="partner" aria-labelledby="flagship-title">
       <div className="uk-wrap flagship-inner">
         <div className="flagship-copy">
-          <span className="flagship-tag">Our most popular plan</span>
           <h2 id="flagship-title">Your own tutor, every week, with a consultant overseeing progress</h2>
           <p className="flagship-lead">
             The Partner plan gives your child the same vetted UK-qualified tutor at a fixed weekly time, and a monthly call with your

@@ -186,7 +186,6 @@ export default function MembershipPage() {
             <div className="mb-tiers">
               {tiers.map((t) => (
                 <div className={`mb-tier${t.featured ? " featured" : ""}`} key={t.name}>
-                  {t.featured && <span className="mb-badge">Most popular</span>}
                   <p className="mb-tier-name">{t.name}</p>
                   <p className="mb-price"><span>£{t.price}</span> / month</p>
                   <ul>
