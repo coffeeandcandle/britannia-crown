@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import LeadTracking from "./components/LeadTracking";
 import MobileCtaBar from "./components/MobileCtaBar";
 import CheckoutNotice from "./components/CheckoutNotice";
+import ScrollMotion from "./components/ScrollMotion";
+import EngagementPrompt from "./components/EngagementPrompt";
 import { Suspense } from "react";
 import { organizationSchema, websiteSchema } from "./lib/schema";
 import { SITE_NAME, SITE_URL } from "./lib/site";
@@ -103,6 +105,8 @@ export default function RootLayout({
 
         <MobileCtaBar />
         <LeadTracking />
+        <ScrollMotion />
+        <EngagementPrompt />
       </body>
     </html>
   );

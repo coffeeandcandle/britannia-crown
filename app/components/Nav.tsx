@@ -125,6 +125,10 @@ export default function Nav() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  // Smart header: tucks away while reading down the page, comes back as soon as you scroll up.
+  const [tucked, setTucked] = useState(false);
+  const lastY = useRef(0);
+  const headerRef = useRef<HTMLElement>(null);
   // Clerk only runs inside /portal, so the public pages read its readable session marker
   // (__client_uat, a timestamp that is 0 or absent when signed out) to show the right link.
   const signedIn = useSyncExternalStore(subscribeToNothing, readSignedIn, () => false);
@@ -139,10 +143,29 @@ export default function Nav() {
   }
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        const y = window.scrollY;
+        const dy = y - lastY.current;
+        setScrolled(y > 24);
+        if (!reduce) {
+          if (y < 120 || dy < -6) setTucked(false);
+          else if (dy > 6) setTucked(true);
+        }
+        lastY.current = y;
+      });
+    };
+    lastY.current = window.scrollY;
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -155,8 +178,25 @@ export default function Nav() {
   useEffect(() => {
     if (!openMenu && !mobileOpen) return;
     function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Tab" && mobileOpen && headerRef.current) {
+        // Keep keyboard focus inside the header and open menu until it is closed.
+        const items = Array.from(headerRef.current.querySelectorAll<HTMLElement>("a[href], button:not([disabled]), summary")).filter((el) => el.offsetParent !== null);
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (first && last) {
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+        return;
+      }
       if (e.key !== "Escape") return;
       if (openMenu) document.getElementById(`nav-btn-${openMenu}`)?.focus();
+      else if (mobileOpen) document.querySelector<HTMLElement>(".menu-button")?.focus();
       setOpenMenu(null);
       setMobileOpen(false);
     }
@@ -188,7 +228,11 @@ export default function Nav() {
           </ul>
         </div>
       </div>
-      <header className={`site-chrome site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}`}>
+      <header
+        ref={headerRef}
+        className={`site-chrome site-header${scrolled ? " is-scrolled" : ""}${openMenu ? " has-open-menu" : ""}${tucked && !openMenu && !mobileOpen ? " is-tucked" : ""}`}
+        onFocusCapture={() => setTucked(false)}
+      >
         {/* The transition name sits on this inner row, not the <header>: a named element becomes the
             containing block for position:fixed children, which would trap the mobile menu inside it. */}
         <div className="uk-wrap site-header-inner" style={{ viewTransitionName: "site-header" }}>
@@ -298,7 +342,7 @@ export default function Nav() {
           </button>
         </div>
 
-        <div className="mobile-menu" id="mobile-menu" hidden={!mobileOpen}>
+        <div className="mobile-menu" id="mobile-menu" role="dialog" aria-label="Site menu" hidden={!mobileOpen}>
           <nav aria-label="Mobile">
             {menus.map((m) => (
               <details key={m.id}>

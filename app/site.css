@@ -1229,3 +1229,54 @@ a.ui-stat:hover { transform: translateY(-2px); border-color: var(--brand); color
   summary { min-height: 44px; display: flex; align-items: center; justify-content: space-between; }
   .gd-cta-link { display: inline-block; padding: 10px 0; }
 }
+
+/* ── Interaction polish ───────────────────────────────────────────── */
+/* Forms: inline errors, sending and confirmation states */
+.form-live:empty { display: none; }
+.enq-form .form-live { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } /* read out, not shown: errors appear under each field */
+.gd-dl-form .form-live { font-size: .88rem; color: var(--error); }
+.form-group[data-error]::after { content: attr(data-error); font-size: .86rem; font-weight: 550; line-height: 1.4; color: var(--error); animation: field-error-in .2s ease-out; }
+.form-group input[aria-invalid="true"], .form-group select[aria-invalid="true"], .form-group textarea[aria-invalid="true"],
+.gd-dl-form input[aria-invalid="true"] { border-color: var(--error); box-shadow: 0 0 0 3px rgba(180, 35, 24, .12); }
+@keyframes field-error-in { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+.form-submit:disabled, .gd-dl-form button:disabled { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.form-submit:disabled::before, .gd-dl-form button:disabled::before { content: ""; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: var(--white); border-radius: 50%; animation: spin .7s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.enq-done { animation: done-in .5s ease both; outline: none; }
+.enq-check { width: 56px; height: 56px; margin-bottom: 10px; color: var(--ok); }
+.enq-check circle { stroke-dasharray: 151; stroke-dashoffset: 151; animation: draw-line .7s ease-out .05s forwards; }
+.enq-check path { stroke-dasharray: 40; stroke-dashoffset: 40; animation: draw-line .45s ease-out .55s forwards; }
+@keyframes draw-line { to { stroke-dashoffset: 0; } }
+@keyframes done-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* Scroll motion: content below the first screen settles into place as it comes into view */
+html.rv-ready [data-rv] { transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.2,1); transition-delay: var(--rv-delay, 0ms); }
+html.rv-ready [data-rv=""] { opacity: 0; transform: translateY(16px); }
+@media print { html.rv-ready [data-rv=""] { opacity: 1; transform: none; } }
+
+/* Smart header: tucks away while reading down, returns when scrolling up */
+.site-header { transition: box-shadow .2s, top .28s ease; }
+.site-header.is-tucked { top: calc(var(--header-h) * -1 - 4px); }
+
+/* Mobile menu: eases in */
+.mobile-menu:not([hidden]) { animation: menu-in .22s ease-out; }
+@keyframes menu-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+/* Helpful nudge towards booking a free call */
+.nudge { position: fixed; left: 20px; bottom: 20px; z-index: 950; width: min(360px, calc(100vw - 40px)); padding: 22px 22px 20px; background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--champagne); border-radius: var(--radius); box-shadow: 0 18px 50px rgba(36, 20, 27, .22); animation: nudge-in .35s ease-out; }
+.nudge-close { position: absolute; top: 6px; right: 8px; width: 44px; height: 44px; border: 0; background: none; font-size: 1.7rem; line-height: 1; color: var(--ink-3); cursor: pointer; }
+.nudge-close:hover { color: var(--ink); }
+.nudge-kicker { font-size: .78rem; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; color: var(--gold-ink); }
+.nudge-title { margin: 6px 36px 6px 0; font-family: var(--serif); font-size: 1.3rem; line-height: 1.25; color: var(--ink); }
+.nudge-body { font-size: .92rem; color: var(--ink-2); }
+.nudge-actions { display: grid; gap: 8px; margin-top: 16px; }
+.nudge-actions a { min-height: 46px; justify-content: center; text-align: center; }
+@keyframes nudge-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@media (max-width: 760px) { .nudge { left: 12px; right: 12px; width: auto; bottom: calc(82px + env(safe-area-inset-bottom)); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header { transition: box-shadow .2s; }
+  .mobile-menu:not([hidden]), .nudge, .enq-done, .form-group[data-error]::after { animation: none; }
+  .enq-check circle, .enq-check path { animation: none; stroke-dashoffset: 0; }
+  .form-submit:disabled::before, .gd-dl-form button:disabled::before { animation-duration: 1.6s; }
+}

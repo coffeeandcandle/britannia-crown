@@ -1,21 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
+import { useFormPolish } from "../lib/useFormPolish";
 
 // Ambassador application. Submits in place, shows a confirmation and records a lead.
 export default function AmbassadorForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const { formRef, liveRef, validate, clearDraft } = useFormPolish("ambassador");
+  const doneRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (status !== "sent") return;
+    doneRef.current?.focus({ preventScroll: true });
+    doneRef.current?.scrollIntoView({ block: "center", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  }, [status]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!validate()) return;
     const form = e.currentTarget;
     setStatus("sending");
     try {
       const res = await fetch("/api/enquiry", { method: "POST", body: appendAttribution(new FormData(form)) });
       if (!res.ok) throw new Error(`Application failed: ${res.status}`);
       track("generate_lead", { lead_source: "ambassador_application", context: "Ambassador Programme" });
+      clearDraft();
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -24,7 +35,8 @@ export default function AmbassadorForm() {
 
   if (status === "sent") {
     return (
-      <div className="enq-done" role="status">
+      <div className="enq-done" role="status" ref={doneRef} tabIndex={-1}>
+        <svg className="enq-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" strokeWidth="2.5" /><path d="M15 27l8 8 14-16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
         <p className="enq-done-title">Thank you — your application is with us.</p>
         <p>We&apos;ll review it and be in touch within 48 hours with your personal ambassador code.</p>
       </div>
@@ -32,7 +44,8 @@ export default function AmbassadorForm() {
   }
 
   return (
-    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="enq-form">
+    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="enq-form" ref={formRef} noValidate>
+      <p className="form-live" role="status" aria-live="polite" ref={liveRef} />
       <input type="hidden" name="form" value="ambassador" />
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="enq-hp" aria-hidden="true" />
 

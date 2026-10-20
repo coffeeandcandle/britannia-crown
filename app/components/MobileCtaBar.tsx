@@ -10,13 +10,13 @@ export default function MobileCtaBar() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShow(window.scrollY > 480);
+    const onScroll = () => setShow(window.scrollY > 260);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname === "/book-consultation" || pathname.startsWith("/portal")) return null;
+  if (pathname === "/book-consultation" || pathname === "/contact" || pathname.startsWith("/portal")) return null;
 
   return (
     <div className={`mcta${show ? " show" : ""}`} inert={!show}>

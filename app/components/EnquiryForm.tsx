@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
+import { useFormPolish } from "../lib/useFormPolish";
 import { EMAIL } from "../lib/site";
 
 // Values must match the ?service= links used across the site so preselection works.
@@ -54,9 +55,19 @@ export default function EnquiryForm({
   showNote = true,
 }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const { formRef, liveRef, validate, clearDraft } = useFormPolish(source);
+  const doneRef = useRef<HTMLDivElement>(null);
+
+  // After sending, bring the confirmation into view and move focus to it for keyboard and screen-reader users.
+  useEffect(() => {
+    if (status !== "sent") return;
+    doneRef.current?.focus({ preventScroll: true });
+    doneRef.current?.scrollIntoView({ block: "center", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  }, [status]);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!validate()) return;
     const form = e.currentTarget;
     const data = appendAttribution(new FormData(form));
     setStatus("sending");
@@ -69,6 +80,7 @@ export default function EnquiryForm({
         context: context ?? "",
       });
       form.reset();
+      clearDraft();
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -77,7 +89,8 @@ export default function EnquiryForm({
 
   if (status === "sent") {
     return (
-      <div className="enq-done" role="status">
+      <div className="enq-done" role="status" ref={doneRef} tabIndex={-1}>
+        <svg className="enq-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" fill="none" stroke="currentColor" strokeWidth="2.5" /><path d="M15 27l8 8 14-16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
         <p className="enq-done-title">Thank you. Your enquiry is with us.</p>
         <p>An education consultant will be in touch within 24 hours. Want to talk sooner?</p>
         <div className="enq-done-actions">
@@ -89,7 +102,8 @@ export default function EnquiryForm({
   }
 
   return (
-    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="enq-form">
+    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="enq-form" ref={formRef} noValidate>
+      <p className="form-live" role="status" aria-live="polite" ref={liveRef} />
       <input type="hidden" name="form" value="enquiry" />
       <input type="hidden" name="source" value={source} />
       {context && <input type="hidden" name="enquiry_about" value={context} />}

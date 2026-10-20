@@ -3,19 +3,23 @@
 import { useState } from "react";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
+import { useFormPolish } from "../lib/useFormPolish";
 
 // Email capture for a downloadable PDF guide. Submits in place and records a lead.
 export default function GuideRequestForm({ guide, id }: { guide: string; subject?: string; id: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const { formRef, liveRef, validate, clearDraft } = useFormPolish(`guide-${id}`);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!validate()) return;
     const form = e.currentTarget;
     setStatus("sending");
     try {
       const res = await fetch("/api/enquiry", { method: "POST", body: appendAttribution(new FormData(form)) });
       if (!res.ok) throw new Error(`Guide request failed: ${res.status}`);
       track("generate_lead", { lead_source: "guide_request", context: guide });
+      clearDraft();
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -27,7 +31,8 @@ export default function GuideRequestForm({ guide, id }: { guide: string; subject
   }
 
   return (
-    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="gd-dl-form">
+    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="gd-dl-form" ref={formRef} noValidate>
+      <p className="form-live" role="status" aria-live="polite" ref={liveRef} />
       <input type="hidden" name="form" value="guide" />
       <input type="hidden" name="guide" value={guide} />
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="enq-hp" aria-hidden="true" />
