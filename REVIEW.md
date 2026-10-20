@@ -51,3 +51,15 @@ using only facts already published on the site. These are the statements worth a
 ## Home page "Start today" section
 - Buy buttons use the real catalogue and prices. Hourly values are worked out from published prices
   (Foundation £200 / 4 h = £50, Partner £360 / 8 h = £45, Full Partner £640 / 14 h = about £46).
+
+## Articles, batch 1 (tutoring and exams)
+Written from stable UK education facts; please check these before relying on them:
+- **GCSE resits:** the rule that 16-18s in post-16 education without a grade 4 in English or maths must keep studying it,
+  grade 3 normally resits the GCSE, grade 2 or below may take a stepping-stone qualification, and November resits exist for
+  English language and maths.
+- **KS2 SATs:** taken in May of Year 6; reading, maths and grammar/punctuation/spelling tests; scaled scores with 100 as the
+  expected standard; results to parents in July; writing and science by teacher assessment.
+- **A-Level and GCSE options:** typical timing (options in Year 8 or 9, A-Levels in Years 12 and 13) and typical sixth-form entry
+  (grade 6) are general; schools set their own rules.
+- **Private candidates:** centres set their own deadlines and fees; practical and non-exam elements are the hardest.
+- **Costs:** the cost article quotes only the site's own published prices and gives no market rates.
