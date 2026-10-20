@@ -13,7 +13,7 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
   const { viewer, staff } = await requireStaff();
   const manager = canManage(staff);
 
-  // Each role sees only the parts of the staff area it can use.
+  // Each role sees only the parts of its own area it can use.
   const sections: NavSection[] = [
     {
       items: [
@@ -40,21 +40,21 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
       : []),
     {
       items: [
-        { href: "/portal/admin/help", label: "Staff guide", icon: "help" },
-        ...(viewer.family ? [{ href: "/portal", label: "Switch to family view", icon: "switch" as const }] : []),
+        { href: "/portal/admin/help", label: "Guide", icon: "help" },
+        ...(viewer.family ? [{ href: "/portal", label: "Switch to client view", icon: "switch" as const }] : []),
         { href: "/", label: "Back to website", icon: "back" },
       ],
     },
   ];
 
   return (
-    <PortalShell viewer={viewer} areaLabel="Staff area" who={staff.name} role={roleNames[staff.role]} sections={sections}>
+    <PortalShell viewer={viewer} areaLabel={`${roleNames[staff.role]} area`} who={staff.name} role={roleNames[staff.role]} sections={sections}>
       {children}
     </PortalShell>
   );
 }
 
-// The layout itself returns at once: the skeleton frame shows while staff details load.
+// The layout itself returns at once: the skeleton frame shows while the person's details load.
 export default function StaffLayout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={<PortalFrameSkeleton />}>

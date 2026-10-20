@@ -22,7 +22,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
       <Flash {...msg} />
       <PageHeader
         title="Team and access"
-        description="Who can sign in to the staff area, and what each person can do."
+        description="Who can sign in to the tutor, consultant and admin areas, and what each person can do."
         actions={<a href="#add-staff" className="btn-primary">+ Add a team member</a>}
       />
 
@@ -57,7 +57,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
         </div>
 
         <aside className="pt-side">
-          <Card id="add-staff" title="Add a team member" description="They'll sign in with this email at the staff login.">
+          <Card id="add-staff" title="Add a team member" description="They'll sign in with this email at the tutor and consultant login.">
             <form action={saveStaff} className="pt-form">
               <Field label="Name" htmlFor="st-name"><input id="st-name" name="name" required /></Field>
               <Field label="Work email" htmlFor="st-email"><input id="st-email" name="email" type="email" required /></Field>
@@ -76,7 +76,7 @@ export default async function TeamPage({ searchParams }: { searchParams: Promise
           <HelpBox title="How team members sign in">
             <ol>
               <li>Add them here with their work email.</li>
-              <li>Send them the staff login link. The first time, they choose <strong>Sign up</strong> with that email.</li>
+              <li>Send them the tutor and consultant login link. The first time, they choose <strong>Sign up</strong> with that email.</li>
               <li>They&apos;ll see only what their role allows.</li>
             </ol>
             <div className="ui-copy-row">

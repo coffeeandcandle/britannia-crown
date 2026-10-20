@@ -10,7 +10,7 @@ export default function FamilySignInPage() {
       title="Log in to your account"
       lead="Log in with your email address, or choose “Sign up” if you are new. Anything you have bought or booked with that email appears automatically."
       points={["Upcoming lessons and joining links", "Notes and homework from every session", "Your membership and invoices"]}
-      switchLink={{ href: STAFF_SIGN_IN_PATH, label: "Staff or tutor? Sign in here →" }}
+      switchLink={{ href: STAFF_SIGN_IN_PATH, label: "Tutor or consultant? Sign in here →" }}
     >
       {clerkConfigured ? (
         <SignIn path="/portal/sign-in" routing="path" signUpUrl={SIGN_UP_PATH} fallbackRedirectUrl="/portal" />

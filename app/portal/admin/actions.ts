@@ -203,7 +203,7 @@ export async function saveStaff(fd: FormData) {
     if (id === me.id && (!active || role !== "admin")) back("/portal/admin/staff", { error: "You can't remove your own admin access." });
     await query("UPDATE staff SET role = $1, active = $2 WHERE id = $3", [role, active, id]);
     revalidatePath("/portal/admin", "layout");
-    back("/portal/admin/staff", { ok: "Staff member updated." });
+    back("/portal/admin/staff", { ok: "Team member updated." });
   }
 
   const name = str(fd, "name", 120);

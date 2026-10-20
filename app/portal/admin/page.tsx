@@ -97,7 +97,7 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
           </Card>
         </div>
         <aside className="pt-side">
-          <HelpBox title="How the staff area works" open={!setupDone}>
+          <HelpBox title="How your area works" open={!setupDone}>
             {manager ? (
               <ol>
                 <li><strong>Families</strong> holds every family, their children and lessons.</li>
@@ -112,7 +112,7 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
                 <li>Notes are shared with the family unless you untick the box.</li>
               </ol>
             )}
-            <p><Link href="/portal/admin/help">Read the staff guide →</Link></p>
+            <p><Link href="/portal/admin/help">Read the guide →</Link></p>
           </HelpBox>
         </aside>
       </div>

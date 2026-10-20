@@ -12,7 +12,7 @@ export default async function NoAccountPage() {
       area="Client portal"
       title="We couldn't find your family's account"
       lead={<>You&apos;re signed in as <strong>{viewer.email}</strong>, but that address isn&apos;t linked to a family yet. Portal access is set up by your consultant once you&apos;ve started with us.</>}
-      switchLink={{ href: STAFF_SIGN_IN_PATH, label: "Staff or tutor? Use the staff sign-in →" }}
+      switchLink={{ href: STAFF_SIGN_IN_PATH, label: "Tutor or consultant? Use the tutor sign-in →" }}
     >
       <div className="enq-card uk-prose">
         <p>If you&apos;re already a client, email us and we&apos;ll add this email address to your account.</p>

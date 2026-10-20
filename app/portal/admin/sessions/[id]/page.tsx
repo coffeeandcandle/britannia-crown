@@ -86,8 +86,8 @@ export default async function AdminSessionPage({
               </Field>
               <fieldset className="ui-choice">
                 <legend>Who can see this note?</legend>
-                <label><input type="radio" name="shared_with_family" value="on" defaultChecked /> <span><strong>The family and staff</strong> Appears in the family&apos;s portal.</span></label>
-                <label><input type="radio" name="shared_with_family" value="off" /> <span><strong>Staff only</strong> For internal notes the family shouldn&apos;t see.</span></label>
+                <label><input type="radio" name="shared_with_family" value="on" defaultChecked /> <span><strong>The family and team</strong> Appears in the family&apos;s portal.</span></label>
+                <label><input type="radio" name="shared_with_family" value="off" /> <span><strong>Team only</strong> For internal notes the family shouldn&apos;t see.</span></label>
               </fieldset>
               <SubmitButton>Save note</SubmitButton>
             </form>

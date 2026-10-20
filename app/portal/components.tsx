@@ -84,7 +84,7 @@ export function NoteCard({ note, tz, showSession = true, staffView = false }: { 
             {formatDate(new Date(note.session_starts_at), tz)}
           </p>
         </div>
-        {staffView && (note.shared_with_family ? <Pill tone="good">Shared with family</Pill> : <Pill tone="warn">Staff only</Pill>)}
+        {staffView && (note.shared_with_family ? <Pill tone="good">Shared with family</Pill> : <Pill tone="warn">Team only</Pill>)}
       </header>
       <p className="ui-note-body">{note.body}</p>
       {note.homework && (

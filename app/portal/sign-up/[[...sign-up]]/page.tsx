@@ -9,7 +9,7 @@ export default function FamilySignUpPage() {
       title="Create your free account"
       lead="Sign up with the same email address you used when you paid or spoke to your consultant, and your purchases and lessons appear automatically."
       points={["Your services and receipts in one place", "Upcoming lessons and joining links", "Notes and homework from every session"]}
-      switchLink={{ href: STAFF_SIGN_UP_PATH, label: "Are you a tutor or staff member? Sign up here →" }}
+      switchLink={{ href: STAFF_SIGN_UP_PATH, label: "Are you a tutor or consultant? Sign up here →" }}
     >
       {clerkConfigured ? (
         <SignUp path={SIGN_UP_PATH} routing="path" signInUrl={SIGN_IN_PATH} fallbackRedirectUrl="/portal" />

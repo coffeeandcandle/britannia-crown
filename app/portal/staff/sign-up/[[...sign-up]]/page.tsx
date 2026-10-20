@@ -5,9 +5,9 @@ import AuthFrame from "../../../AuthFrame";
 export default function StaffSignUpPage() {
   return (
     <AuthFrame
-      area="Staff area"
-      title="Create your staff account"
-      lead="Sign up with the work email address an admin added to the team, and your access is linked automatically."
+      area="Tutors and consultants"
+      title="Create your tutor or consultant account"
+      lead="Sign up with the work email address an admin added to the team, and you will go straight to your own area."
       points={["Your sessions and teaching timetable", "Write session notes and set homework", "Manage families and the team (consultants and admins)"]}
       switchLink={{ href: SIGN_IN_PATH, label: "Are you a parent? Go to the client portal →" }}
     >

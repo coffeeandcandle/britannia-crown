@@ -12,7 +12,7 @@ const guide: Section[] = [
       "Open My dashboard to see today's lessons and any notes you still need to write.",
       "Fifteen minutes before a lesson, open it and click Open video call.",
       "After the lesson, open it again and write a short note: what you covered, how it went and any homework.",
-      "Notes are shared with the family unless you choose Staff only.",
+      "Notes are shared with the family unless you choose Team only.",
     ],
   },
   {
@@ -42,7 +42,7 @@ const guide: Section[] = [
     steps: [
       "Go to Team and access and use Add a team member.",
       "Choose a role: Tutor (own lessons), Consultant (all families) or Admin (also manages the team).",
-      "Send them the staff login link. They choose Sign up with their work email.",
+      "Send them the tutor and consultant login link. They choose Sign up with their work email.",
       "To remove access, untick Has access on their row and save. Their past notes stay.",
     ],
   },
@@ -54,7 +54,7 @@ export default async function StaffHelpPage() {
 
   return (
     <>
-      <PageHeader title="Staff guide" description="Step-by-step help for the things you'll do most often." />
+      <PageHeader title="Guide for the team" description="Step-by-step help for the things you'll do most often." />
       <div className="ui-guide">
         {visible.map((g) => (
           <Card key={g.title} title={g.title}>
