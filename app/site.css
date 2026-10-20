@@ -175,11 +175,12 @@ h1 em, h2 em, h3 em { font-style: normal; color: inherit; }
 .mobile-menu-actions { display: grid; gap: 10px; margin-top: 24px; }
 .mobile-menu-actions .wa-icon { color: #25d366; }
 
-@media (max-width: 1240px) {
-  .header-wa span { display: none; }
-  .nav-link { padding: 0 10px; }
+@media (max-width: 1320px) {
+  .nav-link { padding: 0 9px; }
+  .site-header-inner { gap: 20px; }
 }
-@media (max-width: 1080px) {
+.nav-link, .header-actions a { white-space: nowrap; }
+@media (max-width: 1200px) {
   .utility-bar, .main-nav, .header-actions { display: none; }
   .menu-button { display: inline-flex; }
 }
@@ -1036,6 +1037,33 @@ a.ui-stat:hover { transform: translateY(-2px); border-color: var(--brand); color
   .ui-steps li > a { grid-column: 2; justify-self: start; }
 }
 @media (prefers-reduced-motion: reduce) { .ui-toast { animation: none; } .ui-progress span { transition: none; } }
+
+/* ── Prices page ──────────────────────────────────────────────────── */
+.shop-trust { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 24px; list-style: none; color: rgba(255,255,255,.85); font-size: .95rem; }
+.shop-trust li::before { content: "✓"; margin-right: 8px; font-weight: 700; color: var(--champagne); }
+.shop-jump { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 20px; padding-bottom: 20px; }
+.shop-jump a { padding: 8px 16px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--white); font-weight: 600; font-size: .92rem; text-decoration: none; }
+.shop-jump a:hover { border-color: var(--brand); }
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; align-items: stretch; }
+.shop-card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 28px 24px 24px; background: var(--white); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 1px 2px rgba(42,13,26,.04), 0 6px 20px rgba(42,13,26,.05); transition: transform .15s, box-shadow .15s; }
+.shop-card:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(42,13,26,.1); }
+.uk-section.white .shop-card { background: var(--paper); }
+.shop-card.is-featured { border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint), 0 10px 26px rgba(74,14,41,.1); }
+.shop-badge { position: absolute; top: -12px; left: 22px; padding: 3px 12px; border-radius: 999px; background: var(--brand); color: var(--white); font-size: .78rem; font-weight: 700; }
+.shop-card h3 { font-size: 1.15rem; }
+.shop-price { color: var(--ink-3); font-size: .95rem; }
+.shop-price span { margin-right: 4px; font-family: var(--serif); font-size: 1.9rem; color: var(--brand-ink); }
+.shop-desc { color: var(--ink-2); font-size: .96rem; }
+.shop-perks { list-style: none; display: grid; gap: 8px; margin: 4px 0 6px; }
+.shop-perks li { position: relative; padding-left: 24px; font-size: .94rem; color: var(--ink-2); }
+.shop-perks li::before { content: "✓"; position: absolute; left: 0; font-weight: 700; color: var(--ok); }
+.shop-actions { display: grid; gap: 8px; margin-top: auto; padding-top: 8px; }
+.shop-actions .btn-primary, .shop-actions .btn-secondary, .shop-actions .buy-form button { width: 100%; }
+.shop-actions .buy-form { display: block; }
+.shop-note { font-size: .82rem; text-align: center; color: var(--ink-3); }
+.shop-terms { font-size: .92rem; text-align: center; color: var(--ink-3); }
+.header-login { border: 1px solid rgba(232,200,156,.5); }
+.header-login:hover { border-color: var(--champagne); }
 
 /* ── Mobile action bar ────────────────────────────────────────────── */
 .mcta { display: none; }

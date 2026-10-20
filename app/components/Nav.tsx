@@ -90,6 +90,7 @@ const menus: Menu[] = [
 ];
 
 const plainLinks = [
+  { href: "/pricing", label: "Prices" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -257,7 +258,7 @@ export default function Nav() {
           </nav>
 
           <div className="header-actions">
-            <Link href="/contact" className="header-wa">Send an enquiry</Link>
+            <Link href="/portal" className="header-wa header-login">Log in</Link>
             <Link href="/book-consultation" className="btn-primary header-cta">Book a free call</Link>
           </div>
 
