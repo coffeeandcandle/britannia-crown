@@ -281,3 +281,31 @@ export async function familyNoteCount(familyId: number) {
   );
   return row?.n ?? 0;
 }
+
+export type OrderRow = {
+  id: number;
+  product_name: string;
+  amount_pence: number | null;
+  currency: string;
+  recurring: boolean;
+  status: "paid" | "payment_failed" | "cancelled";
+  customer_name: string | null;
+  customer_email: string | null;
+  customer_phone: string | null;
+  child: string | null;
+  family_id: number | null;
+  family_name: string | null;
+  stripe_session_id: string;
+  created_at: Date;
+};
+
+// Online purchases, newest first. Managers only (checked by the page).
+export async function listOrders(limit = 200) {
+  return query<OrderRow>(
+    `SELECT o.id, o.product_name, o.amount_pence, o.currency, o.recurring, o.status, o.customer_name, o.customer_email,
+            o.customer_phone, o.child, o.family_id, f.name AS family_name, o.stripe_session_id, o.created_at
+       FROM orders o LEFT JOIN families f ON f.id = o.family_id
+      ORDER BY o.created_at DESC LIMIT $1`,
+    [limit],
+  );
+}

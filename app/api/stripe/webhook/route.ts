@@ -1,16 +1,17 @@
 import type Stripe from "stripe";
 import { getStripe } from "../../../lib/stripe";
-import { getProduct, formatPrice } from "../../../lib/products";
+import { getProduct } from "../../../lib/products";
 import { FORMSPREE_ENQUIRY } from "../../../lib/site";
-import { query } from "../../../lib/portal/db";
+import { query, queryOne } from "../../../lib/portal/db";
 import { getSetting } from "../../../lib/settings";
 
 const SITE_ORIGIN = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://britannia-crown.vercel.app";
+const hasDatabase = Boolean(process.env.DATABASE_URL);
 
 // Stripe calls this endpoint after payments and subscription changes. Each event is
 // verified with the webhook's signing secret (STRIPE_WEBHOOK_SECRET, or the one saved by
-// scripts/stripe-setup.mjs), then the team is emailed via the enquiry form inbox so a new
-// order is followed up the same way as any other lead.
+// scripts/stripe-setup.mjs). Orders are saved to the database, where staff see them under
+// Orders in the portal, and the team is also emailed via the enquiry form inbox.
 export async function POST(request: Request) {
   const stripe = getStripe();
   const secret = process.env.STRIPE_WEBHOOK_SECRET ?? (await getSetting("stripe_webhook_secret"));
@@ -29,57 +30,49 @@ export async function POST(request: Request) {
   try {
     switch (event.type) {
       // With delayed payment methods (such as bank debits) a session completes before the
-      // money arrives; those orders are announced when async_payment_succeeded follows.
+      // money arrives; those orders are recorded when async_payment_succeeded follows.
       case "checkout.session.completed":
       case "checkout.session.async_payment_succeeded": {
         const s = event.data.object;
         if (s.payment_status === "unpaid") break;
-        const product = getProduct(s.metadata?.product_id ?? "");
-        const child = s.custom_fields?.find((f) => f.key === "child")?.text?.value ?? "";
-        await notifyTeam(`New online order: ${product?.name ?? "Unknown product"}`, {
-          product: product?.name ?? s.metadata?.product_id ?? "",
-          amount: product ? `${formatPrice(product)} ${product.unit}` : "",
-          payment_status: s.payment_status,
-          name: s.customer_details?.name ?? "",
-          email: s.customer_details?.email ?? "",
-          phone: s.customer_details?.phone ?? "",
-          child,
-          stripe_session: s.id,
-          ...pick(s.metadata, ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "page"]),
-        });
-        await linkCustomerToFamily(s);
+        const order = describe(s);
+        const isNew = await saveOrder(s, order, "paid");
+        // Stripe can send the same event more than once; only announce a new order.
+        if (isNew) {
+          await notifyTeam(`New online order: ${order.productName}`, {
+            product: order.productName,
+            amount: order.amountLabel,
+            name: order.name,
+            email: order.email,
+            phone: order.phone,
+            child: order.child,
+            stripe_session: s.id,
+            ...pick(s.metadata, ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "page"]),
+          });
+        }
         break;
       }
       case "checkout.session.async_payment_failed": {
         const s = event.data.object;
-        await notifyTeam("Online payment failed", {
-          product_id: s.metadata?.product_id ?? "",
-          name: s.customer_details?.name ?? "",
-          email: s.customer_details?.email ?? "",
-          stripe_session: s.id,
-        });
+        const order = describe(s);
+        await saveOrder(s, order, "payment_failed");
+        await notifyTeam("Online payment failed", { product: order.productName, name: order.name, email: order.email, stripe_session: s.id });
         break;
       }
       case "invoice.payment_failed": {
         const inv = event.data.object;
-        await notifyTeam("Subscription payment failed", {
-          email: inv.customer_email ?? "",
-          name: inv.customer_name ?? "",
-          invoice: inv.id ?? "",
-        });
+        await notifyTeam("Subscription payment failed", { email: inv.customer_email ?? "", name: inv.customer_name ?? "", invoice: inv.id ?? "" });
         break;
       }
       case "customer.subscription.deleted": {
         const sub = event.data.object;
-        await notifyTeam("Subscription cancelled", {
-          product_id: sub.metadata?.product_id ?? "",
-          subscription: sub.id,
-        });
+        if (hasDatabase) await query("UPDATE orders SET status = 'cancelled' WHERE stripe_subscription_id = $1", [sub.id]);
+        await notifyTeam("Subscription cancelled", { product_id: sub.metadata?.product_id ?? "", subscription: sub.id });
         break;
       }
     }
   } catch (error) {
-    // Ask Stripe to retry later rather than lose the notification.
+    // Ask Stripe to retry later rather than lose the order.
     console.error("Stripe webhook handling failed", error);
     return new Response("Handler error", { status: 500 });
   }
@@ -87,31 +80,64 @@ export async function POST(request: Request) {
   return Response.json({ received: true });
 }
 
-// Posts like the site's own enquiry form (form-encoded, from the site's origin), so Formspree
-// treats it the same as a browser submission.
-async function notifyTeam(subject: string, fields: Record<string, string>) {
-  const res = await fetch(FORMSPREE_ENQUIRY, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      Origin: SITE_ORIGIN,
-      Referer: `${SITE_ORIGIN}/pricing`,
-    },
-    body: new URLSearchParams({ _subject: `${subject} | Britannia Crown`, source: "stripe", ...fields }),
-  });
-  if (!res.ok) throw new Error(`Formspree responded ${res.status}: ${(await res.text()).slice(0, 300)}`);
+type OrderDetails = { productId: string; productName: string; amountLabel: string; name: string; email: string; phone: string; child: string };
+
+function describe(s: Stripe.Checkout.Session): OrderDetails {
+  const product = getProduct(s.metadata?.product_id ?? "");
+  const amount =
+    s.amount_total == null
+      ? ""
+      : new Intl.NumberFormat("en-GB", { style: "currency", currency: (s.currency ?? "gbp").toUpperCase() }).format(s.amount_total / 100);
+  return {
+    productId: product?.id ?? s.metadata?.product_id ?? "",
+    productName: product?.name ?? s.metadata?.product_id ?? "Online order",
+    amountLabel: amount && s.mode === "subscription" ? `${amount} a month` : amount,
+    name: s.customer_details?.name ?? "",
+    email: s.customer_details?.email ?? "",
+    phone: s.customer_details?.phone ?? "",
+    child: s.custom_fields?.find((f) => f.key === "child")?.text?.value ?? "",
+  };
 }
 
-// If the buyer already has a portal account, remember their Stripe customer for the billing page.
-async function linkCustomerToFamily(s: Stripe.Checkout.Session) {
-  const customer = typeof s.customer === "string" ? s.customer : s.customer?.id;
-  const email = s.customer_details?.email?.toLowerCase();
-  if (!process.env.DATABASE_URL || !customer || !email) return;
+// Records the order (once per checkout session) and links it to a portal family with the
+// same email. Returns true when this is the first time we've seen the order.
+async function saveOrder(s: Stripe.Checkout.Session, o: OrderDetails, status: "paid" | "payment_failed") {
+  if (!hasDatabase) return true;
+  const customer = typeof s.customer === "string" ? s.customer : (s.customer?.id ?? null);
+  const subscription = typeof s.subscription === "string" ? s.subscription : (s.subscription?.id ?? null);
+  const email = o.email.toLowerCase();
+  const family = email ? await queryOne<{ id: number }>("SELECT id FROM families WHERE lower(email) = $1", [email]) : null;
+
+  const saved = await queryOne<{ inserted: boolean }>(
+    `INSERT INTO orders (stripe_session_id, product_id, product_name, amount_pence, currency, recurring, status,
+                         customer_name, customer_email, customer_phone, child, family_id, stripe_customer_id, stripe_subscription_id)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+     ON CONFLICT (stripe_session_id) DO UPDATE SET status = EXCLUDED.status WHERE orders.status <> EXCLUDED.status
+     RETURNING (xmax = 0) AS inserted`,
+    [s.id, o.productId || null, o.productName, s.amount_total, s.currency ?? "gbp", s.mode === "subscription", status,
+     o.name || null, email || null, o.phone || null, o.child || null, family?.id ?? null, customer, subscription],
+  );
+
+  // If the buyer already has a portal account, remember their Stripe customer for the billing page.
+  if (family && customer) {
+    await query("UPDATE families SET stripe_customer_id = $1 WHERE id = $2 AND stripe_customer_id IS NULL", [customer, family.id]);
+  }
+  return Boolean(saved?.inserted);
+}
+
+// Emails the team through the enquiry form inbox. The order is already saved in the portal,
+// so a failure here is logged rather than retried, unless there is no database to fall back on.
+async function notifyTeam(subject: string, fields: Record<string, string>) {
   try {
-    await query("UPDATE families SET stripe_customer_id = $1 WHERE lower(email) = $2 AND stripe_customer_id IS NULL", [customer, email]);
+    const res = await fetch(FORMSPREE_ENQUIRY, {
+      method: "POST",
+      headers: { Accept: "application/json", Origin: SITE_ORIGIN, Referer: `${SITE_ORIGIN}/pricing` },
+      body: new URLSearchParams({ _subject: `${subject} | Britannia Crown`, source: "stripe", ...fields }),
+    });
+    if (!res.ok) throw new Error(`Formspree responded ${res.status}: ${(await res.text()).slice(0, 300)}`);
   } catch (error) {
-    // The order email has already gone; a missing link is found again from the email on the billing page.
-    console.error("Linking Stripe customer to family failed", error);
+    if (!hasDatabase) throw error;
+    console.error("Order email not sent (the order is saved in the portal)", error);
   }
 }
 

@@ -64,3 +64,25 @@ CREATE TABLE IF NOT EXISTS app_settings (
   value       text NOT NULL,
   updated_at  timestamptz NOT NULL DEFAULT now()
 );
+
+-- Online purchases, recorded by the Stripe webhook so staff can see every order in the portal.
+CREATE TABLE IF NOT EXISTS orders (
+  id                     serial PRIMARY KEY,
+  stripe_session_id      text NOT NULL UNIQUE,
+  product_id             text,
+  product_name           text NOT NULL,
+  amount_pence           integer,
+  currency               text NOT NULL DEFAULT 'gbp',
+  recurring              boolean NOT NULL DEFAULT false,
+  status                 text NOT NULL DEFAULT 'paid' CHECK (status IN ('paid', 'payment_failed', 'cancelled')),
+  customer_name          text,
+  customer_email         text,
+  customer_phone         text,
+  child                  text,
+  family_id              integer REFERENCES families(id) ON DELETE SET NULL,
+  stripe_customer_id     text,
+  stripe_subscription_id text,
+  created_at             timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS orders_created ON orders (created_at DESC);
+CREATE INDEX IF NOT EXISTS orders_subscription ON orders (stripe_subscription_id);
