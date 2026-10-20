@@ -8,6 +8,3 @@ export const EMAIL = "hello@britanniacrown.com";
 export const INSTAGRAM_URL = "https://instagram.com/britanniacrowneducation";
 
 export const CALENDLY_URL = "https://calendly.com/miramayhis/30min";
-export const FORMSPREE_ENQUIRY = "https://formspree.io/f/xyzypzkv";
-export const FORMSPREE_GUIDES = "https://formspree.io/f/xpqobbpo";
-export const FORMSPREE_AMBASSADOR = "https://formspree.io/f/xgopdnby";

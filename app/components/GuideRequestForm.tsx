@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
-import { FORMSPREE_GUIDES } from "../lib/site";
 
 // Email capture for a downloadable PDF guide. Submits in place and records a lead.
-export default function GuideRequestForm({ guide, subject, id }: { guide: string; subject: string; id: string }) {
+export default function GuideRequestForm({ guide, id }: { guide: string; subject?: string; id: string }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -14,12 +13,8 @@ export default function GuideRequestForm({ guide, subject, id }: { guide: string
     const form = e.currentTarget;
     setStatus("sending");
     try {
-      const res = await fetch(FORMSPREE_GUIDES, {
-        method: "POST",
-        body: appendAttribution(new FormData(form)),
-        headers: { Accept: "application/json" },
-      });
-      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      const res = await fetch("/api/enquiry", { method: "POST", body: appendAttribution(new FormData(form)) });
+      if (!res.ok) throw new Error(`Guide request failed: ${res.status}`);
       track("generate_lead", { lead_source: "guide_request", context: guide });
       setStatus("sent");
     } catch {
@@ -32,8 +27,8 @@ export default function GuideRequestForm({ guide, subject, id }: { guide: string
   }
 
   return (
-    <form action={FORMSPREE_GUIDES} method="POST" onSubmit={onSubmit} className="gd-dl-form">
-      <input type="hidden" name="_subject" value={subject} />
+    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="gd-dl-form">
+      <input type="hidden" name="form" value="guide" />
       <input type="hidden" name="guide" value={guide} />
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="enq-hp" aria-hidden="true" />
       <label className="sr-only" htmlFor={`${id}-name`}>Your name</label>

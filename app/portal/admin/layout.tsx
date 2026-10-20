@@ -19,11 +19,19 @@ export default async function StaffLayout({ children }: { children: React.ReactN
     ...(manager
       ? [{ title: "Clients", items: [
             { href: "/portal/admin/families", label: "Families", icon: "families" as const },
-            { href: "/portal/admin/orders", label: "Orders", icon: "card" as const },
           ] }]
       : []),
     ...(staff.role === "admin"
-      ? [{ title: "Admin", items: [{ href: "/portal/admin/staff", label: "Team and access", icon: "team" as const }] }]
+      ? [
+          {
+            title: "Admin",
+            items: [
+              { href: "/portal/admin/contacts", label: "Contacts", icon: "chat" as const },
+              { href: "/portal/admin/orders", label: "Orders", icon: "card" as const },
+              { href: "/portal/admin/staff", label: "Team and access", icon: "team" as const },
+            ],
+          },
+        ]
       : []),
     {
       items: [

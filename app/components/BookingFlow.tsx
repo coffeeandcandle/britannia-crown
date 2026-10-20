@@ -8,6 +8,7 @@ import EnquiryForm from "./EnquiryForm";
 import { sessionTypes, getSessionType, isBookable, priceLabel, type SessionType } from "../lib/sessions";
 import { EMAIL } from "../lib/site";
 import { track } from "../lib/track";
+import { appendAttribution } from "../lib/attribution";
 
 type Details = { name: string; email: string; yearGroup: string; notes: string };
 type Step = 1 | 2 | 3 | 4;
@@ -64,14 +65,31 @@ export default function BookingFlow() {
     track("booking_session_selected", { session_type: s.id });
   }
 
+  // Saves the booking to the CRM: once when details are entered (so a family who doesn't
+  // finish is still followed up), and again when Calendly confirms the time.
+  function saveBooking(status: "started" | "booked", calendlyEvent?: string) {
+    const data = new FormData();
+    data.set("form", "booking");
+    data.set("status", status);
+    data.set("session", session.name);
+    data.set("name", details.name);
+    data.set("email", details.email);
+    data.set("year_group", details.yearGroup);
+    data.set("notes", details.notes);
+    if (calendlyEvent) data.set("calendly_event", calendlyEvent);
+    fetch("/api/enquiry", { method: "POST", body: appendAttribution(data), keepalive: true }).catch(() => {});
+  }
+
   function onDetailsSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!e.currentTarget.reportValidity()) return;
+    if (isBookable(session)) saveBooking("started");
     setStep(3);
     track("booking_details_entered", { session_type: session.id });
   }
 
-  function onScheduled() {
+  function onScheduled(payload?: { event?: { uri?: string } }) {
+    saveBooking("booked", payload?.event?.uri);
     setStep(4);
     track("consultation_booked", {
       method: "calendly",

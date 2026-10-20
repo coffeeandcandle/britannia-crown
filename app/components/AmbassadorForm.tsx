@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
-import { FORMSPREE_AMBASSADOR } from "../lib/site";
 
 // Ambassador application. Submits in place, shows a confirmation and records a lead.
 export default function AmbassadorForm() {
@@ -14,12 +13,8 @@ export default function AmbassadorForm() {
     const form = e.currentTarget;
     setStatus("sending");
     try {
-      const res = await fetch(FORMSPREE_AMBASSADOR, {
-        method: "POST",
-        body: appendAttribution(new FormData(form)),
-        headers: { Accept: "application/json" },
-      });
-      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      const res = await fetch("/api/enquiry", { method: "POST", body: appendAttribution(new FormData(form)) });
+      if (!res.ok) throw new Error(`Application failed: ${res.status}`);
       track("generate_lead", { lead_source: "ambassador_application", context: "Ambassador Programme" });
       setStatus("sent");
     } catch {
@@ -37,8 +32,8 @@ export default function AmbassadorForm() {
   }
 
   return (
-    <form action={FORMSPREE_AMBASSADOR} method="POST" onSubmit={onSubmit} className="enq-form">
-      <input type="hidden" name="_subject" value="New Ambassador Programme Application - Britannia Crown" />
+    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="enq-form">
+      <input type="hidden" name="form" value="ambassador" />
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="enq-hp" aria-hidden="true" />
 
       <div className="form-row">

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
-import { EMAIL, FORMSPREE_ENQUIRY } from "../lib/site";
+import { EMAIL } from "../lib/site";
 
 // Values must match the ?service= links used across the site so preselection works.
 const SERVICE_OPTIONS = {
@@ -61,12 +61,8 @@ export default function EnquiryForm({
     const data = appendAttribution(new FormData(form));
     setStatus("sending");
     try {
-      const res = await fetch(FORMSPREE_ENQUIRY, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
-      });
-      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      const res = await fetch("/api/enquiry", { method: "POST", body: data });
+      if (!res.ok) throw new Error(`Enquiry failed: ${res.status}`);
       track("generate_lead", {
         lead_source: source,
         service: String(data.get("service") ?? ""),
@@ -92,13 +88,12 @@ export default function EnquiryForm({
     );
   }
 
-  const subject = `New enquiry${context ? ` — ${context}` : defaultService ? ` — ${defaultService}` : ""} | Britannia Crown`;
-
   return (
-    <form action={FORMSPREE_ENQUIRY} method="POST" onSubmit={onSubmit} className="enq-form">
-      <input type="hidden" name="_subject" value={subject} />
+    <form action="/api/enquiry" method="POST" onSubmit={onSubmit} className="enq-form">
+      <input type="hidden" name="form" value="enquiry" />
+      <input type="hidden" name="source" value={source} />
       {context && <input type="hidden" name="enquiry_about" value={context} />}
-      {/* Honeypot: real visitors never see or fill this; Formspree discards submissions that do. */}
+      {/* Honeypot: real visitors never see or fill this; the server ignores submissions that do. */}
       <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="enq-hp" aria-hidden="true" />
 
       <div className="form-row">

@@ -49,7 +49,17 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
           hint={stats.needs_note > 0 ? "Families are waiting" : "All caught up"}
           href="#needs-note"
         />
-        {manager && <Stat label="Families" value={stats.families} href="/portal/admin/families" />}
+        {staff.role === "admin" ? (
+          <Stat
+            label="New enquiries"
+            value={stats.new_contacts}
+            tone={stats.new_contacts > 0 ? "alert" : "good"}
+            hint={stats.new_contacts > 0 ? "Waiting for a reply" : "All replied to"}
+            href="/portal/admin/contacts?stage=new"
+          />
+        ) : (
+          manager && <Stat label="Families" value={stats.families} href="/portal/admin/families" />
+        )}
       </StatGrid>
 
       <div className="pt-grid">

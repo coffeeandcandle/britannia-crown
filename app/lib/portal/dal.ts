@@ -251,6 +251,7 @@ export type StaffStats = {
   children: number;
   sessions: number;
   notes: number;
+  new_contacts: number;
 };
 
 // Headline numbers for the staff dashboard. Tutors' figures cover only their own sessions.
@@ -268,7 +269,8 @@ export async function staffStats(staff: Staff) {
        (SELECT count(*)::int FROM staff WHERE active) AS team,
        (SELECT count(*)::int FROM children) AS children,
        (SELECT count(*)::int FROM sessions) AS sessions,
-       (SELECT count(*)::int FROM session_notes) AS notes`,
+       (SELECT count(*)::int FROM session_notes) AS notes,
+       (SELECT count(*)::int FROM contacts WHERE stage = 'new') AS new_contacts`,
     [canManage(staff) ? null : staff.id],
   ))!;
 }
@@ -299,7 +301,7 @@ export type OrderRow = {
   created_at: Date;
 };
 
-// Online purchases, newest first. Managers only (checked by the page).
+// Online purchases, newest first. Admins only (checked by the page).
 export async function listOrders(limit = 200) {
   return query<OrderRow>(
     `SELECT o.id, o.product_name, o.amount_pence, o.currency, o.recurring, o.status, o.customer_name, o.customer_email,
@@ -308,4 +310,90 @@ export async function listOrders(limit = 200) {
       ORDER BY o.created_at DESC LIMIT $1`,
     [limit],
   );
+}
+
+/* ── CRM ───────────────────────────────────────────────────────────── */
+
+export type ContactRow = {
+  id: number;
+  name: string;
+  email: string;
+  phone: string | null;
+  kind: "family" | "ambassador" | "other";
+  stage: "new" | "contacted" | "consultation" | "client" | "closed";
+  owner_id: number | null;
+  owner_name: string | null;
+  family_id: number | null;
+  source: string | null;
+  last_activity_at: Date;
+  created_at: Date;
+  last_summary: string | null;
+};
+
+const CONTACT_SELECT = `
+  SELECT c.id, c.name, c.email, c.phone, c.kind, c.stage, c.owner_id, s.name AS owner_name, c.family_id, c.source,
+         c.last_activity_at, c.created_at,
+         (SELECT a.summary FROM activities a WHERE a.contact_id = c.id AND a.type <> 'stage' ORDER BY a.created_at DESC LIMIT 1) AS last_summary
+    FROM contacts c LEFT JOIN staff s ON s.id = c.owner_id`;
+
+export async function listContacts(filter: { stage?: string; q?: string; mine?: number }) {
+  const where: string[] = [];
+  const params: unknown[] = [];
+  if (filter.stage) {
+    params.push(filter.stage);
+    where.push(`c.stage = $${params.length}`);
+  }
+  if (filter.q) {
+    params.push(`%${filter.q.toLowerCase()}%`);
+    where.push(`(lower(c.name) LIKE $${params.length} OR lower(c.email) LIKE $${params.length} OR c.phone LIKE $${params.length})`);
+  }
+  if (filter.mine) {
+    params.push(filter.mine);
+    where.push(`c.owner_id = $${params.length}`);
+  }
+  return query<ContactRow>(
+    `${CONTACT_SELECT} ${where.length ? `WHERE ${where.join(" AND ")}` : ""} ORDER BY c.last_activity_at DESC LIMIT 300`,
+    params,
+  );
+}
+
+export async function contactStageCounts() {
+  const rows = await query<{ stage: string; count: number }>("SELECT stage, count(*)::int AS count FROM contacts GROUP BY stage");
+  return Object.fromEntries(rows.map((r) => [r.stage, r.count])) as Record<string, number>;
+}
+
+export async function getContact(id: number) {
+  return queryOne<ContactRow>(`${CONTACT_SELECT} WHERE c.id = $1`, [id]);
+}
+
+export type ActivityRow = {
+  id: number;
+  type: "enquiry" | "guide" | "ambassador" | "booking" | "order" | "note" | "call" | "email" | "stage";
+  summary: string;
+  details: Record<string, string>;
+  staff_name: string | null;
+  created_at: Date;
+};
+
+export async function contactActivities(contactId: number) {
+  return query<ActivityRow>(
+    `SELECT a.id, a.type, a.summary, a.details, s.name AS staff_name, a.created_at
+       FROM activities a LEFT JOIN staff s ON s.id = a.staff_id
+      WHERE a.contact_id = $1 ORDER BY a.created_at DESC, a.id DESC`,
+    [contactId],
+  );
+}
+
+export async function contactOrders(email: string) {
+  return query<OrderRow>(
+    `SELECT o.id, o.product_name, o.amount_pence, o.currency, o.recurring, o.status, o.customer_name, o.customer_email,
+            o.customer_phone, o.child, o.family_id, NULL::text AS family_name, o.stripe_session_id, o.created_at
+       FROM orders o WHERE lower(o.customer_email) = lower($1) ORDER BY o.created_at DESC`,
+    [email],
+  );
+}
+
+export async function contactIdForFamily(familyId: number) {
+  const row = await queryOne<{ id: number }>("SELECT id FROM contacts WHERE family_id = $1", [familyId]);
+  return row?.id ?? null;
 }

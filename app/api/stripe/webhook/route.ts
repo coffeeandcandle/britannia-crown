@@ -1,17 +1,17 @@
 import type Stripe from "stripe";
 import { getStripe } from "../../../lib/stripe";
 import { getProduct } from "../../../lib/products";
-import { FORMSPREE_ENQUIRY } from "../../../lib/site";
 import { query, queryOne } from "../../../lib/portal/db";
 import { getSetting } from "../../../lib/settings";
+import { recordEvent } from "../../../lib/crm";
+import { alertTeam } from "../../../lib/email";
 
-const SITE_ORIGIN = process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://britannia-crown.vercel.app";
 const hasDatabase = Boolean(process.env.DATABASE_URL);
 
 // Stripe calls this endpoint after payments and subscription changes. Each event is
 // verified with the webhook's signing secret (STRIPE_WEBHOOK_SECRET, or the one saved by
 // scripts/stripe-setup.mjs). Orders are saved to the database, where staff see them under
-// Orders in the portal, and the team is also emailed via the enquiry form inbox.
+// Orders and on the buyer's CRM contact, and the team is emailed.
 export async function POST(request: Request) {
   const stripe = getStripe();
   const secret = process.env.STRIPE_WEBHOOK_SECRET ?? (await getSetting("stripe_webhook_secret"));
@@ -39,6 +39,18 @@ export async function POST(request: Request) {
         const isNew = await saveOrder(s, order, "paid");
         // Stripe can send the same event more than once; only announce a new order.
         if (isNew) {
+          if (hasDatabase && order.email) {
+            await recordEvent({
+              name: order.name || order.email,
+              email: order.email,
+              phone: order.phone,
+              type: "order",
+              summary: `Bought ${order.productName} online (${order.amountLabel})`,
+              details: { child: order.child, stripe_session: s.id },
+              source: s.metadata?.utm_source ?? s.metadata?.landing_page ?? "online order",
+              stage: "client",
+            });
+          }
           await notifyTeam(`New online order: ${order.productName}`, {
             product: order.productName,
             amount: order.amountLabel,
@@ -125,20 +137,9 @@ async function saveOrder(s: Stripe.Checkout.Session, o: OrderDetails, status: "p
   return Boolean(saved?.inserted);
 }
 
-// Emails the team through the enquiry form inbox. The order is already saved in the portal,
-// so a failure here is logged rather than retried, unless there is no database to fall back on.
+// Emails the team. The order is already saved in the portal, so this never fails the webhook.
 async function notifyTeam(subject: string, fields: Record<string, string>) {
-  try {
-    const res = await fetch(FORMSPREE_ENQUIRY, {
-      method: "POST",
-      headers: { Accept: "application/json", Origin: SITE_ORIGIN, Referer: `${SITE_ORIGIN}/pricing` },
-      body: new URLSearchParams({ _subject: `${subject} | Britannia Crown`, source: "stripe", ...fields }),
-    });
-    if (!res.ok) throw new Error(`Formspree responded ${res.status}: ${(await res.text()).slice(0, 300)}`);
-  } catch (error) {
-    if (!hasDatabase) throw error;
-    console.error("Order email not sent (the order is saved in the portal)", error);
-  }
+  await alertTeam(subject, fields, fields.email || undefined);
 }
 
 function pick(obj: Record<string, string> | null | undefined, keys: string[]) {

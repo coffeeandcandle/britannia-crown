@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
       <section className="uk-section white">
         <div className="uk-wrap">
           <div className="legal-content">
-            <p className="legal-updated">Last updated: 8 July 2026</p>
+            <p className="legal-updated">Last updated: 20 October 2026</p>
 
             <h2>1. Introduction</h2>
             <p>Britannia Crown Education Consultants (&quot;Britannia Crown&quot;, &quot;we&quot;, &quot;us&quot;, &quot;our&quot;) respects your privacy and is committed to protecting the personal information you share with us. This policy explains what information we collect, how we use it, and the choices you have.</p>
@@ -40,7 +40,7 @@ export default function PrivacyPolicyPage() {
             </ul>
 
             <h2>4. Sharing Your Information</h2>
-            <p>We do not sell your personal information. We may share it with trusted third parties who help us operate our business — for example, our tutors and school-placement partners (only as needed to deliver the service you&apos;ve requested), our form-processing provider (Formspree), and our analytics providers (Google).</p>
+            <p>We do not sell your personal information. We may share it with trusted third parties who help us operate our business — for example, our tutors and school-placement partners (only as needed to deliver the service you&apos;ve requested), the services that run our website and records (Vercel for hosting, Neon for our secure database, Clerk for portal sign-in, Resend for email, and Stripe for payments), and our analytics providers (Google). Enquiries you send through our website are kept in our own secure client records so our team can follow up with you.</p>
 
             <h2>5. Data Retention</h2>
             <p>We retain your information for as long as necessary to provide our services and comply with our legal obligations. You can ask us to delete your information at any time by contacting us.</p>

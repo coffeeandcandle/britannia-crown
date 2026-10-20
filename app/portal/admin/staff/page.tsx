@@ -9,7 +9,7 @@ import { saveStaff } from "../actions";
 const roles = [
   { id: "tutor", name: "Tutor", can: "Sees only their own lessons, joins them and writes notes." },
   { id: "consultant", name: "Consultant", can: "Manages families, schedules lessons for anyone and reads all notes." },
-  { id: "admin", name: "Admin", can: "Everything a consultant can do, plus adding and removing team members." },
+  { id: "admin", name: "Admin", can: "Everything a consultant can do, plus contacts (enquiries), online orders and adding or removing team members." },
 ] as const;
 
 export default async function TeamPage({ searchParams }: { searchParams: Promise<{ ok?: string; error?: string }> }) {

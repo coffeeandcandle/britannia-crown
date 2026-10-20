@@ -10,7 +10,7 @@ type CalendlyEmbedProps = {
   prefill?: Prefill;
   utm?: Utm;
   // Called once Calendly confirms the booking.
-  onScheduled?: () => void;
+  onScheduled?: (event?: { event?: { uri?: string }; invitee?: { uri?: string } }) => void;
 };
 
 declare global {
@@ -74,7 +74,7 @@ export default function CalendlyEmbed({ url, prefill, utm, onScheduled }: Calend
         const newHeight = Number(e.data.payload?.height);
         if (newHeight > 0) setHeight(newHeight);
       }
-      if (e.data.event === "calendly.event_scheduled") onScheduledRef.current?.();
+      if (e.data.event === "calendly.event_scheduled") onScheduledRef.current?.(e.data.payload);
     }
     window.addEventListener("message", onMessage);
 

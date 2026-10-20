@@ -86,3 +86,41 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 CREATE INDEX IF NOT EXISTS orders_created ON orders (created_at DESC);
 CREATE INDEX IF NOT EXISTS orders_subscription ON orders (stripe_subscription_id);
+
+-- CRM: one contact per person (matched by email), with a timeline of everything that happened.
+-- Website forms, bookings and online orders add to it automatically; staff add notes and calls.
+CREATE TABLE IF NOT EXISTS contacts (
+  id               serial PRIMARY KEY,
+  name             text NOT NULL,
+  email            text NOT NULL,
+  phone            text,
+  kind             text NOT NULL DEFAULT 'family' CHECK (kind IN ('family', 'ambassador', 'other')),
+  stage            text NOT NULL DEFAULT 'new' CHECK (stage IN ('new', 'contacted', 'consultation', 'client', 'closed')),
+  owner_id         integer REFERENCES staff(id) ON DELETE SET NULL,
+  family_id        integer REFERENCES families(id) ON DELETE SET NULL,
+  source           text,
+  last_activity_at timestamptz NOT NULL DEFAULT now(),
+  created_at       timestamptz NOT NULL DEFAULT now()
+);
+CREATE UNIQUE INDEX IF NOT EXISTS contacts_email ON contacts (lower(email));
+CREATE INDEX IF NOT EXISTS contacts_stage ON contacts (stage, last_activity_at DESC);
+
+CREATE TABLE IF NOT EXISTS activities (
+  id          serial PRIMARY KEY,
+  contact_id  integer NOT NULL REFERENCES contacts(id) ON DELETE CASCADE,
+  type        text NOT NULL CHECK (type IN ('enquiry', 'guide', 'ambassador', 'booking', 'order', 'note', 'call', 'email', 'stage')),
+  summary     text NOT NULL,
+  details     jsonb NOT NULL DEFAULT '{}',
+  staff_id    integer REFERENCES staff(id) ON DELETE SET NULL,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS activities_contact ON activities (contact_id, created_at DESC);
+
+-- Bring existing families and orders into the CRM (runs harmlessly on every deploy).
+INSERT INTO contacts (name, email, phone, stage, owner_id, family_id, source, created_at)
+SELECT f.name, lower(f.email), f.phone, 'client', f.consultant_id, f.id, 'portal', f.created_at FROM families f
+ON CONFLICT (lower(email)) DO UPDATE SET family_id = COALESCE(contacts.family_id, EXCLUDED.family_id);
+INSERT INTO contacts (name, email, phone, stage, source, created_at)
+SELECT DISTINCT ON (lower(o.customer_email)) COALESCE(o.customer_name, o.customer_email), lower(o.customer_email), o.customer_phone, 'client', 'online order', o.created_at
+FROM orders o WHERE o.customer_email IS NOT NULL ORDER BY lower(o.customer_email), o.created_at
+ON CONFLICT (lower(email)) DO NOTHING;
