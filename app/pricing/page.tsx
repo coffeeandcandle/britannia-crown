@@ -82,10 +82,10 @@ export default function PricingPage() {
       </section>
 
       <nav className="shop-jump uk-wrap" aria-label="On this page">
-        <a href="#consultations">Consultations</a>
+        <a href="#consultations">Free consultation</a>
         <a href="#membership">Tutoring membership</a>
-        <a href="#uae">Moving to the UAE</a>
-        <a href="#tailored">Tailored services</a>
+        <a href="#tailored">Consultancy</a>
+        <a href="#uae">Moving to Dubai</a>
       </nav>
 
       <section className="uk-section cream" id="consultations">
@@ -133,23 +133,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="uk-section cream" id="uae">
-        <div className="uk-wrap">
-          <div className="uk-head">
-            <span className="uk-kicker">Moving to the UAE</span>
-            <h2 className="uk-h2">Packages for families relocating to Dubai</h2>
-            <p className="uk-lead">
-              Fixed prices for school and nursery placement, exam preparation and ongoing support.{" "}
-              <Link href="/uae">More about our UAE services</Link>.
-            </p>
-          </div>
-          <div className="shop-grid">
-            {uae.map((p) => <ProductCard key={p.id} p={p} />)}
-          </div>
-        </div>
-      </section>
-
-      <section className="uk-section white" id="tailored">
+      <section className="uk-section cream" id="tailored">
         <div className="uk-wrap uk-split">
           <div>
             <span className="uk-kicker">Tailored to your child</span>
@@ -161,6 +145,22 @@ export default function PricingPage() {
               <Link href="/contact" className="btn-primary">Ask for a quote</Link>
               <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="uk-section white" id="uae">
+        <div className="uk-wrap">
+          <div className="uk-head">
+            <span className="uk-kicker">Moving to the UAE</span>
+            <h2 className="uk-h2">Packages for families relocating to Dubai</h2>
+            <p className="uk-lead">
+              Fixed prices for school and nursery placement, exam preparation and ongoing support.{" "}
+              <Link href="/uae">More about our UAE services</Link>.
+            </p>
+          </div>
+          <div className="shop-grid">
+            {uae.map((p) => <ProductCard key={p.id} p={p} />)}
           </div>
         </div>
       </section>

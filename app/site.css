@@ -1379,3 +1379,37 @@ html.rv-ready [data-rv=""] { opacity: 0; transform: translateY(16px); }
 @media (max-width: 960px) { .plans-grid, .plans-grid--dubai { grid-template-columns: 1fr; } .plan.is-featured { order: -1; } }
 @media (max-width: 760px) { .plans-tab { padding: 14px 8px; } .plans-tab span { display: none; } .plans-unsure { padding: 22px 20px; } .plans-unsure-actions, .plans-unsure-actions a { width: 100%; justify-content: center; } }
 @media (prefers-reduced-motion: reduce) { .plan { transition: none; } .plan:hover { transform: none; } }
+.plans-grid--four { grid-template-columns: repeat(4, 1fr); }
+.plans-dubai { margin-top: 18px; text-align: center; font-size: .92rem; color: var(--ink-3); }
+@media (max-width: 1100px) { .plans-grid--four { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) { .plans-grid--four { grid-template-columns: 1fr; } }
+
+/* ── Flagship: the Partner plan ───────────────────────────────────── */
+.flagship { padding: 64px 0; background: var(--brand-ink); color: rgba(255,255,255,.86); }
+.flagship-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 52px; align-items: center; }
+.flagship-tag { display: inline-block; padding: 5px 13px; border-radius: 999px; background: var(--champagne); font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--brand-ink); }
+.flagship h2 { margin: 14px 0 14px; font-size: clamp(1.9rem, 3.6vw, 2.8rem); color: var(--white); }
+.flagship-lead { max-width: 56ch; font-size: 1.1rem; }
+.flagship-points { display: grid; gap: 11px; margin: 22px 0; list-style: none; }
+.flagship-points li { position: relative; padding-left: 30px; font-size: 1.02rem; color: rgba(255,255,255,.92); }
+.flagship-points li::before { content: ""; position: absolute; left: 4px; top: .42em; width: 13px; height: 7px; border-left: 2.5px solid var(--champagne); border-bottom: 2.5px solid var(--champagne); transform: rotate(-45deg); }
+.flagship-price { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1; color: var(--white); }
+.flagship-price small { font-family: var(--sans); font-size: .95rem; color: rgba(255,255,255,.72); }
+.flagship-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.flagship-actions .buy-form { display: contents; }
+.flagship-actions .btn-primary, .flagship-actions .btn-secondary { min-height: 54px; }
+.flagship-actions .btn-primary { background: var(--champagne); border-color: var(--champagne); color: var(--brand-ink); }
+.flagship-actions .btn-primary:hover { background: var(--white); border-color: var(--white); }
+.flagship-actions .btn-secondary { background: transparent; border-color: rgba(255,255,255,.4); color: var(--white); }
+.flagship-note { margin-top: 16px; font-size: .94rem; color: rgba(255,255,255,.72); }
+.flagship-note a { color: var(--champagne); }
+.flagship-media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 16px; box-shadow: 0 28px 60px rgba(0,0,0,.35); }
+.price-card.is-featured { border: 2px solid var(--brand); box-shadow: 0 14px 36px rgba(74,14,41,.14); }
+@media (max-width: 960px) {
+  .flagship { padding: 44px 0; }
+  .flagship-inner { grid-template-columns: 1fr; gap: 28px; }
+  .flagship-media { order: -1; aspect-ratio: 16 / 9; }
+  .flagship-actions .btn-primary, .flagship-actions .btn-secondary { flex: 1 1 100%; justify-content: center; }
+}
+.plan-price--text { font-size: 1.7rem; }
+.plan-price--text small { display: block; margin-top: 4px; }

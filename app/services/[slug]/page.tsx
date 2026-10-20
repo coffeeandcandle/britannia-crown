@@ -196,8 +196,8 @@ export default async function ServicePage({ params }: Props) {
               tiers.map((t) => {
                 const o = offerForProduct(t.id);
                 return (
-                  <article className="price-card" key={t.id}>
-                    <span className="price-card-age">Online membership</span>
+                  <article className={`price-card${t.id === "membership-partner" ? " is-featured" : ""}`} key={t.id}>
+                    <span className="price-card-age">{t.id === "membership-partner" ? "Most popular" : "Online membership"}</span>
                     <h3>{o?.shortName ?? t.name}</h3>
                     <p>{t.description}</p>
                     <p className="price-card-price">{formatPrice(t)} <small>{t.unit}</small></p>

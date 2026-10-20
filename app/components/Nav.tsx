@@ -220,7 +220,7 @@ export default function Nav() {
     <>
       <div className="utility-bar site-chrome">
         <div className="uk-wrap utility-bar-inner">
-          <p>British education consultants for families in the UK and the UAE</p>
+          <p>British private tutoring and education consultancy for UK families</p>
           <ul>
             <li><Link href="/guides#tools">Free tools</Link></li>
             <li><Link href="/portal">{signedIn ? "My portal" : "Client login"}</Link></li>

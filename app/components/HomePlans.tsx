@@ -2,7 +2,8 @@ import Link from "next/link";
 import BuyButton from "./BuyButton";
 import PlansTabs from "./PlansTabs";
 import { getProduct, formatPrice } from "../lib/products";
-import { getOffer, offerForProduct, offerPath } from "../lib/offers";
+import { getOffer, offerPath } from "../lib/offers";
+import { getService } from "../lib/services";
 import { paymentsEnabled } from "../lib/stripe";
 
 // Monthly hours in each membership tier, to show what an hour costs (price divided by hours).
@@ -11,7 +12,6 @@ const tiers = [
   { id: "membership-partner", slug: "partner", hours: 8, tag: "Most popular", featured: true },
   { id: "membership-full-partner", slug: "full-partner", hours: 14, tag: "Most support" },
 ];
-const dubai = ["uae-nursery-search", "uae-school-search", "uae-exam-prep-term", "uae-homeschool-term", "uae-concierge"];
 
 const hourly = (amount: number, hours: number) => `£${Math.round(amount / hours)}`;
 
@@ -43,30 +43,38 @@ export default function HomePlans() {
       </div>
       <p className="plans-note">
         Online tutoring with a vetted UK-qualified tutor, matched to your child. Cancel or pause anytime, no long-term contract.
-        Need home education, school placement or face-to-face tutoring? <Link href="/contact">Ask for a quote</Link>.
+        Want face-to-face or tailored tutoring? <Link href="/contact">Ask for a quote</Link>.
       </p>
     </>
   );
 
-  const dubaiPanel = (
+  const consultancy = [
+    { slug: "", title: "Free consultation", tag: "Start here", price: "Free", unit: "30 minutes", body: "Talk through your child's needs with an education consultant and get a clear recommendation and prices for any support. No obligation.", href: "/book-consultation", cta: "Book a free call", featured: true },
+    { slug: "school-placement", title: "School & nursery placement", tag: "Consultancy", price: "Tailored", unit: "quote after a call", cta: "Ask about placement" },
+    { slug: "home-education", title: "Home education", tag: "Consultancy", price: "Tailored", unit: "quote after a call", cta: "Ask about home education" },
+    { slug: "qualifications", title: "Qualifications & exams", tag: "Consultancy", price: "Tailored", unit: "quote after a call", cta: "Ask about exams" },
+  ];
+
+  const consultancyPanel = (
     <>
-      <div className="plans-grid plans-grid--dubai">
-        {dubai.map((id) => {
-          const p = getProduct(id);
-          const o = offerForProduct(id);
-          if (!p) return null;
+      <div className="plans-grid plans-grid--four">
+        {consultancy.map((c) => {
+          const svc = c.slug ? getService(c.slug) : undefined;
           return (
-            <article className="plan" key={id}>
-              <h3>{o?.shortName ?? p.name}</h3>
-              <p className="plan-price">{formatPrice(p)} <small>{p.unit}</small></p>
-              <p className="plan-value">{p.description}</p>
-              <BuyButton product={p} enabled={paymentsEnabled} label={paymentsEnabled ? (p.mode === "subscription" ? "Subscribe" : "Buy now") : "Enquire"} className="btn-primary" />
-              {o && <Link href={offerPath(o)} className="plan-more">See what is included →</Link>}
+            <article className={`plan${c.featured ? " is-featured" : ""}`} key={c.title}>
+              <span className="plan-tag">{c.tag}</span>
+              <h3>{c.title}</h3>
+              <p className={`plan-price${c.price === "Tailored" ? " plan-price--text" : ""}`}>{c.price === "Tailored" ? "Tailored quote" : c.price} <small>{c.price === "Tailored" ? "after a free call" : c.unit}</small></p>
+              <p className="plan-value">{c.body ?? svc?.short}</p>
+              <Link href={c.href ?? `/services/${c.slug}`} className={c.featured ? "btn-primary" : "btn-secondary"}>{c.cta}</Link>
+              {svc && <Link href={`/services/${svc.slug}`} className="plan-more">Read about {svc.name.toLowerCase()} →</Link>}
             </article>
           );
         })}
       </div>
-      <p className="plans-note">Fixed prices for families moving to Dubai. Prefer to talk first? <Link href="/uae">See all Dubai services</Link>.</p>
+      <p className="plans-note">
+        Every family is different, so consultancy is priced after a short conversation, and you will see a clear price before you commit.
+      </p>
     </>
   );
 
@@ -86,10 +94,11 @@ export default function HomePlans() {
         </ul>
         <PlansTabs
           tabs={[
-            { id: "uk", label: "Online tutoring", hint: "Monthly membership, anywhere", panel: ukPanel },
-            { id: "dubai", label: "Moving to Dubai", hint: "Fixed-price packages", panel: dubaiPanel },
+            { id: "uk", label: "Tutoring", hint: "Online membership, from £200 a month", panel: ukPanel },
+            { id: "consultancy", label: "Consultancy", hint: "Schools, home education and exams", panel: consultancyPanel },
           ]}
         />
+        <p className="plans-dubai">Relocating to Dubai? <Link href="/uae">See our Dubai packages</Link>.</p>
         <div className="plans-unsure">
           <div>
             <h3>Not sure which is right?</h3>

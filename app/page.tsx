@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Photo from "./components/Photo";
 import HomePlans from "./components/HomePlans";
+import FlagshipBand from "./components/FlagshipBand";
 import SubjectGrid from "./components/SubjectGrid";
 import GuideCards from "./components/GuideCards";
 import Finder from "./components/Finder";
@@ -45,8 +46,8 @@ export default function Home() {
               who knows your child and stays involved.
             </p>
             <div className="uk-hero-actions">
-              <Link href="#plans" className="btn-primary">Choose a plan and start today</Link>
-              <Link href="/book-consultation" className="btn-secondary">Book a free 30-minute call</Link>
+              <Link href="/book-consultation" className="btn-primary">Book a free consultation</Link>
+              <Link href="#partner" className="btn-secondary">Start tutoring today</Link>
             </div>
             <ul className="hm-proof">
               <li>50+ vetted UK-trained tutors</li>
@@ -57,6 +58,8 @@ export default function Home() {
           <Finder />
         </div>
       </section>
+
+      <FlagshipBand />
 
       <HomePlans />
 

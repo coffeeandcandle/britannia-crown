@@ -26,7 +26,8 @@ export default function GuideHelp({ guide, service }: { guide: Guide; service?: 
           {items.map((p) => {
             const o = offerForProduct(p.id);
             return (
-              <article className="price-card" key={p.id}>
+              <article className={`price-card${p.id === "membership-partner" ? " is-featured" : ""}`} key={p.id}>
+                {p.id === "membership-partner" && <span className="price-card-age">Most popular</span>}
                 <h3>{o?.shortName ?? p.name}</h3>
                 <p>{p.description}</p>
                 <p className="price-card-price">{formatPrice(p)} <small>{p.unit}</small></p>
