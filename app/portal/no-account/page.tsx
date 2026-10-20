@@ -9,7 +9,7 @@ export default async function NoAccountPage() {
 
   return (
     <AuthFrame
-      area="Family portal"
+      area="Client portal"
       title="We couldn't find your family's account"
       lead={<>You&apos;re signed in as <strong>{viewer.email}</strong>, but that address isn&apos;t linked to a family yet. Portal access is set up by your consultant once you&apos;ve started with us.</>}
       switchLink={{ href: STAFF_SIGN_IN_PATH, label: "Staff or tutor? Use the staff sign-in →" }}

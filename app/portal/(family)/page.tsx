@@ -57,7 +57,7 @@ export default async function FamilyDashboard() {
           <EmptyState
             icon="📅"
             title="No lessons booked yet"
-            action={<Link href="/book-consultation" className="btn-primary">Book a session</Link>}
+            action={<><Link href="/portal/shop" className="btn-primary">Browse plans and services</Link> <Link href="/book-consultation" className="btn-secondary">Book a session</Link></>}
           >
             When your consultant schedules lessons, the next one will appear here with a button to join it.
           </EmptyState>
@@ -67,7 +67,7 @@ export default async function FamilyDashboard() {
       <StatGrid>
         <Stat label="Lessons coming up" value={upcoming.length} href="/portal/sessions" />
         <Stat label="Tutor notes" value={noteCount} href="/portal/notes" />
-        <Stat label={children.length === 1 ? "Child" : "Children"} value={children.length} />
+        <Stat label={children.length === 1 ? "Child" : "Children"} value={children.length} href="/portal/family" />
       </StatGrid>
 
       <div className="pt-grid">
@@ -122,7 +122,7 @@ export default async function FamilyDashboard() {
 
           <Card title={children.length === 1 ? "Your child" : "Your children"}>
             {children.length === 0 ? (
-              <p className="ui-muted">Your consultant will add your children&apos;s details.</p>
+              <p className="ui-muted">Add your children so lessons and notes are linked to them. <Link href="/portal/family">Add them now</Link>.</p>
             ) : (
               <ul className="ui-people">
                 {children.map((c) => (

@@ -112,3 +112,16 @@ Extra statements worth checking:
 - Sitemap no longer claims every page was modified at each build; only guides carry a real "updated" date.
 - Newer guides were cross-linked so every page has at least three internal links pointing to it.
 - Finder: new "Educational guidance" path (subjects, school route, whether a tutor is needed, exams and results, other).
+
+## Onboarding before checkout
+- Checkout now has a required step (`/checkout/details`, or `/portal/checkout` when signed in) collecting parent name, email, phone, child's name, year group, area of help, a short description and consent. Details are saved to the CRM before payment and to the family, child and order after payment.
+- The "family portal" wording remains in the terms and pricing FAQ; the portal is now "client portal". Legal wording: please have the solicitor confirm.
+- Customers who sign in, buy, book or reach consultation stage now get a portal account created automatically.
+
+## How it works page (`/how-it-works`)
+Research figures, each linked to its source on the page; please confirm you are happy to publish them:
+- EEF Teaching and Learning Toolkit: one-to-one tuition about +5 months, small-group about +4 months (an average, for high-quality tuition linked to class teaching).
+- Nickow, Oreopoulos and Quan (NBER 27476): pooled effect of tutoring 0.29 SD in the latest version (0.37 in the earlier one).
+- Bloom (1984): the "2 sigma / 98th percentile" finding, labelled on the page as small-sample and contested.
+- The page says these are general research findings, not Britannia Crown's own results. Do not replace them with our own claims unless real data exists.
+- Checked on 2026-10-20 by web search; please re-check the live EEF page before publishing, as figures are updated.

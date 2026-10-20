@@ -46,7 +46,7 @@ export async function POST(request: Request) {
               phone: order.phone,
               type: "order",
               summary: `Bought ${order.productName} online (${order.amountLabel})`,
-              details: { child: order.child, stripe_session: s.id },
+              details: { child: order.child, year_group: order.yearGroup, help_with: order.helpWith, about: order.focus, best_times: order.times, stripe_session: s.id },
               source: s.metadata?.utm_source ?? s.metadata?.landing_page ?? "online order",
               stage: "client",
             });
@@ -63,6 +63,10 @@ export async function POST(request: Request) {
             email: order.email,
             phone: order.phone,
             child: order.child,
+            year_group: order.yearGroup,
+            help_with: order.helpWith,
+            about: order.focus,
+            best_times: order.times,
             stripe_session: s.id,
             ...pick(s.metadata, ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "page"]),
           });
@@ -97,7 +101,7 @@ export async function POST(request: Request) {
   return Response.json({ received: true });
 }
 
-type OrderDetails = { productId: string; productName: string; amountLabel: string; name: string; email: string; phone: string; child: string };
+type OrderDetails = { productId: string; productName: string; amountLabel: string; name: string; email: string; phone: string; child: string; yearGroup: string; helpWith: string; focus: string; times: string };
 
 function describe(s: Stripe.Checkout.Session): OrderDetails {
   const product = getProduct(s.metadata?.product_id ?? "");
@@ -109,10 +113,15 @@ function describe(s: Stripe.Checkout.Session): OrderDetails {
     productId: product?.id ?? s.metadata?.product_id ?? "",
     productName: product?.name ?? s.metadata?.product_id ?? "Online order",
     amountLabel: amount && s.mode === "subscription" ? `${amount} a month` : amount,
-    name: s.customer_details?.name ?? "",
-    email: s.customer_details?.email ?? "",
-    phone: s.customer_details?.phone ?? "",
-    child: s.custom_fields?.find((f) => f.key === "child")?.text?.value ?? "",
+    // The onboarding form (saved in metadata before payment) is the source of truth; Stripe's own fields are the fallback.
+    name: s.metadata?.parent_name || s.customer_details?.name || "",
+    email: s.customer_details?.email || s.customer_email || "",
+    phone: s.metadata?.phone || s.customer_details?.phone || "",
+    child: s.metadata?.child_name || s.custom_fields?.find((f) => f.key === "child")?.text?.value || "",
+    yearGroup: s.metadata?.year_group ?? "",
+    helpWith: s.metadata?.help_with ?? "",
+    focus: s.metadata?.focus ?? "",
+    times: s.metadata?.times ?? "",
   };
 }
 
@@ -135,14 +144,20 @@ async function saveOrder(s: Stripe.Checkout.Session, o: OrderDetails, status: "p
       [o.name || email, email, o.phone || null],
     );
     family = created ? { id: created.id } : null;
-    // Only for a brand-new family: add the child named at checkout so the account is ready for lessons.
-    if (created?.inserted && o.child) {
+  }
+  // Add the child named at onboarding if the family does not have them yet, so the account is ready for lessons.
+  if (family && status === "paid") {
+    if (o.child) {
       await query(
-        `INSERT INTO children (family_id, name) SELECT $1, $2
+        `INSERT INTO children (family_id, name, year_group) SELECT $1, $2, $3
           WHERE NOT EXISTS (SELECT 1 FROM children WHERE family_id = $1 AND lower(name) = lower($2))`,
-        [created.id, o.child.slice(0, 120)],
+        [family.id, o.child.slice(0, 120), o.yearGroup || null],
       );
+      if (o.yearGroup) {
+        await query("UPDATE children SET year_group = $3 WHERE family_id = $1 AND lower(name) = lower($2) AND year_group IS NULL", [family.id, o.child.slice(0, 120), o.yearGroup]);
+      }
     }
+    if (o.phone) await query("UPDATE families SET phone = $1 WHERE id = $2 AND phone IS NULL", [o.phone, family.id]);
   }
 
   const saved = await queryOne<{ inserted: boolean }>(

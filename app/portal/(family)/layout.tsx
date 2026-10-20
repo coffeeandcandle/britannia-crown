@@ -20,6 +20,8 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
         { href: "/portal", label: "Overview", icon: "home", exact: true },
         { href: "/portal/sessions", label: "Sessions", icon: "calendar" },
         { href: "/portal/notes", label: "Notes and homework", icon: "notes" },
+        { href: "/portal/shop", label: "Plans and services", icon: "plus" },
+        { href: "/portal/family", label: "Your family", icon: "families" },
         { href: "/portal/billing", label: "Purchases and billing", icon: "card" },
       ],
     },
@@ -40,7 +42,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
   ];
 
   return (
-    <PortalShell viewer={viewer} areaLabel="Family portal" who={family.name} role="Family account" sections={sections}>
+    <PortalShell viewer={viewer} areaLabel="Client portal" who={family.name} role="Client account" sections={sections}>
       {children}
     </PortalShell>
   );

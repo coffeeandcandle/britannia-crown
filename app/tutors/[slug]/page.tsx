@@ -1,3 +1,4 @@
+import AccountBand from "../../components/AccountBand";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -118,6 +119,8 @@ export default async function SubjectPage({ params }: Props) {
           </Reveal>
         </div>
       </section>
+
+      <AccountBand variant="inline" location="tutor_page" />
 
       <FaqSection faqs={subject.faqs} tone="white" />
 

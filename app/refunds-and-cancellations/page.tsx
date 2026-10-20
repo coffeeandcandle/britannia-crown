@@ -76,7 +76,7 @@ export default function RefundsPage() {
               <li><strong>Partial months.</strong> After the first 14 days, we don&apos;t refund part-used months.</li>
               <li><strong>Tutoring hours.</strong> Each month&apos;s hours are for that month and don&apos;t carry over, except hours for lessons we cancel, which we always rearrange or credit.</li>
               <li><strong>Changing plan.</strong> You can move up or down a tier at any time. The new price applies from your next monthly payment.</li>
-              <li><strong>How to cancel.</strong> Use <strong>Billing → Manage payment and plan</strong> in your <Link href="/portal">family portal</Link>, or email us.</li>
+              <li><strong>How to cancel.</strong> Use <strong>Billing → Manage payment and plan</strong> in your <Link href="/portal">client portal</Link>, or email us.</li>
             </ul>
 
             <h2>4. Lessons: rescheduling and missed sessions</h2>
@@ -137,7 +137,7 @@ export default function RefundsPage() {
             <p>
               Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> with your name, the email address you used to buy, and the service
               you&apos;d like to cancel. You can also use our <Link href="/contact">contact form</Link>. For memberships, you can
-              cancel yourself from the Billing page of your <Link href="/portal">family portal</Link>.
+              cancel yourself from the Billing page of your <Link href="/portal">client portal</Link>.
             </p>
             <p>If you prefer, you can use this wording:</p>
             <blockquote className="legal-quote">

@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { services } from "../lib/services";
 import { subjects, levels } from "../lib/subjects";
 import { EMAIL, INSTAGRAM_URL } from "../lib/site";
 import Crown from "./Crown";
+import SignupLink from "./SignupLink";
+import { useSignedIn } from "../lib/useSignedIn";
 
 type PanelLink = { href: string; label: string; desc?: string };
 type Feature = { kicker: string; title: string; body: string; href: string; cta: string };
@@ -116,9 +118,6 @@ function PanelItem({ link, onNavigate }: { link: PanelLink; onNavigate: () => vo
   );
 }
 
-const subscribeToNothing = () => () => {};
-const readSignedIn = () =>
-  document.cookie.split("; ").some((c) => /^__client_uat(_[^=]+)?=/.test(c) && Number(c.split("=")[1]) > 0);
 
 export default function Nav() {
   const pathname = usePathname();
@@ -131,7 +130,7 @@ export default function Nav() {
   const headerRef = useRef<HTMLElement>(null);
   // Clerk only runs inside /portal, so the public pages read its readable session marker
   // (__client_uat, a timestamp that is 0 or absent when signed out) to show the right link.
-  const signedIn = useSyncExternalStore(subscribeToNothing, readSignedIn, () => false);
+  const signedIn = useSignedIn();
   const navRef = useRef<HTMLElement>(null);
 
   // Close everything when the route changes.
@@ -223,7 +222,8 @@ export default function Nav() {
           <p>British private tutoring and education consultancy for UK families</p>
           <ul>
             <li><Link href="/guides#tools">Free tools</Link></li>
-            <li><Link href="/portal">{signedIn ? "My portal" : "Client login"}</Link></li>
+            <li><Link href="/portal">{signedIn ? "My portal" : "Log in"}</Link></li>
+            {!signedIn && <li><SignupLink location="utility_bar">Sign up</SignupLink></li>}
             <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
           </ul>
         </div>
@@ -312,6 +312,7 @@ export default function Nav() {
 
           <div className="header-actions">
             <Link href="/portal" className="header-wa header-login">{signedIn ? "My portal" : "Log in"}</Link>
+            {!signedIn && <SignupLink location="header" className="header-signup">Sign up free</SignupLink>}
             <Link href="/book-consultation" className="btn-primary header-cta">Book a free call</Link>
           </div>
 
@@ -362,7 +363,8 @@ export default function Nav() {
           <div className="mobile-menu-actions">
             <Link href="/book-consultation" className="btn-primary" onClick={closeAll}>Book a free 30-minute call</Link>
             <Link href="/contact" className="btn-secondary" onClick={closeAll}>Send an enquiry</Link>
-            <Link href="/portal" className="btn-secondary" onClick={closeAll}>{signedIn ? "Open my portal" : "Log in to your portal"}</Link>
+            {!signedIn && <SignupLink location="mobile_menu" className="btn-primary" onClick={closeAll}>Create a free account</SignupLink>}
+            <Link href="/portal" className="btn-secondary" onClick={closeAll}>{signedIn ? "Open my portal" : "Log in"}</Link>
           </div>
           <ul className="mobile-menu-extras">
             <li><Link href="/guides#tools" onClick={closeAll}>Free tools</Link></li>

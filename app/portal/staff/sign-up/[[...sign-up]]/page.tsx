@@ -9,7 +9,7 @@ export default function StaffSignUpPage() {
       title="Create your staff account"
       lead="Sign up with the work email address an admin added to the team, and your access is linked automatically."
       points={["Your sessions and teaching timetable", "Write session notes and set homework", "Manage families and the team (consultants and admins)"]}
-      switchLink={{ href: SIGN_IN_PATH, label: "Are you a parent? Go to the family portal →" }}
+      switchLink={{ href: SIGN_IN_PATH, label: "Are you a parent? Go to the client portal →" }}
     >
       {clerkConfigured ? (
         <SignUp path={STAFF_SIGN_UP_PATH} routing="path" signInUrl={STAFF_SIGN_IN_PATH} fallbackRedirectUrl="/portal/admin" />

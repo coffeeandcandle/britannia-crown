@@ -24,7 +24,8 @@ function messageFor(field: Field): string {
     return "";
   }
   if (v.valueMissing) {
-    if (field.name === "name") return "Please enter your name.";
+    if (field instanceof HTMLInputElement && field.type === "checkbox") return "Please tick this box to continue.";
+    if (field.name === "name" || field.name === "parent_name") return "Please enter your name.";
     if (field.name === "email") return "Please enter your email address.";
     if (field.name === "phone") return "Please enter a phone number we can reach you on.";
     if (field instanceof HTMLSelectElement) return "Please choose an option.";

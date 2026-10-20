@@ -5,6 +5,8 @@ import { redirect, notFound } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import { query, queryOne } from "./db";
 import { devAuth, SIGN_IN_PATH, STAFF_SIGN_IN_PATH } from "./config";
+import { recordEvent } from "../crm";
+import { alertTeam } from "../email";
 
 // Data access layer: every portal page and action gets the signed-in person here, and every
 // query is scoped to what that person may see. Pages never query the database directly.
@@ -28,14 +30,19 @@ const FAMILY_COLS = "id, name, email, phone, timezone, consultant_id, clerk_user
 async function getIdentity() {
   if (devAuth) {
     const email = (await cookies()).get("portal_dev_email")?.value?.toLowerCase();
-    return email ? { userId: `dev:${email}`, email, firstName: email.split("@")[0] } : null;
+    return email ? { userId: `dev:${email}`, email, firstName: email.split("@")[0], fullName: "" } : null;
   }
   const user = await currentUser();
   if (!user) return null;
   const primary = user.emailAddresses.find((e) => e.id === user.primaryEmailAddressId);
   // Only a verified address can be matched to a family or staff record.
   if (!primary || primary.verification?.status !== "verified") return null;
-  return { userId: user.id, email: primary.emailAddress.toLowerCase(), firstName: user.firstName ?? "" };
+  return {
+    userId: user.id,
+    email: primary.emailAddress.toLowerCase(),
+    firstName: user.firstName ?? "",
+    fullName: [user.firstName, user.lastName].filter(Boolean).join(" "),
+  };
 }
 
 const adminEmails = () =>
@@ -55,12 +62,34 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
   }
 
   // A login already linked to a family wins; otherwise match the family by verified email and link it.
-  const family = await queryOne<Family>(
+  let family = await queryOne<Family>(
     `SELECT ${FAMILY_COLS} FROM families
      WHERE clerk_user_id = $1 OR (clerk_user_id IS NULL AND lower(email) = $2)
      ORDER BY (clerk_user_id = $1) DESC NULLS LAST LIMIT 1`,
     [id.userId, id.email],
   );
+  // Someone who has signed up with a verified email we do not recognise gets an account of their own,
+  // so the portal works straight away (purchases made under this email link up automatically). They also
+  // appear in the CRM as a new lead, and the team is told.
+  if (!family && !staff) {
+    const name = id.fullName || id.email.split("@")[0];
+    family = await queryOne<Family>(
+      `INSERT INTO families (name, email, clerk_user_id) VALUES ($1, $2, $3)
+       ON CONFLICT (email) DO UPDATE SET clerk_user_id = COALESCE(families.clerk_user_id, EXCLUDED.clerk_user_id)
+       RETURNING ${FAMILY_COLS}`,
+      [name, id.email, id.userId],
+    );
+    if (family) {
+      try {
+        await recordEvent({ name, email: id.email, type: "enquiry", summary: "Created a portal account", source: "portal sign-up" });
+        await query("UPDATE contacts SET family_id = $1 WHERE lower(email) = $2 AND family_id IS NULL", [family.id, id.email]);
+        await query("UPDATE orders SET family_id = $1 WHERE family_id IS NULL AND lower(customer_email) = $2", [family.id, id.email]);
+        await alertTeam("New portal sign-up", { Name: name, Email: id.email }, id.email);
+      } catch (error) {
+        console.error("Portal sign-up follow-up failed (the account was created)", error);
+      }
+    }
+  }
   if (family && !family.clerk_user_id) {
     await query("UPDATE families SET clerk_user_id = $1 WHERE id = $2 AND clerk_user_id IS NULL", [id.userId, family.id]);
     family.clerk_user_id = id.userId;

@@ -1,3 +1,4 @@
+import AccountBand from "../components/AccountBand";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
@@ -164,6 +165,8 @@ export default function PricingPage() {
           </div>
         </div>
       </section>
+
+      <AccountBand variant="inline" location="pricing_page" />
 
       <FaqSection faqs={faqs} tone="cream" />
 

@@ -172,12 +172,12 @@ export default async function ContactPage({
           <Card title="Portal account">
             {contact.family_id ? (
               <>
-                <p className="ui-muted">{firstName} has a family account. Lessons, notes and billing are there.</p>
+                <p className="ui-muted">{firstName} has a portal account. Lessons, notes and billing are there.</p>
                 <Link href={`/portal/admin/families/${contact.family_id}`} className="btn-secondary">Open family →</Link>
               </>
             ) : (
               <form action={createFamilyFromContact} className="pt-form">
-                <p className="ui-muted">Ready for lessons? This adds them to Families so you can schedule sessions, and they can sign in with {contact.email}.</p>
+                <p className="ui-muted">Accounts are created automatically when someone books a call, buys, signs up or is marked as a consultation or client. Need to schedule a lesson sooner? Create it here, and they can sign in with {contact.email}.</p>
                 <input type="hidden" name="id" value={contact.id} />
                 <Field label="Family name" htmlFor="cf-name">
                   <input id="cf-name" name="family_name" defaultValue={`The ${contact.name.split(" ").slice(-1)[0]} family`} />

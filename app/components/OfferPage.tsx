@@ -5,6 +5,7 @@ import EnquirySection from "./EnquirySection";
 import JsonLd from "./JsonLd";
 import GuideCards from "./GuideCards";
 import BuyButton from "./BuyButton";
+import AccountBand from "./AccountBand";
 import HeroMedia from "./HeroMedia";
 import { offerPhoto } from "../lib/images";
 import { getProduct, formatPrice } from "../lib/products";
@@ -177,6 +178,8 @@ export default function OfferPage({ offer }: { offer: Offer }) {
           </div>
         </section>
       )}
+
+      <AccountBand variant="inline" location="offer_page" />
 
       <FaqSection faqs={offer.faqs} tone="cream" />
 

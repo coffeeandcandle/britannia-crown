@@ -31,6 +31,7 @@ export default function Footer() {
                 <li key={s.slug}><Link href={`/services/${s.slug}`}>{s.name}</Link></li>
               ))}
               <li><Link href="/pricing">Prices</Link></li>
+              <li><Link href="/how-it-works">How it works</Link></li>
               <li><Link href="/membership">Academic Partner Membership</Link></li>
               <li><Link href="/uae">Moving to the UAE</Link></li>
             </ul>
@@ -56,7 +57,8 @@ export default function Footer() {
             <ul>
               <li><Link href="/about">About</Link></li>
               <li><Link href="/contact">Contact</Link></li>
-              <li><Link href="/portal">Client login</Link></li>
+              <li><Link href="/portal">Log in</Link></li>
+              <li><Link href="/portal/sign-up">Create an account</Link></li>
               <li><Link href="/ambassador">Ambassador Programme</Link></li>
               <li><Link href="/careers">Careers</Link></li>
               <li><a href={INSTAGRAM_URL}>Instagram</a></li>

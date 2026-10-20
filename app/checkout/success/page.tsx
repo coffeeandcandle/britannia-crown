@@ -60,7 +60,7 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
             <ol className="book-steps">
               <li><strong>An education consultant calls you.</strong> We&apos;ll confirm your child&apos;s details, goals and any deadlines.</li>
               <li><strong>We get to work.</strong> Your consultant sets out the plan and the first steps, and matches a tutor where needed.</li>
-              <li><strong>You hear from us regularly.</strong> Progress updates come by email, and through your family portal.</li>
+              <li><strong>You hear from us regularly.</strong> Progress updates come by email, and through your client portal.</li>
             </ol>
             <p>
               <strong>Your purchase is saved in your client portal.</strong>{" "}

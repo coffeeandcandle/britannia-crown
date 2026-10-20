@@ -41,7 +41,7 @@ export default async function FamilyHelpPage() {
 
   return (
     <>
-      <PageHeader title="Help" description="Quick answers to common questions about your family portal." />
+      <PageHeader title="Help" description="Quick answers to common questions about your client portal." />
       <div className="pt-grid">
         <div className="pt-main">
           <Card>

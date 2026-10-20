@@ -6,9 +6,9 @@ import DevSignIn from "../DevSignIn";
 export default function FamilySignInPage() {
   return (
     <AuthFrame
-      area="Family portal"
-      title="Sign in to your family portal"
-      lead="Use the email address you gave your consultant. The first time, choose “Sign up” with that address and your account links automatically."
+      area="Client portal"
+      title="Log in to your account"
+      lead="Log in with your email address, or choose “Sign up” if you are new. Anything you have bought or booked with that email appears automatically."
       points={["Upcoming lessons and joining links", "Notes and homework from every session", "Your membership and invoices"]}
       switchLink={{ href: STAFF_SIGN_IN_PATH, label: "Staff or tutor? Sign in here →" }}
     >

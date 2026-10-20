@@ -55,12 +55,37 @@ export async function recordEvent(e: Event) {
   await query("INSERT INTO activities (contact_id, type, summary, details) VALUES ($1, $2, $3, $4)", [contact.id, e.type, e.summary, clean]);
 
   // Move existing contacts forward automatically (a closed contact who gets in touch again reopens).
+  let finalStage: Stage = contact.created ? stage : contact.stage;
   if (!contact.created) {
     const next = contact.stage === "closed" ? stage : ORDER[stage] > ORDER[contact.stage] ? stage : null;
     if (next && next !== contact.stage) {
       await query("UPDATE contacts SET stage = $1 WHERE id = $2", [next, contact.id]);
       await query("INSERT INTO activities (contact_id, type, summary) VALUES ($1, 'stage', $2)", [contact.id, `Moved to ${stageLabel(next)} automatically`]);
+      finalStage = next;
     }
   }
+  // Someone who has booked a call or bought something gets a portal account without staff lifting a finger.
+  if (ORDER[finalStage] >= ORDER.consultation) await ensureFamilyForContact(contact.id);
   return { id: contact.id, created: contact.created };
+}
+
+// Gives a contact a portal account (family) if they do not have one, so lessons can be scheduled and they can sign in
+// with their email. Safe to call repeatedly. Returns the family id.
+export async function ensureFamilyForContact(contactId: number) {
+  const c = await queryOne<{ name: string; email: string; phone: string | null; owner_id: number | null; family_id: number | null }>(
+    "SELECT name, email, phone, owner_id, family_id FROM contacts WHERE id = $1",
+    [contactId],
+  );
+  if (!c) return null;
+  if (c.family_id) return c.family_id;
+  const family = await queryOne<{ id: number }>(
+    `INSERT INTO families (name, email, phone, consultant_id) VALUES ($1, $2, $3, $4)
+     ON CONFLICT (email) DO UPDATE SET email = families.email
+     RETURNING id`,
+    [c.name, c.email.toLowerCase(), c.phone, c.owner_id],
+  );
+  if (!family) return null;
+  await query("UPDATE contacts SET family_id = $1 WHERE id = $2 AND family_id IS NULL", [family.id, contactId]);
+  await query("UPDATE orders SET family_id = $1 WHERE family_id IS NULL AND lower(customer_email) = lower($2)", [family.id, c.email]);
+  return family.id;
 }

@@ -13,6 +13,7 @@ import { guidesFor } from "../../lib/guides";
 import { pageMetadata } from "../../lib/seo";
 import { serviceSchema } from "../../lib/schema";
 import BuyButton from "../../components/BuyButton";
+import AccountBand from "../../components/AccountBand";
 import HeroMedia from "../../components/HeroMedia";
 import { servicePhoto } from "../../lib/images";
 import { products, getProduct, formatPrice } from "../../lib/products";
@@ -232,6 +233,8 @@ export default async function ServicePage({ params }: Props) {
           )}
         </div>
       </section>
+
+      <AccountBand variant="inline" location="service_page" />
 
       <FaqSection faqs={service.faqs} tone="white" />
 

@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { query, queryOne } from "../../lib/portal/db";
 import { requireStaff, type Role } from "../../lib/portal/dal";
-import { STAGES, stageLabel, type Stage } from "../../lib/crm";
+import { STAGES, stageLabel, ensureFamilyForContact, type Stage } from "../../lib/crm";
 
 // CRM actions are for admins only: contacts hold sales and payment history that tutors and
 // consultants don't need. As with the other staff actions, each one checks the caller itself,
@@ -80,6 +80,7 @@ export async function updateContact(fd: FormData) {
       id, `Moved from ${stageLabel(before.stage)} to ${stageLabel(stage)}`, staff.id,
     ]);
     await query("UPDATE contacts SET last_activity_at = now() WHERE id = $1", [id]);
+    if (stage === "consultation" || stage === "client") await ensureFamilyForContact(id);
   }
   revalidatePath(path);
   back(path, { ok: "Saved." });
@@ -97,6 +98,7 @@ export async function setStage(fd: FormData) {
     await query("INSERT INTO activities (contact_id, type, summary, staff_id) VALUES ($1, 'stage', $2, $3)", [
       id, `Moved from ${stageLabel(before.stage)} to ${stageLabel(stage)}`, staff.id,
     ]);
+    if (stage === "consultation" || stage === "client") await ensureFamilyForContact(id);
   }
   revalidatePath(`/portal/admin/contacts/${id}`);
   back(`/portal/admin/contacts/${id}`, { ok: `Marked as ${stageLabel(stage).toLowerCase()}.` });

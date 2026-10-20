@@ -7,6 +7,7 @@ import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
 import GuideCards from "../../components/GuideCards";
 import GuideHelp from "../../components/GuideHelp";
+import AccountBand from "../../components/AccountBand";
 import Photo from "../../components/Photo";
 import { categoryPhoto } from "../../lib/images";
 import JsonLd from "../../components/JsonLd";
@@ -130,6 +131,8 @@ export default async function GuidePage({ params }: Props) {
       </div>
 
       <GuideHelp guide={guide} service={relatedServices[0]} />
+
+      <AccountBand variant="inline" location="guide_page" />
 
       <FaqSection faqs={guide.faqs} tone="cream" />
 

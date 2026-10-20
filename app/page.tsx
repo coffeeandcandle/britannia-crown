@@ -3,6 +3,8 @@ import Link from "next/link";
 import Photo from "./components/Photo";
 import HomePlans from "./components/HomePlans";
 import FlagshipBand from "./components/FlagshipBand";
+import AccountBand from "./components/AccountBand";
+import SignupLink from "./components/SignupLink";
 import SubjectGrid from "./components/SubjectGrid";
 import GuideCards from "./components/GuideCards";
 import Finder from "./components/Finder";
@@ -49,6 +51,9 @@ export default function Home() {
               <Link href="/book-consultation" className="btn-primary">Book a free consultation</Link>
               <Link href="#partner" className="btn-secondary">Start tutoring today</Link>
             </div>
+            <p className="hm-signup">
+              New here? <SignupLink location="home_hero">Create your free account</SignupLink> to track lessons, notes and receipts.
+            </p>
             <ul className="hm-proof">
               <li>50+ vetted UK-trained tutors</li>
               <li>Reply within 24 hours</li>
@@ -62,6 +67,8 @@ export default function Home() {
       <FlagshipBand />
 
       <HomePlans />
+
+      <AccountBand variant="band" location="home_band" />
 
       <section className="uk-section white">
         <div className="uk-wrap">

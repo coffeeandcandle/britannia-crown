@@ -16,7 +16,7 @@ export default async function StaffNoAccessPage() {
         <p>Ask a Britannia Crown admin to add this email address under <strong>Team and access</strong>. Then refresh this page.</p>
         <p>If you signed in with a different address by mistake, sign out using your account menu and try again.</p>
         {viewer.family && (
-          <Link href="/portal" className="btn-primary">Go to your family portal</Link>
+          <Link href="/portal" className="btn-primary">Go to your client portal</Link>
         )}
       </div>
     </AuthFrame>
