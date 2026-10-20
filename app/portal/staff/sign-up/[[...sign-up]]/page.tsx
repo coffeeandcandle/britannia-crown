@@ -1,0 +1,19 @@
+import { SignUp } from "@clerk/nextjs";
+import { clerkConfigured, SIGN_IN_PATH, STAFF_SIGN_IN_PATH, STAFF_SIGN_UP_PATH } from "../../../../lib/portal/config";
+import AuthFrame from "../../../AuthFrame";
+
+export default function StaffSignUpPage() {
+  return (
+    <AuthFrame
+      area="Staff area"
+      title="Create your staff account"
+      lead="Sign up with the work email address an admin added to the team, and your access is linked automatically."
+      points={["Your sessions and teaching timetable", "Write session notes and set homework", "Manage families and the team (consultants and admins)"]}
+      switchLink={{ href: SIGN_IN_PATH, label: "Are you a parent? Go to the family portal →" }}
+    >
+      {clerkConfigured ? (
+        <SignUp path={STAFF_SIGN_UP_PATH} routing="path" signInUrl={STAFF_SIGN_IN_PATH} fallbackRedirectUrl="/portal/admin" />
+      ) : null}
+    </AuthFrame>
+  );
+}

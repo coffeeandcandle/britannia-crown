@@ -10,3 +10,5 @@ export const portalEnabled = Boolean(process.env.DATABASE_URL) && (clerkConfigur
 
 export const SIGN_IN_PATH = "/portal/sign-in";
 export const STAFF_SIGN_IN_PATH = "/portal/staff/sign-in";
+export const SIGN_UP_PATH = "/portal/sign-up";
+export const STAFF_SIGN_UP_PATH = "/portal/staff/sign-up";

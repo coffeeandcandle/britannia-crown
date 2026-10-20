@@ -1,5 +1,5 @@
 import { SignIn } from "@clerk/nextjs";
-import { clerkConfigured, devAuth, STAFF_SIGN_IN_PATH } from "../../../lib/portal/config";
+import { clerkConfigured, devAuth, SIGN_UP_PATH, STAFF_SIGN_IN_PATH } from "../../../lib/portal/config";
 import AuthFrame from "../../AuthFrame";
 import DevSignIn from "../DevSignIn";
 
@@ -13,7 +13,7 @@ export default function FamilySignInPage() {
       switchLink={{ href: STAFF_SIGN_IN_PATH, label: "Staff or tutor? Sign in here →" }}
     >
       {clerkConfigured ? (
-        <SignIn path="/portal/sign-in" routing="path" fallbackRedirectUrl="/portal" />
+        <SignIn path="/portal/sign-in" routing="path" signUpUrl={SIGN_UP_PATH} fallbackRedirectUrl="/portal" />
       ) : devAuth ? (
         <DevSignIn next="/portal" />
       ) : null}

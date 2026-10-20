@@ -4,7 +4,7 @@ import { clerkConfigured, portalEnabled, SIGN_IN_PATH, STAFF_SIGN_IN_PATH } from
 
 // Clerk only runs on the client portal, and only once its keys are set. The public site never
 // passes through it, so marketing pages stay static and fast.
-const isSignInRoute = createRouteMatcher(["/portal/sign-in(.*)", "/portal/staff/sign-in(.*)"]);
+const isSignInRoute = createRouteMatcher(["/portal/sign-in(.*)", "/portal/sign-up(.*)", "/portal/staff/sign-in(.*)", "/portal/staff/sign-up(.*)"]);
 const isStaffRoute = createRouteMatcher(["/portal/admin(.*)", "/portal/staff(.*)"]);
 
 const clerk = clerkConfigured

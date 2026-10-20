@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { portalEnabled, clerkConfigured, SIGN_IN_PATH } from "../lib/portal/config";
+import { portalEnabled, clerkConfigured, SIGN_IN_PATH, SIGN_UP_PATH } from "../lib/portal/config";
 import ComingSoon from "../portal-coming-soon/ComingSoon";
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
   return clerkConfigured ? (
     <ClerkProvider
       signInUrl={SIGN_IN_PATH}
+      signUpUrl={SIGN_UP_PATH}
       signInFallbackRedirectUrl="/portal"
       afterSignOutUrl="/"
       appearance={{
