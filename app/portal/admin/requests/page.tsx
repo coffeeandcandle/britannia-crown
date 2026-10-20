@@ -3,6 +3,7 @@ import { formatDate } from "../../../lib/portal/time";
 import { Flash } from "../../components";
 import { PageHeader, Card, EmptyState, Field, Pill } from "../../ui";
 import { SubmitButton } from "../../client-ui";
+import { dailyEnabled } from "../../../lib/portal/daily";
 import { approveRequest, declineRequest } from "../request-actions";
 
 export default async function RequestsPage({ searchParams }: { searchParams: Promise<{ ok?: string; error?: string }> }) {
@@ -55,9 +56,11 @@ export default async function RequestsPage({ searchParams }: { searchParams: Pro
                         {[4, 6, 8, 10, 12].map((n) => <option key={n} value={n}>Every week for {n} weeks</option>)}
                       </select>
                     </Field>
-                    <Field label="Video call link (optional)" htmlFor={`ap-url-${r.id}`}>
-                      <input id={`ap-url-${r.id}`} name="join_url" type="url" placeholder="https://" />
-                    </Field>
+                    {!dailyEnabled() && (
+                      <Field label="Video call link (optional)" htmlFor={`ap-url-${r.id}`}>
+                        <input id={`ap-url-${r.id}`} name="join_url" type="url" placeholder="https://" />
+                      </Field>
+                    )}
                     <SubmitButton className="btn-primary" pendingText="Approving…">Approve and schedule</SubmitButton>
                   </form>
                 </details>

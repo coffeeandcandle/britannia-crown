@@ -138,9 +138,13 @@ export default async function AdminSessionPage({
                       {team.filter((s) => s.active || s.id === session.staff_id).map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
                     </select>
                   </Field>
-                  <Field label="Video call link" htmlFor="us-url" hint="Zoom, Google Meet or Teams.">
-                    <input id="us-url" name="join_url" type="url" defaultValue={session.join_url ?? ""} placeholder="https://" />
-                  </Field>
+                  {dailyEnabled() ? (
+                    <input type="hidden" name="join_url" value={session.join_url ?? ""} />
+                  ) : (
+                    <Field label="Video call link" htmlFor="us-url" hint="Zoom, Google Meet or Teams.">
+                      <input id="us-url" name="join_url" type="url" defaultValue={session.join_url ?? ""} placeholder="https://" />
+                    </Field>
+                  )}
                 </>
               )}
               <SubmitButton className="btn-secondary">Save changes</SubmitButton>

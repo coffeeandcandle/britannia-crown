@@ -3,6 +3,7 @@ import { requireStaff, getFamily, familyChildren, familySessions, listStaff } fr
 import { TIMEZONES, tzLabel } from "../../../../lib/portal/time";
 import { siteOrigin } from "../../../../lib/portal/origin";
 import { SIGN_IN_PATH } from "../../../../lib/portal/config";
+import { dailyEnabled } from "../../../../lib/portal/daily";
 import { SessionList, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Checklist, Avatar, Pill, Field } from "../../../ui";
 import { SubmitButton, ConfirmSubmit, CopyButton } from "../../../client-ui";
@@ -72,7 +73,7 @@ export default async function AdminFamilyPage({
 
       <div className="pt-grid">
         <div className="pt-main">
-          <Card id="schedule" title="Schedule a lesson" description="The family sees it straight away, with a Join button 15 minutes before it starts.">
+          <Card id="schedule" title="Schedule a lesson" description={dailyEnabled() ? "The family sees it straight away. The lesson happens in the portal, with a Join button 15 minutes before it starts." : "The family sees it straight away, with a Join button 15 minutes before it starts."}>
             <form action={scheduleSession} className="pt-form pt-form-grid">
               <input type="hidden" name="family_id" value={family.id} />
               <Field label="What's the lesson?" htmlFor="ss-title" hint="Start typing or pick a suggestion." span>
@@ -116,9 +117,11 @@ export default async function AdminFamilyPage({
                   {[4, 6, 8, 10, 12].map((n) => <option key={n} value={n}>Every week for {n} weeks</option>)}
                 </select>
               </Field>
-              <Field label="Video call link (optional)" htmlFor="ss-url" hint="Paste a Zoom, Google Meet or Teams link. You can add it later." span>
-                <input id="ss-url" name="join_url" type="url" placeholder="https://meet.google.com/…" />
-              </Field>
+              {!dailyEnabled() && (
+                <Field label="Video call link (optional)" htmlFor="ss-url" hint="Paste a Zoom, Google Meet or Teams link. You can add it later." span>
+                  <input id="ss-url" name="join_url" type="url" placeholder="https://meet.google.com/…" />
+                </Field>
+              )}
               <div className="pt-span-2"><SubmitButton pendingText="Scheduling…">Schedule lesson</SubmitButton></div>
             </form>
           </Card>
