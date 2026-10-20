@@ -7,13 +7,20 @@ import { Card, EmptyState } from "./ui";
 export default function LessonRoom({ entry, backHref, fallbackUrl }: { entry: Entry; backHref: string; fallbackUrl?: string | null }) {
   if (entry.state === "ready") {
     return (
-      <div className="lr-frame">
-        <iframe
-          src={entry.url}
-          title="Video lesson"
-          allow="camera; microphone; fullscreen; display-capture; autoplay; clipboard-write"
-        />
-      </div>
+      <>
+        <div className="lr-frame">
+          <iframe
+            src={entry.url}
+            title="Video lesson"
+            allow="camera; microphone; fullscreen; display-capture; autoplay; clipboard-write"
+          />
+        </div>
+        <p className="lr-help">
+          Camera or microphone not turning on, or on a phone?{" "}
+          <a href={entry.url} target="_blank" rel="noopener noreferrer">Open the lesson in full screen</a>. Your browser will ask to use your camera and
+          microphone. Choose <strong>Allow</strong>. If you opened this from WhatsApp or another app, open it in Safari or Chrome instead.
+        </p>
+      </>
     );
   }
   const early = entry.state === "early";
