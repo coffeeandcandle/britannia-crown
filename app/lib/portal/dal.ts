@@ -463,7 +463,7 @@ export type Overview = {
   sources: { source: string; n: number }[];
   team: { role: string; n: number }[];
   workload: { name: string; role: string; done30: number; next7: number }[];
-  attention: { no_consultant: number; stale_leads: number };
+  attention: { no_consultant: number; stale_leads: number; requests: number };
   activity: { id: number; type: string; summary: string; contact_name: string; contact_id: number; created_at: Date }[];
 };
 
@@ -518,6 +518,7 @@ export async function adminOverview(): Promise<Overview> {
     ),
     queryOne<Overview["attention"]>(
       `SELECT
+         (SELECT count(*)::int FROM lesson_requests WHERE status = 'pending') AS requests,
          (SELECT count(*)::int FROM families WHERE consultant_id IS NULL) AS no_consultant,
          (SELECT count(*)::int FROM contacts WHERE stage IN ('new', 'contacted') AND last_activity_at < now() - interval '3 days') AS stale_leads`,
     ),
@@ -586,4 +587,40 @@ export async function unassignedFamilies() {
 
 export async function unassignedSessions() {
   return query<SessionRow>(`${SESSION_SELECT} WHERE s.staff_id IS NULL AND s.status = 'scheduled' AND s.starts_at > now() ORDER BY s.starts_at LIMIT 50`);
+}
+
+/* ── Lesson requests (families ask, an admin approves and assigns) ── */
+
+export type LessonRequest = {
+  id: number;
+  family_id: number;
+  family_name: string;
+  family_email: string;
+  family_timezone: string;
+  child_id: number | null;
+  child_name: string | null;
+  subject: string;
+  details: string | null;
+  preferred: string | null;
+  status: "pending" | "approved" | "declined";
+  decision_note: string | null;
+  created_at: Date;
+};
+
+const REQUEST_SELECT = `
+  SELECT r.id, r.family_id, f.name AS family_name, f.email AS family_email, f.timezone AS family_timezone,
+         r.child_id, c.name AS child_name, r.subject, r.details, r.preferred, r.status, r.decision_note, r.created_at
+  FROM lesson_requests r JOIN families f ON f.id = r.family_id LEFT JOIN children c ON c.id = r.child_id`;
+
+export const familyRequests = (familyId: number) =>
+  query<LessonRequest>(`${REQUEST_SELECT} WHERE r.family_id = $1 ORDER BY r.created_at DESC LIMIT 30`, [familyId]);
+
+export const listLessonRequests = (status: "pending" | "handled") =>
+  query<LessonRequest>(
+    `${REQUEST_SELECT} WHERE ${status === "pending" ? "r.status = 'pending'" : "r.status <> 'pending'"}
+     ORDER BY ${status === "pending" ? "r.created_at" : "r.handled_at DESC NULLS LAST"} LIMIT 60`,
+  );
+
+export async function pendingRequestCount() {
+  return (await queryOne<{ n: number }>("SELECT count(*)::int AS n FROM lesson_requests WHERE status = 'pending'"))?.n ?? 0;
 }

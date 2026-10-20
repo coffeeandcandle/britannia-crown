@@ -16,7 +16,7 @@ export default async function FamilySessionsPage() {
       <PageHeader
         title="Sessions"
         description={<>All your lessons, past and future. Open one to see its details and your tutor&apos;s notes. Times in {tzLabel(family.timezone)}.</>}
-        actions={<Link href="/book-consultation" className="btn-secondary">Book a session</Link>}
+        actions={<Link href="/portal/request" className="btn-secondary">Request a lesson</Link>}
       />
       <Card title="Coming up" description="A Join button appears on a lesson 15 minutes before it starts.">
         <SessionList

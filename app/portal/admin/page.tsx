@@ -4,6 +4,7 @@ import { requireStaff, staffUpcoming, staffNeedingNotes, staffStats, canManage }
 import { greeting } from "../../lib/portal/time";
 import { SessionList, Flash } from "../components";
 import AdminOverview from "./Overview";
+import Dismissible from "../Dismissible";
 import { PageHeader, Card, EmptyState, StatGrid, Stat, Checklist, HelpBox, type Step } from "../ui";
 
 // Staff see times in UK time; families see their own time zone.
@@ -47,7 +48,9 @@ export default async function StaffDashboard({ searchParams }: { searchParams: P
       )}
 
       {manager && !setupDone && (
-        <Checklist title="Get set up" description="Five quick steps to get families using the portal." steps={setup} />
+        <Dismissible id="admin-setup" label="Hide the setup guide">
+          <Checklist title="Get set up" description="Five quick steps to get families using the portal." steps={setup} />
+        </Dismissible>
       )}
 
       {staff.role !== "admin" && (<StatGrid>

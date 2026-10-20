@@ -18,7 +18,7 @@ const faqs = [
   },
   {
     q: "How do I book another lesson or change a time?",
-    a: "Use Book a session in the menu, or email your consultant and they'll arrange it for you.",
+    a: "Use Request a lesson in the menu. Our team approves each request and assigns a tutor, then it appears under Sessions. You can also email your consultant.",
   },
   {
     q: "How do I update my card or cancel my membership?",

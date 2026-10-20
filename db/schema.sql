@@ -130,3 +130,21 @@ ON CONFLICT (lower(email)) DO NOTHING;
 UPDATE orders o SET family_id = f.id
   FROM families f
  WHERE o.family_id IS NULL AND o.customer_email IS NOT NULL AND lower(o.customer_email) = lower(f.email);
+
+-- Lessons families ask for from their portal. An admin approves each one and assigns the tutor or consultant,
+-- which creates the lesson; nothing is scheduled until then.
+CREATE TABLE IF NOT EXISTS lesson_requests (
+  id            serial PRIMARY KEY,
+  family_id     integer NOT NULL REFERENCES families(id) ON DELETE CASCADE,
+  child_id      integer REFERENCES children(id) ON DELETE SET NULL,
+  subject       text NOT NULL,
+  details       text,
+  preferred     text,
+  status        text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'declined')),
+  decision_note text,
+  handled_by    integer REFERENCES staff(id) ON DELETE SET NULL,
+  handled_at    timestamptz,
+  created_at    timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS lesson_requests_status ON lesson_requests (status, created_at DESC);
+CREATE INDEX IF NOT EXISTS lesson_requests_family ON lesson_requests (family_id, created_at DESC);

@@ -130,3 +130,8 @@ Research figures, each linked to its source on the page; please confirm you are 
 - `/portal/admin` for admins now opens a business overview: revenue (this month, MRR, 6-month chart), leads and lead-to-client rate, active clients, lessons, a needs-attention list, lead sources, team workload and a latest-activity feed. All numbers come from our own records (orders, contacts, sessions); revenue is Stripe "paid" amounts before refunds and fees.
 - "Lead to client" = contacts at stage client divided by all contacts.
 - Log in and Sign up now go to a two-option chooser (`/portal/login`, `/portal/join`): parents and families, or tutors, consultants and admins. The form pages carry a two-tab switch.
+
+## Lesson requests and approval
+- Families no longer book lessons directly: "Request a lesson" in their portal sends a request (and an email to the team inbox). An admin approves it under Lesson requests, chooses the tutor or consultant, date, length and weekly repeat, which creates the lesson(s). The family is emailed on approval or decline.
+- Admins can still schedule directly from a family's page.
+- The admin "Get set up" checklist can now be closed (remembered in that browser).

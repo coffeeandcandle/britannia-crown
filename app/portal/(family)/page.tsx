@@ -57,7 +57,7 @@ export default async function FamilyDashboard() {
           <EmptyState
             icon="📅"
             title="No lessons booked yet"
-            action={<><Link href="/portal/shop" className="btn-primary">Browse plans and services</Link> <Link href="/book-consultation" className="btn-secondary">Book a session</Link></>}
+            action={<><Link href="/portal/shop" className="btn-primary">Browse plans and services</Link> <Link href="/portal/request" className="btn-secondary">Request a lesson</Link></>}
           >
             When your consultant schedules lessons, the next one will appear here with a button to join it.
           </EmptyState>
@@ -116,7 +116,7 @@ export default async function FamilyDashboard() {
             <p className="ui-small-on-dark">Questions about lessons, timings or progress? Your consultant usually replies within a working day.</p>
             <div className="pt-actions">
               <a href={`mailto:${contactEmail}`} className="btn-primary">Email {consultant ? consultant.name.split(" ")[0] : "us"}</a>
-              <Link href="/book-consultation" className="btn-secondary">Book a session</Link>
+              <Link href="/portal/request" className="btn-secondary">Request a lesson</Link>
             </div>
           </Card>
 

@@ -17,6 +17,7 @@ export default async function AdminOverview() {
   const conversion = o.contacts > 0 ? Math.round((o.clients / o.contacts) * 100) : 0;
   const trend = o.money.last_month > 0 ? Math.round(((o.money.month - o.money.last_month) / o.money.last_month) * 100) : null;
   const attention: { text: string; href: string }[] = [
+    ...(o.attention.requests > 0 ? [{ text: `${o.attention.requests} lesson ${o.attention.requests === 1 ? "request is" : "requests are"} waiting for approval`, href: "/portal/admin/requests" }] : []),
     ...(o.delivery.needs_note > 0 ? [{ text: `${o.delivery.needs_note} finished ${o.delivery.needs_note === 1 ? "lesson has" : "lessons have"} no tutor note`, href: "/portal/admin/sessions?view=past" }] : []),
     ...(o.delivery.unassigned > 0 ? [{ text: `${o.delivery.unassigned} upcoming ${o.delivery.unassigned === 1 ? "lesson has" : "lessons have"} no tutor assigned`, href: "/portal/admin/sessions" }] : []),
     ...(o.attention.stale_leads > 0 ? [{ text: `${o.attention.stale_leads} ${o.attention.stale_leads === 1 ? "lead has" : "leads have"} waited over 3 days`, href: "/portal/admin/contacts" }] : []),

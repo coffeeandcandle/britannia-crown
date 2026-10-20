@@ -1524,3 +1524,12 @@ html.rv-ready [data-rv=""] { opacity: 0; transform: translateY(16px); }
 .tp-change summary { cursor: pointer; color: var(--brand); font-weight: 650; margin-top: 4px; }
 .tp-change form { margin-top: 8px; }
 @media (max-width: 1100px) { .tp-week { grid-template-columns: 1fr; } .tp-day { display: grid; gap: 4px; } }
+
+.rq-item { display: grid; gap: 8px; padding: 14px 0; }
+.rq-head { display: grid; gap: 4px; font-size: .92rem; }
+.rq-head p { margin: 0; color: var(--ink-2); }
+
+.dismissible { position: relative; }
+.dismissible-x { position: absolute; top: 10px; right: 10px; z-index: 2; width: 44px; height: 44px; display: grid; place-items: center; font-size: 1.6rem; line-height: 1; color: var(--ink-2); background: transparent; border: 0; border-radius: 50%; cursor: pointer; }
+.dismissible-x:hover, .dismissible-x:focus-visible { background: var(--line); color: var(--ink); }
+.dismissible .ui-progress-text { margin-right: 44px; }

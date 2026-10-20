@@ -1,4 +1,4 @@
-import { getViewer, requireStaff, canManage } from "../../lib/portal/dal";
+import { getViewer, requireStaff, canManage, pendingRequestCount } from "../../lib/portal/dal";
 import { Suspense } from "react";
 import PortalShell from "../PortalShell";
 import PortalFrameSkeleton from "../PortalFrameSkeleton";
@@ -12,6 +12,7 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
   if (who && !who.staff) return <PortalRedirect to="/portal/staff/no-access" />;
   const { viewer, staff } = await requireStaff();
   const manager = canManage(staff);
+  const pendingRequests = staff.role === "admin" ? await pendingRequestCount() : 0;
 
   // Each role sees only the parts of its own area it can use.
   const sections: NavSection[] = [
@@ -33,6 +34,7 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
             items: [
               { href: "/portal/admin/contacts", label: "Contacts", icon: "chat" as const },
               { href: "/portal/admin/orders", label: "Orders", icon: "card" as const },
+              { href: "/portal/admin/requests", label: pendingRequests > 0 ? `Lesson requests (${pendingRequests})` : "Lesson requests", icon: "plus" as const },
               { href: "/portal/admin/consultants", label: "Consultants", icon: "team" as const },
               { href: "/portal/admin/tutors", label: "Tutors", icon: "team" as const },
               { href: "/portal/admin/staff", label: "Team and access", icon: "team" as const },
