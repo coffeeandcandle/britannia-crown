@@ -8,6 +8,7 @@ import { ORG_ID } from "../lib/schema";
 import { SITE_URL } from "../lib/site";
 import BuyButton from "../components/BuyButton";
 import { getProduct } from "../lib/products";
+import { offerForProduct, offerPath } from "../lib/offers";
 import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = pageMetadata({
@@ -114,12 +115,14 @@ export default function UaePage() {
           <div className="price-cards">
             {offers.map((o) => {
               const product = o.productId ? getProduct(o.productId) : undefined;
+              const detail = o.productId ? offerForProduct(o.productId) : undefined;
               return (
                 <article className="price-card" key={o.name}>
                   <span className="price-card-age">{o.age}</span>
                   <h3>{o.name}</h3>
                   <p>{o.body}</p>
                   <p className="price-card-price">{o.price} <small>{o.unit}</small></p>
+                  {detail && <Link href={offerPath(detail)} className="price-card-more">See what is included →</Link>}
                   {product && paymentsEnabled ? (
                     <div className="price-card-actions">
                       <BuyButton product={product} enabled label={product.mode === "subscription" ? "Subscribe" : "Buy now"} />

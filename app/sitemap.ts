@@ -3,6 +3,7 @@ import { SITE_URL } from './lib/site'
 import { services } from './lib/services'
 import { subjects } from './lib/subjects'
 import { guides } from './lib/guides'
+import { offers, offerPath } from './lib/offers'
 
 type Entry = {
   path: string
@@ -25,6 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/book-consultation', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/contact', changeFrequency: 'yearly', priority: 0.7 },
     { path: '/uae', changeFrequency: 'monthly', priority: 0.7 },
+    ...offers.map((o): Entry => ({ path: offerPath(o), changeFrequency: 'monthly', priority: 0.8 })),
     { path: '/pricing', changeFrequency: 'monthly', priority: 0.8 },
     { path: '/membership', changeFrequency: 'monthly', priority: 0.6 },
     { path: '/about', changeFrequency: 'monthly', priority: 0.6 },

@@ -10,6 +10,7 @@ import { ORG_ID } from "../lib/schema";
 import { SITE_URL } from "../lib/site";
 import BuyButton from "../components/BuyButton";
 import { getProduct } from "../lib/products";
+import { offerForProduct, offerPath } from "../lib/offers";
 import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = pageMetadata({
@@ -193,6 +194,9 @@ export default function MembershipPage() {
                   <ul>
                     {t.features.map((f) => <li key={f}>{f}</li>)}
                   </ul>
+                  {offerForProduct(t.productId) && (
+                    <Link href={offerPath(offerForProduct(t.productId)!)} className="mb-more">See everything in {t.name} →</Link>
+                  )}
                   <BuyButton
                     product={getProduct(t.productId)!}
                     enabled={paymentsEnabled}
