@@ -52,7 +52,9 @@ export async function POST(request: Request) {
       },
     ],
     custom_text: {
-      submit: { message: "An education consultant will contact you within one working day to get started." },
+      submit: {
+        message: `An education consultant will contact you within one working day to get started. By paying you agree to our terms and our refunds and cancellations policy (${origin}/refunds-and-cancellations), including your 14-day right to cancel.`,
+      },
     },
     metadata,
     ...(product.mode === "payment"

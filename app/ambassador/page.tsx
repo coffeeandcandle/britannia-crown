@@ -7,9 +7,9 @@ import AmbassadorForm from "../components/AmbassadorForm";
 import { pageMetadata } from "../lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ambassador Programme | Earn 150 AED per Referral | Britannia Crown",
+  title: "Ambassador Programme | Earn £30 per Referral | Britannia Crown",
   description:
-    "Refer a family to Britannia Crown and earn 150 AED for every successful booking, with no limit on referrals. Open to nannies, teachers, parents and community members.",
+    "Refer a family to Britannia Crown and earn £30 for every successful booking, with no limit on referrals. Open to nannies, teachers, parents and community members.",
   path: "/ambassador",
 });
 
@@ -17,7 +17,7 @@ const steps = [
   { title: "Sign up", body: "Fill in the form below. We'll review your application and send you your unique personal ambassador code within 48 hours." },
   { title: "Share your code", body: "Share it at the park, at school, in parent group chats, wherever you naturally talk to families. No selling, just a trusted recommendation." },
   { title: "A family books", body: "When a family uses your code and books a paid session with Britannia Crown, the referral is confirmed as successful." },
-  { title: "You get paid", body: "150 AED is transferred directly to you, every time. No caps, no limits: the more families you refer, the more you earn." },
+  { title: "You get paid", body: "£30 is transferred directly to you, every time. No caps, no limits: the more families you refer, the more you earn." },
 ];
 
 const who = [
@@ -27,10 +27,10 @@ const who = [
 ];
 
 const earnings = [
-  { n: "1 referral", v: "150 AED" },
-  { n: "5 referrals", v: "750 AED" },
-  { n: "10 referrals", v: "1,500 AED" },
-  { n: "25 referrals", v: "3,750 AED" },
+  { n: "1 referral", v: "£30" },
+  { n: "5 referrals", v: "£150" },
+  { n: "10 referrals", v: "£300" },
+  { n: "25 referrals", v: "£750" },
 ];
 
 const faqs = [
@@ -44,11 +44,11 @@ const faqs = [
   },
   {
     q: "Is there a limit on how many people I can refer?",
-    a: "No. There is no cap on referrals. Refer as many families as you like — every successful booking earns you 150 AED.",
+    a: "No. There is no cap on referrals. Refer as many families as you like — every successful booking earns you £30.",
   },
   {
     q: "Do I need to be based in the UAE?",
-    a: "Our ambassador community is currently strongest in the British expat community in the UAE, and rewards are paid in AED. If you're based in the UK or elsewhere, apply anyway and tell us where you are — we'll let you know what's possible.",
+    a: "Our ambassador community is currently strongest in the British expat community in the UAE, and rewards are paid in pounds by bank transfer. Wherever you're based, apply and tell us where you are.",
   },
   {
     q: "Can I be an ambassador if I already work with Britannia Crown as a tutor?",
@@ -68,8 +68,8 @@ export default function AmbassadorPage() {
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Ambassador Programme", path: "/ambassador" }]} />
           <span className="uk-eyebrow">Britannia Crown · Ambassador Programme</span>
-          <h1>Earn 150 AED for every family you refer</h1>
-          <p>You&apos;re already trusted by the families we want to reach. Refer a family to Britannia Crown and earn <strong style={{ color: "var(--champagne)", fontWeight: 500 }}>150 AED</strong> for every successful booking. No limit on referrals.</p>
+          <h1>Earn £30 for every family you refer</h1>
+          <p>You&apos;re already trusted by the families we want to reach. Refer a family to Britannia Crown and earn <strong style={{ color: "var(--champagne)", fontWeight: 500 }}>£30</strong> for every successful booking. No limit on referrals.</p>
           <div className="uk-hero-actions uk-sub-actions">
             <Link href="#signup" className="btn-primary">Apply to be an ambassador</Link>
             <Link href="#how" className="btn-secondary">How it works</Link>
@@ -81,7 +81,7 @@ export default function AmbassadorPage() {
         <div className="uk-wrap">
           <Reveal>
             <div className="ab-stats">
-              <div className="ab-stat"><span className="ab-stat-num">150 AED</span><span className="ab-stat-label">Per successful referral</span></div>
+              <div className="ab-stat"><span className="ab-stat-num">£30</span><span className="ab-stat-label">Per successful referral</span></div>
               <div className="ab-stat"><span className="ab-stat-num">Unlimited</span><span className="ab-stat-label">Referrals you can make</span></div>
               <div className="ab-stat"><span className="ab-stat-num">Your code</span><span className="ab-stat-label">Personal and unique to you</span></div>
             </div>
@@ -136,7 +136,7 @@ export default function AmbassadorPage() {
           <Reveal>
             <span className="uk-kicker">Your earnings</span>
             <h2 className="uk-h2">What you could earn</h2>
-            <p className="uk-lead">There are no limits on how many referrals you can make. Every successful booking earns you 150 AED, whether it&apos;s your first referral or your fiftieth.</p>
+            <p className="uk-lead">There are no limits on how many referrals you can make. Every successful booking earns you £30, whether it&apos;s your first referral or your fiftieth.</p>
             <p className="uk-lead" style={{ marginTop: 18 }}>Think about the nanny networks, the school parent groups and the parents you speak to every day at pick-up. One message. One code. One booking.</p>
           </Reveal>
           <Reveal>
@@ -179,7 +179,7 @@ export default function AmbassadorPage() {
             <h2 className="uk-h2">Apply to become an ambassador</h2>
             <p className="uk-lead">Fill in the form and we&apos;ll be in touch within 48 hours with your personal ambassador code and everything you need to get started.</p>
             <ul className="uk-ticks">
-              <li>150 AED for every successful referral</li>
+              <li>£30 for every successful referral</li>
               <li>No limit on how many families you refer</li>
               <li>A personal code, tracked back to you</li>
             </ul>

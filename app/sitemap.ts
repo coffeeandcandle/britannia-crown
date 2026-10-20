@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/ambassador', changeFrequency: 'monthly', priority: 0.4 },
     { path: '/careers', changeFrequency: 'yearly', priority: 0.3 },
     { path: '/privacy-policy', changeFrequency: 'yearly', priority: 0.2 },
+    { path: '/refunds-and-cancellations', changeFrequency: 'yearly', priority: 0.3 },
     { path: '/terms-and-conditions', changeFrequency: 'yearly', priority: 0.2 },
   ]
 

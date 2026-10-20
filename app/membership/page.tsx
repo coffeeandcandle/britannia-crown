@@ -15,7 +15,7 @@ import { paymentsEnabled } from "../lib/stripe";
 export const metadata: Metadata = pageMetadata({
   title: "Online Tutoring Membership | Academic Partner | Britannia Crown",
   description:
-    "Ongoing online tutoring with vetted UK-qualified tutors and a dedicated education consultant overseeing your child's progress. Flexible monthly tiers from AED 1,000. Cancel anytime.",
+    "Ongoing online tutoring with vetted UK-qualified tutors and a dedicated education consultant overseeing your child's progress. Flexible monthly tiers from £200 a month. Cancel anytime.",
   path: "/membership",
 });
 
@@ -35,8 +35,8 @@ const different = [
 const tiers = [
   {
     name: "Foundation",
-    price: "1,000",
-    value: 1000,
+    price: "200",
+    value: 200,
     features: [
       "4 hours/month online tutoring credit (flexible allocation, any subject)",
       "Monthly 15-minute parent check-in call",
@@ -48,8 +48,8 @@ const tiers = [
   },
   {
     name: "Partner",
-    price: "1,800",
-    value: 1800,
+    price: "360",
+    value: 360,
     featured: true,
     features: [
       "8 hours/month online tutoring credit",
@@ -63,8 +63,8 @@ const tiers = [
   },
   {
     name: "Full Partner",
-    price: "3,200",
-    value: 3200,
+    price: "640",
+    value: 640,
     features: [
       "14 hours/month online tutoring credit, split across up to 2 subjects",
       "Everything in Partner tier",
@@ -103,7 +103,7 @@ const faqs = [
   },
   {
     q: "Is membership available to families in the UK?",
-    a: "Membership is delivered online, so it works wherever your family lives. Prices on this page are in UAE dirhams (AED); contact us for sterling pricing.",
+    a: "Membership is delivered online, so it works wherever your family lives. Prices are in pounds sterling and are the same wherever you live; card providers convert other currencies automatically.",
   },
   {
     q: "What if I'd rather have face-to-face tutoring?",
@@ -189,7 +189,7 @@ export default function MembershipPage() {
                 <div className={`mb-tier${t.featured ? " featured" : ""}`} key={t.name}>
                   {t.featured && <span className="mb-badge">Most popular</span>}
                   <p className="mb-tier-name">{t.name}</p>
-                  <p className="mb-price"><span>AED {t.price}</span> / month</p>
+                  <p className="mb-price"><span>£{t.price}</span> / month</p>
                   <ul>
                     {t.features.map((f) => <li key={f}>{f}</li>)}
                   </ul>
@@ -203,7 +203,7 @@ export default function MembershipPage() {
               ))}
             </div>
           </Reveal>
-          <p className="mb-note">Cancel or change tiers anytime, with no long-term contract. Prices are in UAE dirhams (AED); <Link href="/contact?service=Academic+Partner+Membership">contact us</Link> for sterling pricing.</p>
+          <p className="mb-note">Cancel or change tiers anytime, with no long-term contract. Prices are in pounds sterling. See our <Link href="/refunds-and-cancellations">refunds and cancellations policy</Link>.</p>
         </div>
       </section>
 
@@ -250,11 +250,11 @@ export default function MembershipPage() {
             "@type": "Offer",
             name: `${t.name} membership`,
             price: t.value,
-            priceCurrency: "AED",
+            priceCurrency: "GBP",
             priceSpecification: {
               "@type": "UnitPriceSpecification",
               price: t.value,
-              priceCurrency: "AED",
+              priceCurrency: "GBP",
               billingDuration: 1,
               unitCode: "MON",
             },

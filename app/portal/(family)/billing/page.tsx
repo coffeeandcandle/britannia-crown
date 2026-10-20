@@ -43,7 +43,7 @@ export default async function BillingPage({ searchParams }: { searchParams: Prom
     <>
       <PageHeader
         title="Billing"
-        description="Your plan, payments and receipts. Changes to your card or plan are made securely through Stripe."
+        description={<>Your plan, payments and receipts. Changes to your card or plan are made securely through Stripe. See our <Link href="/refunds-and-cancellations">refunds and cancellations policy</Link>.</>}
       />
       <Flash error={error ? errors[error] ?? undefined : loadFailed ? errors.portal : undefined} />
 

@@ -569,6 +569,11 @@ h1 em, h2 em, h3 em { font-style: normal; color: inherit; }
 .legal-content ul { padding-left: 1.4em; }
 .legal-content li + li { margin-top: .4em; }
 .legal-updated { color: var(--ink-3); }
+.legal-summary { padding: 22px 24px; background: var(--brand-tint); border-left: 4px solid var(--brand); border-radius: 10px; }
+.legal-summary h2 { margin-top: 0; font-size: 1.25rem; }
+.legal-summary ul { margin-top: 10px; }
+.legal-content ul li strong { color: var(--ink); }
+.legal-quote { padding: 16px 20px; border-left: 3px solid var(--line-strong); background: var(--paper); border-radius: 8px; font-style: italic; color: var(--ink-2); }
 
 /* ── Priced service cards (UAE) ───────────────────────────────────── */
 .price-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }

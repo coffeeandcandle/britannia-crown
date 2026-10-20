@@ -28,7 +28,8 @@ const pick = (ids: string[]) => ids.map((id) => products.find((p) => p.id === id
 const faqs = [
   { q: "How does paying online work?", a: "Choose a service and you'll go to a secure Stripe checkout page. You can pay by card, Apple Pay or Google Pay. You get a receipt by email straight away, and an education consultant contacts you within one working day to get started." },
   { q: "Can I cancel a membership?", a: "Yes. Memberships are monthly with no long-term contract. You can cancel or change your plan at any time from the Billing page in your family portal, or by emailing us." },
-  { q: "Why are some prices in UAE dirhams?", a: "These services were first offered to families in Dubai. Your card provider converts the amount automatically. If you're in the UK and would prefer to pay in pounds, email us and we'll arrange it." },
+  { q: "What currency are the prices in?", a: "All prices are in pounds sterling (GBP) and include all fees. If you pay with a card in another currency, such as UAE dirhams, your card provider converts it automatically." },
+  { q: "What if I change my mind?", a: "You can cancel within 14 days of buying for a refund, less the value of any sessions already delivered. Memberships can be cancelled at any time and stop at the end of the month you've paid for. Our refunds and cancellations policy has the full details." },
   { q: "I'm not sure which option is right for us", a: "Book a free 30-minute consultation. We'll talk through your child's needs and recommend the right option, with no obligation to buy anything." },
   { q: "Is my payment secure?", a: "Payments are handled by Stripe, which is used by millions of businesses. We never see or store your card details." },
 ];
@@ -169,7 +170,7 @@ export default function PricingPage() {
       <section className="uk-section white">
         <div className="uk-wrap">
           <p className="shop-terms">
-            Prices include all fees. By paying online you agree to our <Link href="/terms-and-conditions">terms and conditions</Link>.
+            Prices include all fees. By paying online you agree to our <Link href="/terms-and-conditions">terms and conditions</Link> and <Link href="/refunds-and-cancellations">refunds and cancellations policy</Link>.
             Questions before you buy? <Link href="/contact">Send us an enquiry</Link>.
           </p>
         </div>

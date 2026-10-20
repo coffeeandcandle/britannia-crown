@@ -24,7 +24,7 @@ async function loadOrder(sessionId: string | undefined) {
       email: s.customer_details?.email ?? "",
       product: getProduct(s.metadata?.product_id ?? ""),
       amount: (s.amount_total ?? 0) / 100,
-      currency: (s.currency ?? "aed").toUpperCase(),
+      currency: (s.currency ?? "gbp").toUpperCase(),
     };
   } catch {
     return null;

@@ -68,6 +68,7 @@ export default function Footer() {
           <nav aria-label="Legal">
             <Link href="/privacy-policy">Privacy policy</Link>
             <Link href="/terms-and-conditions">Terms and conditions</Link>
+            <Link href="/refunds-and-cancellations">Refunds and cancellations</Link>
             <Link href="/portal/staff/sign-in">Staff login</Link>
           </nav>
         </div>
