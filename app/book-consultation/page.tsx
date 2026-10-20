@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
 import Breadcrumbs from "../components/Breadcrumbs";
-import CalendlyEmbed from "../components/CalendlyEmbed";
-import { CALENDLY_URL, WHATSAPP_URL } from "../lib/site";
+import BookingFlow from "../components/BookingFlow";
+import { WHATSAPP_URL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Book a Free Consultation | Britannia Crown",
   description:
-    "Book a free 30-minute consultation with a Britannia Crown education consultant to talk through tutoring, home education, school placement or qualifications for your child.",
+    "Book a free 30-minute consultation with a Britannia Crown education consultant, or a strategy session or trial tutoring lesson, online in a few minutes.",
   path: "/book-consultation",
 });
 
@@ -17,37 +18,21 @@ export default function BookConsultationPage() {
     <>
       <section className="uk-sub-hero">
         <div className="uk-wrap">
-          <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Book a free consultation", path: "/book-consultation" }]} />
-          <span className="uk-eyebrow">Free 30-minute consultation</span>
-          <h1>Book your free consultation</h1>
-          <p>Pick a time that works for you. We&apos;ll talk through your child&apos;s needs and agree the next steps. It&apos;s free, with no obligation.</p>
+          <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Book online", path: "/book-consultation" }]} />
+          <span className="uk-eyebrow">Book online</span>
+          <h1>Book a consultation</h1>
+          <p>Start with a free 30-minute call, or book a strategy session or trial lesson. It takes about two minutes.</p>
         </div>
       </section>
 
       <section className="uk-section cream">
-        <div className="uk-wrap book-grid">
-          <aside className="book-side">
-            <div className="uk-point">
-              <h2 className="book-side-title">What happens on the call</h2>
-              <ol className="book-steps">
-                <li><strong>You tell us about your child.</strong> Their age, school, strengths and what&apos;s worrying you.</li>
-                <li><strong>We ask a few questions.</strong> About goals, timings and how your child learns best.</li>
-                <li><strong>You get a clear recommendation.</strong> The right tutor, school route or plan, and what it costs.</li>
-              </ol>
-            </div>
-            <div className="uk-point">
-              <h2 className="book-side-title">Good to know</h2>
-              <ul className="uk-ticks">
-                <li>30 minutes, by phone or video</li>
-                <li>With an education consultant, not a salesperson</li>
-                <li>No obligation to go ahead</li>
-              </ul>
-            </div>
-            <p className="book-alt">
-              Can&apos;t find a time? <a href={WHATSAPP_URL}>Message us on WhatsApp</a> or <Link href="/contact">request a call back</Link>.
-            </p>
-          </aside>
-          <CalendlyEmbed url={CALENDLY_URL} />
+        <div className="uk-wrap">
+          <Suspense fallback={<p className="booking-hint">Loading booking options…</p>}>
+            <BookingFlow />
+          </Suspense>
+          <p className="book-alt">
+            Can&apos;t find a time that works? <a href={WHATSAPP_URL}>Message us on WhatsApp</a> or <Link href="/contact">request a call back</Link>.
+          </p>
         </div>
       </section>
     </>

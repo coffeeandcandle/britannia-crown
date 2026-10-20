@@ -55,7 +55,7 @@ export default async function SubjectPage({ params }: Props) {
           <p>{subject.lead}</p>
           <div className="uk-hero-actions uk-sub-actions">
             <Link href="#enquire" className="btn-primary">Request a call back</Link>
-            <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
+            <Link href="/book-consultation?session=trial-lesson" className="btn-secondary">Book a trial lesson</Link>
           </div>
           <span className="uk-chip">UK-trained tutors · Online or face to face</span>
         </div>

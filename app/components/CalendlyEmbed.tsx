@@ -1,16 +1,22 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { track } from "../lib/track";
+
+type Prefill = { name?: string; email?: string; customAnswers?: Record<string, string> };
+type Utm = { utmSource?: string; utmMedium?: string; utmCampaign?: string; utmContent?: string; utmTerm?: string };
 
 type CalendlyEmbedProps = {
   url: string;
+  prefill?: Prefill;
+  utm?: Utm;
+  // Called once Calendly confirms the booking.
+  onScheduled?: () => void;
 };
 
 declare global {
   interface Window {
     Calendly?: {
-      initInlineWidget: (options: { url: string; parentElement: HTMLElement }) => void;
+      initInlineWidget: (options: { url: string; parentElement: HTMLElement; prefill?: Prefill; utm?: Utm }) => void;
     };
   }
 }
@@ -18,17 +24,34 @@ declare global {
 const SCRIPT_SRC = "https://assets.calendly.com/assets/external/widget.js";
 const INITIAL_HEIGHT = 900;
 
-export default function CalendlyEmbed({ url }: CalendlyEmbedProps) {
+// Brand colours and a quieter layout: our page already shows the session details.
+function withDisplayOptions(url: string) {
+  const u = new URL(url);
+  u.searchParams.set("hide_gdpr_banner", "1");
+  u.searchParams.set("hide_event_type_details", "1");
+  u.searchParams.set("primary_color", "6b1e3d");
+  return u.toString();
+}
+
+export default function CalendlyEmbed({ url, prefill, utm, onScheduled }: CalendlyEmbedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(INITIAL_HEIGHT);
+  const onScheduledRef = useRef(onScheduled);
+  useEffect(() => {
+    onScheduledRef.current = onScheduled;
+  }, [onScheduled]);
+
+  // Re-initialise only when the details passed to Calendly actually change.
+  const optionsKey = JSON.stringify({ url, prefill, utm });
 
   useEffect(() => {
     let cancelled = false;
+    const { url: u, prefill: p, utm: m } = JSON.parse(optionsKey) as { url: string; prefill?: Prefill; utm?: Utm };
 
     function init() {
       if (cancelled || !containerRef.current || !window.Calendly) return;
       containerRef.current.innerHTML = "";
-      window.Calendly.initInlineWidget({ url, parentElement: containerRef.current });
+      window.Calendly.initInlineWidget({ url: withDisplayOptions(u), parentElement: containerRef.current, prefill: p, utm: m });
     }
 
     // Load the script once; reuse it across client-side navigations.
@@ -46,15 +69,12 @@ export default function CalendlyEmbed({ url }: CalendlyEmbedProps) {
     }
 
     function onMessage(e: MessageEvent) {
-      if (typeof e.data?.event !== "string" || !e.data.event.startsWith("calendly.")) return;
+      if (!e.origin.endsWith("calendly.com") || typeof e.data?.event !== "string") return;
       if (e.data.event === "calendly.page_height") {
         const newHeight = Number(e.data.payload?.height);
         if (newHeight > 0) setHeight(newHeight);
       }
-      // A booked consultation is the strongest lead signal on the site.
-      if (e.data.event === "calendly.event_scheduled" && e.origin.endsWith("calendly.com")) {
-        track("consultation_booked", { method: "calendly", page_path: window.location.pathname });
-      }
+      if (e.data.event === "calendly.event_scheduled") onScheduledRef.current?.();
     }
     window.addEventListener("message", onMessage);
 
@@ -63,7 +83,7 @@ export default function CalendlyEmbed({ url }: CalendlyEmbedProps) {
       existing?.removeEventListener("load", init);
       window.removeEventListener("message", onMessage);
     };
-  }, [url]);
+  }, [optionsKey]);
 
   return (
     <div className="calendly-embed">

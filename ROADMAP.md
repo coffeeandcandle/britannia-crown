@@ -10,10 +10,14 @@ The site now runs one clear path: a parent searches Google, lands on a guide, to
 - **To switch on:** see `.env.example`. Create a Stripe account, add `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in Vercel, add the webhook endpoint in Stripe, and redeploy. Test with test keys first.
 - **Still needed:** sterling prices for UK families; which UK services can be bought without a call first; refund and cancellation terms (the terms page is a template awaiting legal review). Turn on the Stripe customer portal so subscribers can manage or cancel their plan from their emails.
 
-## Phase 2: Book consultations directly
-- Currently: Calendly embed on `/book-consultation`, tracked as `consultation_booked`.
-- Next: pass UTM and landing-page data into Calendly (`utm_*` URL parameters) so bookings carry the same attribution as forms.
-- Optional: paid consultations (e.g. a 60-minute school strategy session) through Calendly + Stripe, or a native booking flow if we move to the portal below.
+## Phase 2: Book consultations online (built on Calendly)
+- **Built:** a three-step booking flow on `/book-consultation`: choose a session, enter details, pick a time in the embedded Calendly. Then a confirmation screen.
+- Session types live in `app/lib/sessions.ts`: free 30-minute consultation (live), strategy session (60 min, placeholder £120) and trial tutoring lesson (45 min, placeholder £45).
+- Details entered on our page are passed to Calendly (name, email, and year group and notes as the first custom question), along with UTM tags and the first landing page.
+- GA4 events: `booking_session_selected`, `booking_details_entered`, `consultation_booked` (with session type and value).
+- Deep links: `/book-consultation?session=trial-lesson` (used on every tutor subject page) and `?session=strategy`.
+- **To switch on paid sessions:** in Calendly, connect Stripe (Integrations → Stripe), create a 60-minute and a 45-minute event type with their prices, and add a first question such as "What would you like to talk about?" to each. Then paste each event link into `calendlyUrl` in `app/lib/sessions.ts` and confirm the price. Until then, those sessions show a request form and no price.
+- Later: move to a native booking system with its own database when the client portal is built.
 
 ## Phase 3: Client portal
 - Login for families (email magic link or Google), built on Next.js with a hosted auth provider (Clerk or Auth.js) and a Postgres database (Neon or Supabase via Vercel).
