@@ -159,9 +159,7 @@ export default function BookingFlow() {
               <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Book your {session.name.toLowerCase()}</h2>
               <p className="booking-hint">
                 Pay {priceLabel(session)} securely by card. You&apos;ll tell us about your child first, then pay through Stripe.{" "}
-                {session.calendlyUrl
-                  ? "Straight after paying you choose a time, at least 48 hours ahead so we can prepare."
-                  : "We then contact you within one working day to arrange a time, at least 48 hours ahead so we can prepare."}
+                Straight after paying you choose a time in your client portal, at least 48 hours ahead so we can prepare.
               </p>
               <form action="/checkout/details" method="GET">
                 <input type="hidden" name="product" value={session.productId} />

@@ -55,17 +55,12 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
         <section className="uk-section white">
           <div className="uk-wrap uk-split">
             <div>
-              <h2 className="uk-h2">{session.calendlyUrl ? "Now choose your time" : "We will arrange your time"}</h2>
+              <h2 className="uk-h2">Now choose your time</h2>
             </div>
             <div className="uk-prose">
-              {session.calendlyUrl ? (
-                <>
-                  <p>Pick a slot for your {session.name.toLowerCase()}. Times start at least 48 hours ahead so we can prepare.</p>
-                  <p><a href={session.calendlyUrl} className="btn-primary" target="_blank" rel="noopener noreferrer">Choose a time</a></p>
-                </>
-              ) : (
-                <p>An education consultant will contact you within one working day to agree a time for your {session.name.toLowerCase()}, at least 48 hours ahead so we can prepare.</p>
-              )}
+              <p>Choose a time for your {session.name.toLowerCase()} in your client portal. It goes straight into your calendar, and the session itself happens in the portal too. Times start at least 48 hours ahead so we can prepare.</p>
+              <p><Link href="/portal/book" className="btn-primary">Choose a time in your portal</Link></p>
+              <p>First time? Choose Sign up and use the same email address you paid with, so your purchase is waiting for you.</p>
             </div>
           </div>
         </section>

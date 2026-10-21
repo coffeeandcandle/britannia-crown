@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { unbookedOrders } from "../../lib/portal/booking";
 import { dailyEnabled } from "../../lib/portal/daily";
 import { requireFamily, familyChildren, familyConsultant, familyUpcoming, familyNotes, familyNoteCount, familyOrders } from "../../lib/portal/dal";
 import { tzLabel, sessionWhen, greeting } from "../../lib/portal/time";
@@ -9,13 +10,14 @@ import Purchases from "./Purchases";
 
 export default async function FamilyDashboard() {
   const { viewer, family } = await requireFamily();
-  const [children, consultant, upcoming, notes, noteCount, orders] = await Promise.all([
+  const [children, consultant, upcoming, notes, noteCount, orders, toBook] = await Promise.all([
     familyChildren(family.id),
     familyConsultant(family),
     familyUpcoming(family.id, 6),
     familyNotes(family.id, { limit: 2 }),
     familyNoteCount(family.id),
     familyOrders(family, 20),
+    unbookedOrders(family.id),
   ]);
   const [next, ...later] = upcoming;
   const tz = family.timezone;
@@ -28,6 +30,12 @@ export default async function FamilyDashboard() {
         title={`${greeting(tz)}${viewer.firstName ? `, ${viewer.firstName}` : ""}`}
         description={<>Everything about {family.name}&apos;s lessons in one place. Times are shown in {tzLabel(tz)}.</>}
       />
+
+      {toBook.length > 0 && (
+        <Card title={`You have ${toBook.length === 1 ? "a session" : `${toBook.length} sessions`} to book`} description="Choose a time and it goes straight into your calendar.">
+          <Link href="/portal/book" className="btn-primary">Choose a time</Link>
+        </Card>
+      )}
 
       {next && nextWhen ? (
         <section className={`ui-next${next.is_joinable ? " is-live" : ""}`} aria-labelledby="next-title">

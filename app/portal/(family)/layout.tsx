@@ -19,6 +19,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
       items: [
         { href: "/portal", label: "Overview", icon: "home", exact: true },
         { href: "/portal/sessions", label: "Sessions", icon: "calendar" },
+        { href: "/portal/book", label: "Book a paid session", icon: "plus" },
         { href: "/portal/notes", label: "Notes and homework", icon: "notes" },
         { href: "/portal/documents", label: "Documents", icon: "notes" },
         { href: "/portal/shop", label: "Plans and services", icon: "plus" },

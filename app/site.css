@@ -1634,3 +1634,10 @@ a.ui-stat:hover, .shop-card:hover, .plan:hover, .session-card:hover { transform:
 .doc-status { display: inline-block; margin-left: 8px; font-size: .85rem; font-weight: 650; }
 .doc-status.is-todo { color: var(--error); }
 .doc-status.is-done { color: var(--ok); }
+
+/* Booking a paid session in the portal */
+.bk-days { display: grid; gap: 22px; }
+.bk-day h3 { margin-bottom: 10px; font-size: 1rem; }
+.bk-times { display: flex; flex-wrap: wrap; gap: 8px; }
+.av-switch { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
+.av-switch select { min-height: 40px; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); }

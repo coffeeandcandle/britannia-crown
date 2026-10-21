@@ -38,10 +38,10 @@ export async function alertTeam(subject: string, fields: Record<string, string |
 
 // Emails the buyer a confirmation that points them to their client portal. Like alertTeam it never
 // throws: the order is already saved, so a failed email is logged rather than failing the webhook.
-export async function sendOrderConfirmation(to: string, order: { name: string; productName: string; amountLabel: string }) {
+export async function sendOrderConfirmation(to: string, order: { name: string; productName: string; amountLabel: string; productId?: string }) {
   if (!to) return;
   try {
-    const { subject, text } = orderConfirmationEmail({ ...order, siteUrl: SITE_URL, contactEmail: EMAIL });
+    const { subject, text } = orderConfirmationEmail({ ...order, siteUrl: SITE_URL, contactEmail: EMAIL, bookInPortal: order.productId === "strategy-session" || order.productId === "trial-lesson" });
     await sendEmail({ to: [to], subject, text, replyTo: teamInbox()[0] });
   } catch (error) {
     console.error("Order confirmation email not sent (the order is saved in the portal)", error);

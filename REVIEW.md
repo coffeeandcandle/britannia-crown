@@ -145,10 +145,12 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Not enabled: recording, and no whiteboard beyond Daily's built-in screen share and chat. Decide on recording (consent, retention, who can watch back) and safeguarding with your solicitor before turning it on.
 - Check Daily's current free allowance and pricing; usage is billed by Daily if you exceed the free tier.
 
-## Strategy session and trial lesson (paid on the site)
-- Client confirmed: strategy session £150 for 60 minutes, trial tutoring lesson £50. Prices live in `app/lib/products.ts` (the session list reads them from there). The trial lesson's 45 minutes is still an assumption to confirm.
-- Both are bought through the normal details form and Stripe checkout. After payment the success page offers a Calendly link to choose a time if one is set for that session in `app/lib/sessions.ts` (`calendlyUrl`); until then it says a consultant will arrange a time within one working day.
-- In Calendly, set each event's "Minimum scheduling notice" to 2 days so the next 48 hours are greyed out. Because payment happens on our site, the Calendly events themselves should be free (no price), or families would pay twice.
+## Strategy session and trial lesson (paid on the site, booked in the portal)
+- Prices: strategy session £150 for 60 minutes, trial tutoring lesson £50 (`app/lib/products.ts`). The trial lesson's 45 minutes is an assumption to confirm.
+- Families pay through the normal details form and Stripe, then choose a time in the portal (Book a paid session). The booking becomes a lesson in the shared calendar: admin, the person teaching and the family all see it, and it uses the in-portal video room.
+- Strategy sessions are booked with consultants and admins; trial lessons with tutors. Each person sets their weekly hours under My availability (admins can set anyone's). Nothing can be booked within 48 hours, or over an existing lesson.
+- **Nobody can book until availability is added.** Set hours for at least one consultant and one tutor before launch.
+- Calendly is now used only for the free 30-minute consultation.
 
 ## Documents
 - Admins and consultants upload documents for a family (Families, open a family, Documents). The family sees only its own under Documents in the portal and reads them inside the portal, with no download button.

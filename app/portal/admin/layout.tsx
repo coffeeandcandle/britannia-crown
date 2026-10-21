@@ -20,6 +20,7 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
       items: [
         { href: "/portal/admin", label: staff.role === "admin" ? "Business overview" : manager ? "Dashboard" : "My dashboard", icon: "home", exact: true },
         { href: "/portal/admin/sessions", label: manager ? "All sessions" : "My sessions", icon: "calendar" },
+        { href: "/portal/admin/availability", label: "My availability", icon: "calendar" },
       ],
     },
     ...(manager

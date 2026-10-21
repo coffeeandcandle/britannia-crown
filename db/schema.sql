@@ -176,3 +176,18 @@ ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_agent text;
 ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_hash text;
 -- The signed copy: the original PDF with a certificate page added, or just the certificate for other file types.
 ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_data bytea;
+
+-- Weekly hours each tutor, consultant or admin can take paid sessions, in UK time.
+-- weekday: 0 Sunday to 6 Saturday; start_min and end_min are minutes after midnight.
+CREATE TABLE IF NOT EXISTS availability (
+  id         serial PRIMARY KEY,
+  staff_id   integer NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+  weekday    smallint NOT NULL CHECK (weekday BETWEEN 0 AND 6),
+  start_min  integer NOT NULL CHECK (start_min BETWEEN 0 AND 1440),
+  end_min    integer NOT NULL CHECK (end_min BETWEEN 0 AND 1440),
+  CHECK (end_min > start_min)
+);
+CREATE INDEX IF NOT EXISTS availability_staff ON availability (staff_id, weekday);
+
+-- A paid session (strategy session, trial lesson) is booked once into the portal calendar.
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS session_id integer REFERENCES sessions(id) ON DELETE SET NULL;
