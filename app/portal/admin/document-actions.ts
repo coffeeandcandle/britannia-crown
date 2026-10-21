@@ -15,12 +15,6 @@ const TYPES: Record<string, string> = {
   jpg: "image/jpeg",
   jpeg: "image/jpeg",
   txt: "text/plain",
-  doc: "application/msword",
-  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  xls: "application/vnd.ms-excel",
-  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  ppt: "application/vnd.ms-powerpoint",
-  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
 };
 
 function back(familyId: number, msg: { ok?: string; error?: string }): never {
@@ -47,7 +41,7 @@ export async function uploadDocument(fd: FormData) {
   const f = file as File;
   const ext = (f.name.split(".").pop() ?? "").toLowerCase();
   const mime = TYPES[ext];
-  if (!mime) back(familyId, { error: "That file type isn't allowed. Use PDF, image, Word, Excel, PowerPoint or text files." });
+  if (!mime) back(familyId, { error: "Only PDF, PNG, JPG and text files can be shown in the portal. Please save Word, Excel or PowerPoint files as a PDF first." });
   if (f.size > MAX_BYTES) back(familyId, { error: "That file is over 4 MB. Please compress it or split it." });
   const bytes = Buffer.from(await f.arrayBuffer());
   if (!looksRight(ext, bytes)) back(familyId, { error: "That file doesn't look like a valid " + ext.toUpperCase() + "." });

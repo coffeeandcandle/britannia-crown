@@ -1624,3 +1624,8 @@ a.ui-stat:hover, .shop-card:hover, .plan:hover, .session-card:hover { transform:
 .cb-price strong { font-family: var(--serif); font-size: var(--fs-stat); font-weight: 400; color: var(--brand-ink); line-height: 1; }
 .cb-list { list-style: none; display: grid; gap: 6px; color: var(--ink-2); }
 .cb-list li { padding-top: 6px; border-top: 1px solid var(--line); }
+
+/* In-portal document viewer */
+.doc-frame { display: block; width: 100%; height: min(80vh, 900px); min-height: 480px; border: 0; background: var(--cream); }
+.doc-image { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.doc-text { white-space: pre-wrap; word-break: break-word; font-family: var(--sans); font-size: .98rem; line-height: 1.6; color: var(--ink); }

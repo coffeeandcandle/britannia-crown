@@ -13,7 +13,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
   return new Response(new Uint8Array(doc.data), {
     headers: {
       "Content-Type": doc.mime,
-      "Content-Disposition": `attachment; filename="${safeName}"`,
+      "Content-Disposition": `inline; filename="${safeName}"`,
       "X-Content-Type-Options": "nosniff",
       "Cache-Control": "private, no-store",
     },

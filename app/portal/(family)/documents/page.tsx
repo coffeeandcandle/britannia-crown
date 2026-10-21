@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireFamily, familyDocuments } from "../../../lib/portal/dal";
 import { formatDate } from "../../../lib/portal/time";
 import { PageHeader, Card, EmptyState } from "../../ui";
@@ -9,7 +10,7 @@ export default async function FamilyDocumentsPage() {
   const docs = await familyDocuments(family.id);
   return (
     <>
-      <PageHeader title="Documents" description="Reports, plans and letters from your consultant, kept here for you. Only your family can see them." />
+      <PageHeader title="Documents" description="Reports, plans and letters from your consultant, kept here for you to read online. Only your family can see them." />
       <Card>
         {docs.length === 0 ? (
           <EmptyState title="No documents yet">When your consultant shares something with you, it appears here.</EmptyState>
@@ -17,7 +18,7 @@ export default async function FamilyDocumentsPage() {
           <ul className="ui-rows">
             {docs.map((d) => (
               <li key={d.id}>
-                <a href={`/portal/documents/${d.id}/file`} className="ui-row-link" download>
+                <Link href={`/portal/documents/${d.id}`} className="ui-row-link">
                   <span className="ui-row-main">
                     <strong>{d.title}</strong>
                     <span>{d.note ?? d.filename}</span>
@@ -30,8 +31,8 @@ export default async function FamilyDocumentsPage() {
                     <span className="ui-row-label">Size</span>
                     {size(d.size)}
                   </span>
-                  <span className="btn-secondary ui-btn-sm">Download</span>
-                </a>
+                  <span className="btn-primary ui-btn-sm">View</span>
+                </Link>
               </li>
             ))}
           </ul>

@@ -150,7 +150,7 @@ export default async function AdminFamilyPage({
                   <li key={d.id}>
                     <div className="ui-row-link">
                       <span className="ui-row-main">
-                        <strong><a href={`/portal/documents/${d.id}/file`}>{d.title}</a></strong>
+                        <strong><a href={`/portal/documents/${d.id}/file`} target="_blank" rel="noopener noreferrer">{d.title}</a></strong>
                         <span>{d.filename}</span>
                       </span>
                       <form action={deleteDocument}>
@@ -164,8 +164,8 @@ export default async function AdminFamilyPage({
             )}
             <form action={uploadDocument} className="pt-form">
               <input type="hidden" name="family_id" value={family.id} />
-              <Field label="File" htmlFor="doc-file" hint="PDF, image, Word, Excel, PowerPoint or text.">
-                <input id="doc-file" name="file" type="file" required accept=".pdf,.png,.jpg,.jpeg,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx" />
+              <Field label="File" htmlFor="doc-file" hint="PDF, PNG, JPG or text. Save Word or Excel files as a PDF first, so the family can read them in the portal.">
+                <input id="doc-file" name="file" type="file" required accept=".pdf,.png,.jpg,.jpeg,.txt" />
               </Field>
               <Field label="Name the family sees" htmlFor="doc-title">
                 <input id="doc-title" name="title" placeholder="e.g. School shortlist" />
