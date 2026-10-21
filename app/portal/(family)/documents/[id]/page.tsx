@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { requireFamily, documentFile, familyDocuments } from "../../../../lib/portal/dal";
 import { formatDate } from "../../../../lib/portal/time";
+import { siteOrigin } from "../../../../lib/portal/origin";
+import { signDocLink, OFFICE_MIMES } from "../../../../lib/portal/doclinks";
 import { PageHeader, Card } from "../../../ui";
 
 // A document opens here, inside the portal, instead of downloading.
@@ -13,6 +15,7 @@ export default async function DocumentViewPage({ params }: { params: Promise<{ i
   const file = await documentFile(id);
   if (!file || file.family_id !== family.id) notFound();
   const src = `/portal/documents/${id}/file`;
+  const office = OFFICE_MIMES.has(meta.mime) && meta.mime !== "text/csv" ? `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(signDocLink(id, await siteOrigin()))}` : null;
 
   return (
     <>
@@ -20,10 +23,12 @@ export default async function DocumentViewPage({ params }: { params: Promise<{ i
         back={{ href: "/portal/documents", label: "All documents" }}
         title={meta.title}
         description={`${meta.note ? `${meta.note}. ` : ""}Added ${formatDate(new Date(meta.created_at), family.timezone)}`}
-        actions={<a href={src} target="_blank" rel="noopener noreferrer" className="btn-secondary">Open full screen</a>}
+        actions={<a href={office ? office.replace("/embed.aspx", "/view.aspx") : src} target="_blank" rel="noopener noreferrer" className="btn-secondary">Open full screen</a>}
       />
       <Card>
-        {meta.mime === "application/pdf" ? (
+        {office ? (
+          <iframe className="doc-frame" src={office} title={meta.title} />
+        ) : meta.mime === "application/pdf" ? (
           <iframe className="doc-frame" src={`${src}#toolbar=0&navpanes=0`} title={meta.title} />
         ) : meta.mime.startsWith("image/") ? (
           // eslint-disable-next-line @next/next/no-img-element

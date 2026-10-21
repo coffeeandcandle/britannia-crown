@@ -152,5 +152,6 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Shown by `ConsultationBand` on the home, Prices, Services, tutoring, subject, guide and About pages and in the footer.
 
 ## Documents
-- Admins and consultants upload documents for a family (Families, open a family, Documents). The family sees only its own under Documents in the portal and can download them. Documents open in a viewer inside the portal (PDF, PNG, JPG and text only, max 4 MB; Word, Excel and PowerPoint must be saved as PDF first). Files are stored in the database and every request checks who is asking. The browser's own PDF viewer may still offer a save option, so this discourages copying but cannot prevent it.
-- Uploading can email the family. Documents are not scanned for viruses. Tell staff to upload only files they trust, and consider a retention rule for sensitive documents about children.
+- Admins and consultants upload documents for a family (Families, open a family, Documents). The family sees only its own under Documents in the portal and reads them inside the portal, with no download button.
+- PDFs, images and text open directly. Word, Excel, PowerPoint and OpenDocument files open in Microsoft's free Office viewer, embedded in the page. **Microsoft's servers fetch the file to display it.** The client approved this. Each file is handed over through a signed link that works for 10 minutes. The privacy policy now names Daily and Microsoft's viewer as processors; please have the solicitor confirm that wording.
+- Files are stored in the database (max 4 MB). The browser's own viewer may still offer save or print, so this discourages copying but cannot prevent it. No virus scanning.

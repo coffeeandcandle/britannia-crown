@@ -164,8 +164,8 @@ export default async function AdminFamilyPage({
             )}
             <form action={uploadDocument} className="pt-form">
               <input type="hidden" name="family_id" value={family.id} />
-              <Field label="File" htmlFor="doc-file" hint="PDF, PNG, JPG or text. Save Word or Excel files as a PDF first, so the family can read them in the portal.">
-                <input id="doc-file" name="file" type="file" required accept=".pdf,.png,.jpg,.jpeg,.txt" />
+              <Field label="File" htmlFor="doc-file" hint="PDF, Word, Excel, PowerPoint, images or text. The family reads it inside the portal.">
+                <input id="doc-file" name="file" type="file" required accept=".pdf,.png,.jpg,.jpeg,.gif,.webp,.txt,.csv,.rtf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.odt,.ods,.odp" />
               </Field>
               <Field label="Name the family sees" htmlFor="doc-title">
                 <input id="doc-title" name="title" placeholder="e.g. School shortlist" />

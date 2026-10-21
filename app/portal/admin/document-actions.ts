@@ -14,7 +14,20 @@ const TYPES: Record<string, string> = {
   png: "image/png",
   jpg: "image/jpeg",
   jpeg: "image/jpeg",
+  gif: "image/gif",
+  webp: "image/webp",
   txt: "text/plain",
+  csv: "text/csv",
+  rtf: "application/rtf",
+  doc: "application/msword",
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  xls: "application/vnd.ms-excel",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  ppt: "application/vnd.ms-powerpoint",
+  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  odt: "application/vnd.oasis.opendocument.text",
+  ods: "application/vnd.oasis.opendocument.spreadsheet",
+  odp: "application/vnd.oasis.opendocument.presentation",
 };
 
 function back(familyId: number, msg: { ok?: string; error?: string }): never {
@@ -41,7 +54,7 @@ export async function uploadDocument(fd: FormData) {
   const f = file as File;
   const ext = (f.name.split(".").pop() ?? "").toLowerCase();
   const mime = TYPES[ext];
-  if (!mime) back(familyId, { error: "Only PDF, PNG, JPG and text files can be shown in the portal. Please save Word, Excel or PowerPoint files as a PDF first." });
+  if (!mime) back(familyId, { error: "That file type isn't supported. Use PDF, Word, Excel, PowerPoint, images or text files." });
   if (f.size > MAX_BYTES) back(familyId, { error: "That file is over 4 MB. Please compress it or split it." });
   const bytes = Buffer.from(await f.arrayBuffer());
   if (!looksRight(ext, bytes)) back(familyId, { error: "That file doesn't look like a valid " + ext.toUpperCase() + "." });
