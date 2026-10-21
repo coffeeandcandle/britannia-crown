@@ -104,9 +104,13 @@ export default function PricingPage() {
                 <p className="shop-desc">{s.summary}</p>
                 <ul className="shop-perks">{s.includes.map((x) => <li key={x}>{x}</li>)}</ul>
                 <div className="shop-actions">
-                  <Link href={`/book-consultation?session=${s.id}`} className={s.price === null ? "btn-primary" : "btn-secondary"}>
-                    {s.productId ? "Book and pay" : isBookable(s) ? "Choose a time" : "Request this session"}
-                  </Link>
+                  {s.productId ? (
+                    <a href={`/api/checkout?product=${s.productId}&return_path=/pricing`} className="btn-secondary">Pay and book</a>
+                  ) : (
+                    <Link href={`/book-consultation?session=${s.id}`} className={s.price === null ? "btn-primary" : "btn-secondary"}>
+                      {isBookable(s) ? "Choose a time" : "Request this session"}
+                    </Link>
+                  )}
                 </div>
               </article>
             ))}

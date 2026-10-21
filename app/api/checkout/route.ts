@@ -1,16 +1,30 @@
 import type Stripe from "stripe";
-import { getProduct } from "../../lib/products";
+import { getProduct, PAY_FIRST } from "../../lib/products";
 import { getStripe } from "../../lib/stripe";
 import { priceIdFor } from "../../lib/stripe-catalog";
-import { parseOnboarding } from "../../lib/onboarding";
+import { parseOnboarding, type Onboarding } from "../../lib/onboarding";
 import { recordEvent } from "../../lib/crm";
 
 const ATTRIBUTION_FIELDS = ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
 
+// Pay-first products (strategy session, trial lesson) start from a plain link, with no onboarding form first.
+export async function GET(request: Request) {
+  // Browsers and link scanners that only preview a page must not start a payment.
+  if ((request.headers.get("sec-purpose") ?? request.headers.get("purpose") ?? "").includes("prefetch")) return new Response(null, { status: 204 });
+  const url = new URL(request.url);
+  const form = new FormData();
+  for (const [k, v] of url.searchParams) form.set(k, v);
+  const product = getProduct(String(form.get("product") ?? ""));
+  if (!product || !PAY_FIRST.has(product.id)) return Response.redirect(`${url.origin}/pricing`, 303);
+  return create(url.origin, form);
+}
+
 // Buy buttons post a plain form here; we create a Stripe Checkout session and redirect to it.
 export async function POST(request: Request) {
-  const origin = new URL(request.url).origin;
-  const form = await request.formData();
+  return create(new URL(request.url).origin, await request.formData());
+}
+
+async function create(origin: string, form: FormData) {
   const product = getProduct(String(form.get("product") ?? ""));
   const returnPath = safePath(String(form.get("return_path") ?? "/"));
 
@@ -19,12 +33,17 @@ export async function POST(request: Request) {
   if (form.get("_gotcha")) return Response.redirect(`${origin}${returnPath}`, 303);
 
   // Nobody reaches payment without giving us their details. The form checks too, but a form can be bypassed.
+  // Pay-first products skip this: the details are collected straight after payment, before a time can be booked.
+  const payFirst = PAY_FIRST.has(product.id);
   const portalForm = String(form.get("return_path") ?? "") === "/portal/shop";
   const detailsUrl = (error: string) =>
     `${origin}${portalForm ? "/portal/checkout" : "/checkout/details"}?${new URLSearchParams({ product: product.id, return_path: returnPath, error })}`;
-  const parsed = parseOnboarding(form);
-  if ("error" in parsed) return Response.redirect(detailsUrl(parsed.error), 303);
-  const o = parsed.data;
+  let o: Onboarding | null = null;
+  if (!payFirst) {
+    const parsed = parseOnboarding(form);
+    if ("error" in parsed) return Response.redirect(detailsUrl(parsed.error), 303);
+    o = parsed.data;
+  }
 
   const stripe = getStripe();
   if (!stripe) {
@@ -32,7 +51,7 @@ export async function POST(request: Request) {
   }
 
   // Save the lead now, so the details are in the CRM even if they never finish paying.
-  if (process.env.DATABASE_URL) {
+  if (o && process.env.DATABASE_URL) {
     try {
       await recordEvent({
         name: o.name,
@@ -49,17 +68,19 @@ export async function POST(request: Request) {
   }
 
   // Stripe metadata values are capped at 500 characters. The webhook reads these to build the family, child and order.
-  const metadata: Record<string, string> = {
-    product_id: product.id,
-    page: returnPath,
-    parent_name: o.name,
-    phone: o.phone,
-    child_name: o.childName,
-    year_group: o.yearGroup,
-    help_with: o.focusArea,
-    focus: o.focus,
-    ...(o.times ? { times: o.times } : {}),
-  };
+  const metadata: Record<string, string> = o
+    ? {
+        product_id: product.id,
+        page: returnPath,
+        parent_name: o.name,
+        phone: o.phone,
+        child_name: o.childName,
+        year_group: o.yearGroup,
+        help_with: o.focusArea,
+        focus: o.focus,
+        ...(o.times ? { times: o.times } : {}),
+      }
+    : { product_id: product.id, page: returnPath };
   for (const key of ATTRIBUTION_FIELDS) {
     const value = form.get(key);
     if (typeof value === "string" && value) metadata[key] = value.slice(0, 500);
@@ -89,13 +110,13 @@ export async function POST(request: Request) {
     integration_identifier: "bc_website_checkout_qmvtrhzk",
     line_items: [lineItem],
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    customer_email: o.email,
+    ...(o ? { customer_email: o.email } : { phone_number_collection: { enabled: true } }),
     cancel_url: `${origin}${returnPath}${returnPath.includes("?") ? "&" : "?"}checkout=cancelled`,
     billing_address_collection: "auto",
     allow_promotion_codes: true,
     custom_text: {
       submit: {
-        message: `An education consultant will contact you within one working day to get started. By paying you agree to our terms and our refunds and cancellations policy (${origin}/refunds-and-cancellations), including your 14-day right to cancel.`,
+        message: `${payFirst ? "After you pay, you will tell us about your child and choose a time in your client portal." : "An education consultant will contact you within one working day to get started."} By paying you agree to our terms and our refunds and cancellations policy (${origin}/refunds-and-cancellations), including your 14-day right to cancel.`,
       },
     },
     metadata,

@@ -19,9 +19,11 @@ const copy = {
 export default function ConsultationBand({
   session = "strategy",
   tone = "white",
+  path = "/pricing",
 }: {
   session?: keyof typeof copy;
   tone?: "white" | "cream";
+  path?: string;
 }) {
   const type = getSessionType(session);
   if (!type) return null;
@@ -41,7 +43,12 @@ export default function ConsultationBand({
             {type.includes.map((x) => <li key={x}>{x}</li>)}
           </ul>
           <div className="uk-hero-actions">
-            <Link href={type.productId ? `/checkout/details?product=${type.productId}&return_path=/book-consultation` : `/book-consultation?session=${type.id}`} className="btn-primary">{c.cta} ({priceLabel(type)})</Link>
+            {type.productId ? (
+              // A plain link, not next/link, so nothing prefetches a payment.
+              <a href={`/api/checkout?product=${type.productId}&return_path=${encodeURIComponent(path)}`} className="btn-primary">{c.cta} ({priceLabel(type)})</a>
+            ) : (
+              <Link href={`/book-consultation?session=${type.id}`} className="btn-primary">{c.cta}</Link>
+            )}
             <Link href="/book-consultation?session=consultation" className="btn-secondary">Free 30-minute call first</Link>
           </div>
         </div>

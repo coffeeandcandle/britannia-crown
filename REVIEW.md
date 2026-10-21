@@ -161,3 +161,7 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - An admin or consultant ticks "The family needs to sign this document" when uploading (or clicks "Ask for signature" on an uploaded document). The family opens it in Documents, reads it, types their name, draws their signature and ticks the consent box.
 - We save the signature, name, date and time, IP address, browser and a SHA-256 fingerprint of the exact file. A signed PDF copy is produced: the original pages plus a certificate page (for non-PDF files, the certificate alone names the file and its fingerprint). Both the team and the family can open the signed copy.
 - This is a simple electronic signature. It is suitable for ordinary agreements and consent forms. Have the solicitor confirm the wording ("same effect as signing by hand") and whether any document needs a stronger form of signature.
+
+## Pay first, then details (strategy session and trial lesson)
+- These two products go straight to Stripe (no onboarding form first). Stripe collects email, name and phone. After paying, the family adds their details (child, year group, what they need) in Book a paid session, and the time slots only appear once that is done. Everything else (memberships, Dubai services) still requires the details form before payment.
+- Someone who pays and never fills in the details is still contactable from Stripe, and sits in Book a paid session until they do.

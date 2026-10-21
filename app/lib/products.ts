@@ -120,6 +120,9 @@ export const products: Product[] = [
   },
 ];
 
+// Sold pay first: they go straight to Stripe, and the family fills in the details right afterwards in the portal.
+export const PAY_FIRST = new Set(["strategy-session", "trial-lesson"]);
+
 export const getProduct = (id: string) => products.find((p) => p.id === id);
 
 export const formatPrice = (p: Pick<Product, "amount" | "currency">) =>

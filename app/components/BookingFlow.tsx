@@ -158,16 +158,16 @@ export default function BookingFlow() {
             <div className="enq-card">
               <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Book your {session.name.toLowerCase()}</h2>
               <p className="booking-hint">
-                Pay {priceLabel(session)} securely by card. You&apos;ll tell us about your child first, then pay through Stripe.{" "}
-                Straight after paying you choose a time in your client portal, at least 48 hours ahead so we can prepare.
+                Pay {priceLabel(session)} securely by card. You pay first through Stripe, then tell us about your child.{" "}
+                Straight after paying you add a few details and choose a time in your client portal, at least 48 hours ahead so we can prepare.
               </p>
-              <form action="/checkout/details" method="GET">
-                <input type="hidden" name="product" value={session.productId} />
-                <input type="hidden" name="return_path" value="/book-consultation" />
-                <button type="submit" className="form-submit" onClick={() => track("begin_checkout", { items: [{ item_id: session.productId, item_name: session.name }] })}>
-                  Continue to book and pay ({priceLabel(session)})
-                </button>
-              </form>
+              <a
+                className="form-submit"
+                href={`/api/checkout?product=${session.productId}&return_path=/book-consultation`}
+                onClick={() => track("begin_checkout", { items: [{ item_id: session.productId, item_name: session.name }] })}
+              >
+                Pay {priceLabel(session)} and book
+              </a>
             </div>
           ) : bookable ? (
             <form className="enq-card booking-form" onSubmit={onDetailsSubmit} noValidate>

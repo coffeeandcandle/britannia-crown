@@ -16,7 +16,7 @@ export function orderConfirmationEmail(o: {
     `Thank you for your order. We've received your payment for ${o.productName}${o.amountLabel ? ` (${o.amountLabel})` : ""}.`,
     "",
     ...(o.bookInPortal
-      ? ["Choose your time", `Book your session in your client portal: ${o.siteUrl}/portal/book . The earliest times start 48 hours from now. Sign up with this email address if you have not yet.`, ""]
+      ? ["Choose your time", `Add a few details about your child and choose a time in your client portal: ${o.siteUrl}/portal/book . The earliest times start 48 hours from now. Sign up with this email address if you have not yet.`, ""]
       : []),
     "What happens next",
     "- An education consultant will contact you within one working day to confirm your child's details and goals.",

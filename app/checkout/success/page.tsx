@@ -58,8 +58,8 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
               <h2 className="uk-h2">Now choose your time</h2>
             </div>
             <div className="uk-prose">
-              <p>Choose a time for your {session.name.toLowerCase()} in your client portal. It goes straight into your calendar, and the session itself happens in the portal too. Times start at least 48 hours ahead so we can prepare.</p>
-              <p><Link href="/portal/book" className="btn-primary">Choose a time in your portal</Link></p>
+              <p>Two quick steps in your client portal: tell us about your child, then choose a time for your {session.name.toLowerCase()}. It goes straight into your calendar and the session itself happens in the portal too. Times start at least 48 hours ahead so we can prepare.</p>
+              <p><Link href="/portal/book" className="btn-primary">Tell us about your child and choose a time</Link></p>
               <p>First time? Choose Sign up and use the same email address you paid with, so your purchase is waiting for you.</p>
             </div>
           </div>

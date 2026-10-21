@@ -191,3 +191,6 @@ CREATE INDEX IF NOT EXISTS availability_staff ON availability (staff_id, weekday
 
 -- A paid session (strategy session, trial lesson) is booked once into the portal calendar.
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS session_id integer REFERENCES sessions(id) ON DELETE SET NULL;
+
+-- Details collected after a pay-first purchase (child, year group, what they need). Null until the family fills them in.
+ALTER TABLE orders ADD COLUMN IF NOT EXISTS onboarding jsonb;

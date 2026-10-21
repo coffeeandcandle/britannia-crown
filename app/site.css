@@ -1641,3 +1641,4 @@ a.ui-stat:hover, .shop-card:hover, .plan:hover, .session-card:hover { transform:
 .bk-times { display: flex; flex-wrap: wrap; gap: 8px; }
 .av-switch { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
 .av-switch select { min-height: 40px; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); }
+a.form-submit { display: flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; }

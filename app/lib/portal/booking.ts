@@ -17,12 +17,12 @@ export const BOOKABLE: Record<string, { title: string; minutes: number; roles: R
 };
 const BOOKABLE_IDS = Object.keys(BOOKABLE);
 
-export type UnbookedOrder = { id: number; product_id: string; product_name: string; created_at: Date };
+export type UnbookedOrder = { id: number; product_id: string; product_name: string; created_at: Date; has_details: boolean };
 
 // Paid sessions this family has bought but not yet booked.
 export const unbookedOrders = (familyId: number) =>
   query<UnbookedOrder>(
-    `SELECT id, product_id, product_name, created_at FROM orders
+    `SELECT id, product_id, product_name, created_at, (onboarding IS NOT NULL) AS has_details FROM orders
      WHERE family_id = $1 AND status = 'paid' AND session_id IS NULL AND product_id = ANY($2::text[])
      ORDER BY created_at`,
     [familyId, BOOKABLE_IDS],
