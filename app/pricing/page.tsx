@@ -105,7 +105,7 @@ export default function PricingPage() {
                 <ul className="shop-perks">{s.includes.map((x) => <li key={x}>{x}</li>)}</ul>
                 <div className="shop-actions">
                   <Link href={`/book-consultation?session=${s.id}`} className={s.price === null ? "btn-primary" : "btn-secondary"}>
-                    {isBookable(s) ? "Choose a time" : "Request this session"}
+                    {s.productId ? "Book and pay" : isBookable(s) ? "Choose a time" : "Request this session"}
                   </Link>
                 </div>
               </article>

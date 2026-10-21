@@ -41,7 +41,7 @@ export default function ConsultationBand({
             {type.includes.map((x) => <li key={x}>{x}</li>)}
           </ul>
           <div className="uk-hero-actions">
-            <Link href={`/book-consultation?session=${type.id}`} className="btn-primary">{c.cta}</Link>
+            <Link href={type.productId ? `/checkout/details?product=${type.productId}&return_path=/book-consultation` : `/book-consultation?session=${type.id}`} className="btn-primary">{c.cta} ({priceLabel(type)})</Link>
             <Link href="/book-consultation?session=consultation" className="btn-secondary">Free 30-minute call first</Link>
           </div>
         </div>

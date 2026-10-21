@@ -136,7 +136,7 @@ export default function BookingFlow() {
                 </span>
                 <strong>{s.name}</strong>
                 <span>{s.summary}</span>
-                <span className="session-card-cta">{isBookable(s) ? "Choose a time →" : "Request this session →"}</span>
+                <span className="session-card-cta">{s.productId ? "Book and pay →" : isBookable(s) ? "Choose a time →" : "Request this session →"}</span>
               </button>
             ))}
           </div>
@@ -146,7 +146,6 @@ export default function BookingFlow() {
       {step === 2 && (
         <section aria-labelledby="booking-step-title" className="booking-panel">
           <div className="booking-summary">
-            <p className="booking-summary-label">You&apos;re booking</p>
             <p className="booking-summary-name">{session.name}</p>
             <p>{session.minutes} minutes · {priceLabel(session)}</p>
             <ul className="uk-ticks">
@@ -155,7 +154,24 @@ export default function BookingFlow() {
             <button type="button" className="finder-reset" onClick={() => setStep(1)}>Change session</button>
           </div>
 
-          {bookable ? (
+          {session.productId ? (
+            <div className="enq-card">
+              <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Book your {session.name.toLowerCase()}</h2>
+              <p className="booking-hint">
+                Pay {priceLabel(session)} securely by card. You&apos;ll tell us about your child first, then pay through Stripe.{" "}
+                {session.calendlyUrl
+                  ? "Straight after paying you choose a time, at least 48 hours ahead so we can prepare."
+                  : "We then contact you within one working day to arrange a time, at least 48 hours ahead so we can prepare."}
+              </p>
+              <form action="/checkout/details" method="GET">
+                <input type="hidden" name="product" value={session.productId} />
+                <input type="hidden" name="return_path" value="/book-consultation" />
+                <button type="submit" className="form-submit" onClick={() => track("begin_checkout", { items: [{ item_id: session.productId, item_name: session.name }] })}>
+                  Continue to book and pay ({priceLabel(session)})
+                </button>
+              </form>
+            </div>
+          ) : bookable ? (
             <form className="enq-card booking-form" onSubmit={onDetailsSubmit} noValidate>
               <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Tell us a little first</h2>
               <p className="booking-hint">This goes straight to your consultant, so the call can focus on your child.</p>

@@ -1,4 +1,5 @@
 import { CALENDLY_URL } from "./site";
+import { getProduct } from "./products";
 
 // Bookable session types. Each is a Calendly event type; paid ones take payment in Calendly
 // (Calendly → Integrations → Stripe, then set a price on the event type).
@@ -16,6 +17,8 @@ export type SessionType = {
   calendlyUrl: string | null;
   // Enquiry form option used when the session isn't bookable online yet.
   service: string;
+  // Paid sessions are bought through our own checkout first; this is the product in products.ts.
+  productId?: string;
 };
 
 export const sessionTypes: SessionType[] = [
@@ -33,7 +36,8 @@ export const sessionTypes: SessionType[] = [
     id: "strategy",
     name: "Strategy session",
     minutes: 60,
-    price: 150,
+    price: getProduct("strategy-session")?.amount ?? null,
+    productId: "strategy-session",
     summary: "An in-depth session on a school choice, an exam plan or home education, with a written summary afterwards.",
     includes: ["A detailed review of your child's situation", "A school shortlist, exam plan or home education plan", "A written summary within two working days"],
     calendlyUrl: null,
@@ -43,13 +47,17 @@ export const sessionTypes: SessionType[] = [
     id: "trial-lesson",
     name: "Trial tutoring lesson",
     minutes: 45,
-    price: 50,
+    price: getProduct("trial-lesson")?.amount ?? null,
+    productId: "trial-lesson",
     summary: "A first one-to-one lesson with a matched tutor, online, so your child can try it before committing.",
     includes: ["A tutor matched to the subject and level", "A short assessment of where your child is", "Feedback and a suggested plan after the lesson"],
     calendlyUrl: null,
     service: "Tutoring",
   },
 ];
+
+// The session a product belongs to (used after payment to offer the booking link).
+export const sessionForProduct = (productId: string | null | undefined) => sessionTypes.find((s) => s.productId && s.productId === productId);
 
 export const getSessionType = (id: string | null | undefined) => sessionTypes.find((s) => s.id === id);
 

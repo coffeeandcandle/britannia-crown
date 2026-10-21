@@ -19,6 +19,26 @@ export type Product = {
 
 export const products: Product[] = [
   {
+    id: "strategy-session",
+    name: "Strategy session (60 minutes)",
+    description: "An in-depth hour with an education consultant on a school choice, an exam plan, tutoring or home education, with a written summary afterwards.",
+    amount: 150,
+    currency: "gbp",
+    mode: "payment",
+    unit: "one-time",
+    service: "General Enquiry",
+  },
+  {
+    id: "trial-lesson",
+    name: "Trial tutoring lesson",
+    description: "A first one-to-one lesson with a matched tutor, online, so your child can try it before committing.",
+    amount: 50,
+    currency: "gbp",
+    mode: "payment",
+    unit: "one-time",
+    service: "Tutoring",
+  },
+  {
     id: "uae-nursery-search",
     name: "Nursery Search & Placement (Dubai)",
     description: "Research, shortlisting, visit coordination and application support for an EYFS nursery place.",

@@ -4,6 +4,7 @@ import { getStripe } from "../../lib/stripe";
 import { getProduct, formatPrice } from "../../lib/products";
 import { EMAIL } from "../../lib/site";
 import PurchaseTracker from "../../components/PurchaseTracker";
+import { sessionForProduct } from "../../lib/sessions";
 
 export const metadata: Metadata = {
   title: "Thank you | Britannia Crown",
@@ -34,6 +35,7 @@ async function loadOrder(sessionId: string | undefined) {
 export default async function CheckoutSuccessPage({ searchParams }: Props) {
   const { session_id } = await searchParams;
   const order = await loadOrder(Array.isArray(session_id) ? session_id[0] : session_id);
+  const session = sessionForProduct(order?.product?.id);
 
   return (
     <>
@@ -48,6 +50,26 @@ export default async function CheckoutSuccessPage({ searchParams }: Props) {
           </p>
         </div>
       </section>
+
+      {session && (
+        <section className="uk-section white">
+          <div className="uk-wrap uk-split">
+            <div>
+              <h2 className="uk-h2">{session.calendlyUrl ? "Now choose your time" : "We will arrange your time"}</h2>
+            </div>
+            <div className="uk-prose">
+              {session.calendlyUrl ? (
+                <>
+                  <p>Pick a slot for your {session.name.toLowerCase()}. Times start at least 48 hours ahead so we can prepare.</p>
+                  <p><a href={session.calendlyUrl} className="btn-primary" target="_blank" rel="noopener noreferrer">Choose a time</a></p>
+                </>
+              ) : (
+                <p>An education consultant will contact you within one working day to agree a time for your {session.name.toLowerCase()}, at least 48 hours ahead so we can prepare.</p>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="uk-section cream">
         <div className="uk-wrap uk-split">

@@ -145,11 +145,10 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Not enabled: recording, and no whiteboard beyond Daily's built-in screen share and chat. Decide on recording (consent, retention, who can watch back) and safeguarding with your solicitor before turning it on.
 - Check Daily's current free allowance and pricing; usage is billed by Daily if you exceed the free tier.
 
-## Strategy session and trial lesson (paid, booked through Calendly)
-- Client confirmed: strategy session £150 for 60 minutes, trial tutoring lesson £50. Prices are in `app/lib/sessions.ts`. The trial lesson's length (45 minutes) is still my assumption, so please confirm it.
-- Both are booked through the existing booking flow (details form, then Calendly picks the time and takes the card payment through Calendly's Stripe link). They only become bookable once a Calendly link is pasted into `calendlyUrl` for each session in `sessions.ts`.
-- Needed in Calendly: an event type for each, with the price set and Stripe connected, plus "Minimum scheduling notice" set to 2 days so the next 48 hours are greyed out.
-- Shown by `ConsultationBand` on the home, Prices, Services, tutoring, subject, guide and About pages and in the footer.
+## Strategy session and trial lesson (paid on the site)
+- Client confirmed: strategy session £150 for 60 minutes, trial tutoring lesson £50. Prices live in `app/lib/products.ts` (the session list reads them from there). The trial lesson's 45 minutes is still an assumption to confirm.
+- Both are bought through the normal details form and Stripe checkout. After payment the success page offers a Calendly link to choose a time if one is set for that session in `app/lib/sessions.ts` (`calendlyUrl`); until then it says a consultant will arrange a time within one working day.
+- In Calendly, set each event's "Minimum scheduling notice" to 2 days so the next 48 hours are greyed out. Because payment happens on our site, the Calendly events themselves should be free (no price), or families would pay twice.
 
 ## Documents
 - Admins and consultants upload documents for a family (Families, open a family, Documents). The family sees only its own under Documents in the portal and reads them inside the portal, with no download button.
