@@ -7,7 +7,7 @@ import GuideCards from "./GuideCards";
 import BuyButton from "./BuyButton";
 import AccountBand from "./AccountBand";
 import HeroMedia from "./HeroMedia";
-import { offerPhoto } from "../lib/images";
+import { offerPhoto, photoUrl } from "../lib/images";
 import { getProduct, formatPrice } from "../lib/products";
 import { paymentsEnabled } from "../lib/stripe";
 import { offers, offerPath, type Offer } from "../lib/offers";
@@ -204,6 +204,8 @@ export default function OfferPage({ offer }: { offer: Offer }) {
             description: offer.seoDescription,
             url: `${SITE_URL}${path}`,
             brand: { "@type": "Brand", name: SITE_NAME },
+            // Google's merchant listing rules need a product image.
+            image: [photoUrl(offerPhoto[offer.slug] ?? "tutoring", 1200)],
             offers: {
               "@type": "Offer",
               price: product.amount,
@@ -211,6 +213,14 @@ export default function OfferPage({ offer }: { offer: Offer }) {
               availability: "https://schema.org/InStock",
               url: `${SITE_URL}${path}`,
               seller: { "@id": ORG_ID },
+              // The 14-day right to cancel set out in the refunds and cancellations policy.
+              hasMerchantReturnPolicy: {
+                "@type": "MerchantReturnPolicy",
+                applicableCountry: "GB",
+                returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+                merchantReturnDays: 14,
+                merchantReturnLink: `${SITE_URL}/refunds-and-cancellations`,
+              },
               ...(product.mode === "subscription"
                 ? { priceSpecification: { "@type": "UnitPriceSpecification", price: product.amount, priceCurrency: "GBP", billingDuration: "P1M", unitCode: "MON" } }
                 : {}),
