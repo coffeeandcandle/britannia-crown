@@ -624,3 +624,18 @@ export const listLessonRequests = (status: "pending" | "handled") =>
 export async function pendingRequestCount() {
   return (await queryOne<{ n: number }>("SELECT count(*)::int AS n FROM lesson_requests WHERE status = 'pending'"))?.n ?? 0;
 }
+
+/* ── Documents (uploaded by the team for a family) ── */
+
+export type DocumentRow = { id: number; family_id: number; title: string; note: string | null; filename: string; mime: string; size: number; created_at: Date; uploader: string | null };
+
+export const familyDocuments = (familyId: number) =>
+  query<DocumentRow>(
+    `SELECT d.id, d.family_id, d.title, d.note, d.filename, d.mime, d.size, d.created_at, s.name AS uploader
+     FROM documents d LEFT JOIN staff s ON s.id = d.uploaded_by WHERE d.family_id = $1 ORDER BY d.created_at DESC`,
+    [familyId],
+  );
+
+// The file itself, only ever returned to the family it belongs to or a manager (checked by the caller).
+export const documentFile = (id: number) =>
+  queryOne<{ family_id: number; filename: string; mime: string; data: Buffer }>("SELECT family_id, filename, mime, data FROM documents WHERE id = $1", [id]);

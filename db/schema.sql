@@ -151,3 +151,18 @@ CREATE INDEX IF NOT EXISTS lesson_requests_family ON lesson_requests (family_id,
 
 -- In-portal video lessons (Daily). One private room per lesson, created the first time someone joins.
 ALTER TABLE sessions ADD COLUMN IF NOT EXISTS room_url text;
+
+-- Documents an admin or consultant uploads for a family (reports, plans, letters). Only that family and the team can open them.
+CREATE TABLE IF NOT EXISTS documents (
+  id          serial PRIMARY KEY,
+  family_id   integer NOT NULL REFERENCES families(id) ON DELETE CASCADE,
+  title       text NOT NULL,
+  note        text,
+  filename    text NOT NULL,
+  mime        text NOT NULL,
+  size        integer NOT NULL,
+  data        bytea NOT NULL,
+  uploaded_by integer REFERENCES staff(id) ON DELETE SET NULL,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS documents_family ON documents (family_id, created_at DESC);

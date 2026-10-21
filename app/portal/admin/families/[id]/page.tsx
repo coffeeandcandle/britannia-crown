@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { requireStaff, getFamily, familyChildren, familySessions, listStaff } from "../../../../lib/portal/dal";
+import { requireStaff, getFamily, familyChildren, familySessions, listStaff, familyDocuments } from "../../../../lib/portal/dal";
 import { TIMEZONES, tzLabel } from "../../../../lib/portal/time";
 import { siteOrigin } from "../../../../lib/portal/origin";
 import { SIGN_IN_PATH } from "../../../../lib/portal/config";
@@ -8,6 +8,7 @@ import { SessionList, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Checklist, Avatar, Pill, Field } from "../../../ui";
 import { SubmitButton, ConfirmSubmit, CopyButton } from "../../../client-ui";
 import { saveFamily, addChild, removeChild, scheduleSession } from "../../actions";
+import { uploadDocument, deleteDocument } from "../../document-actions";
 
 const subjectSuggestions = [
   "GCSE Maths", "GCSE English", "GCSE Science", "GCSE Chemistry", "GCSE Biology", "GCSE Physics",
@@ -27,7 +28,7 @@ export default async function AdminFamilyPage({
   if (!Number.isInteger(id)) notFound();
   const family = await getFamily(id);
   if (!family) notFound();
-  const [children, sessions, team, msg, origin] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin()]);
+  const [children, sessions, team, msg, origin, documents] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin(), familyDocuments(id)]);
   const active = team.filter((s) => s.active);
   const consultants = active.filter((s) => s.role !== "tutor");
   const consultant = team.find((s) => s.id === family.consultant_id);
@@ -142,6 +143,40 @@ export default async function AdminFamilyPage({
         </div>
 
         <aside className="pt-side">
+          <Card id="documents" title="Documents" description="Only this family and the team can open these. Files up to 4 MB.">
+            {documents.length > 0 && (
+              <ul className="ui-rows">
+                {documents.map((d) => (
+                  <li key={d.id}>
+                    <div className="ui-row-link">
+                      <span className="ui-row-main">
+                        <strong><a href={`/portal/documents/${d.id}/file`}>{d.title}</a></strong>
+                        <span>{d.filename}</span>
+                      </span>
+                      <form action={deleteDocument}>
+                        <input type="hidden" name="id" value={d.id} />
+                        <ConfirmSubmit message={`Delete ${d.title}? The family will no longer be able to open it.`}>Delete</ConfirmSubmit>
+                      </form>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <form action={uploadDocument} className="pt-form">
+              <input type="hidden" name="family_id" value={family.id} />
+              <Field label="File" htmlFor="doc-file" hint="PDF, image, Word, Excel, PowerPoint or text.">
+                <input id="doc-file" name="file" type="file" required accept=".pdf,.png,.jpg,.jpeg,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx" />
+              </Field>
+              <Field label="Name the family sees" htmlFor="doc-title">
+                <input id="doc-title" name="title" placeholder="e.g. School shortlist" />
+              </Field>
+              <Field label="Short note (optional)" htmlFor="doc-note">
+                <input id="doc-note" name="note" />
+              </Field>
+              <label className="onboarding-check"><input type="checkbox" name="notify" defaultChecked /> <span>Email the family that it is ready</span></label>
+              <SubmitButton pendingText="Uploading…">Upload document</SubmitButton>
+            </form>
+          </Card>
           <Card id="children" title="Children" description="Lessons and notes can be linked to each child.">
             {children.length > 0 && (
               <ul className="ui-people">

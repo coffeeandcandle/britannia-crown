@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   // Lets React's <ViewTransition> soften route changes (see app/template.tsx and site.css).
   experimental: {
     viewTransition: true,
+    // Admins upload documents of up to 4 MB through a server action.
+    serverActions: { bodySizeLimit: "5mb" },
   },
   images: {
     remotePatterns: [

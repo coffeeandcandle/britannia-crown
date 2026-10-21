@@ -150,3 +150,7 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Both are booked through the existing booking flow (details form, then Calendly picks the time and takes the card payment through Calendly's Stripe link). They only become bookable once a Calendly link is pasted into `calendlyUrl` for each session in `sessions.ts`.
 - Needed in Calendly: an event type for each, with the price set and Stripe connected, plus "Minimum scheduling notice" set to 2 days so the next 48 hours are greyed out.
 - Shown by `ConsultationBand` on the home, Prices, Services, tutoring, subject, guide and About pages and in the footer.
+
+## Documents
+- Admins and consultants upload documents for a family (Families, open a family, Documents). The family sees only its own under Documents in the portal and can download them. Files are stored in the database (max 4 MB; PDF, images, Word, Excel, PowerPoint, text) and every download checks who is asking.
+- Uploading can email the family. Documents are not scanned for viruses. Tell staff to upload only files they trust, and consider a retention rule for sensitive documents about children.
