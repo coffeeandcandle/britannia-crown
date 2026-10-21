@@ -20,7 +20,7 @@ export default async function FamilyDocumentsPage() {
               <li key={d.id}>
                 <Link href={`/portal/documents/${d.id}`} className="ui-row-link">
                   <span className="ui-row-main">
-                    <strong>{d.title}</strong>
+                    <strong>{d.title}{d.needs_signature && (d.signed_at ? <span className="doc-status is-done">Signed</span> : <span className="doc-status is-todo">Needs your signature</span>)}</strong>
                     <span>{d.note ?? d.filename}</span>
                   </span>
                   <span className="ui-row-cell ui-hide-sm">
@@ -31,7 +31,7 @@ export default async function FamilyDocumentsPage() {
                     <span className="ui-row-label">Size</span>
                     {size(d.size)}
                   </span>
-                  <span className="btn-primary ui-btn-sm">View</span>
+                  <span className="btn-primary ui-btn-sm">{d.needs_signature && !d.signed_at ? "Review and sign" : "View"}</span>
                 </Link>
               </li>
             ))}

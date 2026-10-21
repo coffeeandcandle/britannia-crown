@@ -155,3 +155,8 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Admins and consultants upload documents for a family (Families, open a family, Documents). The family sees only its own under Documents in the portal and reads them inside the portal, with no download button.
 - PDFs, images and text open directly. Word, Excel, PowerPoint and OpenDocument files open in Microsoft's free Office viewer, embedded in the page. **Microsoft's servers fetch the file to display it.** The client approved this. Each file is handed over through a signed link that works for 10 minutes. The privacy policy now names Daily and Microsoft's viewer as processors; please have the solicitor confirm that wording.
 - Files are stored in the database (max 4 MB). The browser's own viewer may still offer save or print, so this discourages copying but cannot prevent it. No virus scanning.
+
+## Signing documents in the portal
+- An admin or consultant ticks "The family needs to sign this document" when uploading (or clicks "Ask for signature" on an uploaded document). The family opens it in Documents, reads it, types their name, draws their signature and ticks the consent box.
+- We save the signature, name, date and time, IP address, browser and a SHA-256 fingerprint of the exact file. A signed PDF copy is produced: the original pages plus a certificate page (for non-PDF files, the certificate alone names the file and its fingerprint). Both the team and the family can open the signed copy.
+- This is a simple electronic signature. It is suitable for ordinary agreements and consent forms. Have the solicitor confirm the wording ("same effect as signing by hand") and whether any document needs a stronger form of signature.

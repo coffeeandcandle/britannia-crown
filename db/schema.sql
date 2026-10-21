@@ -166,3 +166,13 @@ CREATE TABLE IF NOT EXISTS documents (
   created_at  timestamptz NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS documents_family ON documents (family_id, created_at DESC);
+
+-- Documents that need a signature from the family, signed in the portal.
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS needs_signature boolean NOT NULL DEFAULT false;
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_at timestamptz;
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_name text;
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_ip text;
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_agent text;
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_hash text;
+-- The signed copy: the original PDF with a certificate page added, or just the certificate for other file types.
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS signed_data bytea;

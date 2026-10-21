@@ -8,7 +8,7 @@ import { SessionList, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Checklist, Avatar, Pill, Field } from "../../../ui";
 import { SubmitButton, ConfirmSubmit, CopyButton } from "../../../client-ui";
 import { saveFamily, addChild, removeChild, scheduleSession } from "../../actions";
-import { uploadDocument, deleteDocument } from "../../document-actions";
+import { uploadDocument, deleteDocument, setNeedsSignature } from "../../document-actions";
 
 const subjectSuggestions = [
   "GCSE Maths", "GCSE English", "GCSE Science", "GCSE Chemistry", "GCSE Biology", "GCSE Physics",
@@ -151,8 +151,19 @@ export default async function AdminFamilyPage({
                     <div className="ui-row-link">
                       <span className="ui-row-main">
                         <strong><a href={`/portal/documents/${d.id}/file`} target="_blank" rel="noopener noreferrer">{d.title}</a></strong>
-                        <span>{d.filename}</span>
+                        <span>
+                          {d.filename}
+                          {d.signed_at ? ` · Signed by ${d.signed_name}` : d.needs_signature ? " · Waiting for signature" : ""}
+                        </span>
+                        {d.signed_at && <a href={`/portal/documents/${d.id}/file?v=signed`} target="_blank" rel="noopener noreferrer">Open signed copy</a>}
                       </span>
+                      {!d.signed_at && (
+                        <form action={setNeedsSignature}>
+                          <input type="hidden" name="id" value={d.id} />
+                          <input type="hidden" name="on" value={d.needs_signature ? "0" : "1"} />
+                          <SubmitButton className="btn-secondary ui-btn-sm">{d.needs_signature ? "Cancel signature" : "Ask for signature"}</SubmitButton>
+                        </form>
+                      )}
                       <form action={deleteDocument}>
                         <input type="hidden" name="id" value={d.id} />
                         <ConfirmSubmit message={`Delete ${d.title}? The family will no longer be able to open it.`}>Delete</ConfirmSubmit>
@@ -173,6 +184,7 @@ export default async function AdminFamilyPage({
               <Field label="Short note (optional)" htmlFor="doc-note">
                 <input id="doc-note" name="note" />
               </Field>
+              <label className="onboarding-check"><input type="checkbox" name="needs_signature" /> <span>The family needs to sign this document</span></label>
               <label className="onboarding-check"><input type="checkbox" name="notify" defaultChecked /> <span>Email the family that it is ready</span></label>
               <SubmitButton pendingText="Uploading…">Upload document</SubmitButton>
             </form>

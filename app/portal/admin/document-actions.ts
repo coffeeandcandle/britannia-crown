@@ -64,15 +64,15 @@ export async function uploadDocument(fd: FormData) {
   const filename = f.name.replace(/[^\w.\- ]+/g, "_").slice(0, 120);
 
   await query(
-    "INSERT INTO documents (family_id, title, note, filename, mime, size, data, uploaded_by) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
-    [familyId, title, note, filename, mime, f.size, bytes, staff.id],
+    "INSERT INTO documents (family_id, title, note, filename, mime, size, data, uploaded_by, needs_signature) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+    [familyId, title, note, filename, mime, f.size, bytes, staff.id, fd.get("needs_signature") === "on"],
   );
   if (fd.get("notify") === "on") {
     try {
       await sendEmail({
         to: [family.email],
         subject: "A new document is ready | Britannia Crown",
-        text: `Hello ${family.name.split(" ")[0]},\n\nWe have added a new document for you: ${title}.\n\nYou can open it under Documents in your client portal:\n${SITE_URL}/portal/documents\n\nBritannia Crown`,
+        text: `Hello ${family.name.split(" ")[0]},\n\nWe have added a new document for you: ${title}.${fd.get("needs_signature") === "on" ? " It needs your signature." : ""}\n\nYou can open it under Documents in your client portal:\n${SITE_URL}/portal/documents\n\nBritannia Crown`,
       });
     } catch (error) {
       console.error("Document email not sent (the document is saved)", error);
@@ -89,4 +89,17 @@ export async function deleteDocument(fd: FormData) {
   revalidatePath("/portal", "layout");
   if (!row) redirect("/portal/admin/families");
   back(row.family_id, { ok: "Document deleted." });
+}
+
+// Asks a family to sign a document that has already been uploaded (and cancels the request if it is not yet signed).
+export async function setNeedsSignature(fd: FormData) {
+  await requireStaff(["admin", "consultant"]);
+  const id = Number(fd.get("id"));
+  const on = fd.get("on") === "1";
+  const row = Number.isInteger(id)
+    ? await queryOne<{ family_id: number }>("UPDATE documents SET needs_signature = $1 WHERE id = $2 AND signed_at IS NULL RETURNING family_id", [on, id])
+    : null;
+  revalidatePath("/portal", "layout");
+  if (!row) redirect("/portal/admin/families");
+  back(row.family_id, { ok: on ? "The family has been asked to sign this document." : "Signature request removed." });
 }

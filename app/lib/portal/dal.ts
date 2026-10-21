@@ -627,15 +627,16 @@ export async function pendingRequestCount() {
 
 /* ── Documents (uploaded by the team for a family) ── */
 
-export type DocumentRow = { id: number; family_id: number; title: string; note: string | null; filename: string; mime: string; size: number; created_at: Date; uploader: string | null };
+export type DocumentRow = { id: number; family_id: number; title: string; note: string | null; filename: string; mime: string; size: number; created_at: Date; uploader: string | null; needs_signature: boolean; signed_at: Date | null; signed_name: string | null };
 
 export const familyDocuments = (familyId: number) =>
   query<DocumentRow>(
-    `SELECT d.id, d.family_id, d.title, d.note, d.filename, d.mime, d.size, d.created_at, s.name AS uploader
+    `SELECT d.id, d.family_id, d.title, d.note, d.filename, d.mime, d.size, d.created_at, s.name AS uploader,
+            d.needs_signature, d.signed_at, d.signed_name
      FROM documents d LEFT JOIN staff s ON s.id = d.uploaded_by WHERE d.family_id = $1 ORDER BY d.created_at DESC`,
     [familyId],
   );
 
 // The file itself, only ever returned to the family it belongs to or a manager (checked by the caller).
 export const documentFile = (id: number) =>
-  queryOne<{ family_id: number; filename: string; mime: string; data: Buffer }>("SELECT family_id, filename, mime, data FROM documents WHERE id = $1", [id]);
+  queryOne<{ family_id: number; filename: string; mime: string; data: Buffer; signed_data: Buffer | null }>("SELECT family_id, filename, mime, data, signed_data FROM documents WHERE id = $1", [id]);
