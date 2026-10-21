@@ -165,3 +165,6 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 ## Pay first, then details (strategy session and trial lesson)
 - These two products go straight to Stripe (no onboarding form first). Stripe collects email, name and phone. After paying, the family adds their details (child, year group, what they need) in Book a paid session, and the time slots only appear once that is done. Everything else (memberships, Dubai services) still requires the details form before payment.
 - Someone who pays and never fills in the details is still contactable from Stripe, and sits in Book a paid session until they do.
+
+## Article cover photos
+- Every guide now has its own cover photo (`guideCovers` in `app/lib/images.ts`), all free-to-use Unsplash images with photographer credit, none repeated anywhere else on the site. They illustrate the topic only and are never presented as Britannia Crown's own tutors, clients or children. To use your own photography, replace the id for a guide there.

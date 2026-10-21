@@ -9,7 +9,7 @@ import GuideCards from "../../components/GuideCards";
 import GuideHelp from "../../components/GuideHelp";
 import AccountBand from "../../components/AccountBand";
 import Photo from "../../components/Photo";
-import { categoryPhoto } from "../../lib/images";
+import { categoryPhoto, guideCovers } from "../../lib/images";
 import JsonLd from "../../components/JsonLd";
 import { guides, getGuide } from "../../lib/guides";
 import { readGuideSource } from "../../lib/guide-source";
@@ -76,7 +76,7 @@ export default async function GuidePage({ params }: Props) {
             By Britannia Crown · Updated <time dateTime={guide.updated}>{formatDate(guide.updated)}</time> · {minutes} min read
           </p>
           <div className="gd-hero-img">
-            <Photo name={categoryPhoto[guide.category] ?? "tutoring"} sizes="(min-width: 1200px) 1180px, 100vw" priority />
+            <Photo name={categoryPhoto[guide.category] ?? "tutoring"} cover={guideCovers[guide.slug]} sizes="(min-width: 1200px) 1180px, 100vw" priority />
           </div>
         </div>
       </section>

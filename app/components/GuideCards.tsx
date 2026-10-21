@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Photo from "./Photo";
-import { categoryPhoto } from "../lib/images";
+import { categoryPhoto, guideCovers } from "../lib/images";
 import type { Guide } from "../lib/guides";
 import { readGuideSource } from "../lib/guide-source";
 
@@ -13,7 +13,7 @@ export default async function GuideCards({ items, feature = false }: { items: Gu
       {items.map((g, i) => (
         <Link href={`/guides/${g.slug}`} className="gd-card" key={g.slug}>
           <span className="gd-card-img" aria-hidden="true">
-            <Photo name={categoryPhoto[g.category] ?? "tutoring"} sizes="(min-width: 1000px) 33vw, 100vw" />
+            <Photo name={categoryPhoto[g.category] ?? "tutoring"} cover={guideCovers[g.slug]} sizes="(min-width: 1000px) 33vw, 100vw" />
           </span>
           <span className="gd-card-cat">{g.category}</span>
           <strong className="gd-card-title">{g.title}</strong>
