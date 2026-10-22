@@ -48,8 +48,8 @@ export default function Home() {
               who knows your child and stays involved.
             </p>
             <div className="uk-hero-actions">
-              <Link href="/book-consultation" className="btn-primary">Book a free consultation</Link>
-              <Link href="#partner" className="btn-secondary">Start tutoring today</Link>
+              <a href="/api/checkout?product=strategy-session&return_path=%2F" className="btn-primary">Book a strategy session (£150)</a>
+              <Link href="/book-consultation" className="btn-secondary">Book a free call</Link>
             </div>
             <p className="hm-signup">
               New here? <SignupLink location="home_hero">Create your free account</SignupLink> to track lessons, notes and receipts.
@@ -63,6 +63,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ConsultationBand tone="cream" path="/" />
 
       <section className="uk-section cream hm-pathfinder" aria-labelledby="pathfinder-title">
         <div className="uk-wrap hm-pathfinder-grid">
@@ -112,7 +114,6 @@ export default function Home() {
 
       <HomePlans />
 
-      <ConsultationBand tone="white" />
       <AccountBand variant="band" location="home_band" />
 
       <section className="uk-section white">

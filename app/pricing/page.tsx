@@ -91,11 +91,14 @@ export default function PricingPage() {
       </section>
 
       <nav className="shop-jump uk-wrap" aria-label="On this page">
-        <a href="#consultations">Free consultation</a>
+        <a href="#consultation">Strategy session (£150)</a>
+        <a href="#consultations">Free call &amp; trial lesson</a>
         <a href="#membership">Tutoring membership</a>
         <a href="#tailored">Consultancy</a>
         <a href="#uae">Moving to Dubai</a>
       </nav>
+
+      <ConsultationBand tone="white" />
 
       <section className="uk-section cream" id="consultations">
         <div className="uk-wrap">
@@ -174,7 +177,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <ConsultationBand tone="white" />
       <AccountBand variant="inline" location="pricing_page" />
 
       <FaqSection faqs={faqs} tone="cream" />

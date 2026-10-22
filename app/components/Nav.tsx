@@ -309,7 +309,7 @@ export default function Nav() {
           <div className="header-actions">
             <Link href={signedIn ? "/portal" : "/portal/login"} className="header-wa header-login">{signedIn ? "My portal" : "Log in"}</Link>
             {!signedIn && <SignupLink location="header" className="header-signup">Sign up free</SignupLink>}
-            <Link href="/book-consultation" className="btn-primary header-cta">Book a free call</Link>
+            <a href="/api/checkout?product=strategy-session&return_path=%2F" className="btn-primary header-cta">Book strategy · £150</a>
           </div>
 
           {/* Phones and tablets: the desktop actions above are hidden, so the login stays one tap away. */}
@@ -357,8 +357,8 @@ export default function Nav() {
             ))}
           </nav>
           <div className="mobile-menu-actions">
-            <Link href="/book-consultation" className="btn-primary" onClick={closeAll}>Book a free 30-minute call</Link>
-            <Link href="/contact" className="btn-secondary" onClick={closeAll}>Send an enquiry</Link>
+            <a href="/api/checkout?product=strategy-session&return_path=%2F" className="btn-primary" onClick={closeAll}>Book a strategy session (£150)</a>
+            <Link href="/book-consultation" className="btn-secondary" onClick={closeAll}>Book a free 30-minute call</Link>
             {!signedIn && <SignupLink location="mobile_menu" className="btn-primary" onClick={closeAll}>Create a free account</SignupLink>}
             <Link href={signedIn ? "/portal" : "/portal/login"} className="btn-secondary" onClick={closeAll}>{signedIn ? "Open my portal" : "Log in"}</Link>
           </div>
