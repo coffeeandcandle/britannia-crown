@@ -17,7 +17,7 @@ export default function Footer() {
                 <span className="brand-sub">Education Consultants</span>
               </span>
             </Link>
-            <p>British education consultants: private tutoring, home education, school placement and qualifications, plus advice for families moving to the UAE.</p>
+            <p>British education consultants: private tutoring, home education, school placement and qualifications, plus advice for families moving to the UAE. Educational support and advice for families who need help navigating the school system.</p>
             <div className="footer-contact">
               <Link href="/book-consultation">Book a free 30-minute call →</Link>
               <Link href="/contact">Send an enquiry</Link>

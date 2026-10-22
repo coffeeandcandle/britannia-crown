@@ -206,8 +206,8 @@ export default function Finder() {
 
   return (
     <div className="finder">
-      <h2>Find the right help</h2>
-      <p>Answer one or two questions and we&apos;ll point you to the right place.</p>
+      <h2>What can we help with?</h2>
+      <p>Select the closest fit and we&apos;ll suggest a useful next step.</p>
 
       <Options
         name="need"

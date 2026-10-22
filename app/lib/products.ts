@@ -15,6 +15,8 @@ export type Product = {
   unit: string;
   // The enquiry form option to fall back to when online payment is switched off.
   service: string;
+  // Additional ways to pay for this same service, such as a one-off payment and subscription.
+  additionalCheckoutProductIds?: string[];
 };
 
 export const products: Product[] = [
@@ -60,12 +62,23 @@ export const products: Product[] = [
   },
   {
     id: "uae-exam-prep-term",
-    name: "GCSE & A-Level Preparation (one term)",
-    description: "Exam technique coaching, past papers, mark schemes, revision planning and mock exams for one term.",
+    name: "GCSE & A-Level Preparation (monthly)",
+    description: "Exam technique coaching, past papers, mark schemes, revision planning and mock exams.",
     amount: 1000,
     currency: "gbp",
     mode: "payment",
-    unit: "per term",
+    unit: "per month",
+    service: "GCSE & A-Level Preparation",
+    additionalCheckoutProductIds: ["uae-exam-prep-monthly-subscription"],
+  },
+  {
+    id: "uae-exam-prep-monthly-subscription",
+    name: "GCSE & A-Level Preparation (monthly subscription)",
+    description: "Exam technique coaching, past papers, mark schemes, revision planning and mock exams.",
+    amount: 1000,
+    currency: "gbp",
+    mode: "subscription",
+    unit: "per month",
     service: "GCSE & A-Level Preparation",
   },
   {
@@ -81,7 +94,7 @@ export const products: Product[] = [
   {
     id: "uae-concierge",
     name: "Education Concierge (monthly)",
-    description: "A dedicated education manager: monthly strategy, unlimited message support, and tutor and school liaison.",
+    description: "A dedicated education manager: monthly strategy, unlimited message support, and school liaison.",
     amount: 500,
     currency: "gbp",
     mode: "subscription",
@@ -124,6 +137,11 @@ export const products: Product[] = [
 export const PAY_FIRST = new Set(["strategy-session", "trial-lesson"]);
 
 export const getProduct = (id: string) => products.find((p) => p.id === id);
+
+export const checkoutOptionsFor = (product: Product) => [
+  product,
+  ...(product.additionalCheckoutProductIds ?? []).map(getProduct).filter((p): p is Product => Boolean(p)),
+];
 
 export const formatPrice = (p: Pick<Product, "amount" | "currency">) =>
   new Intl.NumberFormat("en-GB", {

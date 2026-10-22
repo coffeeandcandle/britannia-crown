@@ -8,7 +8,7 @@ import BuyButton from "./BuyButton";
 import AccountBand from "./AccountBand";
 import HeroMedia from "./HeroMedia";
 import { offerPhoto, photoUrl } from "../lib/images";
-import { getProduct, formatPrice } from "../lib/products";
+import { getProduct, formatPrice, checkoutOptionsFor } from "../lib/products";
 import { paymentsEnabled } from "../lib/stripe";
 import { offers, offerPath, type Offer } from "../lib/offers";
 import { guides } from "../lib/guides";
@@ -28,13 +28,23 @@ export default function OfferPage({ offer }: { offer: Offer }) {
   const info = sectionInfo[offer.section];
   const path = offerPath(offer);
   const price = formatPrice(product);
-  const buyLabel = product.mode === "subscription" ? "Subscribe" : "Buy now";
+  const checkoutOptions = checkoutOptionsFor(product);
+  const hasBillingChoice = checkoutOptions.length > 1;
   const others = offers.filter((o) => o.section === offer.section && o.slug !== offer.slug);
   const reading = guides.filter((g) => offer.guides.includes(g.slug));
 
   const buy = (
     <div className="offer-buy">
-      <BuyButton product={product} enabled={paymentsEnabled} label={paymentsEnabled ? `${buyLabel} for ${price}` : "Enquire about this"} />
+      {paymentsEnabled ? checkoutOptions.map((option) => (
+        <BuyButton
+          key={option.id}
+          product={option}
+          enabled
+          label={hasBillingChoice
+            ? option.mode === "subscription" ? `Subscribe monthly for ${formatPrice(option)}` : `Buy one month for ${formatPrice(option)}`
+            : `${option.mode === "subscription" ? "Subscribe" : "Buy now"} for ${formatPrice(option)}`}
+        />
+      )) : <BuyButton product={product} enabled={false} label="Enquire about this" />}
       <Link href="/book-consultation" className="btn-secondary">Book a free 30-minute call</Link>
     </div>
   );

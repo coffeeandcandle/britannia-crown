@@ -61,6 +61,15 @@ export default function Home() {
               <li>Online lessons held in your own portal</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section className="uk-section cream hm-pathfinder" aria-labelledby="pathfinder-title">
+        <div className="uk-wrap hm-pathfinder-grid">
+          <div>
+            <h2 className="uk-h2" id="pathfinder-title">A good place to start</h2>
+            <p className="uk-lead">Tell us what you&apos;re working through. We&apos;ll point you towards the right person or information.</p>
+          </div>
           <Finder />
         </div>
       </section>

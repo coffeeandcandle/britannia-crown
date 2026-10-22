@@ -8,7 +8,7 @@ import JsonLd from "../components/JsonLd";
 import { ORG_ID } from "../lib/schema";
 import { SITE_URL } from "../lib/site";
 import BuyButton from "../components/BuyButton";
-import { getProduct } from "../lib/products";
+import { checkoutOptionsFor, getProduct } from "../lib/products";
 import { offerForProduct, offerPath } from "../lib/offers";
 import { paymentsEnabled } from "../lib/stripe";
 
@@ -56,7 +56,7 @@ const offers: Offer[] = [
     name: "GCSE & A-Level Preparation",
     body: "Exam technique coaching from specialists, including actual GCSE examiners. Past papers, mark schemes, revision planning and mock exams.",
     price: "£1,000",
-    unit: "per term",
+    unit: "per month",
     value: 1000,
     service: "GCSE & A-Level Preparation",
     productId: "uae-exam-prep-term",
@@ -74,7 +74,7 @@ const offers: Offer[] = [
   {
     age: "Ongoing",
     name: "Education Concierge",
-    body: "Your dedicated UK-curriculum education manager in Dubai: monthly strategy, unlimited message support, and liaison with tutors and schools.",
+    body: "Your dedicated UK-curriculum education manager in Dubai: monthly strategy, unlimited message support, and liaison with schools.",
     price: "£500",
     unit: "per month",
     value: 500,
@@ -115,6 +115,7 @@ export default function UaePage() {
           <div className="price-cards">
             {offers.map((o) => {
               const product = o.productId ? getProduct(o.productId) : undefined;
+              const checkoutOptions = product ? checkoutOptionsFor(product) : [];
               const detail = o.productId ? offerForProduct(o.productId) : undefined;
               return (
                 <article className="price-card" key={o.name}>
@@ -125,7 +126,16 @@ export default function UaePage() {
                   {detail && <Link href={offerPath(detail)} className="price-card-more">See what is included →</Link>}
                   {product && paymentsEnabled ? (
                     <div className="price-card-actions">
-                      <BuyButton product={product} enabled label={product.mode === "subscription" ? "Subscribe" : "Buy now"} />
+                      {checkoutOptions.map((option) => (
+                        <BuyButton
+                          key={option.id}
+                          product={option}
+                          enabled
+                          label={checkoutOptions.length > 1
+                            ? option.mode === "subscription" ? "Subscribe monthly" : "Buy one month"
+                            : option.mode === "subscription" ? "Subscribe" : "Buy now"}
+                        />
+                      ))}
                       <Link href={{ pathname: "/contact", query: { service: o.service } }}>Ask a question first</Link>
                     </div>
                   ) : (

@@ -5,7 +5,7 @@ import { pageMetadata } from "../lib/seo";
 import Breadcrumbs from "../components/Breadcrumbs";
 import BuyButton from "../components/BuyButton";
 import FaqSection from "../components/FaqSection";
-import { products, formatPrice, type Product } from "../lib/products";
+import { products, formatPrice, getProduct, checkoutOptionsFor, type Product } from "../lib/products";
 import { sessionTypes, isBookable, priceLabel } from "../lib/sessions";
 import { paymentsEnabled } from "../lib/stripe";
 import ConsultationBand from "../components/ConsultationBand";
@@ -37,6 +37,8 @@ const faqs = [
 ];
 
 function ProductCard({ p, perks, featured }: { p: Product; perks?: string[]; featured?: boolean }) {
+  const checkoutOptions = checkoutOptionsFor(p);
+  const hasBillingChoice = checkoutOptions.length > 1;
   return (
     <article className={`shop-card${featured ? " is-featured" : ""}`}>
       <h3>{p.name.replace("Academic Partner Membership: ", "").replace(" (Dubai)", "")}</h3>
@@ -50,13 +52,20 @@ function ProductCard({ p, perks, featured }: { p: Product; perks?: string[]; fea
         </ul>
       )}
       <div className="shop-actions">
-        <BuyButton
-          product={p}
-          enabled={paymentsEnabled}
-          label={paymentsEnabled ? (p.mode === "subscription" ? "Start membership" : "Buy now") : "Enquire about this"}
-          className={featured ? "btn-primary" : "btn-secondary"}
-        />
-        {p.mode === "subscription" && <span className="shop-note">Monthly · cancel anytime</span>}
+        {paymentsEnabled ? checkoutOptions.map((option, index) => (
+          <BuyButton
+            key={option.id}
+            product={option}
+            enabled
+            label={hasBillingChoice
+              ? option.mode === "subscription" ? "Subscribe monthly" : "Buy one month"
+              : option.mode === "subscription" ? "Start membership" : "Buy now"}
+            className={index === 0 && featured ? "btn-primary" : "btn-secondary"}
+          />
+        )) : (
+          <BuyButton product={p} enabled={false} label="Enquire about this" className={featured ? "btn-primary" : "btn-secondary"} />
+        )}
+        {checkoutOptions.some((option) => option.mode === "subscription") && <span className="shop-note">Subscription renews monthly until cancelled.</span>}
       </div>
     </article>
   );

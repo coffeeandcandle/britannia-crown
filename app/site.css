@@ -752,6 +752,34 @@ body:has(.pt) .site-chrome { display: none; }
 .pt-auth-form-inner .uk-prose { justify-items: stretch; }
 .pt-auth-switch { font-weight: 600; text-align: center; }
 
+/* Homepage: give the first step room to breathe, separate from the hero. */
+.hm-hero-grid { grid-template-columns: minmax(0, 1fr); }
+.hm-hero-grid > div:first-child { max-width: 760px; }
+.hm-pathfinder-grid { display: grid; grid-template-columns: minmax(220px, .72fr) minmax(0, 1.28fr); gap: 64px; align-items: start; }
+.hm-pathfinder-grid > div:first-child { max-width: 34rem; }
+.hm-pathfinder-grid .uk-lead { margin-top: 12px; }
+.hm-pathfinder .finder { padding: 0; background: transparent; border: 0; }
+.hm-pathfinder .finder h2 { font-family: var(--serif); font-size: 1.65rem; font-weight: 400; color: var(--brand-ink); }
+.hm-pathfinder .finder > p { margin-top: 4px; }
+.hm-pathfinder .finder fieldset { margin-top: 22px; }
+.hm-pathfinder .finder legend { margin-bottom: 8px; font-weight: 600; }
+.hm-pathfinder .finder-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+.hm-pathfinder .finder-option { border-bottom: 1px solid var(--line-strong); }
+.hm-pathfinder .finder-option label { position: relative; display: flex; min-height: 48px; align-items: center; padding: 8px 4px 8px 28px; border: 0; border-radius: 0; background: transparent; font-weight: 400; }
+.hm-pathfinder .finder-option label::before { position: absolute; left: 2px; width: 14px; height: 14px; border: 1px solid var(--line-strong); border-radius: 50%; content: ""; }
+.hm-pathfinder .finder-option input:checked + label { background: transparent; color: var(--brand-ink); font-weight: 600; }
+.hm-pathfinder .finder-option input:checked + label::before { border: 4px solid var(--brand); }
+.hm-pathfinder .finder-option label:hover { border-color: transparent; color: var(--brand); }
+.hm-pathfinder .finder-option input:focus-visible + label { outline: 2px solid var(--brand); outline-offset: -2px; }
+.hm-pathfinder .finder-result { padding: 18px 0 0; background: transparent; border-top: 1px solid var(--line-strong); border-radius: 0; }
+.hm-pathfinder .finder-reset { color: var(--brand); }
+@media (max-width: 960px) {
+  .hm-pathfinder-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 600px) {
+  .hm-pathfinder .finder-options { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 960px) {
   .pt-app { grid-template-columns: 1fr; background: var(--paper); }
   .ptn-topbar { position: sticky; top: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--brand-ink); }
@@ -1642,3 +1670,19 @@ a.ui-stat:hover, .shop-card:hover, .plan:hover, .session-card:hover { transform:
 .av-switch { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 18px; }
 .av-switch select { min-height: 40px; padding: 6px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); }
 a.form-submit { display: flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; }
+
+/* Keep the public site closer to an editorial brochure than a set of app cards. */
+.shop-jump { border-bottom: 1px solid var(--line); }
+.shop-jump a { padding: 8px 0; border: 0; border-bottom: 1px solid transparent; border-radius: 0; background: transparent; font-weight: 500; }
+.shop-jump a:hover { border-bottom-color: var(--brand); }
+.shop-card { border-radius: 2px; box-shadow: none; transition: border-color .15s; }
+.shop-card:hover { transform: none; box-shadow: none; border-color: var(--brand); }
+.shop-card.is-featured { border-color: var(--line); border-top: 3px solid var(--brand); box-shadow: none; }
+.uk-row { padding: 20px 0; border: 0; border-top: 1px solid var(--line-strong); border-radius: 0; background: transparent; }
+.uk-row:hover { border-color: var(--brand); }
+.price-card { padding: 22px 0; border: 0; border-top: 1px solid var(--line-strong); border-radius: 0; background: transparent; }
+.gd-card { gap: 9px; padding: 0; border: 0; border-radius: 0; background: transparent; }
+.uk-section.white .gd-card { background: transparent; }
+.gd-card-img, .gd-cards--feature .gd-card:first-child .gd-card-img { margin: 0 0 8px; border-radius: 0; }
+.gd-cards--feature .gd-card:first-child { padding: 0; border: 0; background: transparent; }
+.gd-card:hover { border-color: transparent; }
