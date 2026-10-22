@@ -72,6 +72,21 @@ export async function saveFamily(fd: FormData) {
   back(returnTo, { ok: "Family details saved." });
 }
 
+export async function deleteFamily(fd: FormData) {
+  await requireStaff(["admin"]);
+  const id = int(fd, "id");
+  if (!id) back("/portal/admin/families", { error: "Family not found." });
+
+  const family = await queryOne<{ name: string }>(
+    "DELETE FROM families WHERE id = $1 RETURNING name",
+    [id],
+  );
+  if (!family) back("/portal/admin/families", { error: "Family not found." });
+
+  revalidatePath("/portal/admin", "layout");
+  back("/portal/admin/families", { ok: `${family.name} was deleted.` });
+}
+
 export async function addChild(fd: FormData) {
   await requireStaff(MANAGERS);
   const familyId = int(fd, "family_id");

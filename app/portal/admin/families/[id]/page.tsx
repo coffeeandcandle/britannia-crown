@@ -7,7 +7,7 @@ import { dailyEnabled } from "../../../../lib/portal/daily";
 import { SessionList, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Checklist, Avatar, Pill, Field } from "../../../ui";
 import { SubmitButton, ConfirmSubmit, CopyButton } from "../../../client-ui";
-import { saveFamily, addChild, removeChild, scheduleSession } from "../../actions";
+import { saveFamily, deleteFamily, addChild, removeChild, scheduleSession } from "../../actions";
 import { uploadDocument, deleteDocument, setNeedsSignature } from "../../document-actions";
 
 const subjectSuggestions = [
@@ -243,6 +243,15 @@ export default async function AdminFamilyPage({
               <SubmitButton className="btn-secondary">Save changes</SubmitButton>
             </form>
           </details>
+
+          <Card title="Delete family" description="This cannot be undone. Their children, lessons, lesson notes, requests and documents will be removed. Orders and CRM history will be kept but unlinked. Active subscriptions are not cancelled. Their Clerk sign-in account is not deleted; signing into the family portal again may create a new empty family record.">
+            <form action={deleteFamily}>
+              <input type="hidden" name="id" value={family.id} />
+              <ConfirmSubmit className="pt-link-button" message={`Permanently delete ${family.name}? Their children, lessons, lesson notes, requests and documents will be removed. Orders and CRM history will be kept but unlinked. Active subscriptions will continue and their sign-in account will not be deleted.`}>
+                Delete family
+              </ConfirmSubmit>
+            </form>
+          </Card>
         </aside>
       </div>
     </>
