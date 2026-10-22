@@ -168,3 +168,11 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 
 ## Article cover photos
 - Every guide now has its own cover photo (`guideCovers` in `app/lib/images.ts`), all free-to-use Unsplash images with photographer credit, none repeated anywhere else on the site. They illustrate the topic only and are never presented as Britannia Crown's own tutors, clients or children. To use your own photography, replace the id for a guide there.
+
+## Refunds and cancellations replaced with the client's tutoring and home-schooling terms (22 Oct 2026)
+- `/refunds-and-cancellations` now carries the client's own terms (from Britannia_Crown_Terms_of_Service.docx), word for word, replacing the earlier policy. These cover private tutoring and home-schooling only.
+- **Still referring to the old policy; please decide with the client and the solicitor:**
+  - The checkout confirmation text and `OfferPage` structured data (`merchantReturnPolicy`, 14 days) mention a 14-day right to cancel, which the new terms no longer state.
+  - The old page covered memberships, Dubai packages and the statutory 14-day cancellation right for online and distance sales. The new terms do not mention them. Consumer law may still give customers cancellation rights regardless of the terms.
+  - The terms and conditions page, the pricing FAQ and the membership page describe membership cancellation ("cancel any time") and link here.
+  - Strategy sessions, trial lessons and online lessons through the portal are not specifically covered (for example, the 48 and 24 hour rules apply to "sessions", which may be intended).

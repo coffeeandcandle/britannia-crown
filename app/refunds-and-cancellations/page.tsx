@@ -1,22 +1,153 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
 import PageHero from "../components/PageHero";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { EMAIL } from "../lib/site";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Refunds and Cancellations Policy | Britannia Crown",
+  title: "Refunds and Cancellations | Britannia Crown",
   description:
-    "How to cancel a Britannia Crown membership, lesson or package, your 14-day right to cancel, rescheduling lessons, and how refunds are paid.",
+    "Terms of service for private tutoring and home-schooling: payment, cancellations, rescheduling, no-shows, online lesson connection issues and how refunds are paid.",
   path: "/refunds-and-cancellations",
 });
 
-const summary = [
-  "Changed your mind? You have 14 days from buying online to cancel.",
-  "Memberships are monthly with no contract. Cancel any time and it stops at the end of the month you've paid for.",
-  "Need to move a lesson? Give us 24 hours' notice and we'll rearrange it at no charge.",
-  "Refunds go back to the card you paid with, within 14 days.",
+const PHONE = "+44 7583 904474";
+const PHONE_HREF = "tel:+447583904474";
+
+// The client's own terms for private tutoring and home-schooling, kept word for word.
+// The make-up lesson instruction is the same wherever it applies, so it is written once here.
+const MAKE_UP = (
+  <>
+    If you would still like a rescheduled/make-up lesson, you must contact the company via{" "}
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>, or WhatsApp/Tel: <a href={PHONE_HREF}>{PHONE}</a> to make the rescheduled booking. No rescheduled
+    booking should be made between the tutor and the client without the company&rsquo;s approval first.
+  </>
+);
+
+type Section = { title: string; body: React.ReactNode[] };
+
+const sections: Section[] = [
+  {
+    title: "1. Payment Terms",
+    body: [
+      "You will need to make payment at the time you book any session/s. All payments are due in advance, before the session/s takes place. Payments are due 4 weeks in advance in order to book all hours you require within the 4 weeks. Payments will rotate every 4 weeks (28 days) from the first payment date. Upon the scheduled payment date, the payment must be paid by 8pm or it is considered a late payment (this only applies for transferred payment not set up as a standing order – standing orders must be paid on the correct payment dates which are always exactly 4 weeks in rotation or considered a late payment). Bulk bookings are accepted (1 month+) and payment for the requested bulk booking will need to be made in advance.",
+    ],
+  },
+  {
+    title: "1a. Late Payments",
+    body: [
+      "We do not have any late fees, however, late payments are not accepted in any case. If late payments are made 3 times while our agreement is standing, termination of services will be in effect immediately. In any case where extenuating circumstances apply the company will desist at their discretion. Any late payment will incur a late payment strike and will cause a disruption and missed service for the upcoming bookings that have yet to be paid for.",
+    ],
+  },
+  {
+    title: "2. Start Dates",
+    body: [
+      "Upon booking, any start dates mentioned are aimed to be kept to, however, please allow up to 14 days from the booking date should extra time be needed to make arrangements for the tutor. Updates regarding start dates will be sent accordingly.",
+    ],
+  },
+  {
+    title: "3. Conduct Policy",
+    body: [
+      "Any discrimination or abuse toward a contractor provided to a client will automatically result in a cancellation of all upcoming bookings, termination of service, and a permanent ban. No refunds will be given in this case.",
+    ],
+  },
+  {
+    title: "4. Cancellation: More than 48 Hours Notice",
+    body: [
+      "You can cancel any session giving more than 48 hours notice and will not be charged for it. You will receive your money back for that session, refunded in full at the end of the calendar month.",
+      <>{MAKE_UP} No refund will be given for any sessions that are rescheduled and had within that calendar month, as the time will have been made up.</>,
+    ],
+  },
+  {
+    title: "4a. Cancellation: Less than 48 Hours Notice",
+    body: [
+      "If you cancel a session with less than 48 hours notice you will be charged 50% of the hourly rate/price of the session. You will be refunded the remaining 50% at the end of the month.",
+      <>{MAKE_UP} Should a rescheduled lesson take place the 50% refund will not apply. Charges will not be implemented for extenuating circumstances at the company&rsquo;s discretion.</>,
+    ],
+  },
+  {
+    title: "4b. Cancellation: Less than 24 Hours Notice",
+    body: [
+      "If you cancel a session with less than 24 hours notice you will be charged the full amount of the session. No refund given.",
+      <>{MAKE_UP} Charges will not be implemented for extenuating circumstances at the company&rsquo;s discretion.</>,
+    ],
+  },
+  {
+    title: "5. No-Show Policy (Face to Face Lessons)",
+    body: [
+      "If you have booked a session and the tutor has started their journey and/or arrived at the location of a session, and the student/client does not show up, you will be charged in full for the whole session. No refund given.",
+      MAKE_UP,
+    ],
+  },
+  {
+    title: "5a. Late Arrival (Face to Face Lessons)",
+    body: [
+      "If a tutor arrives at the location and the client is late without any communication of whereabouts, the tutor is only obliged to wait 20 minutes before it becomes a ‘no show’ case and they have the right to leave. Payment for the session will not be refunded in that case.",
+      MAKE_UP,
+    ],
+  },
+  {
+    title: "6. Session Time Slots",
+    body: [
+      "The sessions are always arranged for a specific time slot during the day. All bookings are set to that time. In any case where the student is late, the session will go on until the end of that time slot. Time or payment will not be compensated for lateness of students.",
+    ],
+  },
+  {
+    title: "7. Connection Difficulties: Client (Online Lessons)",
+    body: [
+      "If the client is having connection difficulties and does not inform the tutor within 15 minutes of the scheduled lesson time – exhausting all methods of communication (phone call, WhatsApp, email) – this will be considered a ‘no show’ case. Payment for the lesson will not be refunded in that case.",
+      <>{MAKE_UP} Charges will not be implemented for extenuating circumstances at the company&rsquo;s discretion.</>,
+    ],
+  },
+  {
+    title: "8. Connection Difficulties: Tutor (Online Lessons)",
+    body: [
+      "If the tutor is having difficulties connecting and has communicated this to the client, the client may opt to take the full hours at the time (if the tutor can do so), or have part of the lesson with the remaining time made up within 1 month. If the client does not wish to have the time made up, a refund can be arranged for the remaining time. If the lesson is completely missed due to the tutor, the client may opt to have the time made up within 1 month or be refunded in full.",
+      <>{MAKE_UP} Payment will not be refunded where the lesson has been made up.</>,
+    ],
+  },
+  {
+    title: "9. Communication Protocol (Online Lessons)",
+    body: [
+      "You must contact and inform the company immediately via phone, WhatsApp or email should any connection difficulties occur with you or the tutor, and with any resolutions and outcomes. Should you fail to reach us by phone you must use a written form of communication immediately (WhatsApp or email).",
+    ],
+  },
+  {
+    title: "9a. Schedule Changes (All Lessons)",
+    body: [
+      "We must be contacted immediately with regard to any missed, rearranged, or cancelled lessons, or any changes whatsoever to the schedule, via phone, WhatsApp or email. This applies to both face to face and online lessons. Should you fail to reach us by phone you must use a written form of communication (WhatsApp or email).",
+    ],
+  },
+  {
+    title: "10. Notice Period for Pausing or Cancelling Services",
+    body: [
+      "A minimum of 4 weeks notice should be given should you decide to pause or cancel our services. The 4 weeks notice will always begin from the end of the current booked 4 weeks. Failure to give a minimum of 4 weeks notice will result in payments already made being non-refundable. Withdrawing from our services with less than 4 weeks notice will result in a permanent ban from using our services again in the future. A ban will not be implemented for extenuating circumstances at the company’s discretion.",
+    ],
+  },
+  {
+    title: "11. Professional Conduct",
+    body: [
+      "No discussions of payments or payment arrangements, job negotiations, inappropriate or illegal requests, additional job requests or bookings without the company’s consent, changing of scheduled bookings without the company’s consent, and no introductions or facilitations of the candidate to/with other/outside parties without the company’s consent.",
+    ],
+  },
+  {
+    title: "12. Breach of Terms",
+    body: [
+      "Failure to comply with any of the terms in this document will result in immediate termination of services and will result in a permanent ban from using our services again in the future. No refunds will be given should there be any breach of the terms contained in this document.",
+    ],
+  },
+  {
+    title: "13. Tutor-Side Issues",
+    body: [
+      "If any situation regarding the lessons stated above is to happen on behalf of the tutor, time will either be given back at a suitable time agreed by you and the tutor with the company’s approval first. If unable to agree on a time, you will be refunded any pre-payments in full at the end of the calendar month.",
+    ],
+  },
+  {
+    title: "14. Refund Timeline",
+    body: [
+      "All refunds are given at the end of the calendar month. Any refunds that have been incurred after the 15th of any calendar month will be awarded at the end of the next calendar month.",
+    ],
+  },
 ];
 
 export default function RefundsPage() {
@@ -24,7 +155,7 @@ export default function RefundsPage() {
     <>
       <PageHero
         title="Refunds and cancellations"
-        subtitle="Clear, fair rules for cancelling, rescheduling and refunds. Your legal rights as a consumer are not affected."
+        subtitle="Terms of service for private tutoring and home-schooling."
       >
         <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Refunds and cancellations", path: "/refunds-and-cancellations" }]} />
       </PageHero>
@@ -32,123 +163,22 @@ export default function RefundsPage() {
       <section className="uk-section white">
         <div className="uk-wrap">
           <div className="legal-content">
-            <p className="legal-updated">Last updated: 20 October 2026</p>
-
-            <div className="legal-summary">
-              <h2>In short</h2>
-              <ul>
-                {summary.map((s) => <li key={s}>{s}</li>)}
-              </ul>
-            </div>
-
+            <p className="legal-updated">Last updated: 22 October 2026</p>
             <p>
-              This policy applies to services bought from Britannia Crown Education Consultants (&ldquo;we&rdquo;, &ldquo;us&rdquo;),
-              whether you pay online through our website or we invoice you. It should be read with our{" "}
-              <Link href="/terms-and-conditions">terms and conditions</Link>. All prices are in pounds sterling (GBP).
+              <strong>Private Client: Tutoring &amp; Home-schooling.</strong> Please note that upon receiving our services you automatically
+              opt into and agree to the following terms.
             </p>
+            <p>&lsquo;You&rsquo; herein referred to as &lsquo;the client&rsquo;. &lsquo;We&rsquo; herein referred to as &lsquo;the company&rsquo;.</p>
 
-            <h2>1. Your 14-day right to cancel</h2>
+            {sections.map((s) => (
+              <section key={s.title}>
+                <h2>{s.title}</h2>
+                {s.body.map((p, i) => <p key={i}>{p}</p>)}
+              </section>
+            ))}
+
             <p>
-              If you buy a service from us online, by phone or by email, you have the right to cancel within <strong>14 days</strong>{" "}
-              of the day you buy, without giving a reason. This is your right under the Consumer Contracts (Information,
-              Cancellation and Additional Charges) Regulations 2013.
-            </p>
-            <p>
-              If you cancel within those 14 days and no sessions or work have taken place, we will refund everything you have paid.
-            </p>
-
-            <h2>2. If you ask us to start within the 14 days</h2>
-            <p>
-              Many families want lessons or placement work to begin straight away. If you ask us to start before the 14 days are up
-              and then cancel within that period, we will refund what you paid <strong>minus the value of the sessions or work
-              already provided</strong> up to the point you told us you were cancelling. We work this out in proportion to the full
-              service you bought.
-            </p>
-            <p>
-              Once a service has been fully provided within the 14 days at your request, the right to cancel no longer applies to it.
-            </p>
-
-            <h2>3. Academic Partner Membership and Education Concierge</h2>
-            <ul>
-              <li><strong>No long-term contract.</strong> Memberships and the Education Concierge are billed monthly and you can cancel at any time.</li>
-              <li><strong>When it stops.</strong> If you cancel after the first 14 days, your plan stays active until the end of the month you have already paid for, then stops. You won&apos;t be charged again.</li>
-              <li><strong>Partial months.</strong> After the first 14 days, we don&apos;t refund part-used months.</li>
-              <li><strong>Tutoring hours.</strong> Each month&apos;s hours are for that month and don&apos;t carry over, except hours for lessons we cancel, which we always rearrange or credit.</li>
-              <li><strong>Changing plan.</strong> You can move up or down a tier at any time. The new price applies from your next monthly payment.</li>
-              <li><strong>How to cancel.</strong> Use <strong>Billing → Manage payment and plan</strong> in your <Link href="/portal">client portal</Link>, or email us.</li>
-            </ul>
-
-            <h2>4. Lessons: rescheduling and missed sessions</h2>
-            <ul>
-              <li><strong>24 hours&apos; notice.</strong> If you tell us at least 24 hours before a lesson, we will move it to another time at no charge.</li>
-              <li><strong>Less than 24 hours&apos; notice.</strong> The lesson counts as taken, because your tutor has reserved that time. We will always try to help in genuine emergencies such as illness.</li>
-              <li><strong>Missed lessons.</strong> If your child hasn&apos;t joined within 15 minutes of the start time and we haven&apos;t heard from you, the lesson counts as taken.</li>
-              <li><strong>If we cancel.</strong> If a tutor has to cancel, we will offer another time or a replacement tutor. If neither suits you, we will refund or credit that lesson in full.</li>
-            </ul>
-
-            <h2>5. Fixed-price packages</h2>
-            <p>
-              This covers Nursery Search &amp; Placement, School Search &amp; Placement, GCSE &amp; A-Level Preparation (per term) and
-              British Homeschool Support (per term).
-            </p>
-            <ul>
-              <li><strong>Within 14 days:</strong> see sections 1 and 2.</li>
-              <li><strong>After 14 days, before work is complete:</strong> you can cancel by telling us. We will refund the part of the fee for work not yet done, worked out fairly in proportion to the whole package. For term-based packages, this means a refund for the sessions not yet delivered.</li>
-              <li><strong>Once the work is complete:</strong> for example, once we have delivered your school or nursery shortlist and application support, or the term&apos;s sessions have taken place, the fee is not refundable.</li>
-              <li><strong>Outcomes.</strong> Placement fees pay for our research, advice and support, not for a guaranteed place at a particular school or nursery, which is decided by the school. Exam preparation fees likewise don&apos;t guarantee a particular grade.</li>
-            </ul>
-
-            <h2>6. Consultations</h2>
-            <ul>
-              <li>The <strong>free 30-minute consultation</strong> is free and can be cancelled or rearranged at any time.</li>
-              <li><strong>Paid sessions</strong> such as a strategy session or trial lesson can be cancelled or rearranged for free with at least 24 hours&apos; notice, for a full refund. With less notice, the session is not refundable, but we will try to rearrange it if we can.</li>
-            </ul>
-
-            <h2>7. If something isn&apos;t right</h2>
-            <p>
-              We provide every service with reasonable care and skill, as the Consumer Rights Act 2015 requires. If you&apos;re
-              unhappy with a lesson or any part of our work, please tell us as soon as you can. We will put it right, for example by
-              arranging a replacement session. If we can&apos;t put it right, we will give you an appropriate refund. This doesn&apos;t
-              affect your legal rights.
-            </p>
-
-            <h2>8. How refunds are paid</h2>
-            <ul>
-              <li>We refund using the same method you paid with, such as your card, unless we agree otherwise.</li>
-              <li>We aim to process refunds within 5 working days and will always do so within <strong>14 days</strong> of agreeing the refund or receiving your cancellation.</li>
-              <li>We don&apos;t charge any fee for refunds. Your card provider may take a few days to show the money in your account.</li>
-            </ul>
-
-            <h2>9. Missed payments</h2>
-            <p>
-              If a monthly payment fails, our payment provider will try again over the following days and we will let you know. If
-              payment still can&apos;t be taken, we may pause lessons until it is resolved. We will always contact you before
-              ending a plan.
-            </p>
-
-            <h2>10. Price changes</h2>
-            <p>
-              We will give you at least <strong>30 days&apos;</strong> notice by email before changing the price of a membership or
-              other ongoing service. If you don&apos;t want to continue at the new price, you can cancel before it takes effect.
-            </p>
-
-            <h2>11. How to cancel or ask for a refund</h2>
-            <p>
-              Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> with your name, the email address you used to buy, and the service
-              you&apos;d like to cancel. You can also use our <Link href="/contact">contact form</Link>. For memberships, you can
-              cancel yourself from the Billing page of your <Link href="/portal">client portal</Link>.
-            </p>
-            <p>If you prefer, you can use this wording:</p>
-            <blockquote className="legal-quote">
-              To Britannia Crown Education Consultants, {EMAIL}: I hereby give notice that I cancel my contract for the following
-              service: [service], bought on [date]. Name: [your name]. Email: [email used to buy]. Date: [today&apos;s date].
-            </blockquote>
-            <p>We will confirm your cancellation by email.</p>
-
-            <h2>12. Complaints</h2>
-            <p>
-              If you&apos;re not happy with how we&apos;ve handled a cancellation or refund, email us and a senior consultant will
-              review it and reply within 5 working days.
+              <a href={`mailto:${EMAIL}`}>{EMAIL}</a> &bull; <a href={PHONE_HREF}>{PHONE}</a> &bull; www.britanniacrown.com
             </p>
           </div>
         </div>
