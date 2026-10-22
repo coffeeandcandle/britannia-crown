@@ -7,7 +7,7 @@ import { EMAIL } from "../lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Refunds and Cancellations | Britannia Crown",
   description:
-    "Terms of service for private tutoring and home-schooling: payment, cancellations, rescheduling, no-shows, online lesson connection issues and how refunds are paid.",
+    "Cancellation and refund terms for private tutoring, home-schooling, other packages and memberships.",
   path: "/refunds-and-cancellations",
 });
 
@@ -148,6 +148,14 @@ const sections: Section[] = [
       "All refunds are given at the end of the calendar month. Any refunds that have been incurred after the 15th of any calendar month will be awarded at the end of the next calendar month.",
     ],
   },
+  {
+    title: "15. Other Packages and Memberships",
+    body: [
+      "For all other packages, you have the right to cancel within 14 days. Any refund will exclude charges for services already taken. Hours or services not yet taken will be refunded.",
+      "Packages cancelled after the 14-day period are non-refundable for any months already paid.",
+      "When you cancel a membership, it will be cancelled and no payment will be taken for that package's next monthly rotation.",
+    ],
+  },
 ];
 
 export default function RefundsPage() {
@@ -155,7 +163,7 @@ export default function RefundsPage() {
     <>
       <PageHero
         title="Refunds and cancellations"
-        subtitle="Terms of service for private tutoring and home-schooling."
+        subtitle="Cancellation and refund terms for tutoring, home-schooling, packages and memberships."
       >
         <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Refunds and cancellations", path: "/refunds-and-cancellations" }]} />
       </PageHero>
@@ -165,8 +173,8 @@ export default function RefundsPage() {
           <div className="legal-content">
             <p className="legal-updated">Last updated: 22 October 2026</p>
             <p>
-              <strong>Private Client: Tutoring &amp; Home-schooling.</strong> Please note that upon receiving our services you automatically
-              opt into and agree to the following terms.
+              <strong>Private Client: Tutoring &amp; Home-schooling.</strong> Please note that upon receiving these services you automatically
+              opt into and agree to the following terms. Section 15 covers all other packages and memberships.
             </p>
             <p>&lsquo;You&rsquo; herein referred to as &lsquo;the client&rsquo;. &lsquo;We&rsquo; herein referred to as &lsquo;the company&rsquo;.</p>
 
