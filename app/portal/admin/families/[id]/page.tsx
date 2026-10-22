@@ -23,7 +23,7 @@ export default async function AdminFamilyPage({
   params: Promise<{ id: string }>;
   searchParams: Promise<{ ok?: string; error?: string }>;
 }) {
-  await requireStaff(["admin", "consultant"]);
+  const { staff } = await requireStaff(["admin", "consultant"]);
   const id = Number((await params).id);
   if (!Number.isInteger(id)) notFound();
   const family = await getFamily(id);
@@ -244,6 +244,7 @@ export default async function AdminFamilyPage({
             </form>
           </details>
 
+          {staff.role === "admin" && (
           <Card title="Delete family" description="This cannot be undone. Their children, lessons, lesson notes, requests and documents will be removed. Orders and CRM history will be kept but unlinked. Active subscriptions are not cancelled. Their Clerk sign-in account is not deleted; signing into the family portal again may create a new empty family record.">
             <form action={deleteFamily}>
               <input type="hidden" name="id" value={family.id} />
@@ -252,6 +253,7 @@ export default async function AdminFamilyPage({
               </ConfirmSubmit>
             </form>
           </Card>
+          )}
         </aside>
       </div>
     </>
