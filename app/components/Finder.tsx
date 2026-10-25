@@ -37,7 +37,7 @@ const tutorStages = ["Primary", "GCSE", "A-Level"] as const;
 const examStages = ["GCSE", "A-Level"] as const;
 const schoolStages = ["Nursery or Reception", "Primary", "Secondary"] as const;
 
-function recommend(need: Need, stage: string, subject: string): Recommendation | null {
+function recommend(need: Need, stage: string, subject: string, otherSubject = ""): Recommendation | null {
   if (need === "guidance") {
     if (!stage) return null;
     const topics: Record<string, Recommendation> = {
@@ -92,6 +92,16 @@ function recommend(need: Need, stage: string, subject: string): Recommendation |
         body: "Reading, number fluency and writing, in short and encouraging sessions with a UK-trained tutor.",
         href: "/tutors/primary",
         linkLabel: "See primary tutoring",
+        service: "Tutoring",
+      };
+    }
+    if (subject === "other") {
+      const named = otherSubject.trim();
+      return {
+        title: named ? `${named} tutoring` : "Tutoring in another subject",
+        body: `We can usually find a ${named || "specialist"} tutor matched to your child's exam board and target grade. Tell us the subject and we'll confirm.`,
+        href: "/services/tutoring",
+        linkLabel: "See private tutoring",
         service: "Tutoring",
       };
     }
@@ -190,13 +200,14 @@ export default function Finder() {
   const [need, setNeed] = useState<Need | "">("");
   const [stage, setStage] = useState("");
   const [subject, setSubject] = useState("");
+  const [otherSubject, setOtherSubject] = useState("");
 
   const stages = need === "guidance" ? null : need === "tutor" ? tutorStages : need === "exams" ? examStages : need === "school" ? schoolStages : null;
   const subjectOptions =
     need === "tutor" && (stage === "GCSE" || stage === "A-Level")
-      ? subjects.filter((s) => s.level === stage).map((s) => ({ value: s.slug, label: s.name.replace(`${stage} `, "") }))
+      ? subjects.filter((s) => s.level === stage).map((s) => ({ value: s.slug, label: s.name.replace(`${stage} `, "") })).concat({ value: "other", label: "Other" })
       : null;
-  const result = need ? recommend(need, stage, subject) : null;
+  const result = need ? recommend(need, stage, subject, otherSubject) : null;
 
   function choose(update: () => void, next: { need: string; stage: string; subject: string }) {
     update();
@@ -219,6 +230,7 @@ export default function Finder() {
             setNeed(v as Need);
             setStage("");
             setSubject("");
+            setOtherSubject("");
           }, { need: v, stage: "", subject: "" })
         }
       />
@@ -248,6 +260,7 @@ export default function Finder() {
             choose(() => {
               setStage(v);
               setSubject("");
+              setOtherSubject("");
             }, { need, stage: v, subject: "" })
           }
         />
@@ -261,6 +274,20 @@ export default function Finder() {
           value={subject}
           onChange={(v) => choose(() => setSubject(v), { need, stage, subject: v })}
         />
+      )}
+
+      {subject === "other" && subjectOptions && (
+        <div className="finder-other">
+          <label htmlFor="finder-other-subject">Which subject? (type it in)</label>
+          <input
+            id="finder-other-subject"
+            type="text"
+            value={otherSubject}
+            onChange={(e) => setOtherSubject(e.target.value)}
+            placeholder="e.g. Economics"
+            maxLength={60}
+          />
+        </div>
       )}
 
       <div aria-live="polite">
@@ -289,6 +316,7 @@ export default function Finder() {
             setNeed("");
             setStage("");
             setSubject("");
+            setOtherSubject("");
           }}
         >
           Start again

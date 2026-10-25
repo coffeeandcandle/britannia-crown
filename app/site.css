@@ -423,6 +423,10 @@ h1 em, h2 em, h3 em { font-style: normal; color: inherit; }
 .finder-option input:checked + label { background: var(--brand); border-color: var(--brand); color: var(--white); }
 .finder-option input:focus-visible + label { outline: 3px solid var(--brand); outline-offset: 2px; }
 .finder-option label:hover { border-color: var(--brand); }
+.finder-other { margin-top: 14px; }
+.finder-other label { display: block; margin-bottom: 6px; font-size: .95rem; font-weight: 550; }
+.finder-other input { width: 100%; max-width: 360px; min-height: 42px; padding: 8px 14px; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--white); font: inherit; }
+.finder-other input:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
 .finder-result { margin-top: 22px; padding: 20px; background: var(--brand-tint); border-radius: var(--radius); }
 .finder-result p { color: var(--ink-2); }
 .finder-result strong { color: var(--brand-ink); }
