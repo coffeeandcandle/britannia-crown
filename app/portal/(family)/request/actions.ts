@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { query, queryOne } from "../../../lib/portal/db";
 import { requireFamily } from "../../../lib/portal/dal";
 import { alertTeam } from "../../../lib/email";
+import { logActivity } from "../../../lib/portal/audit";
 
 // A family asks for a lesson. Nothing is scheduled until an admin approves it and assigns a tutor or consultant.
 const PATH = "/portal/request";
@@ -31,6 +32,7 @@ export async function requestLesson(fd: FormData) {
     "INSERT INTO lesson_requests (family_id, child_id, subject, details, preferred) VALUES ($1, $2, $3, $4, $5)",
     [family.id, child?.id ?? null, subject, details, preferred],
   );
+  await logActivity({ kind: "family", id: family.id, name: family.name }, "lesson.request", { familyId: family.id, detail: subject });
   await alertTeam(
     "New lesson request to approve",
     { Family: family.name, Email: family.email, Child: child?.name, Subject: subject, Details: details, "Preferred times": preferred, Approve: "Sign in to the admin area, open Lesson requests" },

@@ -9,6 +9,8 @@ import { PageHeader, Card, EmptyState, Checklist, Avatar, Pill, Field } from "..
 import { SubmitButton, ConfirmSubmit, CopyButton } from "../../../client-ui";
 import { saveFamily, deleteFamily, addChild, removeChild, scheduleSession } from "../../actions";
 import { uploadDocument, deleteDocument, setNeedsSignature } from "../../document-actions";
+import { recentActivity } from "../../../../lib/portal/audit";
+import ActivityList from "../../ActivityList";
 
 const subjectSuggestions = [
   "GCSE Maths", "GCSE English", "GCSE Science", "GCSE Chemistry", "GCSE Biology", "GCSE Physics",
@@ -28,7 +30,7 @@ export default async function AdminFamilyPage({
   if (!Number.isInteger(id)) notFound();
   const family = await getFamily(id);
   if (!family) notFound();
-  const [children, sessions, team, msg, origin, documents] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin(), familyDocuments(id)]);
+  const [children, sessions, team, msg, origin, documents, activity] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin(), familyDocuments(id), recentActivity({ familyId: id, limit: 40 })]);
   const active = team.filter((s) => s.active);
   const consultants = active.filter((s) => s.role !== "tutor");
   const consultant = team.find((s) => s.id === family.consultant_id);
@@ -134,6 +136,9 @@ export default async function AdminFamilyPage({
               hrefFor={href}
               empty={<EmptyState title="Nothing scheduled">Use the form above to book their next lesson.</EmptyState>}
             />
+          </Card>
+          <Card id="activity" title="Recent activity" description="Sign-ins, documents opened or signed, bookings and online lessons for this family.">
+            <ActivityList rows={activity} showFamily={false} empty="No activity recorded yet." />
           </Card>
           {past.length > 0 && (
             <Card title="Past lessons">

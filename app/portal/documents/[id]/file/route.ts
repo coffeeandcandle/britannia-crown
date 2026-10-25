@@ -1,4 +1,5 @@
 import { getViewer, documentFile } from "../../../../lib/portal/dal";
+import { logActivity } from "../../../../lib/portal/audit";
 
 // Downloads a document. The file is only sent to the family it belongs to, or to a consultant or admin.
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -9,6 +10,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
   const isManager = viewer.staff && (viewer.staff.role === "admin" || viewer.staff.role === "consultant");
   const isOwner = viewer.family && doc && viewer.family.id === doc.family_id;
   if (!doc || !(isManager || isOwner)) return new Response("Not found", { status: 404 });
+  if (viewer.staff && isManager) await logActivity({ kind: "staff", id: viewer.staff.id, name: viewer.staff.name, role: viewer.staff.role }, "document.open", { familyId: doc.family_id, detail: `Document ${id}` });
   const wantSigned = new URL(req.url).searchParams.get("v") === "signed" && doc.signed_data;
   const safeName = (wantSigned ? `signed-${doc.filename.replace(/\.[^.]+$/, "")}.pdf` : doc.filename).replace(/["\r\n]/g, "");
   return new Response(new Uint8Array(wantSigned ? doc.signed_data! : doc.data), {

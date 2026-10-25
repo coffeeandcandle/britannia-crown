@@ -176,3 +176,9 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
   - The old page covered memberships, Dubai packages and the statutory 14-day cancellation right for online and distance sales. The new terms do not mention them. Consumer law may still give customers cancellation rights regardless of the terms.
   - The terms and conditions page, the pricing FAQ and the membership page describe membership cancellation ("cancel any time") and link here.
   - Strategy sessions, trial lessons and online lessons through the portal are not specifically covered (for example, the 48 and 24 hour rules apply to "sessions", which may be intended).
+
+## Activity log
+- New table `activity_log` records: sign-ins (once per two hours per person), documents opened, signed, uploaded or deleted, bookings, lesson requests, details added after paying, and for online lessons: who opened the room, who joined and left the call, who else joined, and camera or call errors. Each entry has the time, who, what, family, lesson and IP address.
+- Admins see everything under Activity log (filter by type), a "Recent activity" card on each family and a "Lesson log" on each lesson. A tutor sees the lesson log for their own lessons.
+- The join and leave times come from the lesson room in each person's browser, so they show attendance but are not tamper-proof.
+- The privacy policy now says the log is kept. Please confirm the wording and decide how long entries should be kept (there is no automatic deletion yet).

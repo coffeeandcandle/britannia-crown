@@ -7,6 +7,7 @@ import { query, queryOne } from "./db";
 import { devAuth, SIGN_IN_PATH, STAFF_SIGN_IN_PATH } from "./config";
 import { recordEvent } from "../crm";
 import { alertTeam } from "../email";
+import { logVisit } from "./audit";
 
 // Data access layer: every portal page and action gets the signed-in person here, and every
 // query is scoped to what that person may see. Pages never query the database directly.
@@ -101,6 +102,10 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
     // First sign-in: attach any purchases made under this email before the account was linked.
     await query("UPDATE orders SET family_id = $1 WHERE family_id IS NULL AND lower(customer_email) = lower($2)", [family.id, family.email]);
   }
+
+  // Record that this person is here (once per two hours).
+  if (staff) await logVisit({ kind: "staff", id: staff.id, name: staff.name, role: staff.role });
+  else if (family) await logVisit({ kind: "family", id: family.id, name: family.name });
 
   return { ...id, staff, family };
 });

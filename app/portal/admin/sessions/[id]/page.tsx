@@ -6,6 +6,8 @@ import { PageHeader, Card, EmptyState, Pill, Field, HelpBox } from "../../../ui"
 import { SubmitButton, ConfirmSubmit } from "../../../client-ui";
 import { addNote, deleteNote, updateSession } from "../../actions";
 import { dailyEnabled } from "../../../../lib/portal/daily";
+import { sessionLog } from "../../../../lib/portal/audit";
+import ActivityList from "../../ActivityList";
 import Link from "next/link";
 
 export default async function AdminSessionPage({
@@ -21,11 +23,12 @@ export default async function AdminSessionPage({
   const session = await staffSession(staff, id);
   if (!session) notFound();
   const manager = canManage(staff);
-  const [notes, family, team, msg] = await Promise.all([
+  const [notes, family, team, msg, lessonLog] = await Promise.all([
     sessionNotesForStaff(session.id),
     getFamily(session.family_id),
     manager ? listStaff() : Promise.resolve([]),
     searchParams,
+    sessionLog(session.id),
   ]);
   const tz = family?.timezone ?? "Europe/London";
   const ukWhen = sessionWhen(new Date(session.starts_at), session.minutes, "Europe/London");
@@ -95,6 +98,10 @@ export default async function AdminSessionPage({
               </fieldset>
               <SubmitButton>Save note</SubmitButton>
             </form>
+          </Card>
+
+          <Card title="Lesson log" description="Everyone who opened the lesson room, joined or left the call, with the time. Camera and connection problems show here too.">
+            <ActivityList rows={lessonLog} showFamily={false} empty="Nothing yet. Entries appear when someone opens the lesson room." />
           </Card>
 
           <Card title={`Notes (${notes.length})`}>

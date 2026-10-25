@@ -6,6 +6,7 @@ import { query, queryOne } from "../../lib/portal/db";
 import { requireStaff } from "../../lib/portal/dal";
 import { sendEmail } from "../../lib/email";
 import { SITE_URL } from "../../lib/site";
+import { logActivity } from "../../lib/portal/audit";
 
 // Admins and consultants upload documents for a family; only that family (and the team) can open them.
 const MAX_BYTES = 4 * 1024 * 1024; // Vercel limits a request to about 4.5 MB.
@@ -67,6 +68,7 @@ export async function uploadDocument(fd: FormData) {
     "INSERT INTO documents (family_id, title, note, filename, mime, size, data, uploaded_by, needs_signature) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
     [familyId, title, note, filename, mime, f.size, bytes, staff.id, fd.get("needs_signature") === "on"],
   );
+  await logActivity({ kind: "staff", id: staff.id, name: staff.name, role: staff.role }, "document.upload", { familyId, detail: title });
   if (fd.get("notify") === "on") {
     try {
       await sendEmail({
@@ -83,9 +85,10 @@ export async function uploadDocument(fd: FormData) {
 }
 
 export async function deleteDocument(fd: FormData) {
-  await requireStaff(["admin", "consultant"]);
+  const { staff } = await requireStaff(["admin", "consultant"]);
   const id = Number(fd.get("id"));
   const row = Number.isInteger(id) ? await queryOne<{ family_id: number }>("DELETE FROM documents WHERE id = $1 RETURNING family_id", [id]) : null;
+  if (row) await logActivity({ kind: "staff", id: staff.id, name: staff.name, role: staff.role }, "document.delete", { familyId: row.family_id, detail: `Document ${id}` });
   revalidatePath("/portal", "layout");
   if (!row) redirect("/portal/admin/families");
   back(row.family_id, { ok: "Document deleted." });

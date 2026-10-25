@@ -6,20 +6,20 @@ import { Card, EmptyState } from "./ui";
 
 // The lesson itself, shown inside the portal. The room address carries a personal token, so the iframe
 // only works for the person it was issued to.
-export default function LessonRoom({ entry, backHref, roomHref, full = false, fallbackUrl }: { entry: Entry; backHref: string; roomHref: string; full?: boolean; fallbackUrl?: string | null }) {
+export default function LessonRoom({ entry, sessionId, backHref, roomHref, full = false, fallbackUrl }: { entry: Entry; sessionId: number; backHref: string; roomHref: string; full?: boolean; fallbackUrl?: string | null }) {
   if (entry.state === "ready") {
     if (full) {
       return (
         <div className="lr-fullscreen">
           <a href={backHref} className="lr-exit">← Back to the lesson page</a>
-          <RoomGate><DailyFrame url={entry.url} token={entry.token} full /></RoomGate>
+          <RoomGate><DailyFrame url={entry.url} token={entry.token} sessionId={sessionId} full /></RoomGate>
         </div>
       );
     }
     return (
       <RoomGate>
         <div className="lr-frame">
-          <DailyFrame url={entry.url} token={entry.token} />
+          <DailyFrame url={entry.url} token={entry.token} sessionId={sessionId} />
         </div>
         <p className="lr-help">
           Having trouble on a phone? <a href={`${roomHref}?full=1`}>Open the lesson in full screen</a>. If you opened this from WhatsApp or another app, open it in Safari or Chrome instead.

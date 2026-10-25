@@ -194,3 +194,23 @@ ALTER TABLE orders ADD COLUMN IF NOT EXISTS session_id integer REFERENCES sessio
 
 -- Details collected after a pay-first purchase (child, year group, what they need). Null until the family fills them in.
 ALTER TABLE orders ADD COLUMN IF NOT EXISTS onboarding jsonb;
+
+-- Who did what in the portal: sign-ins, documents opened or signed, bookings, and who joined or left each online lesson.
+CREATE TABLE IF NOT EXISTS activity_log (
+  id          bigserial PRIMARY KEY,
+  at          timestamptz NOT NULL DEFAULT now(),
+  actor_key   text NOT NULL,          -- 'staff:<id>' or 'family:<id>'
+  actor_kind  text NOT NULL CHECK (actor_kind IN ('staff', 'family')),
+  actor_name  text NOT NULL,
+  actor_role  text,
+  family_id   integer REFERENCES families(id) ON DELETE CASCADE,
+  session_id  integer REFERENCES sessions(id) ON DELETE CASCADE,
+  action      text NOT NULL,
+  detail      text,
+  ip          text,
+  agent       text
+);
+CREATE INDEX IF NOT EXISTS activity_log_at ON activity_log (at DESC);
+CREATE INDEX IF NOT EXISTS activity_log_actor ON activity_log (actor_key, at DESC);
+CREATE INDEX IF NOT EXISTS activity_log_family ON activity_log (family_id, at DESC);
+CREATE INDEX IF NOT EXISTS activity_log_session ON activity_log (session_id, at);

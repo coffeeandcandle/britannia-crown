@@ -38,6 +38,7 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
               { href: "/portal/admin/requests", label: pendingRequests > 0 ? `Lesson requests (${pendingRequests})` : "Lesson requests", icon: "plus" as const },
               { href: "/portal/admin/consultants", label: "Consultants", icon: "team" as const },
               { href: "/portal/admin/tutors", label: "Tutors", icon: "team" as const },
+              { href: "/portal/admin/activity", label: "Activity log", icon: "notes" as const },
               { href: "/portal/admin/staff", label: "Team and access", icon: "team" as const },
             ],
           },

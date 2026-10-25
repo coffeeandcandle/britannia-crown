@@ -8,6 +8,7 @@ import { Flash } from "../../../components";
 import { SubmitButton } from "../../../client-ui";
 import SignaturePad from "../../../SignaturePad";
 import { signDocument } from "../actions";
+import { logActivity } from "../../../../lib/portal/audit";
 
 // A document opens here, inside the portal, instead of downloading.
 export default async function DocumentViewPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string; error?: string }> }) {
@@ -19,6 +20,7 @@ export default async function DocumentViewPage({ params, searchParams }: { param
   if (!meta) notFound();
   const file = await documentFile(id);
   if (!file || file.family_id !== family.id) notFound();
+  await logActivity({ kind: "family", id: family.id, name: family.name }, "document.view", { familyId: family.id, detail: meta.title });
   const src = `/portal/documents/${id}/file`;
   const office = OFFICE_MIMES.has(meta.mime) && meta.mime !== "text/csv" ? `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(signDocLink(id, await siteOrigin()))}` : null;
 

@@ -10,6 +10,7 @@ import { query } from "../../../lib/portal/db";
 import { recordEvent } from "../../../lib/crm";
 import { YEAR_GROUPS, FOCUS_AREAS } from "../../../lib/onboarding";
 import { SITE_URL } from "../../../lib/site";
+import { logActivity } from "../../../lib/portal/audit";
 
 // A family books a paid session into a free slot. The family comes from the signed-in person, never the form.
 export async function bookSession(fd: FormData) {
@@ -21,6 +22,7 @@ export async function bookSession(fd: FormData) {
   const result = await bookOrder(family.id, orderId, start);
   if ("error" in result) redirect(`/portal/book?${new URLSearchParams({ error: result.error as string })}`);
 
+  await logActivity({ kind: "family", id: family.id, name: family.name }, "session.book", { familyId: family.id, sessionId: result.sessionId, detail: result.title });
   const when = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: family.timezone }).format(result.start);
   const staff = await queryOne<{ name: string; email: string }>("SELECT name, email FROM staff WHERE id = $1", [result.staffId]);
   const link = `${SITE_URL}/portal/sessions/${result.sessionId}`;
@@ -81,6 +83,7 @@ export async function saveSessionDetails(fd: FormData) {
   } catch (error) {
     console.error("Could not record booking details in the CRM (they are saved)", error);
   }
+  await logActivity({ kind: "family", id: family.id, name: family.name }, "details.save", { familyId: family.id, detail: `${childName}, ${yearGroup}` });
   revalidatePath("/portal", "layout");
   redirect("/portal/book");
 }

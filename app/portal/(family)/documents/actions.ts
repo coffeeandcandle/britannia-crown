@@ -9,6 +9,7 @@ import { requireFamily } from "../../../lib/portal/dal";
 import { buildSignedPdf } from "../../../lib/portal/signing";
 import { alertTeam, sendEmail } from "../../../lib/email";
 import { SITE_URL } from "../../../lib/site";
+import { logActivity } from "../../../lib/portal/audit";
 
 // A family signs a document that the team marked as needing a signature. Who the family is comes from the
 // signed-in person, never the form, so nobody can sign another family's document.
@@ -63,6 +64,7 @@ export async function signDocument(fd: FormData) {
   );
   if (!done) back({ ok: "This document is already signed." });
 
+  await logActivity({ kind: "family", id: family.id, name: name }, "document.sign", { familyId: family.id, detail: doc.title });
   await alertTeam("Document signed", { Document: doc.title, "Signed by": name, Family: family.name, Email: family.email }, family.email);
   try {
     await sendEmail({

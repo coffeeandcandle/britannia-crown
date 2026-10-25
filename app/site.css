@@ -1686,3 +1686,16 @@ a.form-submit { display: flex; align-items: center; justify-content: center; tex
 .gd-card-img, .gd-cards--feature .gd-card:first-child .gd-card-img { margin: 0 0 8px; border-radius: 0; }
 .gd-cards--feature .gd-card:first-child { padding: 0; border: 0; background: transparent; }
 .gd-card:hover { border-color: transparent; }
+
+/* Activity log */
+.al-wrap { overflow-x: auto; }
+.al-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.al-table th { text-align: left; padding: 8px 10px; font-size: .78rem; color: var(--ink-3); border-bottom: 1px solid var(--line-strong); white-space: nowrap; }
+.al-table td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.al-when { white-space: nowrap; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.al-detail { color: var(--ink-2); }
+.al-ip { color: var(--ink-3); font-size: .8rem; }
+.al-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.al-filters a { padding: 7px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); text-decoration: none; color: var(--ink-2); font-weight: 600; font-size: .9rem; }
+.al-filters a.is-on { background: var(--brand); border-color: var(--brand); color: var(--white); }
+@media (max-width: 700px) { .al-hide { display: none; } }
