@@ -4,6 +4,7 @@ import { sessionWhen, tzLabel } from "../../../../lib/portal/time";
 import { NoteCard } from "../../../components";
 import { PageHeader, Card, EmptyState, Pill } from "../../../ui";
 import { dailyEnabled } from "../../../../lib/portal/daily";
+import { releasedSummary } from "../../../../lib/portal/transcripts";
 import Link from "next/link";
 
 export default async function FamilySessionPage({ params }: { params: Promise<{ id: string }> }) {
@@ -13,6 +14,7 @@ export default async function FamilySessionPage({ params }: { params: Promise<{ 
   const session = await familySession(family.id, id);
   if (!session) notFound();
   const notes = await familyNotes(family.id, { sessionId: session.id });
+  const summary = await releasedSummary(session.id);
   const when = sessionWhen(new Date(session.starts_at), session.minutes, family.timezone);
 
   const status =
@@ -61,6 +63,11 @@ export default async function FamilySessionPage({ params }: { params: Promise<{ 
           <div className="ui-notes">{notes.map((n) => <NoteCard key={n.id} note={n} tz={family.timezone} showSession={false} />)}</div>
         )}
       </Card>
+      {summary && (
+        <Card title="Summary of the call" description="Written by AI from the call and checked by our team.">
+          <p style={{ whiteSpace: "pre-wrap" }}>{summary.summary}</p>
+        </Card>
+      )}
     </>
   );
 }

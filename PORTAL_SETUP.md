@@ -31,3 +31,12 @@ The Billing tab uses the Stripe keys from the online payments setup (`.env.examp
 
 ## Local development
 Run `PORTAL_DEV_AUTH=1 DATABASE_URL=postgres://... npm run dev`, then sign in at `/portal/sign-in` with any email; no Clerk needed. This shortcut is disabled in production builds.
+
+## Call transcripts and summaries
+
+Each person in an online call has their own microphone recorded in 45-second clips, sent to Groq's Whisper to be transcribed, and merged by time. Gemini then writes a summary. Staff open the lesson page, press "Create transcript and summary", check or edit the summary and choose whether to release it to the family. Both services have free tiers.
+
+1. Free key from console.groq.com: set `GROQ_API_KEY` (optional `GROQ_MODEL`, default `whisper-large-v3-turbo`).
+2. Free key from aistudio.google.com: set `GEMINI_API_KEY` (optional `GEMINI_MODEL`, default `gemini-2.5-flash`).
+3. Without `GROQ_API_KEY` nothing is recorded or sent anywhere.
+4. Check the free tiers' current limits and data terms before relying on them.

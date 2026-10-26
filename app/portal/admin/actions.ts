@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { query, queryOne } from "../../lib/portal/db";
 import { requireStaff, staffSession, canManage, type Role } from "../../lib/portal/dal";
+import { buildTranscript } from "../../lib/portal/transcripts";
+import { logActivity } from "../../lib/portal/audit";
 import { TIMEZONES, zonedToUtc } from "../../lib/portal/time";
 
 // Every action re-checks who is calling: the forms are only shown to the right people,
@@ -165,6 +167,59 @@ export async function updateSession(fd: FormData) {
   }
   revalidatePath("/portal", "layout");
   back(path, { ok: "Session updated." });
+}
+
+/* ── Call transcripts ─────────────────────────────────────────────── */
+
+// Loads a transcript row only if the caller may open its session.
+async function ownTranscript(fd: FormData) {
+  const { staff } = await requireStaff();
+  const id = int(fd, "id");
+  const row = id ? await queryOne<{ id: number; session_id: number }>("SELECT id, session_id FROM session_transcripts WHERE id = $1", [id]) : null;
+  const session = row ? await staffSession(staff, row.session_id) : null;
+  if (!row || !session) back("/portal/admin", { error: "Transcript not found." });
+  return { staff, row, session, path: `/portal/admin/sessions/${row.session_id}` };
+}
+
+export async function saveSummary(fd: FormData) {
+  const { row, path } = await ownTranscript(fd);
+  const summary = str(fd, "summary", 20000);
+  if (!summary) back(path, { error: "The summary can't be empty." });
+  await query("UPDATE session_transcripts SET summary = $1, summary_error = NULL WHERE id = $2", [summary, row.id]);
+  revalidatePath("/portal", "layout");
+  back(path, { ok: "Summary saved." });
+}
+
+// Builds the transcript from everything recorded so far and writes a fresh summary (replacing any edits).
+export async function generateSummary(fd: FormData) {
+  const { staff } = await requireStaff();
+  const sessionId = int(fd, "session_id");
+  const session = sessionId ? await staffSession(staff, sessionId) : null;
+  if (!session) back("/portal/admin", { error: "Session not found." });
+  const path = `/portal/admin/sessions/${session.id}`;
+  const built = await buildTranscript(session.id);
+  revalidatePath("/portal", "layout");
+  back(path, built ? { ok: "Transcript and summary updated." } : { error: "Nothing has been recorded for this call yet." });
+}
+
+export async function setSummaryReleased(fd: FormData) {
+  const { staff, row, session, path } = await ownTranscript(fd);
+  const release = fd.get("release") === "on";
+  const has = await queryOne<{ ok: boolean }>("SELECT summary IS NOT NULL AS ok FROM session_transcripts WHERE id = $1", [row.id]);
+  if (release && !has?.ok) back(path, { error: "There is no summary to release yet." });
+  await query("UPDATE session_transcripts SET released_to_family = $1 WHERE id = $2", [release, row.id]);
+  await logActivity({ kind: "staff", id: staff.id, name: staff.name, role: staff.role }, release ? "transcript.release" : "transcript.hide", { familyId: session.family_id, sessionId: row.session_id });
+  revalidatePath("/portal", "layout");
+  back(path, { ok: release ? "Summary released to the family." : "Summary withdrawn from the family." });
+}
+
+export async function deleteTranscript(fd: FormData) {
+  const { staff, row, session, path } = await ownTranscript(fd);
+  await query("DELETE FROM session_transcripts WHERE id = $1", [row.id]);
+  await query("DELETE FROM transcript_segments WHERE session_id = $1", [row.session_id]);
+  await logActivity({ kind: "staff", id: staff.id, name: staff.name, role: staff.role }, "transcript.delete", { familyId: session.family_id, sessionId: row.session_id });
+  revalidatePath("/portal", "layout");
+  back(path, { ok: "Transcript and summary deleted." });
 }
 
 /* ── Notes ─────────────────────────────────────────────────────────── */

@@ -4,9 +4,10 @@ import { sessionWhen, tzLabel } from "../../../../lib/portal/time";
 import { NoteCard, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Pill, Field, HelpBox } from "../../../ui";
 import { SubmitButton, ConfirmSubmit } from "../../../client-ui";
-import { addNote, deleteNote, updateSession } from "../../actions";
+import { addNote, deleteNote, updateSession, saveSummary, generateSummary, setSummaryReleased, deleteTranscript } from "../../actions";
 import { dailyEnabled } from "../../../../lib/portal/daily";
 import { sessionLog } from "../../../../lib/portal/audit";
+import { transcriptFor, segmentCount } from "../../../../lib/portal/transcripts";
 import ActivityList from "../../ActivityList";
 import Link from "next/link";
 
@@ -23,12 +24,14 @@ export default async function AdminSessionPage({
   const session = await staffSession(staff, id);
   if (!session) notFound();
   const manager = canManage(staff);
-  const [notes, family, team, msg, lessonLog] = await Promise.all([
+  const [notes, family, team, msg, lessonLog, transcript, recorded] = await Promise.all([
     sessionNotesForStaff(session.id),
     getFamily(session.family_id),
     manager ? listStaff() : Promise.resolve([]),
     searchParams,
     sessionLog(session.id),
+    transcriptFor(session.id),
+    segmentCount(session.id),
   ]);
   const tz = family?.timezone ?? "Europe/London";
   const ukWhen = sessionWhen(new Date(session.starts_at), session.minutes, "Europe/London");
@@ -98,6 +101,43 @@ export default async function AdminSessionPage({
               </fieldset>
               <SubmitButton>Save note</SubmitButton>
             </form>
+          </Card>
+
+          <Card title="Call transcript and summary" description="Written by AI from the call. Staff only. Check the summary, edit it if needed, then release it to the family if it's suitable.">
+            {recorded > 0 && (
+              <form action={generateSummary}>
+                <input type="hidden" name="session_id" value={session.id} />
+                <SubmitButton>{transcript ? "Refresh transcript and regenerate summary" : "Create transcript and summary"}</SubmitButton>
+              </form>
+            )}
+            {!transcript ? (
+              <EmptyState title="No transcript yet">{recorded > 0 ? "Press the button above once the call has ended." : "Nothing has been recorded for this call."}</EmptyState>
+            ) : (
+              <div className="pt-form">
+                <h3>{transcript.released_to_family && <Pill tone="good">Released to family</Pill>}</h3>
+                {transcript.summary_error && <p className="lr-error" role="alert">Summary problem: {transcript.summary_error}</p>}
+                <form action={saveSummary} className="pt-form">
+                  <input type="hidden" name="id" value={transcript.id} />
+                  <Field label="Summary" htmlFor="sum" hint="Use this to draft documents in line with the conversation.">
+                    <textarea id="sum" name="summary" rows={14} defaultValue={transcript.summary ?? ""} placeholder="No summary yet." />
+                  </Field>
+                  <SubmitButton>Save summary</SubmitButton>
+                </form>
+                <form action={setSummaryReleased}>
+                  <input type="hidden" name="id" value={transcript.id} />
+                  {!transcript.released_to_family && <input type="hidden" name="release" value="on" />}
+                  <SubmitButton>{transcript.released_to_family ? "Withdraw from family" : "Release summary to family"}</SubmitButton>
+                </form>
+                <details>
+                  <summary>Full transcript</summary>
+                  <pre style={{ whiteSpace: "pre-wrap" }}>{transcript.transcript}</pre>
+                </details>
+                <form action={deleteTranscript}>
+                  <input type="hidden" name="id" value={transcript.id} />
+                  <ConfirmSubmit message="Delete this transcript and its summary for good?">Delete transcript</ConfirmSubmit>
+                </form>
+              </div>
+            )}
           </Card>
 
           <Card title="Lesson log" description="Everyone who opened the lesson room, joined or left the call, with the time. Camera and connection problems show here too.">

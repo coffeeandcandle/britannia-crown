@@ -214,3 +214,26 @@ CREATE INDEX IF NOT EXISTS activity_log_at ON activity_log (at DESC);
 CREATE INDEX IF NOT EXISTS activity_log_actor ON activity_log (actor_key, at DESC);
 CREATE INDEX IF NOT EXISTS activity_log_family ON activity_log (family_id, at DESC);
 CREATE INDEX IF NOT EXISTS activity_log_session ON activity_log (session_id, at);
+
+-- What was said on an online call, in short pieces. Each person's browser sends its own microphone to be
+-- transcribed (Groq Whisper), and the pieces are merged by time. Staff only.
+CREATE TABLE IF NOT EXISTS transcript_segments (
+  id         bigserial PRIMARY KEY,
+  session_id integer NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+  speaker    text NOT NULL,
+  said_at    timestamptz NOT NULL,
+  body       text NOT NULL
+);
+CREATE INDEX IF NOT EXISTS transcript_segments_session ON transcript_segments (session_id, said_at);
+
+-- The written-up call: the merged transcript and an AI summary. Staff only until someone on the team reads the
+-- summary and chooses to release it to the family.
+CREATE TABLE IF NOT EXISTS session_transcripts (
+  id                 serial PRIMARY KEY,
+  session_id         integer NOT NULL UNIQUE REFERENCES sessions(id) ON DELETE CASCADE,
+  transcript         text NOT NULL,
+  summary            text,
+  summary_error      text,
+  released_to_family boolean NOT NULL DEFAULT false,
+  created_at         timestamptz NOT NULL DEFAULT now()
+);

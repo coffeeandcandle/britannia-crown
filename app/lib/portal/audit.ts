@@ -23,6 +23,9 @@ export const ACTIONS: Record<string, string> = {
   "room.participant_left": "Someone else left the call",
   "room.camera_error": "Camera or microphone problem",
   "room.error": "Call error",
+  "transcript.release": "Released a call summary to the family",
+  "transcript.hide": "Withdrew a call summary from the family",
+  "transcript.delete": "Deleted a call transcript",
 };
 
 async function context() {
