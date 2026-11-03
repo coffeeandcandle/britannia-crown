@@ -2,7 +2,8 @@ import { requireStaff } from "../../../lib/portal/dal";
 import { Flash } from "../../components";
 import { PageHeader, Card, EmptyState, Pill } from "../../ui";
 import { ConfirmSubmit, SubmitButton } from "../../client-ui";
-import { confirmConsultation, cancelConsultation, listConsultations } from "../consultation-actions";
+import { confirmConsultation, cancelConsultation } from "../consultation-actions";
+import { listConsultations } from "../../../lib/consultations";
 
 const when = (d: Date) =>
   new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", hour: "numeric", minute: "2-digit", hour12: true, timeZone: "Europe/London" }).format(new Date(d));

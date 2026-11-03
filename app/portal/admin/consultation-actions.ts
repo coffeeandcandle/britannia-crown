@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { query, queryOne } from "../../lib/portal/db";
+import { queryOne } from "../../lib/portal/db";
 import { requireStaff } from "../../lib/portal/dal";
 import { sendEmail, teamInbox } from "../../lib/email";
 import { EMAIL } from "../../lib/site";
@@ -48,11 +48,3 @@ export async function confirmConsultation(fd: FormData) {
 export async function cancelConsultation(fd: FormData) {
   await setStatus(fd, "cancelled");
 }
-
-export type ConsultationRow = { id: number; starts_at: Date; name: string; email: string; status: string; created_at: Date };
-
-export const listConsultations = () =>
-  query<ConsultationRow>(
-    `SELECT id, starts_at, name, email, status, created_at FROM consultation_requests
-     WHERE status <> 'cancelled' AND starts_at > now() - interval '1 day' ORDER BY starts_at`,
-  );

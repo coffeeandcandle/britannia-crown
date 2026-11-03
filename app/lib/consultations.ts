@@ -66,3 +66,12 @@ export async function reserveSlot(start: Date, name: string, email: string) {
     throw error;
   }
 }
+
+export type ConsultationRow = { id: number; starts_at: Date; name: string; email: string; status: string; created_at: Date };
+
+// Upcoming requests for the staff screen.
+export const listConsultations = () =>
+  query<ConsultationRow>(
+    `SELECT id, starts_at, name, email, status, created_at FROM consultation_requests
+     WHERE status <> 'cancelled' AND starts_at > now() - interval '1 day' ORDER BY starts_at`,
+  );
