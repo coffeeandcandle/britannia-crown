@@ -214,3 +214,15 @@ CREATE INDEX IF NOT EXISTS activity_log_at ON activity_log (at DESC);
 CREATE INDEX IF NOT EXISTS activity_log_actor ON activity_log (actor_key, at DESC);
 CREATE INDEX IF NOT EXISTS activity_log_family ON activity_log (family_id, at DESC);
 CREATE INDEX IF NOT EXISTS activity_log_session ON activity_log (session_id, at);
+
+-- Free consultation requests from the website. The unique index stops two families taking the same time.
+CREATE TABLE IF NOT EXISTS consultation_requests (
+  id         serial PRIMARY KEY,
+  starts_at  timestamptz NOT NULL,
+  minutes    integer NOT NULL DEFAULT 30,
+  name       text NOT NULL,
+  email      text NOT NULL,
+  status     text NOT NULL DEFAULT 'requested' CHECK (status IN ('requested', 'confirmed', 'cancelled')),
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE UNIQUE INDEX IF NOT EXISTS consultation_requests_slot ON consultation_requests (starts_at) WHERE status <> 'cancelled';

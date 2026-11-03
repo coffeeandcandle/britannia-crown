@@ -47,6 +47,11 @@ export default function BookingFlow() {
   const [session, setSession] = useState<SessionType>(initial ?? sessionTypes[0]);
   const [step, setStep] = useState<Step>(initial ? 2 : 1);
   const [slot, setSlot] = useState({ date: "", time: "" });
+  // Times still free, from the server. null while loading or if it couldn't be loaded (then the full list is shown
+  // and the server still refuses a time that's taken).
+  const [open, setOpen] = useState<Record<string, string[]> | null>(null);
+  const [slotError, setSlotError] = useState("");
+  const [sending, setSending] = useState(false);
   const [details, setDetails] = useState<Details>({ name: "", email: "", yearGroup: "", notes: "" });
   const headingRef = useRef<HTMLHeadingElement>(null);
   const firstRender = useRef(true);
@@ -90,9 +95,43 @@ export default function BookingFlow() {
     track("booking_details_entered", { session_type: session.id });
   }
 
-  function onSlotSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function loadSlots() {
+    fetch("/api/consultation-slots", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j: { slots?: Record<string, string[]> } | null) => setOpen(j?.slots ?? null))
+      .catch(() => setOpen(null));
+  }
+
+  useEffect(() => {
+    if (step === 3) loadSlots();
+  }, [step]);
+
+  async function onSlotSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!e.currentTarget.reportValidity()) return;
+    if (!e.currentTarget.reportValidity() || sending) return;
+    setSlotError("");
+    setSending(true);
+    try {
+      const res = await fetch("/api/consultation-slots/book", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: details.name, email: details.email, date: slot.date, time: slot.time }),
+      });
+      if (!res.ok) {
+        const j = (await res.json().catch(() => null)) as { error?: string } | null;
+        setSlotError(j?.error ?? "Sorry, something went wrong. Please try again, or email us.");
+        if (res.status === 409) {
+          setSlot({ ...slot, time: "" });
+          loadSlots();
+        }
+        return;
+      }
+    } catch {
+      setSlotError("Sorry, something went wrong. Please try again, or email us.");
+      return;
+    } finally {
+      setSending(false);
+    }
     const date = days.find((d) => d.value === slot.date)?.label ?? slot.date;
     const time = timeSlots.find((t) => t.value === slot.time)?.label ?? slot.time;
     saveBooking("booked", `${date}, ${time} UK time`);
@@ -224,21 +263,22 @@ export default function BookingFlow() {
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="bk-date">Date</label>
-                <select id="bk-date" required value={slot.date} onChange={(e) => setSlot({ ...slot, date: e.target.value })}>
+                <select id="bk-date" required value={slot.date} onChange={(e) => setSlot({ date: e.target.value, time: "" })}>
                   <option value="" disabled>Choose a date</option>
-                  {days.map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
+                  {days.filter((d) => !open || open[d.value]).map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
                 </select>
               </div>
               <div className="form-group">
                 <label htmlFor="bk-time">Time (UK time)</label>
                 <select id="bk-time" required value={slot.time} onChange={(e) => setSlot({ ...slot, time: e.target.value })}>
                   <option value="" disabled>Choose a time</option>
-                  {timeSlots.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
+                  {timeSlots.filter((t) => !open || !slot.date || open[slot.date]?.includes(t.value)).map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
                 </select>
               </div>
             </div>
             <p className="booking-hint">Each call is {session.minutes} minutes. We&apos;ll confirm your time by email, usually within 24 hours.</p>
-            <button type="submit" className="form-submit">Request this time</button>
+            {slotError && <p className="lr-error" role="alert">{slotError}</p>}
+            <button type="submit" className="form-submit" disabled={sending}>{sending ? "Sending…" : "Request this time"}</button>
           </form>
         </section>
       )}
@@ -246,7 +286,7 @@ export default function BookingFlow() {
       {step === 4 && (
         <section aria-labelledby="booking-step-title" className="booking-done">
           <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Thank you{details.name ? `, ${details.name.split(" ")[0]}` : ""}. We have your request</h2>
-          <p>We&apos;ll email {details.email || "you"} to confirm the time, usually within 24 hours. Your consultant will read your notes beforehand.</p>
+          <p>We&apos;ve emailed {details.email || "you"} and will confirm the time, usually within 24 hours. Your consultant will read your notes beforehand.</p>
           <ul className="uk-ticks">
             <li>Need a different time? Just reply to our confirmation email</li>
             <li>Questions before the call? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
