@@ -26,6 +26,7 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
     ...(manager
       ? [{ title: "Clients", items: [
             { href: "/portal/admin/families", label: "Families", icon: "families" as const },
+            { href: "/portal/admin/consultations", label: "Free consultations", icon: "calendar" as const },
           ] }]
       : []),
     ...(staff.role === "admin"
