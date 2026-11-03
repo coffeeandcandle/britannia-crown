@@ -3,12 +3,28 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import CalendlyEmbed from "./CalendlyEmbed";
 import EnquiryForm from "./EnquiryForm";
 import { sessionTypes, getSessionType, isBookable, priceLabel, type SessionType } from "../lib/sessions";
 import { EMAIL } from "../lib/site";
 import { track } from "../lib/track";
 import { appendAttribution } from "../lib/attribution";
+
+// Dates from tomorrow for the next 30 days (UK time) and half-hour starts from 9am to 5:30pm, so calls end by 6pm.
+function nextDays(count: number) {
+  const [y, m, d] = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(new Date()).split("-").map(Number);
+  return Array.from({ length: count }, (_, i) => {
+    const day = new Date(Date.UTC(y, m - 1, d + 1 + i));
+    return {
+      value: day.toISOString().slice(0, 10),
+      label: new Intl.DateTimeFormat("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(day),
+    };
+  });
+}
+const timeSlots = Array.from({ length: 18 }, (_, i) => {
+  const mins = 9 * 60 + i * 30;
+  const h = Math.floor(mins / 60);
+  return { value: `${String(h).padStart(2, "0")}:${mins % 60 === 0 ? "00" : "30"}`, label: `${h > 12 ? h - 12 : h}:${mins % 60 === 0 ? "00" : "30"}${h >= 12 ? "pm" : "am"}` };
+});
 
 type Details = { name: string; email: string; yearGroup: string; notes: string };
 type Step = 1 | 2 | 3 | 4;
@@ -25,26 +41,12 @@ const yearGroups = [
 
 const stepNames = ["Choose a session", "Your details", "Pick a time"];
 
-function readUtm() {
-  try {
-    const a = JSON.parse(sessionStorage.getItem("bc_attribution") ?? "{}") as Record<string, string>;
-    return {
-      utmSource: a.utm_source,
-      utmMedium: a.utm_medium,
-      utmCampaign: a.utm_campaign ?? (a.landing_page ? `landing:${a.landing_page}`.slice(0, 100) : undefined),
-      utmContent: a.utm_content,
-      utmTerm: a.utm_term,
-    };
-  } catch {
-    return {};
-  }
-}
-
 export default function BookingFlow() {
   const params = useSearchParams();
   const initial = getSessionType(params.get("session"));
   const [session, setSession] = useState<SessionType>(initial ?? sessionTypes[0]);
   const [step, setStep] = useState<Step>(initial ? 2 : 1);
+  const [slot, setSlot] = useState({ date: "", time: "" });
   const [details, setDetails] = useState<Details>({ name: "", email: "", yearGroup: "", notes: "" });
   const headingRef = useRef<HTMLHeadingElement>(null);
   const firstRender = useRef(true);
@@ -66,8 +68,8 @@ export default function BookingFlow() {
   }
 
   // Saves the booking to the CRM: once when details are entered (so a family who doesn't
-  // finish is still followed up), and again when Calendly confirms the time.
-  function saveBooking(status: "started" | "booked", calendlyEvent?: string) {
+  // finish is still followed up), and again when they choose a time.
+  function saveBooking(status: "started" | "booked", preferredTime?: string) {
     const data = new FormData();
     data.set("form", "booking");
     data.set("status", status);
@@ -76,7 +78,7 @@ export default function BookingFlow() {
     data.set("email", details.email);
     data.set("year_group", details.yearGroup);
     data.set("notes", details.notes);
-    if (calendlyEvent) data.set("calendly_event", calendlyEvent);
+    if (preferredTime) data.set("preferred_time", preferredTime);
     fetch("/api/enquiry", { method: "POST", body: appendAttribution(data), keepalive: true }).catch(() => {});
   }
 
@@ -88,11 +90,15 @@ export default function BookingFlow() {
     track("booking_details_entered", { session_type: session.id });
   }
 
-  function onScheduled(payload?: { event?: { uri?: string } }) {
-    saveBooking("booked", payload?.event?.uri);
+  function onSlotSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!e.currentTarget.reportValidity()) return;
+    const date = days.find((d) => d.value === slot.date)?.label ?? slot.date;
+    const time = timeSlots.find((t) => t.value === slot.time)?.label ?? slot.time;
+    saveBooking("booked", `${date}, ${time} UK time`);
     setStep(4);
     track("consultation_booked", {
-      method: "calendly",
+      method: "slot_picker",
       session_type: session.id,
       value: session.price ?? 0,
       currency: "GBP",
@@ -100,6 +106,7 @@ export default function BookingFlow() {
     });
   }
 
+  const [days] = useState(() => nextDays(30));
   const bookable = isBookable(session);
   const shownStep = Math.min(step, 3);
 
@@ -212,29 +219,36 @@ export default function BookingFlow() {
             <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Pick a time for your {session.name.toLowerCase()}</h2>
             <button type="button" className="finder-reset" onClick={() => setStep(2)}>Back to your details</button>
           </div>
-          {session.price !== null && <p className="booking-hint">You&apos;ll pay {priceLabel(session)} securely by card when you confirm the time.</p>}
-          <CalendlyEmbed
-            url={session.calendlyUrl}
-            prefill={{
-              name: details.name,
-              email: details.email,
-              customAnswers: {
-                a1: [details.yearGroup && `Year group: ${details.yearGroup}`, details.notes].filter(Boolean).join(". "),
-              },
-            }}
-            utm={readUtm()}
-            onScheduled={onScheduled}
-          />
+          {session.price !== null && <p className="booking-hint">You&apos;ll pay {priceLabel(session)} securely by card once we confirm the time.</p>}
+          <form className="booking-form" onSubmit={onSlotSubmit}>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="bk-date">Date</label>
+                <select id="bk-date" required value={slot.date} onChange={(e) => setSlot({ ...slot, date: e.target.value })}>
+                  <option value="" disabled>Choose a date</option>
+                  {days.map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="bk-time">Time (UK time)</label>
+                <select id="bk-time" required value={slot.time} onChange={(e) => setSlot({ ...slot, time: e.target.value })}>
+                  <option value="" disabled>Choose a time</option>
+                  {timeSlots.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
+                </select>
+              </div>
+            </div>
+            <p className="booking-hint">Each call is {session.minutes} minutes. We&apos;ll confirm your time by email, usually within 24 hours.</p>
+            <button type="submit" className="form-submit">Request this time</button>
+          </form>
         </section>
       )}
 
       {step === 4 && (
         <section aria-labelledby="booking-step-title" className="booking-done">
-          <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">You&apos;re booked in{details.name ? `, ${details.name.split(" ")[0]}` : ""}</h2>
-          <p>A confirmation with the call details is on its way to {details.email || "your inbox"}. Your consultant will read your notes beforehand.</p>
+          <h2 id="booking-step-title" ref={headingRef} tabIndex={-1} className="booking-title">Thank you{details.name ? `, ${details.name.split(" ")[0]}` : ""}. We have your request</h2>
+          <p>We&apos;ll email {details.email || "you"} to confirm the time, usually within 24 hours. Your consultant will read your notes beforehand.</p>
           <ul className="uk-ticks">
-            <li>Add the time to your calendar from the confirmation email</li>
-            <li>Need to change it? Use the reschedule link in the email</li>
+            <li>Need a different time? Just reply to our confirmation email</li>
             <li>Questions before the call? Email <a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
           </ul>
           <div className="uk-hero-actions">
