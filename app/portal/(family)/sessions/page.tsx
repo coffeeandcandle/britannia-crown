@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { requireFamily, familySessions } from "../../../lib/portal/dal";
 import { tzLabel } from "../../../lib/portal/time";
-import { SessionList } from "../../components";
+import { SessionList, Flash } from "../../components";
 import { PageHeader, Card, EmptyState } from "../../ui";
 
-export default async function FamilySessionsPage() {
+export default async function FamilySessionsPage({ searchParams }: { searchParams: Promise<{ ok?: string }> }) {
   const { family } = await requireFamily();
+  const msg = await searchParams;
   const sessions = await familySessions(family.id);
   const upcoming = sessions.filter((s) => s.is_upcoming).reverse();
   const past = sessions.filter((s) => !s.is_upcoming);
@@ -13,6 +14,7 @@ export default async function FamilySessionsPage() {
 
   return (
     <>
+      <Flash ok={msg.ok} />
       <PageHeader
         title="Sessions"
         description={<>All your lessons, past and future. Open one to see its details and your tutor&apos;s notes. Times in {tzLabel(family.timezone)}.</>}

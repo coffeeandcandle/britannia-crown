@@ -237,3 +237,18 @@ CREATE TABLE IF NOT EXISTS session_transcripts (
   released_to_family boolean NOT NULL DEFAULT false,
   created_at         timestamptz NOT NULL DEFAULT now()
 );
+
+-- Free consultation requests from the website. The unique index stops two families taking the same time.
+CREATE TABLE IF NOT EXISTS consultation_requests (
+  id         serial PRIMARY KEY,
+  starts_at  timestamptz NOT NULL,
+  minutes    integer NOT NULL DEFAULT 30,
+  name       text NOT NULL,
+  email      text NOT NULL,
+  status     text NOT NULL DEFAULT 'requested' CHECK (status IN ('requested', 'confirmed', 'cancelled')),
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE UNIQUE INDEX IF NOT EXISTS consultation_requests_slot ON consultation_requests (starts_at) WHERE status <> 'cancelled';
+
+-- Where a booked session came from: 'member' sessions use hours from a monthly plan.
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS source text;

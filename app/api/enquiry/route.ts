@@ -44,8 +44,8 @@ const FORMS: Record<string, FormConfig> = {
     type: "booking",
     kind: "family",
     stage: undefined,
-    summary: (f) => (f.status === "booked" ? `Booked a ${f.session}` : `Started booking a ${f.session} (time not chosen yet)`),
-    fields: { session: "Session", year_group: "Year group", notes: "Notes", status: "Status", calendly_event: "Calendly event" },
+    summary: (f) => (f.status === "booked" ? `Booking request: ${f.session}${f.preferred_time ? `, ${f.preferred_time}` : ""}` : `Started booking a ${f.session} (time not chosen yet)`),
+    fields: { session: "Session", year_group: "Year group", notes: "Notes", status: "Status", preferred_time: "Preferred time", calendly_event: "Calendly event" },
     alert: (f) => f.status === "booked",
   },
 };

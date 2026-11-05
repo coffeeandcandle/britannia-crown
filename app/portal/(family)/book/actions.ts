@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { queryOne } from "../../../lib/portal/db";
 import { requireFamily } from "../../../lib/portal/dal";
-import { bookOrder } from "../../../lib/portal/booking";
+import { bookOrder, bookMemberLesson } from "../../../lib/portal/booking";
 import { alertTeam, sendEmail } from "../../../lib/email";
 import { query } from "../../../lib/portal/db";
 import { recordEvent } from "../../../lib/crm";
@@ -43,6 +43,38 @@ export async function bookSession(fd: FormData) {
     console.error("Booking emails not sent (the booking is saved)", error);
   }
   await alertTeam("Paid session booked", { Session: result.title, Family: family.name, With: staff?.name, When: when }, family.email);
+  revalidatePath("/portal", "layout");
+  redirect(`/portal/sessions/${result.sessionId}?ok=${encodeURIComponent("Booked. It is now in your calendar.")}`);
+}
+
+// A family on a monthly plan books a lesson from their hours.
+export async function bookMemberSession(fd: FormData) {
+  const { family, viewer } = await requireFamily();
+  const start = Number(fd.get("start"));
+  if (!Number.isFinite(start)) redirect("/portal/book");
+  const result = await bookMemberLesson(family.id, start);
+  if ("error" in result) redirect(`/portal/book?${new URLSearchParams({ error: result.error as string })}`);
+
+  await logActivity({ kind: "family", id: family.id, name: family.name }, "session.book", { familyId: family.id, sessionId: result.sessionId, detail: `${result.title} (plan hours)` });
+  const when = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: family.timezone }).format(result.start);
+  const staff = await queryOne<{ name: string; email: string }>("SELECT name, email FROM staff WHERE id = $1", [result.staffId]);
+  const link = `${SITE_URL}/portal/sessions/${result.sessionId}`;
+  try {
+    await sendEmail({
+      to: [viewer.email],
+      subject: `Your tutoring lesson is booked | Britannia Crown`,
+      text: `Hello ${family.name.split(" ")[0]},\n\nYour tutoring lesson is booked for ${when}${staff ? ` with ${staff.name}` : ""}.\n\nIt happens in your client portal. The Join button appears 15 minutes before the start:\n${link}\n\nBritannia Crown`,
+    });
+    if (staff) {
+      await sendEmail({
+        to: [staff.email],
+        subject: `New lesson booked with ${family.name}`,
+        text: `${family.name} booked a tutoring lesson with you on ${new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: "Europe/London" }).format(result.start)} (UK time), from their plan hours.\n\n${SITE_URL}/portal/admin/sessions/${result.sessionId}`,
+      });
+    }
+  } catch (error) {
+    console.error("Booking emails not sent (the booking is saved)", error);
+  }
   revalidatePath("/portal", "layout");
   redirect(`/portal/sessions/${result.sessionId}?ok=${encodeURIComponent("Booked. It is now in your calendar.")}`);
 }
