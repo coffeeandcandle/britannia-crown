@@ -2,6 +2,7 @@ import "server-only";
 import { query, queryOne } from "./db";
 import { addDaysKey, dayKeyOf, zonedToUtc } from "./time";
 import type { Role } from "./dal";
+import { getStripe } from "../stripe";
 
 // Paid sessions are booked inside the portal after payment, so they land straight in the shared calendar
 // (admin, the person teaching and the family all see them). Free meetings stay on Calendly.
@@ -14,8 +15,10 @@ const STEP_MIN = 30;
 export const BOOKABLE: Record<string, { title: string; minutes: number; roles: Role[] }> = {
   "strategy-session": { title: "Strategy session", minutes: 60, roles: ["consultant", "admin"] },
   "trial-lesson": { title: "Trial tutoring lesson", minutes: 45, roles: ["tutor"] },
+  // Booked from a monthly plan's hours, not bought one by one.
+  "member-lesson": { title: "Tutoring lesson", minutes: 60, roles: ["tutor"] },
 };
-const BOOKABLE_IDS = Object.keys(BOOKABLE);
+const BOOKABLE_IDS = Object.keys(BOOKABLE).filter((id) => id !== "member-lesson");
 
 export type UnbookedOrder = { id: number; product_id: string; product_name: string; created_at: Date; has_details: boolean };
 
@@ -113,3 +116,80 @@ export async function bookOrder(familyId: number, orderId: number, startMs: numb
 
 export const minutesToTime = (m: number) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
 export const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+// Monthly plans: hours a month. A plan is active while its Stripe subscription is.
+export const PLAN_HOURS: Record<string, number> = { "membership-foundation": 4, "membership-partner": 8, "membership-full-partner": 14 };
+
+export type MemberPlan = { productId: string; name: string; hours: number; usedMinutes: number };
+
+// The family's active plan and the minutes already booked in the month of the given date (UK time).
+export async function memberPlan(familyId: number, month = new Date()): Promise<MemberPlan | null> {
+  const stripe = getStripe();
+  if (!stripe) return null;
+  const order = await queryOne<{ product_id: string; product_name: string; stripe_subscription_id: string }>(
+    `SELECT product_id, product_name, stripe_subscription_id FROM orders
+     WHERE family_id = $1 AND status = 'paid' AND stripe_subscription_id IS NOT NULL AND product_id = ANY($2::text[])
+     ORDER BY created_at DESC LIMIT 1`,
+    [familyId, Object.keys(PLAN_HOURS)],
+  );
+  if (!order) return null;
+  try {
+    const sub = await stripe.subscriptions.retrieve(order.stripe_subscription_id);
+    if (sub.status !== "active" && sub.status !== "trialing") return null;
+  } catch {
+    return null;
+  }
+  return { productId: order.product_id, name: order.product_name, hours: PLAN_HOURS[order.product_id], usedMinutes: await usedMinutes(familyId, month) };
+}
+
+const usedMinutes = async (familyId: number, month: Date) =>
+  (
+    await queryOne<{ m: number }>(
+      `SELECT COALESCE(SUM(minutes), 0)::int AS m FROM sessions
+       WHERE family_id = $1 AND source = 'member' AND status <> 'cancelled'
+         AND date_trunc('month', starts_at AT TIME ZONE 'Europe/London') = date_trunc('month', $2::timestamptz AT TIME ZONE 'Europe/London')`,
+      [familyId, month],
+    )
+  )?.m ?? 0;
+
+// Books one tutoring lesson from the family's monthly hours. The hours for the lesson's own month are checked again at insert.
+export async function bookMemberLesson(familyId: number, startMs: number) {
+  const kind = BOOKABLE["member-lesson"];
+  const start = new Date(startMs);
+  const plan = await memberPlan(familyId, start);
+  if (!plan) return { error: "You need an active monthly plan to book from your hours." } as const;
+  if (plan.usedMinutes + kind.minutes > plan.hours * 60) return { error: "You have used all your hours for that month. Choose a time in another month, or ask us about adding hours." } as const;
+  const slot = (await availableSlots("member-lesson")).find((s) => s.start.getTime() === startMs);
+  if (!slot) return { error: "Sorry, that time has just been taken. Please choose another." } as const;
+  const child = await queryOne<{ id: number }>("SELECT id FROM children WHERE family_id = $1 ORDER BY id LIMIT 1", [familyId]);
+  for (const staffId of slot.staffIds) {
+    const created = await queryOne<{ id: number }>(
+      `INSERT INTO sessions (family_id, child_id, staff_id, title, starts_at, minutes, source)
+       SELECT $1, $2, $3, $4, $5, $6, 'member'
+       WHERE NOT EXISTS (
+         SELECT 1 FROM sessions WHERE staff_id = $3 AND status <> 'cancelled'
+           AND starts_at < $5::timestamptz + make_interval(mins => $6) AND starts_at + make_interval(mins => minutes) > $5::timestamptz)
+       RETURNING id`,
+      [familyId, child?.id ?? null, staffId, kind.title, start, kind.minutes],
+    );
+    if (created) return { sessionId: created.id, staffId, start, title: kind.title } as const;
+  }
+  return { error: "Sorry, that time has just been taken. Please choose another." } as const;
+}
+
+export const CANCEL_NOTICE_HOURS = 24;
+
+// A family cancels their own upcoming session, with notice. A single paid session goes back to "to book" so they can pick another time;
+// a plan session simply frees those hours.
+export async function cancelOwnSession(familyId: number, sessionId: number) {
+  const s = await queryOne<{ id: number; starts_at: Date; staff_id: number | null; title: string }>(
+    "SELECT id, starts_at, staff_id, title FROM sessions WHERE id = $1 AND family_id = $2 AND status = 'scheduled'",
+    [sessionId, familyId],
+  );
+  if (!s) return { error: "That session could not be found." } as const;
+  if (new Date(s.starts_at).getTime() - Date.now() < CANCEL_NOTICE_HOURS * 3600000)
+    return { error: `Sessions can only be changed online up to ${CANCEL_NOTICE_HOURS} hours before they start. Please email your consultant.` } as const;
+  await query("UPDATE sessions SET status = 'cancelled' WHERE id = $1", [s.id]);
+  const credit = await query("UPDATE orders SET session_id = NULL WHERE session_id = $1 RETURNING id", [s.id]);
+  return { session: s, credited: credit.length > 0 } as const;
+}

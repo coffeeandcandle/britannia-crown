@@ -1,17 +1,20 @@
 import { notFound } from "next/navigation";
 import { requireFamily, familySession, familyNotes } from "../../../../lib/portal/dal";
 import { sessionWhen, tzLabel } from "../../../../lib/portal/time";
-import { NoteCard } from "../../../components";
+import { NoteCard, Flash } from "../../../components";
+import { cancelSession } from "../actions";
+import { CANCEL_NOTICE_HOURS } from "../../../../lib/portal/booking";
 import { PageHeader, Card, EmptyState, Pill } from "../../../ui";
 import { dailyEnabled } from "../../../../lib/portal/daily";
 import Link from "next/link";
 
-export default async function FamilySessionPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function FamilySessionPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string; error?: string }> }) {
   const { family } = await requireFamily();
   const id = Number((await params).id);
   if (!Number.isInteger(id)) notFound();
   const session = await familySession(family.id, id);
   if (!session) notFound();
+  const msg = await searchParams;
   const notes = await familyNotes(family.id, { sessionId: session.id });
   const when = sessionWhen(new Date(session.starts_at), session.minutes, family.timezone);
 
@@ -33,6 +36,7 @@ export default async function FamilySessionPage({ params }: { params: Promise<{ 
         ) : undefined}
       />
 
+      <Flash ok={msg.ok} error={msg.error} />
       <Card>
         <dl className="ui-facts">
           <div><dt>Status</dt><dd>{status}</dd></div>
@@ -50,6 +54,13 @@ export default async function FamilySessionPage({ params }: { params: Promise<{ 
             </dd>
           </div>
         </dl>
+        {session.status === "scheduled" && session.is_upcoming && (
+          <form action={cancelSession} className="pt-form">
+            <input type="hidden" name="session_id" value={session.id} />
+            <p className="booking-hint">Need a different time? Cancel up to {CANCEL_NOTICE_HOURS} hours before it starts and book another. Nothing is lost.</p>
+            <button type="submit" className="btn-secondary ui-btn-sm">Cancel this session</button>
+          </form>
+        )}
       </Card>
 
       <Card title="Notes from this lesson" description="What was covered, how it went and any homework.">

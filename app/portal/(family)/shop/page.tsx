@@ -6,6 +6,8 @@ import { getService } from "../../../lib/services";
 import { paymentsEnabled } from "../../../lib/stripe";
 import BuyButton from "../../../components/BuyButton";
 import { PageHeader, Card } from "../../ui";
+import { sessionTypes } from "../../../lib/sessions";
+import { unbookedOrders } from "../../../lib/portal/booking";
 
 const tiers = [
   { id: "membership-foundation", slug: "foundation", hours: 4, tag: "Flexible" },
@@ -18,6 +20,8 @@ const consultancy = ["school-placement", "home-education", "qualifications"] as 
 // so what they buy is linked to this account straight away.
 export default async function PlansAndServicesPage() {
   const { family } = await requireFamily();
+  const waiting = await unbookedOrders(family.id);
+  const oneOffs = sessionTypes.filter((s) => s.productId && getProduct(s.productId));
 
   return (
     <>
@@ -25,6 +29,35 @@ export default async function PlansAndServicesPage() {
         title="Plans and services"
         description="Choose a plan and pay securely online. Purchases appear in your account straight away, under Purchases and billing."
       />
+
+      {waiting.length > 0 && (
+        <Card title={`You have ${waiting.length} paid ${waiting.length === 1 ? "session" : "sessions"} to book`}>
+          <Link href="/portal/book" className="btn-primary">Choose a time</Link>
+        </Card>
+      )}
+
+      <Card title="Single sessions" description="Pay once, then pick a time that suits you. Sessions happen online in your portal.">
+        <div className="plans-grid">
+          {oneOffs.map((s) => {
+            const p = getProduct(s.productId as string);
+            if (!p) return null;
+            return (
+              <article className="plan" key={s.id}>
+                <span className="plan-tag">{s.minutes} minutes</span>
+                <h3>{s.name}</h3>
+                <p className="plan-price">{formatPrice(p)} <small>one-time</small></p>
+                <p className="plan-value">{s.summary}</p>
+                <ul className="plan-list">
+                  {s.includes.map((i) => (
+                    <li key={i}>{i}</li>
+                  ))}
+                </ul>
+                <BuyButton product={p} enabled={paymentsEnabled} email={family.email} label={paymentsEnabled ? `Buy and choose a time` : "Enquire"} className="btn-secondary" />
+              </article>
+            );
+          })}
+        </div>
+      </Card>
 
       <Card title="Online tutoring" description="Regular lessons with a vetted UK-qualified tutor, overseen by your education consultant. Cancel or pause anytime.">
         <div className="plans-grid">

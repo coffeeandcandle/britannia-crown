@@ -226,3 +226,6 @@ CREATE TABLE IF NOT EXISTS consultation_requests (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 CREATE UNIQUE INDEX IF NOT EXISTS consultation_requests_slot ON consultation_requests (starts_at) WHERE status <> 'cancelled';
+
+-- Where a booked session came from: 'member' sessions use hours from a monthly plan.
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS source text;
