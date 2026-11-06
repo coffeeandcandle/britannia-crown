@@ -182,3 +182,7 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 - Admins see everything under Activity log (filter by type), a "Recent activity" card on each family and a "Lesson log" on each lesson. A tutor sees the lesson log for their own lessons.
 - The join and leave times come from the lesson room in each person's browser, so they show attendance but are not tamper-proof.
 - The privacy policy now says the log is kept. Please confirm the wording and decide how long entries should be kept (there is no automatic deletion yet).
+
+## 11+ tutoring page (6 Nov 2026)
+- New page `/tutors/11-plus` (listed under Primary). It says we can prepare children for 11+ entrance tests and mentions GL Assessment and CEM as common test publishers. Please confirm there are tutors who can teach 11+ English, maths, verbal and non-verbal reasoning, and that we are happy to offer it before this goes live.
+- The page makes no pass-rate or guarantee claims, and says plainly that tutoring cannot guarantee a place.

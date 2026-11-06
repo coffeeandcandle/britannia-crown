@@ -55,6 +55,51 @@ export const subjects: Subject[] = [
       "Primary tutoring for Key Stage 1 and 2: reading, writing, maths and Year 6 SATs preparation from UK-trained educators, personally matched to your child.",
   },
   {
+    slug: "11-plus",
+    level: "Primary",
+    name: "11+",
+    tagline: "calm preparation for selective school entry.",
+    lead: "The 11+ is the entrance test for grammar schools and many independent schools, and much of it is unlike anything a child meets in the classroom. Our tutors build the English and maths a child needs, introduce verbal and non-verbal reasoning step by step and teach them to work calmly against the clock, so the test feels familiar rather than frightening.",
+    glance: [
+      { label: "Who sits it", value: "Children applying to selective schools, usually in Year 6 (ages 10 to 11)" },
+      { label: "When", value: "Often the autumn of Year 6, with registration earlier. Dates vary by area and school" },
+      { label: "What it covers", value: "Commonly English, maths, verbal reasoning and non-verbal reasoning. The mix varies" },
+      { label: "Who sets it", value: "Test publishers such as GL Assessment or CEM, or the school itself" },
+    ],
+    help: [
+      { title: "Verbal reasoning", body: "Word puzzles, codes and sequences are new to most children. We teach the common question types and the strategies for each, so they approach them with a method rather than a guess." },
+      { title: "Non-verbal reasoning", body: "Shapes, patterns and spatial puzzles reward practice and a clear way of looking. We build speed and accuracy gradually, starting with the simplest patterns." },
+      { title: "English and maths at test standard", body: "Comprehension, vocabulary, spelling, fractions, ratio and problem solving are often tested beyond the school curriculum. We close gaps and stretch what your child already knows." },
+      { title: "Timing, technique and confidence", body: "Short timed sections, unfamiliar layouts and answer sheets can unsettle a child who knows the content. We practise the format in a relaxed way, so the day itself holds no surprises." },
+    ],
+    faqs: [
+      {
+        q: "When should 11+ preparation start?",
+        a: "There is no single right time, and it depends on the child and the test. Many families who choose tutoring begin in Year 5, and some start earlier with reading and number fluency. A little regular practice over a longer period is usually calmer than intensive cramming.",
+      },
+      {
+        q: "Does tutoring guarantee a grammar school place?",
+        a: "No, and no tutor can promise that. Passing the test shows a child has reached the school's standard, but oversubscribed schools rank those who qualify and you must still apply through your local authority. Tutoring builds skills and familiarity with the format.",
+      },
+      {
+        q: "Are all 11+ tests the same?",
+        a: "No. Tests differ by area and by school. Some use papers from publishers such as GL Assessment or CEM, others set their own, and the subjects, format and timings vary. Check your target school's website first, then tell us which test your child will sit.",
+      },
+      {
+        q: "Is the 11+ only for grammar schools?",
+        a: "Grammar schools are state-funded and only exist in some parts of England. Many independent schools also run their own entrance assessments for entry at 11, often called the 11+, with their own dates and content. Our guide to the 11+ explains the difference.",
+      },
+      {
+        q: "Will tutoring put too much pressure on my child?",
+        a: "It shouldn't. Short, encouraging sessions that build understanding work better than long drilling, and we keep the focus on confidence. If selective entry doesn't suit your child, we will say so honestly.",
+      },
+    ],
+    related: ["primary", "gcse-maths", "gcse-english"],
+    seoTitle: "11+ Tutors | Grammar School Entrance Prep | Britannia Crown",
+    seoDescription:
+      "11+ tutoring for grammar and independent school entrance tests: English, maths, verbal and non-verbal reasoning from UK-trained educators.",
+  },
+  {
     slug: "gcse-maths",
     level: "GCSE",
     name: "GCSE Maths",

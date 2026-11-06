@@ -207,7 +207,7 @@ export const guides: Guide[] = [
       { q: "Does living in the catchment area guarantee a place?", a: "No. If a school is oversubscribed, children are ranked by its criteria, and catchment is only one of them. Some schools have no catchment at all." },
       { q: "How is distance measured?", a: "Usually as a straight line from your home to the school gate, though some schools or authorities use walking distance. The admission policy states exactly how." },
     ],
-    related: { services: ["school-placement"], subjects: ["primary"], guides: ["school-admissions-england", "school-admission-appeals-england", "questions-to-ask-when-visiting-a-school", "11-plus-and-grammar-schools-explained", "independent-school-entry-assessments-and-bursaries"] },
+    related: { services: ["school-placement"], subjects: ["primary", "11-plus"], guides: ["school-admissions-england", "school-admission-appeals-england", "questions-to-ask-when-visiting-a-school", "11-plus-and-grammar-schools-explained", "independent-school-entry-assessments-and-bursaries"] },
     enquiry: { service: "School Placement", title: "Reading the admission rules?", emphasis: "Let's talk it through.", lead: "Tell us your postcode and the schools you like and an education consultant will explain your realistic chances." },
   },
   {
@@ -255,7 +255,7 @@ export const guides: Guide[] = [
       { q: "Does passing guarantee a grammar school place?", a: "No. If the school is oversubscribed it ranks children who qualify using its criteria or scores, and you must still apply through your local authority." },
       { q: "Should my child have tuition for the 11-plus?", a: "Preparation is optional. If you prepare, focus on core skills and familiarity with the format, and keep it proportionate." },
     ],
-    related: { services: ["school-placement", "tutoring"], subjects: ["primary"], guides: ["how-school-admissions-criteria-work", "school-admissions-england", "independent-school-entry-assessments-and-bursaries"] },
+    related: { services: ["school-placement", "tutoring"], subjects: ["primary", "11-plus"], guides: ["how-school-admissions-criteria-work", "school-admissions-england", "independent-school-entry-assessments-and-bursaries"] },
     enquiry: { service: "School Placement", title: "Thinking about the 11-plus?", emphasis: "Let's plan it calmly.", lead: "Tell us your area and your child's age and an education consultant will explain what is involved." },
   },
   {
@@ -271,7 +271,7 @@ export const guides: Guide[] = [
       { q: "What is the difference between a scholarship and a bursary?", a: "Scholarships reward talent in areas such as academics, music, sport or art. Bursaries are means-tested help with fees based on family finances." },
       { q: "How early should I register?", a: "Many popular schools ask families to register early, sometimes a year or more ahead, so contact them as soon as you are interested." },
     ],
-    related: { services: ["school-placement"], subjects: ["primary"], guides: ["11-plus-and-grammar-schools-explained", "how-school-admissions-criteria-work", "questions-to-ask-when-visiting-a-school"] },
+    related: { services: ["school-placement"], subjects: ["primary", "11-plus"], guides: ["11-plus-and-grammar-schools-explained", "how-school-admissions-criteria-work", "questions-to-ask-when-visiting-a-school"] },
     enquiry: { service: "School Placement", title: "Considering independent schools?", emphasis: "Let's compare them.", lead: "Tell us about your child and an education consultant will help you shortlist and plan registration." },
   },
   {
@@ -473,7 +473,7 @@ export const guides: Guide[] = [
         a: "No. Schools don't see how you ranked them, and listing a single school gives you no advantage. Naming several schools reduces the risk of being offered a school you didn't choose.",
       },
     ],
-    related: { services: ["school-placement"], subjects: ["primary"], guides: ["home-education-england", "igcse-vs-gcse", "11-plus-and-grammar-schools-explained", "independent-school-entry-assessments-and-bursaries", "how-to-choose-a-nursery-england"] },
+    related: { services: ["school-placement"], subjects: ["primary", "11-plus"], guides: ["home-education-england", "igcse-vs-gcse", "11-plus-and-grammar-schools-explained", "independent-school-entry-assessments-and-bursaries", "how-to-choose-a-nursery-england"] },
     enquiry: {
       service: "School Placement",
       title: "Choosing a school?",
