@@ -517,7 +517,7 @@ export const newsEntries: NewsItem[] = [
   {
     "slug": "ambassador-programme-earn-30-per-referral",
     "title": "Ambassador Programme: earn £30 for every successful referral",
-    "seoTitle": "Ambassador Programme: Earn £30 | Britannia Crown",
+    "seoTitle": "Ambassador Programme: £30 per Referral | Britannia Crown",
     "description": "Refer a family to Britannia Crown and earn £30 for every successful booking. Open to nannies, teachers, parents and others, with no cap on referrals.",
     "kind": "Company news",
     "published": "2026-11-06",
