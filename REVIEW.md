@@ -186,3 +186,9 @@ One design scale now covers the public site and the portal: radii (cards 14px, c
 ## 11+ tutoring page (6 Nov 2026)
 - New page `/tutors/11-plus` (listed under Primary). It says we can prepare children for 11+ entrance tests and mentions GL Assessment and CEM as common test publishers. Please confirm there are tutors who can teach 11+ English, maths, verbal and non-verbal reasoning, and that we are happy to offer it before this goes live.
 - The page makes no pass-rate or guarantee claims, and says plainly that tutoring cannot guarantee a place.
+
+## 90 new guides and 30 news items (6 Nov 2026)
+- Added 90 guides (now 122) and a new `/news` section with 30 items (22 education news, 8 company news). All are dated 6 November 2026. Every guide and news item needs a fact check by a consultant before the site goes live: they were written without checking each point against gov.uk, Ofsted, UCAS or the exam boards, and rules change.
+- Points to check first: the national dates (31 Oct, 1 March 2027, 15 Jan 2027, 16 April 2027), Ofsted report cards, funded childcare hours, the new UCAS personal statement format, T Levels, the Curriculum and Assessment Review, penalty notice amounts, the 5-year-old and summer-born rules, KHDA ratings and Dubai admissions, VAT on independent school fees, and the phonics check threshold.
+- Company news (8 items) describes the booking options, membership plans, UAE packages, free tools, the ambassador programme, the guides library and the 11+ page. Please confirm each is accurate and that online payment is switched on for what it mentions. Prices are deliberately left out.
+- Guides use the generic category photo (no unique cover photos); add entries to `guideCovers` in `app/lib/images.ts` to give any guide its own image.

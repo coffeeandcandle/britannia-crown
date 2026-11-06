@@ -1,4 +1,5 @@
 import type { Faq } from "./schema";
+import { extraGuides } from "./guides-extra";
 
 // Metadata for every guide. The article body lives in content/guides/<slug>.mdx.
 // To add a guide: write the .mdx file, then add an entry here (newest first).
@@ -33,7 +34,7 @@ export type Guide = {
   enquiry: { service: string; title: string; emphasis: string; lead: string };
 };
 
-export const guides: Guide[] = [
+const baseGuides: Guide[] = [
   {
     slug: "how-to-help-your-child-with-maths-at-home",
     title: "How to help your child with maths at home",
@@ -657,6 +658,8 @@ export const guides: Guide[] = [
     },
   },
 ];
+
+export const guides: Guide[] = [...baseGuides, ...extraGuides];
 
 export const getGuide = (slug: string) => guides.find((g) => g.slug === slug);
 

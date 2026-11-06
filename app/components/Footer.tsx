@@ -49,6 +49,7 @@ export default function Footer() {
             <h2>Resources</h2>
             <ul>
               <li><Link href="/guides">Guides for parents</Link></li>
+              <li><Link href="/news">News</Link></li>
               <li><Link href="/tools/school-dates">School dates calculator</Link></li>
               <li><Link href="/tools/gcse-grade-converter">GCSE grade converter</Link></li>
             </ul>

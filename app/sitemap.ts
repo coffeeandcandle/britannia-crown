@@ -3,6 +3,7 @@ import { SITE_URL } from './lib/site'
 import { services } from './lib/services'
 import { subjects } from './lib/subjects'
 import { guides } from './lib/guides'
+import { news } from './lib/news'
 import { offers, offerPath } from './lib/offers'
 
 type Entry = {
@@ -21,6 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...subjects.map((s): Entry => ({ path: `/tutors/${s.slug}`, changeFrequency: 'monthly', priority: 0.8 })),
     { path: '/guides', changeFrequency: 'weekly', priority: 0.8 },
     ...guides.map((g): Entry => ({ path: `/guides/${g.slug}`, changeFrequency: 'monthly', priority: 0.7, lastModified: g.updated })),
+    { path: '/news', changeFrequency: 'weekly', priority: 0.6 },
+    ...news.map((n): Entry => ({ path: `/news/${n.slug}`, changeFrequency: 'monthly', priority: 0.5, lastModified: n.updated })),
     { path: '/tools/school-dates', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/tools/gcse-grade-converter', changeFrequency: 'monthly', priority: 0.7 },
     { path: '/book-consultation', changeFrequency: 'monthly', priority: 0.8 },
