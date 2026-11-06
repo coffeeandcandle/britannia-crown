@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "../../lib/seo";
+import JsonLd from "../../components/JsonLd";
+import { webApplicationSchema } from "../../lib/schema";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import SchoolDates from "../../components/SchoolDates";
 import FaqSection from "../../components/FaqSection";
@@ -58,6 +60,7 @@ export default function SchoolDatesPage() {
         </div>
       </section>
 
+      <JsonLd data={webApplicationSchema({ name: "School Start Date Calculator", description: "Enter a date of birth to see a child's school year group, start date and England application deadlines.", path: "/tools/school-dates" })} />
       <FaqSection faqs={faqs} tone="white" />
 
       <EnquirySection

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "../components/Reveal";
+import JsonLd from "../components/JsonLd";
+import { collectionSchema } from "../lib/schema";
 import Breadcrumbs from "../components/Breadcrumbs";
 import GuideCards from "../components/GuideCards";
 import GuideRequestForm from "../components/GuideRequestForm";
@@ -49,7 +51,7 @@ const dubaiGuides = [
 export default function GuidesPage() {
   return (
     <>
-
+      <JsonLd data={collectionSchema({ name: "Guides for parents", description: "Practical guides on schools, exams and home education in England.", path: "/guides", items: guides.map((x) => ({ name: x.title, path: `/guides/${x.slug}` })) })} />
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Guides", path: "/guides" }]} />

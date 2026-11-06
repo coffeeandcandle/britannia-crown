@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
+import JsonLd from "../components/JsonLd";
+import { contactPageSchema } from "../lib/schema";
 import Breadcrumbs from "../components/Breadcrumbs";
 import ContactForm from "../components/ContactForm";
 import { EMAIL, INSTAGRAM_URL } from "../lib/site";
@@ -16,6 +18,7 @@ export const metadata: Metadata = pageMetadata({
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={contactPageSchema({ name: "Contact Britannia Crown", description: "Talk to a Britannia Crown education consultant. We reply within 24 hours.", path: "/contact" })} />
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]} />

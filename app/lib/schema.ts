@@ -72,7 +72,10 @@ export function serviceSchema({
     serviceType,
     url: abs(path),
     provider: { "@id": ORG_ID },
-    areaServed: { "@type": "Country", name: "United Kingdom" },
+    areaServed: [
+      { "@type": "Country", name: "United Kingdom" },
+      { "@type": "Country", name: "United Arab Emirates" },
+    ],
   };
 }
 
@@ -115,5 +118,61 @@ export function faqSchema(faqs: Faq[]) {
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
+  };
+}
+
+export function webApplicationSchema({ name, description, path }: { name: string; description: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name,
+    description,
+    url: abs(path),
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    isAccessibleForFree: true,
+    inLanguage: "en-GB",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "GBP" },
+    provider: { "@id": ORG_ID },
+  };
+}
+
+export function collectionSchema({
+  name,
+  description,
+  path,
+  items,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  items: { name: string; path: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url: abs(path),
+    inLanguage: "en-GB",
+    isPartOf: { "@type": "WebSite", url: SITE_URL },
+    publisher: { "@id": ORG_ID },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, url: abs(it.path) })),
+    },
+  };
+}
+
+export function contactPageSchema({ name, description, path }: { name: string; description: string; path: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name,
+    description,
+    url: abs(path),
+    inLanguage: "en-GB",
+    about: { "@id": ORG_ID },
   };
 }

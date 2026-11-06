@@ -2,6 +2,9 @@ import AccountBand from "../components/AccountBand";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "../lib/seo";
+import JsonLd from "../components/JsonLd";
+import { collectionSchema } from "../lib/schema";
+import { offerForProduct, offerPath } from "../lib/offers";
 import Breadcrumbs from "../components/Breadcrumbs";
 import BuyButton from "../components/BuyButton";
 import FaqSection from "../components/FaqSection";
@@ -77,6 +80,7 @@ export default function PricingPage() {
 
   return (
     <>
+      <JsonLd data={collectionSchema({ name: "Britannia Crown prices and plans", description: "Prices for tutoring membership, consultations and UAE relocation packages.", path: "/pricing", items: [...memberships, ...uae].map((p) => { const o = offerForProduct(p.id); return { name: p.name, path: o ? offerPath(o) : "/pricing" }; }) })} />
       <section className="uk-sub-hero">
         <div className="uk-wrap">
           <Breadcrumbs crumbs={[{ name: "Home", path: "/" }, { name: "Prices", path: "/pricing" }]} />

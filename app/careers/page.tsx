@@ -7,7 +7,7 @@ import { EMAIL } from "../lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Careers | Britannia Crown",
   description:
-    "Join Britannia Crown's network of UK-qualified tutors and education consultants.",
+    "Join Britannia Crown's network of UK-qualified tutors and education consultants. See the roles we hire for and how to apply.",
   path: "/careers",
 });
 

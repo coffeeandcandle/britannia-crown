@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { pageMetadata } from "../../lib/seo";
+import JsonLd from "../../components/JsonLd";
+import { webApplicationSchema } from "../../lib/schema";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import GradeConverter from "../../components/GradeConverter";
 import FaqSection from "../../components/FaqSection";
@@ -54,6 +56,7 @@ export default function GradeConverterPage() {
         </div>
       </section>
 
+      <JsonLd data={webApplicationSchema({ name: "GCSE Grade Converter", description: "Convert GCSE grades 9 to 1 to the old A* to G letter grades and see what each grade means.", path: "/tools/gcse-grade-converter" })} />
       <FaqSection faqs={faqs} tone="white" />
 
       <EnquirySection
