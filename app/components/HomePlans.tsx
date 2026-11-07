@@ -80,9 +80,15 @@ export default function HomePlans() {
     <section className="uk-section cream" id="plans" aria-labelledby="plans-title">
       <div className="uk-wrap">
         <div className="uk-head plans-head">
-          <h2 className="uk-h2" id="plans-title">Plans and prices</h2>
-          <p className="uk-lead">Pay securely online by card and we get to work straight away. Not ready? Your first consultation is free.</p>
+          <h2 className="uk-h2" id="plans-title">Choose a plan and get started in minutes</h2>
+          <p className="uk-lead">Pay securely online and we get to work straight away. Not ready? Your first consultation is free.</p>
         </div>
+        <ul className="plans-trust">
+          <li>Secure payment by Stripe</li>
+          <li>Cancel or pause memberships anytime</li>
+          <li>UK-trained, personally vetted tutors</li>
+          <li>Free first consultation</li>
+        </ul>
         <PlansTabs
           tabs={[
             { id: "uk", label: "Tutoring", hint: "Online membership, from £200 a month", panel: ukPanel },
