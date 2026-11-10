@@ -2,7 +2,7 @@ import type { Faq } from "./schema";
 
 export type Subject = {
   slug: string;
-  level: "Primary" | "GCSE" | "A-Level";
+  level: "Primary" | "KS3" | "GCSE" | "A-Level";
   name: string;
   tagline: string;
   lead: string;
@@ -14,7 +14,7 @@ export type Subject = {
   seoDescription: string;
 };
 
-export const levels: Subject["level"][] = ["Primary", "GCSE", "A-Level"];
+export const levels: Subject["level"][] = ["Primary", "KS3", "GCSE", "A-Level"];
 
 export const subjects: Subject[] = [
   {
@@ -361,6 +361,228 @@ export const subjects: Subject[] = [
     seoTitle: "A-Level Physics Tutors | Britannia Crown",
     seoDescription:
       "A-Level Physics tutoring from UK-trained educators: maths skills, core concepts, practical and data questions and exam technique, matched to your child.",
+  },
+  {
+    slug: "ks3",
+    level: "KS3",
+    name: "KS3 (Years 7 to 9)",
+    tagline: "a strong start to secondary school.",
+    lead: "Key Stage 3 is where secondary school gets harder: more subjects, more independence and less hand-holding. Gaps that open here often surface as GCSE problems later. Our tutors help children settle in, secure the English and maths skills everything else depends on, and build study habits before the pressure of exams begins.",
+    glance: [
+      { label: "Years", value: "7, 8 and 9 (ages 11 to 14)" },
+      { label: "National tests", value: "None. Progress is judged by school assessments, which vary between schools" },
+      { label: "Core focus", value: "English, maths and science, alongside humanities and languages" },
+      { label: "What follows", value: "GCSE options are usually chosen in Year 8 or 9" },
+    ],
+    help: [
+      { title: "The Year 6 to Year 7 step", body: "Many children arrive with uneven maths or writing, hidden by primary school support. We find the gaps early and close them before they snowball." },
+      { title: "Maths foundations", body: "Fractions, algebra and ratio are the base of GCSE Maths. Secure them now and Years 10 and 11 are far calmer." },
+      { title: "Writing and reading", body: "Structured essays, analysing texts and writing with accuracy are needed in almost every subject, not only English." },
+      { title: "Study skills and choices", body: "We help children organise homework, revise for school tests and think about which subjects they enjoy and are good at before choosing GCSE options." },
+    ],
+    faqs: [
+      {
+        q: "Does my child need a tutor in Years 7 to 9?",
+        a: "Not necessarily. Tutoring helps most when a child is struggling to settle, has fallen behind in a core subject or would enjoy extra challenge. Without national tests at this stage, a tutor can also give you a clearer picture of where your child really is.",
+      },
+      {
+        q: "Which subjects matter most at KS3?",
+        a: "English and maths, because nearly every other subject builds on them, followed by science. Strong foundations here make GCSE courses much easier to start.",
+      },
+      {
+        q: "Can tutoring help with choosing GCSE options?",
+        a: "A tutor sees how your child works in a subject, which is useful evidence alongside school advice. Our guide to choosing GCSE options explains the process.",
+      },
+    ],
+    related: ["primary", "gcse-maths", "gcse-english"],
+    seoTitle: "KS3 Tutors | Year 7, 8 & 9 Support | Britannia Crown",
+    seoDescription:
+      "KS3 tutoring for Years 7 to 9: English, maths and science foundations, study skills and a confident start to secondary school from UK-trained educators.",
+  },
+  {
+    slug: "gcse-history",
+    level: "GCSE",
+    name: "GCSE History",
+    tagline: "from remembering facts to building arguments.",
+    lead: "GCSE History is assessed entirely by exam, and the marks go to students who can weigh sources, explain causes and consequences and write a sustained argument, not to those who simply remember the most. Our tutors teach the structures behind top-mark answers and help students learn large amounts of content in a way that sticks.",
+    glance: [
+      { label: "Grades", value: "9 to 1" },
+      { label: "Assessment", value: "Usually two or three exam papers, with no coursework" },
+      { label: "Content", value: "A mix of modern, medieval or early modern, and British depth and thematic studies. Topics depend on the board" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR" },
+    ],
+    help: [
+      { title: "Source and interpretation questions", body: "These questions test how well a student uses a source, not what they remember. We teach a repeatable method for provenance, content and context." },
+      { title: "Essay structure", body: "Explaining why something happened and how important it was needs a clear argument. We practise planning and writing timed paragraphs that earn the higher levels." },
+      { title: "Learning the content", body: "There is a lot to know. We build timelines, flashcards and retrieval practice so revision is active rather than rereading notes." },
+      { title: "Knowing your specification", body: "Topics and question styles differ between boards. We work from the exact specification your child is studying." },
+    ],
+    faqs: [
+      {
+        q: "Is there coursework in GCSE History?",
+        a: "No. GCSE History is assessed by exams. There is a requirement for a depth of study across periods, and your school chooses the topics within the board's specification.",
+      },
+      {
+        q: "How is GCSE History marked?",
+        a: "Answers are marked against levels that reward analysis and judgement. Long answers also carry marks for spelling, punctuation and grammar in some questions, so accuracy matters.",
+      },
+      {
+        q: "Which exam board does my child sit?",
+        a: "Ask the school or check the exam entry details. Tell us the board and the topics and we will plan around them.",
+      },
+    ],
+    related: ["gcse-english", "a-level-history", "gcse-geography"],
+    seoTitle: "GCSE History Tutors | Britannia Crown",
+    seoDescription:
+      "GCSE History tutoring from UK-trained educators: source questions, essay structure and revision methods for AQA, Edexcel and OCR.",
+  },
+  {
+    slug: "gcse-geography",
+    level: "GCSE",
+    name: "GCSE Geography",
+    tagline: "knowing the case studies and how to use them.",
+    lead: "GCSE Geography rewards students who combine secure knowledge with the ability to apply it: using data, maps and case studies to support a point. Our tutors help students learn the physical and human content, handle the skills questions confidently and use their fieldwork well in the exam.",
+    glance: [
+      { label: "Grades", value: "9 to 1" },
+      { label: "Assessment", value: "Written exams, with no coursework" },
+      { label: "Fieldwork", value: "Students complete fieldwork in at least two contrasting environments, then answer questions on it in the exams" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR" },
+    ],
+    help: [
+      { title: "Case studies", body: "Strong answers use specific places, facts and figures. We help students learn them efficiently and know when each one fits." },
+      { title: "Skills and data questions", body: "Graphs, maps and statistics appear throughout the papers. We build confidence reading and interpreting them accurately." },
+      { title: "Extended answers", body: "Longer questions ask students to assess or justify. We practise building a balanced argument with evidence." },
+      { title: "Fieldwork and decision-making", body: "Questions about enquiry methods and issue-based decisions are easy to lose marks on. We rehearse both." },
+    ],
+    faqs: [
+      {
+        q: "Is there coursework in GCSE Geography?",
+        a: "No. Fieldwork is required, but it is assessed through the written exams rather than as coursework.",
+      },
+      {
+        q: "How much maths is in GCSE Geography?",
+        a: "Some questions need graphs, percentages and basic statistics. Weak number skills can cost marks, so we support these alongside the geography.",
+      },
+      {
+        q: "How do I know which case studies to learn?",
+        a: "Your child's school chooses them within the specification. We work from their notes and the board's list.",
+      },
+    ],
+    related: ["gcse-history", "gcse-science", "gcse-maths"],
+    seoTitle: "GCSE Geography Tutors | Britannia Crown",
+    seoDescription:
+      "GCSE Geography tutoring from UK-trained educators: case studies, data skills, fieldwork and extended answers for AQA, Edexcel and OCR.",
+  },
+  {
+    slug: "a-level-english-literature",
+    level: "A-Level",
+    name: "A-Level English Literature",
+    tagline: "reading closely, arguing independently.",
+    lead: "A-Level English Literature asks for more than a good essay on a set text. Students compare texts, bring in critical views and develop an argument of their own. Our tutors help them read closely, plan precise essays and move from describing a text to making a case about it.",
+    glance: [
+      { label: "Grades", value: "A* to E" },
+      { label: "Assessment", value: "Mostly exams, plus a non-exam assessment (NEA) essay worth around 20%" },
+      { label: "Texts", value: "Prose, poetry and drama, including at least one Shakespeare play" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR" },
+    ],
+    help: [
+      { title: "Close reading", body: "We train students to notice how language, structure and form shape meaning, and to say why it matters." },
+      { title: "Comparison", body: "Writing about two texts together is a skill of its own. We practise building comparative arguments rather than two separate essays." },
+      { title: "Critical views", body: "Strong answers use critical and contextual ideas to sharpen a point. We teach how to bring them in without name-dropping." },
+      { title: "The NEA", body: "We help students choose texts, shape a question and write independently while the work stays their own." },
+    ],
+    faqs: [
+      {
+        q: "Is there coursework in A-Level English Literature?",
+        a: "Yes. There is a non-exam assessment, usually a comparative essay, worth around a fifth of the grade. The rest is by exam.",
+      },
+      {
+        q: "How different is it from GCSE?",
+        a: "The reading is heavier and the thinking more independent. Students are expected to argue a position, not just analyse techniques.",
+      },
+      {
+        q: "Which universities want it?",
+        a: "English degrees usually ask for English Literature or a combined course, and some subjects value it as an essay-based qualification. Check each course's entry requirements.",
+      },
+    ],
+    related: ["gcse-english", "a-level-history", "a-level-economics"],
+    seoTitle: "A-Level English Literature Tutors | Britannia Crown",
+    seoDescription:
+      "A-Level English Literature tutoring from UK-trained educators: close reading, comparison, critical views and NEA support for AQA, Edexcel and OCR.",
+  },
+  {
+    slug: "a-level-history",
+    level: "A-Level",
+    name: "A-Level History",
+    tagline: "argument, evidence and judgement.",
+    lead: "A-Level History is an essay subject. Marks go to students who can sustain an argument across a long answer, handle contested interpretations and use evidence precisely. Our tutors help students plan and write at that level, manage large amounts of content and get the most from the independent investigation.",
+    glance: [
+      { label: "Grades", value: "A* to E" },
+      { label: "Assessment", value: "Exams plus a coursework investigation worth around 20%" },
+      { label: "Structure", value: "Breadth and depth studies, usually across a wide chronological range" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR" },
+    ],
+    help: [
+      { title: "Essay planning and argument", body: "We practise writing a clear line of argument and keeping it going through the whole essay." },
+      { title: "Interpretations", body: "Questions on historians' views reward careful reading and evaluation. We teach students to engage with them rather than summarise." },
+      { title: "Knowledge and revision", body: "The content load is large. We help students organise it and recall it under timed conditions." },
+      { title: "The coursework investigation", body: "We help students choose a question, evaluate sources and sustain an independent argument within the word limit." },
+    ],
+    faqs: [
+      {
+        q: "Is there coursework in A-Level History?",
+        a: "Yes. Students complete an independent investigation, usually around 3,500 to 4,500 words, worth around 20% of the grade.",
+      },
+      {
+        q: "Which GCSE grade do I need?",
+        a: "Sixth forms set their own entry requirements, often a 6 in GCSE History and a solid grade in English. Check the school or college.",
+      },
+      {
+        q: "Is A-Level History respected by universities?",
+        a: "Yes. It is widely regarded for essay writing and analysis, and is accepted for many degrees beyond History.",
+      },
+    ],
+    related: ["gcse-history", "a-level-english-literature", "a-level-economics"],
+    seoTitle: "A-Level History Tutors | Britannia Crown",
+    seoDescription:
+      "A-Level History tutoring from UK-trained educators: essay writing, interpretations, revision methods and coursework help for AQA, Edexcel and OCR.",
+  },
+  {
+    slug: "a-level-economics",
+    level: "A-Level",
+    name: "A-Level Economics",
+    tagline: "theory you can apply to the real world.",
+    lead: "A-Level Economics combines models and diagrams with data and current events. Students who do well can draw the right diagram, apply it to the case in front of them and evaluate the outcome. Our tutors help students build that chain of analysis, handle data questions and write evaluation that earns the top marks.",
+    glance: [
+      { label: "Grades", value: "A* to E" },
+      { label: "Assessment", value: "Exams only, with no coursework" },
+      { label: "Content", value: "Microeconomics and macroeconomics, with some data and calculation" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR" },
+    ],
+    help: [
+      { title: "Diagrams and models", body: "Supply and demand, market failure and macroeconomic models are the toolkit. We make sure students can draw and explain them accurately." },
+      { title: "Application", body: "Marks go to students who tie theory to the context given. We practise using the case study rather than writing generally." },
+      { title: "Evaluation", body: "Weighing up arguments and reaching a supported judgement is what separates grades. We teach a structure for it." },
+      { title: "Data and calculations", body: "We build confidence with elasticity, percentage changes and reading data tables and charts." },
+    ],
+    faqs: [
+      {
+        q: "Do I need GCSE Economics?",
+        a: "No. Most students start from scratch. Sixth forms usually look for a good GCSE Maths and English grade.",
+      },
+      {
+        q: "How mathematical is it?",
+        a: "Some calculation and data work is required, but it is mostly essay and short-answer analysis. Confident GCSE-level maths is enough for most students.",
+      },
+      {
+        q: "Is it a good choice for university?",
+        a: "It is well regarded for Economics, Business, Finance and Social Science degrees. Check the entry requirements of the courses your child is considering.",
+      },
+    ],
+    related: ["a-level-maths", "a-level-history", "gcse-maths"],
+    seoTitle: "A-Level Economics Tutors | Britannia Crown",
+    seoDescription:
+      "A-Level Economics tutoring from UK-trained educators: diagrams, application, evaluation and data questions for AQA, Edexcel and OCR.",
   },
 ];
 

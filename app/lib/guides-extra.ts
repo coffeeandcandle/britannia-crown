@@ -570,8 +570,8 @@ export const extraGuides: Guide[] = [
       "subjects": [
         "gcse-maths",
         "gcse-english",
-        "gcse-science"
-      ],
+        "gcse-science",
+        "gcse-history", "gcse-geography"],
       "guides": [
         "how-gcse-grade-boundaries-work",
         "igcse-vs-gcse",
@@ -613,8 +613,8 @@ export const extraGuides: Guide[] = [
       ],
       "subjects": [
         "gcse-maths",
-        "gcse-english"
-      ],
+        "gcse-english",
+        "gcse-history", "gcse-geography"],
       "guides": [
         "how-to-choose-gcse-options",
         "gcse-resits-english-and-maths",
@@ -989,8 +989,8 @@ export const extraGuides: Guide[] = [
         "qualifications"
       ],
       "subjects": [
-        "a-level-maths"
-      ],
+        "a-level-maths",
+        "a-level-english-literature", "a-level-history", "a-level-economics"],
       "guides": [
         "btec-vs-a-level",
         "how-many-gcses-does-a-child-need",
@@ -1197,7 +1197,7 @@ export const extraGuides: Guide[] = [
       "services": [
         "qualifications"
       ],
-      "subjects": [],
+      "subjects": ["gcse-history"],
       "guides": [
         "how-to-revise-gcse-a-level",
         "gcse-mock-exams-how-to-use-them",
@@ -1523,7 +1523,7 @@ export const extraGuides: Guide[] = [
       "services": [
         "school-placement"
       ],
-      "subjects": [],
+      "subjects": ["ks3"],
       "guides": [
         "ofsted-ratings-explained",
         "progress-8-and-attainment-8-explained",

@@ -384,7 +384,7 @@ const baseGuides: Guide[] = [
       { q: "Which subjects are compulsory?", a: "Most schools require English language, English literature, maths and science, with options filling the remaining places. Always check your school's own booklet." },
       { q: "Can my child change their mind?", a: "Many schools allow changes early in the course, and most routes after GCSE remain flexible, so a choice is rarely final." },
     ],
-    related: { services: ["qualifications"], subjects: ["gcse-maths", "gcse-english", "gcse-science"], guides: ["gcse-grades-explained", "a-level-subject-choices-and-university", "igcse-vs-gcse"] },
+    related: { services: ["qualifications"], subjects: ["gcse-maths", "gcse-english", "gcse-science", "gcse-history", "gcse-geography", "ks3"], guides: ["gcse-grades-explained", "a-level-subject-choices-and-university", "igcse-vs-gcse"] },
     enquiry: { service: "Qualifications", title: "Choosing GCSE options?", emphasis: "Get a second opinion.", lead: "Tell us about your child and an education consultant will talk through the options with you." },
   },
   {
@@ -400,7 +400,7 @@ const baseGuides: Guide[] = [
       { q: "Do universities require specific A-Level subjects?", a: "For some courses, such as medicine, veterinary science, engineering and many sciences, yes. Always check the entry requirements on the university's own course page." },
       { q: "Can my child change subject after starting?", a: "Many sixth forms allow changes in the first few weeks, but it becomes harder after that, so choose carefully." },
     ],
-    related: { services: ["qualifications"], subjects: ["a-level-maths", "a-level-chemistry", "a-level-biology", "a-level-physics"], guides: ["how-to-choose-gcse-options", "gcse-grades-explained", "how-to-revise-gcse-a-level"] },
+    related: { services: ["qualifications"], subjects: ["a-level-maths", "a-level-chemistry", "a-level-biology", "a-level-physics", "a-level-english-literature", "a-level-history", "a-level-economics"], guides: ["how-to-choose-gcse-options", "gcse-grades-explained", "how-to-revise-gcse-a-level"] },
     enquiry: { service: "Qualifications", title: "Choosing A-Levels?", emphasis: "Let's talk it through.", lead: "Tell us about your child's strengths and plans and an education consultant will help you choose." },
   },
   {
