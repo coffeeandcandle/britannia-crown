@@ -9,9 +9,9 @@ import FaqSection from "../../components/FaqSection";
 import EnquirySection from "../../components/EnquirySection";
 
 export const metadata: Metadata = pageMetadata({
-  title: "GCSE Grade Converter: 9-1 vs A*-G | Britannia Crown",
+  title: "GCSE Grade Converter: 9-1 to Letter Grades | Britannia Crown",
   description:
-    "See what each GCSE grade from 9 to 1 means and how it compares with the old A* to G letter grades, including what counts as a standard and strong pass.",
+    "Convert GCSE grades 9 to 1 into the old A* to G letter grades, and see what counts as a standard pass (grade 4) and a strong pass (grade 5).",
   path: "/tools/gcse-grade-converter",
 });
 

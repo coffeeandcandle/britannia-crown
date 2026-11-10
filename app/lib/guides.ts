@@ -70,8 +70,8 @@ const baseGuides: Guide[] = [
   {
     slug: "gcse-science-combined-or-separate",
     title: "GCSE science: combined or separate (triple) science?",
-    seoTitle: "GCSE Science: Combined or Triple Science? | Britannia Crown",
-    description: "The difference between combined and separate GCSE sciences, which suits your child, and how the choice can affect A-Level science options.",
+    seoTitle: "Combined vs Triple Science GCSE | Britannia Crown",
+    description: "Combined or triple science at GCSE: how many GCSEs each gives, which suits your child, and how the choice affects A-Level science options.",
     category: "Exams & Qualifications",
     published: "2026-10-20",
     updated: "2026-10-20",
@@ -86,8 +86,8 @@ const baseGuides: Guide[] = [
   {
     slug: "exam-access-arrangements-extra-time",
     title: "Exam access arrangements: extra time and other adjustments",
-    seoTitle: "Exam Access Arrangements and Extra Time | Britannia Crown",
-    description: "How access arrangements such as extra time, rest breaks and readers work for GCSE and A-Level, who applies, what evidence is needed and when to start.",
+    seoTitle: "Extra Time in GCSE & A-Level Exams | Britannia Crown",
+    description: "Who gets extra time in GCSE and A-Level exams: how access arrangements such as rest breaks and readers work, who applies, the evidence needed and when to start.",
     category: "Exams & Qualifications",
     published: "2026-10-20",
     updated: "2026-10-20",
@@ -326,8 +326,8 @@ const baseGuides: Guide[] = [
   {
     slug: "how-much-does-a-private-tutor-cost-uk",
     title: "How much does a private tutor cost in the UK?",
-    seoTitle: "Private Tutor Cost in the UK | Britannia Crown",
-    description: "What affects the price of a private tutor in the UK, what to compare besides the hourly rate, and how to keep the cost sensible without losing quality.",
+    seoTitle: "Private Tutor Cost per Hour in the UK | Britannia Crown",
+    description: "What a private tutor costs per hour in the UK, what affects the rate, what to compare besides price and how to keep the cost sensible.",
     category: "Tutoring",
     published: "2026-10-20",
     updated: "2026-10-20",
@@ -374,8 +374,8 @@ const baseGuides: Guide[] = [
   {
     slug: "how-to-choose-gcse-options",
     title: "How to choose GCSE options: a guide for parents",
-    seoTitle: "How to Choose GCSE Options | Britannia Crown",
-    description: "How GCSE options work in England, what to consider when choosing, common mistakes to avoid and the questions to ask your child's school.",
+    seoTitle: "GCSE Options: How Many to Pick & Choose | Britannia Crown",
+    description: "How many GCSE options can your child pick? How options work in England, what to consider, common mistakes and questions to ask the school.",
     category: "Exams & Qualifications",
     published: "2026-10-20",
     updated: "2026-10-20",
@@ -406,8 +406,8 @@ const baseGuides: Guide[] = [
   {
     slug: "gcse-resits-english-and-maths",
     title: "GCSE resits in English and maths: how they work",
-    seoTitle: "GCSE Resits in English and Maths | Britannia Crown",
-    description: "How GCSE English and maths resits work in England, who has to retake, when the exams are held and how to improve a grade.",
+    seoTitle: "GCSE Resits: How to Retake English & Maths | Britannia Crown",
+    description: "Can you resit a GCSE? How English and maths resits work in England: who has to retake, resit dates in November and summer, and how to improve.",
     category: "Exams & Qualifications",
     published: "2026-10-20",
     updated: "2026-10-20",
@@ -485,7 +485,7 @@ const baseGuides: Guide[] = [
   {
     slug: "gcse-grades-explained",
     title: "GCSE grades explained: what 9 to 1 means for your child",
-    seoTitle: "GCSE Grades Explained: 9 to 1 | Britannia Crown",
+    seoTitle: "GCSE Grades Explained: 9-1 to A*-G Equivalents | Britannia Crown",
     description:
       "What GCSE grades 9 to 1 mean, how they compare with A* to G, what counts as a pass, how grade boundaries work and what to do on results day.",
     category: "Exams & Qualifications",
@@ -625,7 +625,7 @@ const baseGuides: Guide[] = [
   {
     slug: "igcse-vs-gcse",
     title: "IGCSE vs GCSE: what's the difference?",
-    seoTitle: "IGCSE vs GCSE: The Difference | Britannia Crown",
+    seoTitle: "IGCSE vs GCSE: What's the Difference? | Britannia Crown",
     description:
       "How International GCSEs differ from GCSEs in who offers them, content, assessment and grading, how universities view them, and which suits your child.",
     category: "Exams & Qualifications",
