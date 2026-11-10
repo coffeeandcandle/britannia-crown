@@ -172,7 +172,7 @@ export const subjects: Subject[] = [
         a: "Yes. Tell us the texts and exam board your child's school uses, Macbeth, A Christmas Carol and An Inspector Calls are common examples, and we'll match a tutor who knows them well.",
       },
     ],
-    related: ["gcse-maths", "gcse-science", "primary"],
+    related: ["gcse-maths", "gcse-science", "primary", "gcse-english-literature"],
     seoTitle: "GCSE English Tutors: Language & Literature | Britannia Crown",
     seoDescription:
       "GCSE English Language and Literature tutoring from UK-trained educators: analysis, essay writing, set texts and exam technique, matched to your child.",
@@ -694,6 +694,43 @@ export const subjects: Subject[] = [
     seoTitle: "GCSE French & Spanish Tutors | Britannia Crown",
     seoDescription:
       "GCSE French and Spanish tutoring from UK-trained educators: speaking, grammar, vocabulary and exam technique for AQA and Edexcel.",
+  },
+  {
+    slug: "gcse-english-literature",
+    level: "GCSE",
+    name: "GCSE English Literature",
+    tagline: "from set texts to confident essays.",
+    lead: "GCSE English Literature is assessed entirely by closed-book exams, so students need to know their set texts well enough to write about them from memory. Our tutors help them learn the texts efficiently, plan a clear argument and back it with precise quotations, whether the text is Shakespeare, a 19th-century novel, a modern play or poetry.",
+    glance: [
+      { label: "Grades", value: "9 to 1" },
+      { label: "Assessment", value: "Closed-book exams only, with no coursework" },
+      { label: "Texts", value: "A Shakespeare play, a 19th-century novel, a modern text and a poetry cluster, plus unseen poetry on some boards" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel, OCR and Eduqas" },
+    ],
+    help: [
+      { title: "Learning quotations that work", body: "Students cannot memorise everything. We help them choose a small set of flexible quotations they can use across many questions." },
+      { title: "Building an argument", body: "Top-level answers make a clear point about the whole text. We teach students to plan a thesis and structure paragraphs around it." },
+      { title: "Context without padding", body: "Marks go for context that sharpens an analysis, not a paragraph of background. We show students how to use it sparingly and well." },
+      { title: "Unseen poetry and poetry comparison", body: "Without a fixed answer to learn, students need a method for reading a poem they have never seen. We practise one until it feels natural." },
+    ],
+    faqs: [
+      {
+        q: "Is GCSE English Literature a separate GCSE from English Language?",
+        a: "Yes. Most students sit two English GCSEs, Language and Literature, with separate exams and separate grades.",
+      },
+      {
+        q: "Are the texts allowed in the exam?",
+        a: "No. GCSE English Literature exams are closed-book, so students must know their set texts well. Extracts are printed on the paper for some questions.",
+      },
+      {
+        q: "Is there coursework?",
+        a: "No. English Literature is assessed entirely by exam. Tell us your child's exam board and set texts and we will plan around them.",
+      },
+    ],
+    related: ["gcse-english", "a-level-english-literature", "gcse-history"],
+    seoTitle: "GCSE English Literature Tutors | Britannia Crown",
+    seoDescription:
+      "GCSE English Literature tutoring from UK-trained educators: set texts, quotations, essay planning and unseen poetry for AQA, Edexcel, OCR and Eduqas.",
   },
 ];
 

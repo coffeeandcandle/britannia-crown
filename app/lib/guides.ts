@@ -64,7 +64,7 @@ const baseGuides: Guide[] = [
       { q: "Why do students lose marks in English?", a: "Most often by not answering the exact question, describing instead of analysing, or not backing points with short, well-chosen evidence." },
       { q: "Can a tutor help with English?", a: "Yes. A tutor who knows the exam boards can show where marks are lost and teach planning, analysis and timed writing." },
     ],
-    related: { services: ["qualifications", "tutoring"], subjects: ["gcse-english"], guides: ["gcse-grades-explained", "gcse-resits-english-and-maths", "how-to-revise-gcse-a-level"] },
+    related: { services: ["qualifications", "tutoring"], subjects: ["gcse-english", "gcse-english-literature"], guides: ["gcse-grades-explained", "gcse-resits-english-and-maths", "how-to-revise-gcse-a-level"] },
     enquiry: { service: "Qualifications", title: "Stuck on a grade in English?", emphasis: "Let's find the marks.", lead: "Tell us the exam board and where marks are being lost and an education consultant will suggest a plan." },
   },
   {

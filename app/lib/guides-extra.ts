@@ -1285,8 +1285,7 @@ export const extraGuides: Guide[] = [
         "qualifications"
       ],
       "subjects": [
-        "gcse-english"
-      ],
+        "gcse-english", "gcse-english-literature"],
       "guides": [
         "how-to-improve-gcse-english-language-and-literature",
         "how-to-revise-gcse-a-level",

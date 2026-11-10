@@ -9,6 +9,7 @@ import EnquirySection from "../../components/EnquirySection";
 import JsonLd from "../../components/JsonLd";
 import GuideCards from "../../components/GuideCards";
 import { subjects, getSubject } from "../../lib/subjects";
+import { subjectDepth } from "../../lib/subject-depth";
 import { getService } from "../../lib/services";
 import { guidesFor } from "../../lib/guides";
 import { pageMetadata } from "../../lib/seo";
@@ -36,6 +37,7 @@ export default async function SubjectPage({ params }: Props) {
   const path = `/tutors/${subject.slug}`;
   const steps = getService("tutoring")?.steps ?? [];
   const related = subject.related.map(getSubject).filter((s) => s !== undefined);
+  const depth = subjectDepth[subject.slug];
   const reading = guidesFor("subjects", subject.slug).slice(0, 3);
 
   return (
@@ -97,6 +99,34 @@ export default async function SubjectPage({ params }: Props) {
           </Reveal>
         </div>
       </section>
+
+      {depth && (
+        <section className="uk-section white">
+          <div className="uk-wrap">
+            <Reveal className="uk-head">
+              <h2 className="uk-h2">{depth.topicsTitle}</h2>
+            </Reveal>
+            <Reveal>
+              <div className="uk-points">
+                {depth.topics.map((t) => (
+                  <div className="uk-point" key={t.title}>
+                    <h3>{t.title}</h3>
+                    <p>{t.body}</p>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
+            <Reveal className="uk-head">
+              <h2 className="uk-h2">{depth.lessonTitle}</h2>
+            </Reveal>
+            <Reveal>
+              {depth.lesson.map((para) => (
+                <p key={para}>{para}</p>
+              ))}
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <section className="uk-section dark">
         <div className="uk-wrap">
