@@ -584,6 +584,117 @@ export const subjects: Subject[] = [
     seoDescription:
       "A-Level Economics tutoring from UK-trained educators: diagrams, application, evaluation and data questions for AQA, Edexcel and OCR.",
   },
+  {
+    slug: "a-level-further-maths",
+    level: "A-Level",
+    name: "A-Level Further Maths",
+    tagline: "going deeper, faster.",
+    lead: "A-Level Further Maths is taken alongside A-Level Maths and moves quickly into university-style topics: complex numbers, matrices, proof and further calculus. It is valued for maths, physics, engineering and computer science degrees. Our tutors help students keep pace, understand why methods work and stay accurate on long, multi-step questions.",
+    glance: [
+      { label: "Grades", value: "A* to E" },
+      { label: "Taken with", value: "A-Level Maths. Most courses expect both" },
+      { label: "Assessment", value: "Exams only, with no coursework" },
+      { label: "Content", value: "A compulsory core (including complex numbers, matrices and proof) plus optional strands such as mechanics, statistics and decision maths" },
+    ],
+    help: [
+      { title: "Keeping up with the pace", body: "The course covers a lot in two years. We help students stay ahead of their class so new topics feel like extensions, not shocks." },
+      { title: "Proof and rigour", body: "Writing a correct, complete argument is harder than getting an answer. We practise setting out proof and justification clearly." },
+      { title: "New toolkits", body: "Complex numbers, matrices and further calculus are unfamiliar. We build intuition first, then fluency." },
+      { title: "Accuracy under time pressure", body: "Long questions punish small slips. We teach checking habits and sensible use of the calculator." },
+    ],
+    faqs: [
+      {
+        q: "What GCSE grade do I need for Further Maths?",
+        a: "Sixth forms set their own entry requirements, but a grade 8 or 9 in GCSE Maths is commonly asked for. Check with the school or college.",
+      },
+      {
+        q: "Do I need to take A-Level Maths too?",
+        a: "In most cases, yes. Further Maths builds on A-Level Maths and they are normally studied together.",
+      },
+      {
+        q: "Is Further Maths needed for university?",
+        a: "It is often recommended, and sometimes required, for maths, physics, engineering and computer science at highly selective universities. Check each course's entry requirements.",
+      },
+    ],
+    related: ["a-level-maths", "a-level-physics", "gcse-maths"],
+    seoTitle: "A-Level Further Maths Tutors | Britannia Crown",
+    seoDescription:
+      "A-Level Further Maths tutoring from UK-trained educators: complex numbers, matrices, proof and exam technique for AQA, Edexcel and OCR.",
+  },
+  {
+    slug: "gcse-computer-science",
+    level: "GCSE",
+    name: "GCSE Computer Science",
+    tagline: "thinking like a programmer.",
+    lead: "GCSE Computer Science tests both theory and the ability to read, write and fix code on paper. Students who do well understand how a problem is broken down, not just which syntax to use. Our tutors help students master programming logic, learn the theory content and practise the kinds of questions the papers ask.",
+    glance: [
+      { label: "Grades", value: "9 to 1" },
+      { label: "Assessment", value: "Written exams. Some boards include an on-screen programming paper" },
+      { label: "Content", value: "Computational thinking, programming, data representation, networks, systems and cyber security" },
+      { label: "Exam boards", value: "AQA, Pearson Edexcel and OCR" },
+    ],
+    help: [
+      { title: "Algorithms and logic", body: "Tracing code, writing pseudocode and spotting errors are tested directly. We build these skills with plenty of practice." },
+      { title: "Programming fluency", body: "Students need a working grasp of the language their school teaches, usually Python. We help them write and debug confidently." },
+      { title: "Theory recall", body: "Binary, hardware, networks and security involve many precise terms. We use retrieval practice to make them stick." },
+      { title: "Exam-style questions", body: "Command words and mark schemes decide marks on longer answers. We rehearse both." },
+    ],
+    faqs: [
+      {
+        q: "Is there coursework in GCSE Computer Science?",
+        a: "No coursework counts towards the grade. Schools are still expected to give students programming practice during the course.",
+      },
+      {
+        q: "Does my child need to be good at maths?",
+        a: "Some topics, such as binary and logic, use simple maths, but strong GCSE Maths is not essential. Logical thinking matters more.",
+      },
+      {
+        q: "Which programming language is used?",
+        a: "It depends on the board and the school, and Python is the most common. Tell us what your child is learning and we will work in it.",
+      },
+    ],
+    related: ["gcse-maths", "a-level-maths", "gcse-science"],
+    seoTitle: "GCSE Computer Science Tutors | Britannia Crown",
+    seoDescription:
+      "GCSE Computer Science tutoring from UK-trained educators: programming, algorithms, theory and exam technique for AQA, Edexcel and OCR.",
+  },
+  {
+    slug: "gcse-french-spanish",
+    level: "GCSE",
+    name: "GCSE French and Spanish",
+    tagline: "speaking with confidence, writing with accuracy.",
+    lead: "GCSE modern languages are assessed in four skills: listening, speaking, reading and writing. Each counts equally, so a weak area can pull a grade down. Our tutors give students regular speaking practice, secure grammar and vocabulary, and teach them how to tackle each paper with a clear method.",
+    glance: [
+      { label: "Grades", value: "9 to 1" },
+      { label: "Papers", value: "Four skills: listening, speaking, reading and writing, each worth 25%" },
+      { label: "Tiers", value: "Foundation or Higher, depending on the board and paper" },
+      { label: "Exam boards", value: "AQA and Pearson Edexcel (most common), plus others" },
+    ],
+    help: [
+      { title: "Speaking practice", body: "Most students get little time to speak in class. Regular conversation with a tutor builds fluency and calms nerves before the speaking test." },
+      { title: "Grammar and tenses", body: "Accurate verbs and tenses lift writing and speaking marks. We teach them in context, with plenty of retrieval practice." },
+      { title: "Vocabulary", body: "We help students learn the required lists effectively and use them in sentences, not isolated words." },
+      { title: "Listening and reading technique", body: "We teach students how to approach unfamiliar texts, use clues and handle questions that test inference." },
+    ],
+    faqs: [
+      {
+        q: "Do you tutor both French and Spanish?",
+        a: "Yes. Tell us which language and board and we will match your child with a suitable tutor.",
+      },
+      {
+        q: "Is the speaking exam marked by the teacher?",
+        a: "The speaking test is conducted and recorded, and the way it is marked depends on the board. We prepare students for the format they will actually face.",
+      },
+      {
+        q: "How early should we start?",
+        a: "Languages build gradually, so earlier is better. Steady support from Year 9 or 10 usually works better than a last-minute push.",
+      },
+    ],
+    related: ["gcse-english", "ks3", "gcse-history"],
+    seoTitle: "GCSE French & Spanish Tutors | Britannia Crown",
+    seoDescription:
+      "GCSE French and Spanish tutoring from UK-trained educators: speaking, grammar, vocabulary and exam technique for AQA and Edexcel.",
+  },
 ];
 
 export const getSubject = (slug: string) => subjects.find((s) => s.slug === slug);

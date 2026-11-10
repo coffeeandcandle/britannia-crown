@@ -53,7 +53,15 @@ export default async function GuidePage({ params }: Props) {
   const { toc, minutes } = await readGuideSource(guide.slug);
 
   const path = `/guides/${guide.slug}`;
-  const relatedGuides = guide.related.guides.map(getGuide).filter((g) => g !== undefined);
+  const curated = guide.related.guides.map(getGuide).filter((g) => g !== undefined);
+  // Top up with the next guides in the same category (cyclic), so every guide
+  // receives internal links from its neighbours and none is left orphaned.
+  const siblings = guides.filter((g) => g.category === guide.category);
+  const at = siblings.findIndex((g) => g.slug === guide.slug);
+  const topUp = siblings
+    .map((_, i) => siblings[(at + 1 + i) % siblings.length])
+    .filter((g) => g.slug !== guide.slug && !curated.some((c) => c.slug === g.slug));
+  const relatedGuides = [...curated, ...topUp].slice(0, Math.max(curated.length, 6));
   const relatedServices = guide.related.services.map(getService).filter((s) => s !== undefined);
   const relatedSubjects = guide.related.subjects.map(getSubject).filter((s) => s !== undefined);
 

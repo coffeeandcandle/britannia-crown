@@ -3,6 +3,135 @@ import type { Guide } from "./guides";
 // Generated from the article batches; edit content in content/*.mdx and metadata here.
 export const extraGuides: Guide[] = [
   {
+    "slug": "how-to-prepare-for-the-11-plus",
+    "title": "How to prepare for the 11-plus",
+    "seoTitle": "How to Prepare for the 11-Plus | Britannia Crown",
+    "description": "How to prepare for the 11-plus: finding out which test your child will sit, what it covers, when to start, a simple plan and how much tutoring is sensible.",
+    "category": "Tutoring",
+    "published": "2026-11-10",
+    "updated": "2026-11-10",
+    "faqs": [
+      {
+        "q": "When should 11-plus preparation start?",
+        "a": "There is no single right time. Many families begin in Year 5, and some start earlier with reading and number fluency. Steady practice over a longer period is usually calmer than cramming."
+      },
+      {
+        "q": "Does preparation guarantee a place?",
+        "a": "No. Passing shows a child has reached the school's standard, but oversubscribed schools offer places by their admissions criteria, and you must still apply through your local authority."
+      },
+      {
+        "q": "Does my child need a tutor?",
+        "a": "Not always. A tutor helps most with gaps in English or maths, or with unfamiliar reasoning questions."
+      }
+    ],
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "subjects": [
+        "11-plus",
+        "primary"
+      ],
+      "guides": [
+        "11-plus-and-grammar-schools-explained",
+        "how-school-admissions-criteria-work",
+        "choosing-a-private-tutor",
+        "how-often-should-a-child-have-tutoring"
+      ]
+    },
+    "enquiry": {
+      "service": "Tutoring",
+      "title": "Thinking about 11+ tutoring?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the school and the test and a consultant will suggest a sensible plan."
+    }
+  },
+  {
+    "slug": "moving-from-year-6-to-year-7",
+    "title": "Moving from Year 6 to Year 7: how to prepare",
+    "seoTitle": "Moving from Year 6 to Year 7: How to Prepare | Britannia Crown",
+    "description": "How to prepare your child for the move from primary to secondary school: transition days, practical routines, emotional worries and academic gaps to watch for.",
+    "category": "Choosing a School",
+    "published": "2026-11-10",
+    "updated": "2026-11-10",
+    "faqs": [
+      {
+        "q": "What can I do before September?",
+        "a": "Attend transition days, practise the journey, sort equipment and routines, and talk through worries."
+      },
+      {
+        "q": "What if my child struggles to settle?",
+        "a": "Speak to the form tutor early. Most children settle within a term, but earlier contact helps if worries continue."
+      },
+      {
+        "q": "Should I arrange a tutor for Year 7?",
+        "a": "Only if there are clear gaps in English or maths or a lack of confidence. Many children do not need one."
+      }
+    ],
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "subjects": [
+        "ks3",
+        "primary"
+      ],
+      "guides": [
+        "ks2-sats-explained",
+        "signs-your-child-needs-a-tutor",
+        "homework-how-much-is-normal",
+        "how-to-choose-a-secondary-school"
+      ]
+    },
+    "enquiry": {
+      "service": "Tutoring",
+      "title": "Starting secondary school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us about your child and a consultant will suggest sensible next steps."
+    }
+  },
+  {
+    "slug": "flexi-schooling-explained",
+    "title": "Flexi-schooling explained",
+    "seoTitle": "Flexi-Schooling Explained: Is It Allowed? | Britannia Crown",
+    "description": "What flexi-schooling is, whether parents have a right to it, why families consider it and what to ask a school before agreeing an arrangement.",
+    "category": "Home Education",
+    "published": "2026-11-10",
+    "updated": "2026-11-10",
+    "faqs": [
+      {
+        "q": "Is flexi-schooling legal?",
+        "a": "Yes, but it is not a right. It is an arrangement a head teacher may agree, and many schools decline."
+      },
+      {
+        "q": "Is it the same as home education?",
+        "a": "No. The child remains on the school roll and attends part of the week."
+      },
+      {
+        "q": "What if the school says no?",
+        "a": "You can choose full-time school or consider home education. See our guides on each."
+      }
+    ],
+    "related": {
+      "services": [
+        "home-education"
+      ],
+      "subjects": [],
+      "guides": [
+        "home-education-england",
+        "going-back-to-school-after-home-education",
+        "deregistering-your-child-from-school",
+        "home-education-and-local-authority-contact"
+      ]
+    },
+    "enquiry": {
+      "service": "Home Education",
+      "title": "Considering home education?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your situation and a consultant will talk through the options."
+    }
+  },
+  {
     "slug": "how-often-should-a-child-have-tutoring",
     "title": "How often should a child have tutoring?",
     "seoTitle": "How Often Should a Child Have Tutoring? | Britannia Crown",
