@@ -24,6 +24,9 @@ export function recordAttribution() {
 
 export function appendAttribution(data: FormData) {
   data.set("page", window.location.pathname);
+  // How long the page has been open, in ms. Bots submit instantly or skip the page entirely;
+  // the server quietly ignores submissions without a believable value (see /api/enquiry).
+  data.set("_elapsed", String(Math.round(performance.now())));
   try {
     const stored = JSON.parse(sessionStorage.getItem(KEY) ?? "{}") as Attribution;
     for (const [k, v] of Object.entries(stored)) data.set(k, v);

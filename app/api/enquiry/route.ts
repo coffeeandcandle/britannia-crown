@@ -59,8 +59,20 @@ export async function POST(request: Request) {
   }
   const get = (k: string, max = 2000) => String(form.get(k) ?? "").trim().slice(0, max);
 
-  // Honeypot: real visitors never fill this hidden field. Pretend success so bots move on.
+  // Spam checks. Bots are told "ok" so they move on, but nothing is saved or emailed.
+  // 1. Honeypot: real visitors never fill this hidden field.
   if (get("_gotcha")) return Response.json({ ok: true });
+  // 2. Speed: the site's forms send how long the page was open. A missing value means the
+  //    form was posted directly by a script; under 3 seconds is faster than anyone types.
+  const elapsed = Number(get("_elapsed"));
+  if (!Number.isFinite(elapsed) || elapsed < 3000) return spam("too fast or no page timing", get);
+  // 3. Junk: placeholder phone numbers (e.g. +7 999 000 0000, 0000000000) and "test" names
+  //    with nothing else written, as sent by form-testing bots.
+  const digits = get("phone").replace(/\D/g, "");
+  const junkPhone = /^(7|8)?9990000000$/.test(digits) || /(\d)\1{7,}/.test(digits);
+  const testName = /^(test|testing|asdf|qwerty)$/i.test(get("name"));
+  const wroteSomething = get("message").length > 15 || get("notes").length > 15 || get("network").length > 15;
+  if (junkPhone || (testName && !wroteSomething)) return spam(junkPhone ? "placeholder phone" : "test name", get);
 
   const config = FORMS[get("form")];
   const name = get("name", 120);
@@ -104,5 +116,10 @@ export async function POST(request: Request) {
     );
     await alertTeam(summary, { Name: name, Email: email, Phone: phone, ...labelled, Page: fields.page, "Came from": fields.utm_source ?? fields.referrer ?? fields.landing_page }, email);
   }
+  return Response.json({ ok: true });
+}
+
+function spam(reason: string, get: (k: string) => string) {
+  console.warn(`Website form ignored as spam (${reason}): ${get("email")} from ${get("page") || "unknown page"}`);
   return Response.json({ ok: true });
 }
