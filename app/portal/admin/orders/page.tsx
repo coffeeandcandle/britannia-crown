@@ -2,6 +2,9 @@ import Link from "next/link";
 import { requireStaff, listOrders, type OrderRow } from "../../../lib/portal/dal";
 import { formatDate } from "../../../lib/portal/time";
 import { PageHeader, Card, EmptyState, Avatar, Pill, HelpBox } from "../../ui";
+import { Flash } from "../../components";
+import { ConfirmSubmit } from "../../client-ui";
+import { deleteOrder } from "../crm-actions";
 
 const statusPill: Record<OrderRow["status"], React.ReactNode> = {
   paid: <Pill tone="good">Paid</Pill>,
@@ -15,13 +18,15 @@ function amount(o: OrderRow) {
   return o.recurring ? `${value} a month` : value;
 }
 
-export default async function OrdersPage() {
+export default async function OrdersPage({ searchParams }: { searchParams: Promise<{ ok?: string; error?: string }> }) {
   await requireStaff(["admin"]);
+  const msg = await searchParams;
   const orders = await listOrders();
   const stripeBase = /^(sk|rk)_live/.test(process.env.STRIPE_SECRET_KEY ?? "") ? "https://dashboard.stripe.com" : "https://dashboard.stripe.com/test";
 
   return (
     <>
+      <Flash {...msg} />
       <PageHeader
         title="Orders"
         description="Everything bought online through the Prices page, newest first. Contact new customers within one working day."
@@ -61,6 +66,12 @@ export default async function OrdersPage() {
                         {o.family_id ? <Link href={`/portal/admin/families/${o.family_id}`}>{o.family_name}</Link> : "Not in portal yet"}
                       </span>
                       {statusPill[o.status]}
+                      <form action={deleteOrder}>
+                        <input type="hidden" name="id" value={o.id} />
+                        <ConfirmSubmit message={`Remove this order (${o.product_name}, ${o.customer_name ?? o.customer_email ?? "no name"}) from the portal? Use this for test orders. It does not refund or cancel anything in Stripe.`}>
+                          Remove
+                        </ConfirmSubmit>
+                      </form>
                     </div>
                   </li>
                 ))}

@@ -171,3 +171,14 @@ export async function deleteContact(fd: FormData) {
   revalidatePath("/portal/admin/contacts");
   back("/portal/admin/contacts", { ok: "Contact deleted." });
 }
+
+// Removes an order record from the portal, e.g. a test purchase that skews the overview figures.
+// It does not refund or cancel anything in Stripe; do that in the Stripe dashboard.
+export async function deleteOrder(fd: FormData) {
+  await requireStaff(["admin"]);
+  const id = int(fd, "id");
+  const row = id ? await queryOne<{ product_name: string }>("DELETE FROM orders WHERE id = $1 RETURNING product_name", [id]) : null;
+  revalidatePath("/portal/admin/orders");
+  revalidatePath("/portal/admin");
+  back("/portal/admin/orders", row ? { ok: `Order removed: ${row.product_name}.` } : { error: "Order not found." });
+}
