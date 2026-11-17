@@ -40,7 +40,7 @@ async function create(origin: string, form: FormData) {
     `${origin}${portalForm ? "/portal/checkout" : "/checkout/details"}?${new URLSearchParams({ product: product.id, return_path: returnPath, error })}`;
   let o: Onboarding | null = null;
   if (!payFirst) {
-    const parsed = parseOnboarding(form);
+    const parsed = parseOnboarding(form, product.id);
     if ("error" in parsed) return Response.redirect(detailsUrl(parsed.error), 303);
     o = parsed.data;
   }
@@ -59,7 +59,7 @@ async function create(origin: string, form: FormData) {
         phone: o.phone,
         type: "enquiry",
         summary: `Started checkout: ${product.name}`,
-        details: { child: o.childName, year_group: o.yearGroup, help_with: o.focusArea, about: o.focus, best_times: o.times },
+        details: { child: o.childName, year_group: o.yearGroup, help_with: o.focusArea, about: o.focus, best_times: o.times, ...o.extra },
         source: String(form.get("utm_source") ?? "") || String(form.get("landing_page") ?? "") || "checkout",
       });
     } catch (error) {
@@ -79,6 +79,7 @@ async function create(origin: string, form: FormData) {
         help_with: o.focusArea,
         focus: o.focus,
         ...(o.times ? { times: o.times } : {}),
+        ...o.extra,
       }
     : { product_id: product.id, page: returnPath };
   for (const key of ATTRIBUTION_FIELDS) {

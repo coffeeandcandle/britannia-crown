@@ -4,7 +4,8 @@ import { useRef } from "react";
 import Link from "next/link";
 import { track } from "../lib/track";
 import { useFormPolish } from "../lib/useFormPolish";
-import { YEAR_GROUPS, FOCUS_AREAS } from "../lib/onboarding";
+import { YEAR_GROUPS, FOCUS_AREAS, advocacyTier } from "../lib/onboarding";
+import AdvocacyIntake from "./AdvocacyIntake";
 
 const ATTRIBUTION_KEY = "bc_attribution";
 
@@ -33,6 +34,7 @@ export default function OnboardingForm({
 }) {
   const { formRef, liveRef, validate } = useFormPolish(`checkout-${productId}`);
   const attributionRef = useRef<HTMLDivElement>(null);
+  const tier = advocacyTier(productId);
 
   // Adds the visit's marketing attribution just before sending, so it reaches Stripe and the CRM.
   function addAttribution() {
@@ -114,6 +116,10 @@ export default function OnboardingForm({
         </div>
       </div>
 
+      {tier ? (
+        <AdvocacyIntake tier={tier} />
+      ) : (
+        <>
       <h2 className="onboarding-h">What would you like help with?</h2>
       <div className="form-group">
         <label htmlFor="ob-area">Main area <span className="required">*</span></label>
@@ -131,6 +137,9 @@ export default function OnboardingForm({
         <input id="ob-times" name="times" placeholder="e.g. weekday evenings after 5pm" />
       </div>
 
+        </>
+      )}
+
       <div className="form-group onboarding-consent">
         <label className="onboarding-check" htmlFor="ob-consent">
           <input id="ob-consent" name="consent" type="checkbox" required />
@@ -143,7 +152,11 @@ export default function OnboardingForm({
       </div>
 
       <button type="submit" className="form-submit">Continue to secure payment ({priceLabel})</button>
-      <p className="enq-note">You will pay on the next page through Stripe. We use these details to match your tutor and set up your account.</p>
+      <p className="enq-note">
+        {tier
+          ? "You will pay on the next page through Stripe. Your consultant will read these details before they first contact you."
+          : "You will pay on the next page through Stripe. We use these details to match your tutor and set up your account."}
+      </p>
     </form>
   );
 }

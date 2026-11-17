@@ -1714,3 +1714,7 @@ a.form-submit { display: flex; align-items: center; justify-content: center; tex
 .adv-or { display: block; margin-top: 12px; font-size: .9rem; text-align: center; color: var(--ink-3); }
 .mb-tier.featured .adv-or { color: rgba(255,255,255,.75); }
 .mb-tier .buy-form, .mb-tier form { display: grid; }
+.ob-checks { border: 0; padding: 0; margin: 0 0 18px; }
+.ob-checks legend { margin-bottom: 8px; font-weight: 600; }
+.ob-checks > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 16px; margin-top: 6px; }
+.ob-intro { display: block; margin: -4px 0 14px; }

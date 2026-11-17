@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProduct, formatPrice } from "../../lib/products";
 import OnboardingForm from "../../components/OnboardingForm";
+import { advocacyTier } from "../../lib/onboarding";
 
 export const metadata: Metadata = {
   title: "Before you pay | Britannia Crown",
@@ -24,8 +25,10 @@ export default async function CheckoutDetailsPage({ searchParams }: Props) {
         <div className="uk-wrap">
           <h1>A few details before you pay</h1>
           <p>
-            You are buying <strong>{product.name}</strong> ({formatPrice(product)} {product.unit}). Tell us about your child so we can match the right tutor
-            and get started straight away.
+            You are buying <strong>{product.name}</strong> ({formatPrice(product)} {product.unit}).{" "}
+            {advocacyTier(product.id)
+              ? "Tell us about your child, their school and what is happening, so your consultant can get started straight away."
+              : "Tell us about your child so we can match the right tutor and get started straight away."}
           </p>
         </div>
       </section>

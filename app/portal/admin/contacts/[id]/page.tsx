@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireStaff, getContact, contactActivities, contactOrders, listStaff, type ActivityRow } from "../../../../lib/portal/dal";
+import { ADVOCACY_LABELS } from "../../../../lib/onboarding";
 import { STAGES } from "../../../../lib/crm";
 import { TIMEZONES } from "../../../../lib/portal/time";
 import { Flash } from "../../../components";
@@ -43,6 +44,10 @@ const detailLabels: Record<string, string> = {
   utm_source: "Campaign source",
   utm_medium: "Campaign medium",
   utm_campaign: "Campaign",
+  help_with: "Help with",
+  about: "Details",
+  best_times: "Best times",
+  ...ADVOCACY_LABELS,
 };
 
 const when = (d: Date) =>
