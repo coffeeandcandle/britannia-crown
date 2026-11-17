@@ -49,3 +49,34 @@ export async function memberCouponId(stripe: Stripe) {
 }
 
 export const discounted = (amount: number) => Math.round(amount * (100 - MEMBER_DISCOUNT_PERCENT)) / 100;
+
+// Called when a membership subscription ends. If the family has no other active membership,
+// the member discount is taken off their Advocacy subscriptions, so their next bill is full price.
+// Other discounts on those subscriptions (e.g. a promotion code) are left alone.
+// Returns the Advocacy plans that lost the discount.
+export async function removeLapsedMemberDiscounts(stripe: Stripe, email: string) {
+  if (!email || (await hasActiveMembership(email))) return [];
+  const { query } = await import("./portal/db");
+  const subs = await query<{ stripe_subscription_id: string; product_name: string }>(
+    `SELECT DISTINCT stripe_subscription_id, product_name FROM orders
+      WHERE lower(customer_email) = lower($1) AND product_id LIKE 'advocacy-%' AND status = 'paid'
+        AND stripe_subscription_id IS NOT NULL`,
+    [email.trim()],
+  );
+  const changed: string[] = [];
+  for (const row of subs) {
+    const sub = await stripe.subscriptions.retrieve(row.stripe_subscription_id, { expand: ["discounts"] });
+    if (sub.status === "canceled") continue;
+    const discounts = (sub.discounts ?? []).filter((d): d is Stripe.Discount => typeof d !== "string");
+    const isMember = (d: Stripe.Discount) => {
+      const coupon = d.source?.coupon;
+      const id = typeof coupon === "string" ? coupon : coupon?.id;
+      return Boolean(id?.startsWith("bc_member_advocacy_15"));
+    };
+    if (!discounts.some(isMember)) continue;
+    const keep = discounts.filter((d) => !isMember(d)).map((d) => ({ discount: d.id }));
+    await stripe.subscriptions.update(sub.id, { discounts: keep.length ? keep : "" });
+    changed.push(row.product_name);
+  }
+  return changed;
+}

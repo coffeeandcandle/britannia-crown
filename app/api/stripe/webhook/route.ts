@@ -3,6 +3,7 @@ import { getStripe } from "../../../lib/stripe";
 import { getProduct } from "../../../lib/products";
 import { query, queryOne } from "../../../lib/portal/db";
 import { getSetting } from "../../../lib/settings";
+import { removeLapsedMemberDiscounts } from "../../../lib/membership";
 import { recordEvent } from "../../../lib/crm";
 import { alertTeam, sendOrderConfirmation } from "../../../lib/email";
 
@@ -87,8 +88,28 @@ export async function POST(request: Request) {
       }
       case "customer.subscription.deleted": {
         const sub = event.data.object;
-        if (hasDatabase) await query("UPDATE orders SET status = 'cancelled' WHERE stripe_subscription_id = $1", [sub.id]);
+        const ended = hasDatabase
+          ? await queryOne<{ customer_email: string | null }>(
+              "UPDATE orders SET status = 'cancelled' WHERE stripe_subscription_id = $1 RETURNING customer_email",
+              [sub.id],
+            )
+          : null;
         await notifyTeam("Subscription cancelled", { product_id: sub.metadata?.product_id ?? "", subscription: sub.id });
+
+        // Membership ended: the 15% member discount on the Advocacy Plan stops from the next bill.
+        const email = ended?.customer_email ?? sub.metadata?.customer_email ?? "";
+        if ((sub.metadata?.product_id ?? "").startsWith("membership-") && email) {
+          const plans = await removeLapsedMemberDiscounts(stripe, email);
+          if (plans.length) {
+            await recordEvent({
+              name: email,
+              email,
+              type: "note",
+              summary: `Membership ended, so the 15% member discount was removed from: ${plans.join(", ")}. Full price applies from the next bill.`,
+            });
+            await notifyTeam("Member discount removed", { email, plans: plans.join(", ") });
+          }
+        }
         break;
       }
     }
