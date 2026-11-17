@@ -1,11 +1,16 @@
 import "server-only";
 import type Stripe from "stripe";
 import { queryOne } from "./portal/db";
+import { products } from "./products";
+import { priceIdFor } from "./stripe-catalog";
 
 // Academic Partner members get 15% off the Advocacy Plan, applied automatically at checkout.
 export const MEMBER_DISCOUNT_PERCENT = 15;
-const COUPON_ID = "bc_member_advocacy_15";
-export const memberDiscountApplies = (productId: string) => productId.startsWith("advocacy-");
+// v2: limited in Stripe to the Advocacy products, so it can never discount anything else.
+const COUPON_ID = "bc_member_advocacy_15_v2";
+const advocacyProducts = () => products.filter((p) => p.id.startsWith("advocacy-"));
+// The only products the member discount is ever applied to: the Advocacy Plan tiers.
+export const memberDiscountApplies = (productId: string) => advocacyProducts().some((p) => p.id === productId);
 
 // True when this email has a paid Academic Partner Membership that has not been cancelled.
 // The Stripe webhook marks an order cancelled when its subscription ends.
@@ -30,11 +35,14 @@ export async function memberCouponId(stripe: Stripe) {
   try {
     await stripe.coupons.retrieve(COUPON_ID);
   } catch {
+    // The products must exist in Stripe before a coupon can be limited to them.
+    for (const p of advocacyProducts()) await priceIdFor(stripe, p);
     await stripe.coupons.create({
       id: COUPON_ID,
       percent_off: MEMBER_DISCOUNT_PERCENT,
       duration: "forever",
       name: "Academic Partner member: 15% off Advocacy",
+      applies_to: { products: advocacyProducts().map((p) => `bc_${p.id}`) },
     });
   }
   return COUPON_ID;
