@@ -26,6 +26,12 @@ const membershipPerks: Record<string, string[]> = {
   "membership-partner": ["8 hours of online tutoring a month", "The same tutor, at a fixed weekly time", "Monthly 30-minute consultant call", "Same-day message support", "A termly exam strategy session"],
   "membership-full-partner": ["14 hours a month, across up to 2 subjects", "Everything in Partner", "Termly plan review with your consultant", "A direct line to your consultant"],
 };
+const advocacyIds = ["advocacy-essential", "advocacy-standard", "advocacy-priority"];
+const advocacyPerks: Record<string, string[]> = {
+  "advocacy-essential": ["2 advocacy hours a month", "Emails drafted and sent to school for you", "One call with the school each month", "Monthly written summary", "WhatsApp replies within 48 hours"],
+  "advocacy-standard": ["4 advocacy hours a month", "Everything in Essential", "One school meeting a month (online or in person)", "Review of reports, IEPs and learning plans", "Written action plan after every meeting", "Same-day WhatsApp replies"],
+  "advocacy-priority": ["8 advocacy hours a month", "Everything in Standard", "For active issues: bullying, SEN disputes, exam access, risk of exclusion", "Priority booking for urgent meetings", "Formal escalation, including KHDA complaints", "Weekly updates and WhatsApp replies within 4 working hours"],
+};
 const uaeIds = ["uae-nursery-search", "uae-school-search", "uae-exam-prep-term", "uae-homeschool-term", "uae-concierge"];
 
 const pick = (ids: string[]) => ids.map((id) => products.find((p) => p.id === id)).filter((p): p is Product => Boolean(p));
@@ -44,7 +50,7 @@ function ProductCard({ p, perks, featured }: { p: Product; perks?: string[]; fea
   const hasBillingChoice = checkoutOptions.length > 1;
   return (
     <article className={`shop-card${featured ? " is-featured" : ""}`}>
-      <h3>{p.name.replace("Academic Partner Membership: ", "").replace(" (Dubai)", "")}</h3>
+      <h3>{p.name.replace("Academic Partner Membership: ", "").replace("Advocacy Plan: ", "").replace(" (Dubai)", "")}</h3>
       <p className="shop-price">
         <span>{formatPrice(p)}</span> {p.unit}
       </p>
@@ -62,7 +68,7 @@ function ProductCard({ p, perks, featured }: { p: Product; perks?: string[]; fea
             enabled
             label={hasBillingChoice
               ? option.mode === "subscription" ? "Subscribe monthly" : "Buy one month"
-              : option.mode === "subscription" ? "Start membership" : "Buy now"}
+              : option.mode === "subscription" ? (p.id.startsWith("advocacy-") ? "Start plan" : "Start membership") : "Buy now"}
             className={index === 0 && featured ? "btn-primary" : "btn-secondary"}
           />
         )) : (
@@ -77,6 +83,7 @@ function ProductCard({ p, perks, featured }: { p: Product; perks?: string[]; fea
 export default function PricingPage() {
   const memberships = pick(membershipIds);
   const uae = pick(uaeIds);
+  const advocacy = pick(advocacyIds);
 
   return (
     <>
@@ -98,6 +105,7 @@ export default function PricingPage() {
         <a href="#consultation">Strategy session (£150)</a>
         <a href="#consultations">Free call &amp; trial lesson</a>
         <a href="#membership">Tutoring membership</a>
+        <a href="#advocacy">School advocacy</a>
         <a href="#tailored">Consultancy</a>
         <a href="#uae">Moving to Dubai</a>
       </nav>
@@ -151,7 +159,28 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="uk-section cream" id="tailored">
+      <section className="uk-section cream" id="advocacy">
+        <div className="uk-wrap">
+          <div className="uk-head">
+            <h2 className="uk-h2">Advocacy Plan</h2>
+            <p className="uk-lead">
+              We speak to the school, so you don&apos;t have to. A dedicated consultant liaises with teachers, the SENCO and senior leaders on your behalf.{" "}
+              <Link href="/advocacy-plan">How the Advocacy Plan works</Link>.
+            </p>
+          </div>
+          <div className="shop-grid">
+            {advocacy.map((p) => (
+              <ProductCard key={p.id} p={p} perks={advocacyPerks[p.id]} featured={p.id === "advocacy-standard"} />
+            ))}
+          </div>
+          <p className="shop-terms">
+            Extra hours £120 each, agreed in advance. Academic Partner members get 15% off. Unused hours roll over for one month. Billed monthly with a one-term
+            minimum, then rolling monthly. We advocate and liaise; we don&apos;t give legal advice.
+          </p>
+        </div>
+      </section>
+
+      <section className="uk-section white" id="tailored">
         <div className="uk-wrap uk-split">
           <div>
             <h2 className="uk-h2">Tutoring, home education and school placement in the UK</h2>
@@ -166,7 +195,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="uk-section white" id="uae">
+      <section className="uk-section cream" id="uae">
         <div className="uk-wrap">
           <div className="uk-head">
             <h2 className="uk-h2">Packages for families relocating to Dubai</h2>

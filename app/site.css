@@ -1718,3 +1718,4 @@ a.form-submit { display: flex; align-items: center; justify-content: center; tex
 .ob-checks legend { margin-bottom: 8px; font-weight: 600; }
 .ob-checks > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 16px; margin-top: 6px; }
 .ob-intro { display: block; margin: -4px 0 14px; }
+#advocacy .shop-terms { margin-top: 24px; }
