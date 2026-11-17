@@ -6,6 +6,8 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import { services } from "../lib/services";
 import ConsultationBand from "../components/ConsultationBand";
 
+const toRoman = (n: number) => ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"][n - 1] ?? String(n);
+
 export const metadata: Metadata = pageMetadata({
   title: "Tutoring & Education Consultancy | Britannia Crown",
   description:
@@ -41,6 +43,12 @@ export default function ServicesPage() {
                   <span className="uk-row-arrow" aria-hidden="true">→</span>
                 </Link>
               ))}
+              <Link href="/advocacy-plan" className="uk-row">
+                <span className="uk-row-num">{toRoman(services.length + 1)}</span>
+                <span className="uk-row-name">Advocacy Plan</span>
+                <span className="uk-row-desc">A dedicated consultant who speaks to your child&apos;s school for you, from SEN support to bullying.</span>
+                <span className="uk-row-arrow" aria-hidden="true">→</span>
+              </Link>
             </div>
           </Reveal>
         </div>

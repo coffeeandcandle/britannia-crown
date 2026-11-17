@@ -1703,3 +1703,11 @@ a.form-submit { display: flex; align-items: center; justify-content: center; tex
 .al-filters a { padding: 7px 14px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); text-decoration: none; color: var(--ink-2); font-weight: 600; font-size: .9rem; }
 .al-filters a.is-on { background: var(--brand); border-color: var(--brand); color: var(--white); }
 @media (max-width: 700px) { .al-hide { display: none; } }
+
+/* ── Advocacy Plan (/advocacy-plan): reuses the membership tier cards ── */
+.adv-hours { margin: -6px 0 18px; font-size: .92rem; font-weight: 600; color: var(--ink-2); }
+.mb-tier.featured .adv-hours { color: var(--champagne); }
+.mb-tier > .btn-primary, .mb-tier > .btn-secondary { align-self: stretch; text-align: center; }
+.adv-terms { max-width: 760px; margin: 28px auto 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: .9rem; color: var(--ink-3); text-align: center; }
+.adv-cta { max-width: 720px; text-align: center; }
+.adv-cta .uk-lead { margin: 12px auto 24px; }

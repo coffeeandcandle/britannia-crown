@@ -31,6 +31,7 @@ const SERVICE_OPTIONS = {
     ["Academic Partner Membership - Partner", "Membership: Partner"],
     ["Academic Partner Membership - Full Partner", "Membership: Full Partner"],
   ],
+  "School advocacy": [["Advocacy Plan", "Advocacy Plan (we speak to the school for you)"]],
 } as const;
 
 type Props = {

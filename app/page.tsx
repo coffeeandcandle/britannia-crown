@@ -210,6 +210,22 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="uk-section white">
+        <div className="uk-wrap uk-split">
+          <div>
+            <span className="uk-kicker">New: Advocacy Plan</span>
+            <h2 className="uk-h2">We speak to the school, so you don&apos;t have to.</h2>
+          </div>
+          <div className="uk-prose">
+            <p>A dedicated consultant liaises with your child&apos;s teachers, head of year, SENCO and senior leaders for you, from SEN support and exam access to bullying and behaviour. Monthly plans from £240.</p>
+            <div className="uk-hero-actions">
+              <Link href="/advocacy-plan" className="btn-primary">See the Advocacy Plan</Link>
+              <Link href="/book-consultation?session=consultation" className="btn-secondary">Book a free consultation</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <EnquirySection
         title="Talk to an education consultant"
         lead="Tell us a little about your child and we'll call you back, usually within 24 hours."

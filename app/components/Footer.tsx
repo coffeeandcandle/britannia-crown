@@ -34,6 +34,7 @@ export default function Footer() {
               <li><Link href="/pricing">Prices</Link></li>
               <li><Link href="/how-it-works">How it works</Link></li>
               <li><Link href="/membership">Academic Partner Membership</Link></li>
+              <li><Link href="/advocacy-plan">Advocacy Plan</Link></li>
               <li><Link href="/uae">Moving to the UAE</Link></li>
             </ul>
           </div>

@@ -30,6 +30,7 @@ const menus: Menu[] = [
     links: [
       ...services.map((s) => ({ href: `/services/${s.slug}`, label: s.name, desc: s.short })),
       { href: "/membership", label: "Academic Partner Membership", desc: "Ongoing online tutoring with a consultant overseeing progress." },
+      { href: "/advocacy-plan", label: "Advocacy Plan", desc: "We speak to your child's school, so you don't have to." },
       { href: "/uae", label: "Moving to the UAE", desc: "Schools, nurseries and tutoring for families relocating to Dubai." },
     ],
     feature: {
