@@ -174,7 +174,7 @@ export default function PricingPage() {
             ))}
           </div>
           <p className="shop-terms">
-            Extra hours £120 each, agreed in advance. Academic Partner members get 15% off. Unused hours roll over for one month. Billed monthly with a one-term
+            Extra hours £120 each, agreed in advance. Academic Partner members get 15% off, applied automatically at checkout. Unused hours roll over for one month. Billed monthly with a one-term
             minimum, then rolling monthly. We advocate and liaise; we don&apos;t give legal advice.
           </p>
         </div>

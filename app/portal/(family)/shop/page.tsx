@@ -8,11 +8,17 @@ import BuyButton from "../../../components/BuyButton";
 import { PageHeader, Card } from "../../ui";
 import { sessionTypes } from "../../../lib/sessions";
 import { unbookedOrders } from "../../../lib/portal/booking";
+import { hasActiveMembership, discounted, MEMBER_DISCOUNT_PERCENT } from "../../../lib/membership";
 
 const tiers = [
   { id: "membership-foundation", slug: "foundation", hours: 4, tag: "Flexible" },
   { id: "membership-partner", slug: "partner", hours: 8, tag: "Most popular", featured: true },
   { id: "membership-full-partner", slug: "full-partner", hours: 14, tag: "Most support" },
+];
+const advocacy = [
+  { id: "advocacy-essential", name: "Essential", hours: 2, tag: "Ongoing support", points: ["Emails drafted and sent to school for you", "One call with the school each month", "Monthly written summary"] },
+  { id: "advocacy-standard", name: "Standard", hours: 4, tag: "Most popular", featured: true, points: ["One school meeting a month, online or in person", "Review of reports, IEPs and learning plans", "Action plan after every meeting"] },
+  { id: "advocacy-priority", name: "Priority", hours: 8, tag: "Active issues", points: ["Bullying, SEN disputes, exam access, risk of exclusion", "Priority booking for urgent meetings", "Formal escalation and weekly updates"] },
 ];
 const consultancy = ["school-placement", "home-education", "qualifications"] as const;
 
@@ -20,7 +26,7 @@ const consultancy = ["school-placement", "home-education", "qualifications"] as 
 // so what they buy is linked to this account straight away.
 export default async function PlansAndServicesPage() {
   const { family } = await requireFamily();
-  const waiting = await unbookedOrders(family.id);
+  const [waiting, member] = await Promise.all([unbookedOrders(family.id), hasActiveMembership(family.email)]);
   const oneOffs = sessionTypes.filter((s) => s.productId && getProduct(s.productId));
 
   return (
@@ -84,6 +90,43 @@ export default async function PlansAndServicesPage() {
                   className={t.featured ? "btn-primary" : "btn-secondary"}
                 />
                 <Link href={offerPath(o)} className="plan-more">See everything included →</Link>
+              </article>
+            );
+          })}
+        </div>
+      </Card>
+
+      <Card
+        title="School advocacy"
+        description={
+          member
+            ? `We speak to the school, so you don't have to. As an Academic Partner member you get ${MEMBER_DISCOUNT_PERCENT}% off, applied automatically at checkout.`
+            : "We speak to the school, so you don't have to. A dedicated consultant liaises with teachers, the SENCO and senior leaders for you."
+        }
+      >
+        <div className="plans-grid">
+          {advocacy.map((t) => {
+            const p = getProduct(t.id);
+            if (!p) return null;
+            return (
+              <article className={`plan${t.featured ? " is-featured" : ""}`} key={t.id}>
+                <span className="plan-tag">{t.tag}</span>
+                <h3>{t.name}</h3>
+                <p className="plan-price">
+                  {member ? <><s>{formatPrice(p)}</s> £{discounted(p.amount).toFixed(0)}</> : formatPrice(p)} <small>a month</small>
+                </p>
+                <p className="plan-value">{t.hours} advocacy hours a month{member ? ` · member price, ${MEMBER_DISCOUNT_PERCENT}% off` : ""}</p>
+                <ul className="plan-list">
+                  {t.points.map((i) => <li key={i}>{i}</li>)}
+                </ul>
+                <BuyButton
+                  product={p}
+                  enabled={paymentsEnabled}
+                  email={family.email}
+                  label={paymentsEnabled ? `Start ${t.name}` : "Enquire"}
+                  className={t.featured ? "btn-primary" : "btn-secondary"}
+                />
+                <Link href="/advocacy-plan" className="plan-more">See everything included →</Link>
               </article>
             );
           })}

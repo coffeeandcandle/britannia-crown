@@ -92,7 +92,7 @@ const helpWith = [
 
 const terms = [
   "Extra hours: £120 per hour, always agreed in advance",
-  "Academic Partner members get 15% off any Advocacy tier",
+  "Academic Partner members get 15% off any Advocacy tier, applied automatically at checkout",
   "Unused hours roll over for one month",
   "Billed monthly; one-term minimum, then rolling monthly",
   "We advocate and liaise; we don't give legal advice",

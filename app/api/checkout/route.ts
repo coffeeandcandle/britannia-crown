@@ -2,6 +2,7 @@ import type Stripe from "stripe";
 import { getProduct, PAY_FIRST } from "../../lib/products";
 import { getStripe } from "../../lib/stripe";
 import { priceIdFor } from "../../lib/stripe-catalog";
+import { hasActiveMembership, memberCouponId, memberDiscountApplies } from "../../lib/membership";
 import { parseOnboarding, type Onboarding } from "../../lib/onboarding";
 import { recordEvent } from "../../lib/crm";
 
@@ -105,6 +106,18 @@ async function create(origin: string, form: FormData) {
     };
   }
 
+  // Academic Partner members get 15% off the Advocacy Plan automatically. Stripe allows either an
+  // automatic discount or a promotion code box, not both, so members skip the code box.
+  let memberCoupon: string | null = null;
+  if (o && memberDiscountApplies(product.id) && (await hasActiveMembership(o.email))) {
+    try {
+      memberCoupon = await memberCouponId(stripe);
+      metadata.member_discount = "15%";
+    } catch (error) {
+      console.error("Could not apply the member discount", error);
+    }
+  }
+
   const params: Stripe.Checkout.SessionCreateParams = {
     mode: product.mode,
     // Labels these sessions in the Stripe dashboard so website sales can be compared with other flows.
@@ -114,7 +127,7 @@ async function create(origin: string, form: FormData) {
     ...(o ? { customer_email: o.email } : { phone_number_collection: { enabled: true } }),
     cancel_url: `${origin}${returnPath}${returnPath.includes("?") ? "&" : "?"}checkout=cancelled`,
     billing_address_collection: "auto",
-    allow_promotion_codes: true,
+    ...(memberCoupon ? { discounts: [{ coupon: memberCoupon }] } : { allow_promotion_codes: true }),
     custom_text: {
       submit: {
         message: `${payFirst ? "After you pay, you will tell us about your child and choose a time in your client portal." : "An education consultant will contact you within one working day to get started."} By paying you agree to our terms and our refunds and cancellations policy (${origin}/refunds-and-cancellations), including your 14-day right to cancel.`,
