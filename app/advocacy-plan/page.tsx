@@ -8,6 +8,9 @@ import JsonLd from "../components/JsonLd";
 import { pageMetadata } from "../lib/seo";
 import { ORG_ID } from "../lib/schema";
 import { SITE_URL } from "../lib/site";
+import BuyButton from "../components/BuyButton";
+import { getProduct } from "../lib/products";
+import { paymentsEnabled } from "../lib/stripe";
 
 export const metadata: Metadata = {
   ...pageMetadata({
@@ -37,6 +40,7 @@ const steps = [
 const tiers = [
   {
     name: "Essential",
+    productId: "advocacy-essential",
     value: 240,
     hours: "2 advocacy hours a month",
     features: [
@@ -48,6 +52,7 @@ const tiers = [
   },
   {
     name: "Standard",
+    productId: "advocacy-standard",
     value: 440,
     hours: "4 advocacy hours a month",
     featured: true,
@@ -61,6 +66,7 @@ const tiers = [
   },
   {
     name: "Priority",
+    productId: "advocacy-priority",
     value: 780,
     hours: "8 advocacy hours a month",
     features: [
@@ -181,9 +187,13 @@ export default function AdvocacyPlanPage() {
                   <ul>
                     {t.features.map((f) => <li key={f}>{f}</li>)}
                   </ul>
-                  <Link href={BOOK} className={t.featured ? "btn-primary" : "btn-secondary mb-btn-dark"}>
-                    Book a free consultation
-                  </Link>
+                  <BuyButton
+                    product={getProduct(t.productId)!}
+                    enabled={paymentsEnabled}
+                    label={paymentsEnabled ? `Start ${t.name}` : `Enquire about ${t.name}`}
+                    className={t.featured ? "btn-primary" : "btn-secondary mb-btn-dark"}
+                  />
+                  <Link href={BOOK} className="adv-or">or book a free consultation first</Link>
                 </div>
               ))}
             </div>

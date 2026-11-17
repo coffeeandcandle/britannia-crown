@@ -131,6 +131,36 @@ export const products: Product[] = [
     unit: "per month",
     service: "Academic Partner Membership - Full Partner",
   },
+  {
+    id: "advocacy-essential",
+    name: "Advocacy Plan: Essential",
+    description: "2 advocacy hours a month: emails to school on your behalf, one call with the school and a monthly written summary.",
+    amount: 240,
+    currency: "gbp",
+    mode: "subscription",
+    unit: "per month",
+    service: "Advocacy Plan",
+  },
+  {
+    id: "advocacy-standard",
+    name: "Advocacy Plan: Standard",
+    description: "4 advocacy hours a month, including one school meeting, review of reports and IEPs, and an action plan after every meeting.",
+    amount: 440,
+    currency: "gbp",
+    mode: "subscription",
+    unit: "per month",
+    service: "Advocacy Plan",
+  },
+  {
+    id: "advocacy-priority",
+    name: "Advocacy Plan: Priority",
+    description: "8 advocacy hours a month for active issues, with priority meetings, formal escalation and weekly updates.",
+    amount: 780,
+    currency: "gbp",
+    mode: "subscription",
+    unit: "per month",
+    service: "Advocacy Plan",
+  },
 ];
 
 // Sold pay first: they go straight to Stripe, and the family fills in the details right afterwards in the portal.
