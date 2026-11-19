@@ -124,8 +124,9 @@ export async function requireFamily() {
   const viewer = await requireViewer();
   // Only people who are not on the team get a client account made for them. Someone who signed up
   // through the team page (or has a team application) waits for an admin instead of becoming a client.
-  if (!viewer.family && !viewer.staff && (viewer.audience === "team" || (await isApplicant(viewer.email)))) {
-    redirect("/portal/staff/no-access");
+  // This also applies if an empty client account was made for them earlier: they are not a client.
+  if (!viewer.staff && (viewer.audience === "team" || (await isApplicant(viewer.email)))) {
+    if (!viewer.family || !(await familyHasHistory(viewer.family.id))) redirect("/portal/staff/no-access");
   }
   if (!viewer.family && !viewer.staff) viewer.family = await createFamilyFor(viewer);
   if (!viewer.family) redirect(viewer.staff ? "/portal/admin" : "/portal/no-account");
@@ -687,4 +688,30 @@ export const listApplicants = (status: "pending" | "decided") =>
 
 export async function pendingApplicantCount() {
   return (await queryOne<{ n: number }>("SELECT count(*)::int AS n FROM staff_applicants WHERE status = 'pending'"))?.n ?? 0;
+}
+
+// True when a client account has real history: purchases, children or lessons.
+export async function familyHasHistory(familyId: number) {
+  return Boolean(
+    await queryOne(
+      `SELECT 1 FROM families f WHERE f.id = $1 AND (
+         EXISTS (SELECT 1 FROM orders o WHERE o.family_id = f.id OR lower(o.customer_email) = lower(f.email))
+         OR EXISTS (SELECT 1 FROM children c WHERE c.family_id = f.id)
+         OR EXISTS (SELECT 1 FROM sessions s WHERE s.family_id = f.id))`,
+      [familyId],
+    ),
+  );
+}
+
+// Removes an empty client account (and its sign-up-only CRM contact) made by mistake for a team applicant.
+export async function removeEmptyClientRecord(familyId: number, email: string) {
+  if (await familyHasHistory(familyId)) return false;
+  await query("DELETE FROM families WHERE id = $1", [familyId]);
+  await query(
+    `DELETE FROM contacts c WHERE lower(c.email) = lower($1)
+       AND NOT EXISTS (SELECT 1 FROM orders o WHERE lower(o.customer_email) = lower(c.email))
+       AND NOT EXISTS (SELECT 1 FROM activities x WHERE x.contact_id = c.id AND x.type NOT IN ('enquiry', 'stage', 'note'))`,
+    [email],
+  );
+  return true;
 }
