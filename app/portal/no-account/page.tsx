@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { requireViewer } from "../../lib/portal/dal";
-import { STAFF_SIGN_IN_PATH } from "../../lib/portal/config";
+import { STAFF_SIGN_IN_PATH, clerkConfigured } from "../../lib/portal/config";
 import { EMAIL } from "../../lib/site";
 import AuthFrame from "../AuthFrame";
+import LogoutButton from "../LogoutButton";
 
 export default async function NoAccountPage() {
   const viewer = await requireViewer();
@@ -18,6 +19,7 @@ export default async function NoAccountPage() {
         <p>If you&apos;re already a client, email us and we&apos;ll add this email address to your account.</p>
         <a href={`mailto:${EMAIL}`} className="btn-primary">Email {EMAIL}</a>
         <Link href="/book-consultation" className="btn-secondary">New here? Book a free call</Link>
+        {clerkConfigured && <LogoutButton className="btn-secondary" />}
       </div>
     </AuthFrame>
   );

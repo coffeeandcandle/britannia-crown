@@ -4,6 +4,8 @@ import { requireViewer, recordApplicant, removeEmptyClientRecord } from "../../.
 import { STAFF_SIGN_IN_PATH, SIGN_IN_PATH } from "../../../lib/portal/config";
 import { alertTeam } from "../../../lib/email";
 import AuthFrame from "../../AuthFrame";
+import LogoutButton from "../../LogoutButton";
+import { clerkConfigured } from "../../../lib/portal/config";
 
 // Shown to someone who has signed up as a tutor or consultant but has not been given a role yet.
 // Their sign-up is recorded as a team application for an admin to approve; it never becomes a client account.
@@ -20,6 +22,10 @@ export default async function StaffNoAccessPage() {
         <div className="enq-card uk-prose">
           <p>This email belongs to a family account, so it can&apos;t be used for the team area. Please use the <Link href={SIGN_IN_PATH}>parent and family login</Link>.</p>
           <p>If you&apos;re joining the team as a tutor or consultant, sign out and sign up with your work email address instead.</p>
+          <div className="uk-hero-actions">
+            {clerkConfigured && <LogoutButton className="btn-primary" />}
+            <Link href="/" className="btn-secondary">Back to website</Link>
+          </div>
         </div>
       </AuthFrame>
     );
@@ -34,6 +40,10 @@ export default async function StaffNoAccessPage() {
       <AuthFrame area="Tutors and consultants" title="Your team application wasn't approved" lead={<>Signed in as <strong>{viewer.email}</strong>.</>}>
         <div className="enq-card uk-prose">
           <p>An admin has not given this account access to the team area. If you think this is a mistake, please email us and we&apos;ll look into it.</p>
+          <div className="uk-hero-actions">
+            {clerkConfigured && <LogoutButton className="btn-primary" />}
+            <Link href="/" className="btn-secondary">Back to website</Link>
+          </div>
         </div>
       </AuthFrame>
     );
@@ -48,6 +58,10 @@ export default async function StaffNoAccessPage() {
       <div className="enq-card uk-prose">
         <p>Your sign-up has been sent to the Britannia Crown admin team to approve. Once it&apos;s approved, log in again (or refresh this page) and your own area opens, with the menu for your role: your sessions, notes, availability and timetable.</p>
         <p>Roles are given by an admin so that only approved people can see families&apos; details. If you signed in with a different email by mistake, sign out from your account menu and try again.</p>
+        <div className="uk-hero-actions">
+          {clerkConfigured && <LogoutButton className="btn-primary" />}
+          <Link href="/" className="btn-secondary">Back to website</Link>
+        </div>
       </div>
     </AuthFrame>
   );
