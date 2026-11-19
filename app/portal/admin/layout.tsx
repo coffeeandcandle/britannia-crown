@@ -1,4 +1,4 @@
-import { getViewer, requireStaff, canManage, pendingRequestCount } from "../../lib/portal/dal";
+import { getViewer, requireStaff, canManage, pendingRequestCount, pendingApplicantCount } from "../../lib/portal/dal";
 import { Suspense } from "react";
 import PortalShell from "../PortalShell";
 import PortalFrameSkeleton from "../PortalFrameSkeleton";
@@ -12,7 +12,8 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
   if (who && !who.staff) return <PortalRedirect to="/portal/staff/no-access" />;
   const { viewer, staff } = await requireStaff();
   const manager = canManage(staff);
-  const pendingRequests = staff.role === "admin" ? await pendingRequestCount() : 0;
+  const [pendingRequests, pendingApplicants] = staff.role === "admin" ? await Promise.all([pendingRequestCount(), pendingApplicantCount()]) : [0, 0];
+  const count = (label: string, n: number) => (n > 0 ? `${label} (${n})` : label);
 
   // Each role sees only the parts of its own area it can use.
   const sections: NavSection[] = [
@@ -23,24 +24,36 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
         { href: "/portal/admin/availability", label: "My availability", icon: "calendar" },
       ],
     },
+    // Clients: families and everything sold to them. Admins also get the client CRM, orders and requests.
     ...(manager
-      ? [{ title: "Clients", items: [
-            { href: "/portal/admin/families", label: "Families", icon: "families" as const },
-            { href: "/portal/admin/consultations", label: "Free consultations", icon: "calendar" as const },
-          ] }]
+      ? [
+          {
+            title: "Clients",
+            items: [
+              { href: "/portal/admin/families", label: "Families", icon: "families" as const },
+              { href: "/portal/admin/consultations", label: "Free consultations", icon: "calendar" as const },
+              ...(staff.role === "admin"
+                ? [
+                    { href: "/portal/admin/contacts", label: "Client CRM", icon: "chat" as const },
+                    { href: "/portal/admin/orders", label: "Orders", icon: "card" as const },
+                    { href: "/portal/admin/requests", label: count("Lesson requests", pendingRequests), icon: "plus" as const },
+                  ]
+                : []),
+            ],
+          },
+        ]
       : []),
+    // Team: tutors and consultants, kept separate from clients. Admins only.
     ...(staff.role === "admin"
       ? [
           {
-            title: "Admin",
+            title: "Team",
             items: [
-              { href: "/portal/admin/contacts", label: "Contacts", icon: "chat" as const },
-              { href: "/portal/admin/orders", label: "Orders", icon: "card" as const },
-              { href: "/portal/admin/requests", label: pendingRequests > 0 ? `Lesson requests (${pendingRequests})` : "Lesson requests", icon: "plus" as const },
-              { href: "/portal/admin/consultants", label: "Consultants", icon: "team" as const },
+              { href: "/portal/admin/applications", label: count("Applications", pendingApplicants), icon: "plus" as const },
               { href: "/portal/admin/tutors", label: "Tutors", icon: "team" as const },
-              { href: "/portal/admin/activity", label: "Activity log", icon: "notes" as const },
+              { href: "/portal/admin/consultants", label: "Consultants", icon: "team" as const },
               { href: "/portal/admin/staff", label: "Team and access", icon: "team" as const },
+              { href: "/portal/admin/activity", label: "Activity log", icon: "notes" as const },
             ],
           },
         ]

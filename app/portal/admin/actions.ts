@@ -226,6 +226,8 @@ export async function saveStaff(fd: FormData) {
   if (!name || !EMAIL_RE.test(email)) back("/portal/admin/staff", { error: "Please enter a name and a valid email address." });
   try {
     await query("INSERT INTO staff (email, name, role) VALUES ($1, $2, $3)", [email, name, role]);
+    // Adding someone by hand also settles any team application they made.
+    await query("UPDATE staff_applicants SET status = 'approved', decided_at = now() WHERE lower(email) = $1 AND status = 'pending'", [email]);
   } catch (e) {
     if ((e as { code?: string }).code === "23505") back("/portal/admin/staff", { error: "That email address is already on the team." });
     throw e;

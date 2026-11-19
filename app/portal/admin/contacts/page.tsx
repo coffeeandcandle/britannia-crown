@@ -32,7 +32,7 @@ export default async function ContactsPage({
     <>
       <Flash {...msg} />
       <PageHeader
-        title="Contacts"
+        title="Client CRM"
         description="Everyone who has enquired, booked a call or bought online, with their full history. New website enquiries appear here automatically."
         actions={<a href="#add-contact" className="btn-primary">+ Add a contact</a>}
       />

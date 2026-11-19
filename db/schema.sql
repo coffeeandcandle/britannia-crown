@@ -229,3 +229,38 @@ CREATE UNIQUE INDEX IF NOT EXISTS consultation_requests_slot ON consultation_req
 
 -- Where a booked session came from: 'member' sessions use hours from a monthly plan.
 ALTER TABLE sessions ADD COLUMN IF NOT EXISTS source text;
+
+-- People who signed up through the team sign-up page and are waiting for an admin to approve them
+-- as a tutor or consultant. They never get a client account, and they stay out of the client CRM.
+CREATE TABLE IF NOT EXISTS staff_applicants (
+  id             serial PRIMARY KEY,
+  email          text NOT NULL,
+  name           text NOT NULL,
+  clerk_user_id  text,
+  status         text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'declined')),
+  created_at     timestamptz NOT NULL DEFAULT now(),
+  decided_at     timestamptz
+);
+CREATE UNIQUE INDEX IF NOT EXISTS staff_applicants_email ON staff_applicants (lower(email));
+
+-- Tidy up client records that were made by mistake for tutors and consultants (before team sign-ups
+-- were recognised): an empty family with no purchases, children or lessons, and its sign-up-only contact.
+DELETE FROM families f
+ WHERE lower(f.email) IN (SELECT lower(email) FROM staff WHERE role IN ('tutor', 'consultant'))
+   AND NOT EXISTS (SELECT 1 FROM orders o WHERE o.family_id = f.id OR lower(o.customer_email) = lower(f.email))
+   AND NOT EXISTS (SELECT 1 FROM children c WHERE c.family_id = f.id)
+   AND NOT EXISTS (SELECT 1 FROM sessions s WHERE s.family_id = f.id);
+DELETE FROM contacts c
+ WHERE lower(c.email) IN (SELECT lower(email) FROM staff WHERE role IN ('tutor', 'consultant'))
+   AND NOT EXISTS (SELECT 1 FROM orders o WHERE lower(o.customer_email) = lower(c.email))
+   AND NOT EXISTS (SELECT 1 FROM activities a WHERE a.contact_id = c.id AND a.type NOT IN ('enquiry', 'stage', 'note'));
+
+-- One client account per email address, whatever its capitals. Added only once any old duplicates are gone,
+-- so a deploy never fails; until then the sign-up code still matches accounts by lower-cased email.
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'families_email_lower')
+     AND NOT EXISTS (SELECT lower(email) FROM families GROUP BY lower(email) HAVING count(*) > 1) THEN
+    CREATE UNIQUE INDEX families_email_lower ON families (lower(email));
+  END IF;
+END $$;

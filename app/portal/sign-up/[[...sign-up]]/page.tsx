@@ -12,7 +12,7 @@ export default function FamilySignUpPage() {
       audience={{ who: "family", mode: "up" }}
     >
       {clerkConfigured ? (
-        <SignUp path={SIGN_UP_PATH} routing="path" signInUrl={SIGN_IN_PATH} fallbackRedirectUrl="/portal" />
+        <SignUp path={SIGN_UP_PATH} routing="path" signInUrl={SIGN_IN_PATH} fallbackRedirectUrl="/portal" unsafeMetadata={{ audience: "family" }} />
       ) : null}
     </AuthFrame>
   );

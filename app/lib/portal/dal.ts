@@ -24,14 +24,16 @@ export type Family = {
   clerk_user_id: string | null;
   stripe_customer_id: string | null;
 };
-export type Viewer = { userId: string; email: string; firstName: string; fullName: string; staff: Staff | null; family: Family | null };
+// audience: which sign-up page the person used ("team" for tutors and consultants, "family" for clients).
+export type Viewer = { userId: string; email: string; firstName: string; fullName: string; audience: "team" | "family" | null; staff: Staff | null; family: Family | null };
 
 const FAMILY_COLS = "id, name, email, phone, timezone, consultant_id, clerk_user_id, stripe_customer_id";
 
 async function getIdentity() {
   if (devAuth) {
     const email = (await cookies()).get("portal_dev_email")?.value?.toLowerCase();
-    return email ? { userId: `dev:${email}`, email, firstName: email.split("@")[0], fullName: "" } : null;
+    const audience = (await cookies()).get("portal_dev_audience")?.value === "team" ? ("team" as const) : null;
+    return email ? { userId: `dev:${email}`, email, firstName: email.split("@")[0], fullName: "", audience } : null;
   }
   const user = await currentUser();
   if (!user) return null;
@@ -43,6 +45,8 @@ async function getIdentity() {
     email: primary.emailAddress.toLowerCase(),
     firstName: user.firstName ?? "",
     fullName: [user.firstName, user.lastName].filter(Boolean).join(" "),
+    // Set by the sign-up page the person used (see the SignUp components).
+    audience: user.unsafeMetadata?.audience === "team" ? ("team" as const) : user.unsafeMetadata?.audience === "family" ? ("family" as const) : null,
   };
 }
 
@@ -118,7 +122,11 @@ export async function requireViewer(signInPath = SIGN_IN_PATH) {
 
 export async function requireFamily() {
   const viewer = await requireViewer();
-  // Only people who are not on the team get a client account made for them.
+  // Only people who are not on the team get a client account made for them. Someone who signed up
+  // through the team page (or has a team application) waits for an admin instead of becoming a client.
+  if (!viewer.family && !viewer.staff && (viewer.audience === "team" || (await isApplicant(viewer.email)))) {
+    redirect("/portal/staff/no-access");
+  }
   if (!viewer.family && !viewer.staff) viewer.family = await createFamilyFor(viewer);
   if (!viewer.family) redirect(viewer.staff ? "/portal/admin" : "/portal/no-account");
   return { viewer, family: viewer.family };
@@ -313,7 +321,7 @@ export async function staffStats(staff: Staff) {
        (SELECT count(*)::int FROM children) AS children,
        (SELECT count(*)::int FROM sessions) AS sessions,
        (SELECT count(*)::int FROM session_notes) AS notes,
-       (SELECT count(*)::int FROM contacts WHERE stage = 'new') AS new_contacts`,
+       (SELECT count(*)::int FROM contacts c WHERE stage = 'new' AND ${NOT_TEAM}) AS new_contacts`,
     [canManage(staff) ? null : staff.id],
   ))!;
 }
@@ -394,14 +402,15 @@ export async function listContacts(filter: { stage?: string; q?: string; mine?: 
     params.push(filter.mine);
     where.push(`c.owner_id = $${params.length}`);
   }
+  where.push(NOT_TEAM);
   return query<ContactRow>(
-    `${CONTACT_SELECT} ${where.length ? `WHERE ${where.join(" AND ")}` : ""} ORDER BY c.last_activity_at DESC LIMIT 300`,
+    `${CONTACT_SELECT} WHERE ${where.join(" AND ")} ORDER BY c.last_activity_at DESC LIMIT 300`,
     params,
   );
 }
 
 export async function contactStageCounts() {
-  const rows = await query<{ stage: string; count: number }>("SELECT stage, count(*)::int AS count FROM contacts GROUP BY stage");
+  const rows = await query<{ stage: string; count: number }>(`SELECT stage, count(*)::int AS count FROM contacts c WHERE ${NOT_TEAM} GROUP BY stage`);
   return Object.fromEntries(rows.map((r) => [r.stage, r.count])) as Record<string, number>;
 }
 
@@ -645,3 +654,37 @@ export const familyDocuments = (familyId: number) =>
 // The file itself, only ever returned to the family it belongs to or a manager (checked by the caller).
 export const documentFile = (id: number) =>
   queryOne<{ family_id: number; filename: string; mime: string; data: Buffer; signed_data: Buffer | null }>("SELECT family_id, filename, mime, data, signed_data FROM documents WHERE id = $1", [id]);
+
+/* ── Team applications ─────────────────────────────────────────────── */
+
+// Contacts is the client CRM: tutors, consultants and team applicants are kept out of it.
+const NOT_TEAM = `lower(c.email) NOT IN (SELECT lower(email) FROM staff UNION SELECT lower(email) FROM staff_applicants WHERE status <> 'declined')`;
+
+export async function isApplicant(email: string) {
+  return Boolean(await queryOne("SELECT 1 FROM staff_applicants WHERE lower(email) = lower($1) AND status = 'pending'", [email]));
+}
+
+export type Applicant = { id: number; email: string; name: string; status: "pending" | "approved" | "declined"; created_at: Date };
+
+// Records a team sign-up (once). Returns the application and whether it was just created.
+export async function recordApplicant(viewer: Viewer) {
+  const name = viewer.fullName || viewer.firstName || viewer.email.split("@")[0];
+  const row = await queryOne<Applicant & { created: boolean }>(
+    `INSERT INTO staff_applicants (email, name, clerk_user_id) VALUES (lower($1), $2, $3)
+     ON CONFLICT (lower(email)) DO UPDATE SET clerk_user_id = COALESCE(staff_applicants.clerk_user_id, EXCLUDED.clerk_user_id)
+     RETURNING id, email, name, status, created_at, (xmax = 0) AS created`,
+    [viewer.email, name, viewer.userId],
+  );
+  return row;
+}
+
+export const listApplicants = (status: "pending" | "decided") =>
+  query<Applicant>(
+    `SELECT id, email, name, status, created_at FROM staff_applicants
+      WHERE ${status === "pending" ? "status = 'pending'" : "status <> 'pending'"}
+      ORDER BY ${status === "pending" ? "created_at" : "decided_at DESC NULLS LAST"} LIMIT 100`,
+  );
+
+export async function pendingApplicantCount() {
+  return (await queryOne<{ n: number }>("SELECT count(*)::int AS n FROM staff_applicants WHERE status = 'pending'"))?.n ?? 0;
+}

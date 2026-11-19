@@ -12,7 +12,7 @@ export default function StaffSignUpPage() {
       audience={{ who: "team", mode: "up" }}
     >
       {clerkConfigured ? (
-        <SignUp path={STAFF_SIGN_UP_PATH} routing="path" signInUrl={STAFF_SIGN_IN_PATH} fallbackRedirectUrl="/portal/admin" />
+        <SignUp path={STAFF_SIGN_UP_PATH} routing="path" signInUrl={STAFF_SIGN_IN_PATH} forceRedirectUrl="/portal/admin" unsafeMetadata={{ audience: "team" }} />
       ) : null}
     </AuthFrame>
   );
