@@ -3,6 +3,1791 @@ import type { Guide } from "./guides";
 // Generated from the article batches; edit content in content/*.mdx and metadata here.
 export const extraGuides: Guide[] = [
   {
+    "slug": "how-to-find-a-gcse-science-tutor",
+    "title": "How to find a GCSE science tutor",
+    "seoTitle": "How to Find a GCSE Science Tutor | Britannia Crown",
+    "description": "What to look for in a GCSE science tutor: exam board knowledge, combined or triple science experience, qualifications and the questions to ask before booking.",
+    "category": "Tutoring",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Does one tutor cover all three sciences?",
+        "a": "Often yes for combined science. For triple science, or the very top grades, a specialist per science may help."
+      },
+      {
+        "q": "Should the tutor know the exam board?",
+        "a": "Yes. Boards differ in structure and required practicals."
+      },
+      {
+        "q": "How do I know if it is working?",
+        "a": "Look for clearer explanations, better exam answers and rising confidence over a few weeks."
+      }
+    ],
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "subjects": [
+        "gcse-science"
+      ],
+      "guides": [
+        "choosing-a-private-tutor",
+        "safeguarding-questions-to-ask-a-tutor",
+        "how-much-does-a-private-tutor-cost-uk",
+        "what-to-expect-from-a-first-tutoring-lesson"
+      ]
+    },
+    "enquiry": {
+      "service": "Tutoring",
+      "title": "Thinking about tutoring?",
+      "emphasis": "We can help.",
+      "lead": "Tell us about your child and an education consultant will suggest a sensible plan."
+    }
+  },
+  {
+    "slug": "how-to-find-an-a-level-tutor",
+    "title": "How to find an A-Level tutor",
+    "seoTitle": "How to Find an A-Level Tutor | Britannia Crown",
+    "description": "How to choose an A-Level tutor: subject depth, exam board knowledge, university-level experience and the questions to ask before committing.",
+    "category": "Tutoring",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "When should we start?",
+        "a": "Early in Year 12 is ideal, before gaps build up."
+      },
+      {
+        "q": "Should the tutor have a degree in the subject?",
+        "a": "A strong subject background helps at A-Level, alongside teaching ability."
+      },
+      {
+        "q": "How often should lessons be?",
+        "a": "Weekly is common, with extra sessions before exams. See our guide on frequency."
+      }
+    ],
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "subjects": [
+        "a-level-maths",
+        "a-level-chemistry"
+      ],
+      "guides": [
+        "choosing-a-private-tutor",
+        "qualified-teacher-status-and-tutor-qualifications",
+        "how-often-should-a-child-have-tutoring",
+        "when-to-stop-tutoring"
+      ]
+    },
+    "enquiry": {
+      "service": "Tutoring",
+      "title": "Thinking about tutoring?",
+      "emphasis": "We can help.",
+      "lead": "Tell us about your child and an education consultant will suggest a sensible plan."
+    }
+  },
+  {
+    "slug": "does-online-gcse-tutoring-work",
+    "title": "Does online GCSE tutoring work?",
+    "seoTitle": "Does Online GCSE Tutoring Work? | Britannia Crown",
+    "description": "Whether online GCSE tutoring is effective, what makes it work, the equipment needed and how to choose between online and face-to-face lessons.",
+    "category": "Tutoring",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Is online tutoring as good as face to face?",
+        "a": "It can be, for most students, if the tutor is skilled and the student is engaged. It also widens the choice of tutors."
+      },
+      {
+        "q": "What do we need?",
+        "a": "A quiet space, a reliable connection, a device with a camera and a way to share written work."
+      },
+      {
+        "q": "Is it suitable for younger children?",
+        "a": "Often, with shorter sessions and a parent nearby. Some children prefer in-person lessons."
+      }
+    ],
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "subjects": [
+        "gcse-maths",
+        "gcse-english"
+      ],
+      "guides": [
+        "online-vs-face-to-face-tutoring",
+        "how-to-set-up-for-online-tutoring-at-home",
+        "how-to-know-if-tutoring-is-working",
+        "choosing-a-private-tutor"
+      ]
+    },
+    "enquiry": {
+      "service": "Tutoring",
+      "title": "Thinking about tutoring?",
+      "emphasis": "We can help.",
+      "lead": "Tell us about your child and an education consultant will suggest a sensible plan."
+    }
+  },
+  {
+    "slug": "is-private-tutoring-worth-it",
+    "title": "Is private tutoring worth it?",
+    "seoTitle": "Is Private Tutoring Worth It? | Britannia Crown",
+    "description": "How to decide whether a private tutor is worth the cost: when tutoring helps most, what to expect and how to tell if it is working.",
+    "category": "Tutoring",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "When is tutoring most useful?",
+        "a": "When there is a clear gap, falling confidence, an important exam ahead or a child who needs more challenge."
+      },
+      {
+        "q": "How long before we see results?",
+        "a": "Usually a few weeks for confidence and a term for visible changes in work, though it varies."
+      },
+      {
+        "q": "Can I try before committing?",
+        "a": "Many tutors and services offer a trial lesson. Ask what is included."
+      }
+    ],
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "subjects": [],
+      "guides": [
+        "signs-your-child-needs-a-tutor",
+        "how-much-does-a-private-tutor-cost-uk",
+        "how-to-know-if-tutoring-is-working",
+        "when-to-stop-tutoring"
+      ]
+    },
+    "enquiry": {
+      "service": "Tutoring",
+      "title": "Thinking about tutoring?",
+      "emphasis": "We can help.",
+      "lead": "Tell us about your child and an education consultant will suggest a sensible plan."
+    }
+  },
+  {
+    "slug": "homeschooling-vs-home-education-uk",
+    "title": "Homeschooling vs home education in the UK",
+    "seoTitle": "Homeschooling vs Home Education UK Terms | Britannia Crown",
+    "description": "Is there a difference between homeschooling and home education in the UK? Which term is used, what the law says and how to get started.",
+    "category": "Home Education",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Are homeschooling and home education the same?",
+        "a": "In the UK they mean the same thing: educating a child at home instead of school. 'Home education' is the more common term in England."
+      },
+      {
+        "q": "Do I need permission?",
+        "a": "In England, parents do not need permission to home educate, but must deregister a child from a school."
+      },
+      {
+        "q": "Do I have to follow the national curriculum?",
+        "a": "No, but the education must be suitable for the child's age, ability and needs."
+      }
+    ],
+    "related": {
+      "services": [
+        "home-education"
+      ],
+      "subjects": [],
+      "guides": [
+        "home-education-england",
+        "home-education-legal-requirements-england",
+        "how-to-start-home-education-england",
+        "deregistering-your-child-from-school"
+      ]
+    },
+    "enquiry": {
+      "service": "Home Education",
+      "title": "Considering home education?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your situation and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "how-to-help-a-child-with-spelling",
+    "title": "How to help a child with spelling",
+    "seoTitle": "How to Help a Child With Spelling | Britannia Crown",
+    "description": "Practical ways to help a child with spelling at home: patterns, reading, short daily practice and what to do if spelling is a persistent struggle.",
+    "category": "Early Years & Primary",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "How often should we practise?",
+        "a": "A few minutes a day is more effective than a long weekly session."
+      },
+      {
+        "q": "Does reading help spelling?",
+        "a": "Yes. Regular reading builds familiarity with how words look."
+      },
+      {
+        "q": "When should I worry?",
+        "a": "If a child struggles despite practice, talk to the school. Persistent difficulty may point to a learning difference such as dyslexia."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [
+        "primary"
+      ],
+      "guides": [
+        "year-6-grammar-punctuation-and-spelling-explained",
+        "how-to-help-your-child-read-at-home",
+        "phonics-and-learning-to-read-in-england",
+        "dyslexia-support-at-school-and-home"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Questions about the early years?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your child's age and area and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "how-to-help-a-child-with-writing",
+    "title": "How to help a child with writing",
+    "seoTitle": "How to Help a Child With Writing at Home | Britannia Crown",
+    "description": "Simple ways to help a primary-aged child become a more confident writer: talking first, planning, reading aloud and giving useful feedback.",
+    "category": "Early Years & Primary",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "How can I make writing less of a battle?",
+        "a": "Keep sessions short, let your child choose topics and praise ideas before correcting mistakes."
+      },
+      {
+        "q": "Should I correct every mistake?",
+        "a": "No. Pick one or two things to work on at a time."
+      },
+      {
+        "q": "Does reading help writing?",
+        "a": "Yes. Children who read widely tend to write with richer vocabulary and sentence variety."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [
+        "primary",
+        "gcse-english"
+      ],
+      "guides": [
+        "how-to-help-a-child-with-spelling",
+        "year-6-grammar-punctuation-and-spelling-explained",
+        "how-to-help-your-child-read-at-home",
+        "helping-a-child-who-does-not-enjoy-reading"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Questions about the early years?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your child's age and area and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "gcse-science-required-practicals-explained",
+    "title": "GCSE science required practicals explained",
+    "seoTitle": "GCSE Science Required Practicals Explained | Britannia Crown",
+    "description": "What required practicals are in GCSE science, how they are assessed in the written exams and how students can revise them effectively.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Are practicals assessed with coursework?",
+        "a": "No. At GCSE they are assessed through questions in the written exams."
+      },
+      {
+        "q": "Do students need to do them?",
+        "a": "Yes. Schools must give students the chance to carry out the required practicals, and exam questions assume the experience."
+      },
+      {
+        "q": "How do I revise them?",
+        "a": "Know the aim, method, variables, results and conclusion for each one, and practise applying them to new situations."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-science"
+      ],
+      "guides": [
+        "how-to-revise-for-gcse-science",
+        "how-to-write-a-six-mark-science-answer",
+        "what-is-triple-science",
+        "gcse-science-combined-or-separate"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "a-level-practical-endorsement-explained",
+    "title": "The A-Level practical endorsement explained",
+    "seoTitle": "A-Level Practical Endorsement Explained | Britannia Crown",
+    "description": "What the practical endorsement is for A-Level sciences, how it is reported separately from the grade and why it matters for some university courses.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Does the endorsement affect the A-Level grade?",
+        "a": "No. It is reported separately as Pass or Not Classified."
+      },
+      {
+        "q": "Who assesses it?",
+        "a": "The teacher, against criteria set by the board, during practical work in class."
+      },
+      {
+        "q": "Do universities ask for it?",
+        "a": "Some science courses ask for a Pass, so check entry requirements."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "a-level-chemistry",
+        "a-level-biology",
+        "a-level-physics"
+      ],
+      "guides": [
+        "how-many-a-levels-do-you-take",
+        "a-level-entry-requirements-explained",
+        "coursework-and-non-exam-assessment-explained",
+        "a-level-subject-choices-and-university"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "maths-anxiety-how-to-help-a-child",
+    "title": "Maths anxiety: how to help your child",
+    "seoTitle": "Maths Anxiety: How to Help Your Child | Britannia Crown",
+    "description": "What maths anxiety looks like in children, why it happens and practical ways parents can help at home and when to seek extra support.",
+    "category": "Tutoring",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What are the signs?",
+        "a": "Avoiding maths, saying 'I'm bad at maths', stomach aches before lessons and rushing to finish."
+      },
+      {
+        "q": "Is it linked to ability?",
+        "a": "No. Anxious children often can do the work, but worry gets in the way."
+      },
+      {
+        "q": "Should I help with homework?",
+        "a": "Yes, with encouragement and by asking how they think, rather than rushing to answers."
+      }
+    ],
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "subjects": [
+        "primary",
+        "gcse-maths"
+      ],
+      "guides": [
+        "how-to-help-your-child-with-maths-at-home",
+        "how-to-learn-times-tables",
+        "how-to-motivate-a-reluctant-learner",
+        "tutoring-for-a-child-who-is-behind"
+      ]
+    },
+    "enquiry": {
+      "service": "Tutoring",
+      "title": "Thinking about tutoring?",
+      "emphasis": "We can help.",
+      "lead": "Tell us about your child and an education consultant will suggest a sensible plan."
+    }
+  },
+  {
+    "slug": "school-application-deadlines-in-england",
+    "title": "School application deadlines in England",
+    "seoTitle": "School Application Deadlines in England | Britannia Crown",
+    "description": "Key school application deadlines in England: secondary applications close 31 October, primary 15 January, plus offer days and what to do if you miss them.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "When is the secondary school deadline?",
+        "a": "31 October in the year before your child starts Year 7, through your local authority."
+      },
+      {
+        "q": "When is the primary school deadline?",
+        "a": "15 January in the year your child starts Reception."
+      },
+      {
+        "q": "Do independent schools follow the same dates?",
+        "a": "No. Independent schools set their own registration and entry dates, so check each school."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "school-admissions-england",
+        "when-are-school-offers-announced",
+        "late-school-applications-in-england",
+        "how-to-choose-a-secondary-school"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "when-are-school-offers-announced",
+    "title": "When are school offers announced?",
+    "seoTitle": "When Are School Offers Announced? | Britannia Crown",
+    "description": "National offer days for school places in England: 1 March for secondary and 16 April for primary, and what to do if your child gets no offer you wanted.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is secondary offer day?",
+        "a": "1 March, or the next working day if it falls on a weekend."
+      },
+      {
+        "q": "What is primary offer day?",
+        "a": "16 April, or the next working day."
+      },
+      {
+        "q": "How do I find out my offer?",
+        "a": "Your local authority emails you, and the offer is also available online."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "what-if-you-dont-get-your-first-choice-school",
+        "school-admission-appeals-england",
+        "school-application-deadlines-in-england",
+        "how-school-admissions-criteria-work"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "late-school-applications-in-england",
+    "title": "Late school applications in England",
+    "seoTitle": "Missed the School Application Deadline? | Britannia Crown",
+    "description": "What happens if you miss the school application deadline in England, why late applications are processed after on-time ones, and how to improve your chances.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Will a late application be accepted?",
+        "a": "Yes, but late applications are normally considered after on-time ones, so your options may be narrower."
+      },
+      {
+        "q": "Are there exceptions?",
+        "a": "Some local authorities accept late applications with good reason, such as moving into the area. Ask yours."
+      },
+      {
+        "q": "Can I still change my preferences?",
+        "a": "Often only before the deadline. After it, changes may be limited."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "school-application-deadlines-in-england",
+        "in-year-school-admissions-moving-mid-year",
+        "what-if-you-dont-get-your-first-choice-school",
+        "school-admissions-england"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "what-year-do-you-apply-for-secondary-school",
+    "title": "What year do you apply for secondary school?",
+    "seoTitle": "What Year Do You Apply for Secondary School? | Britannia Crown",
+    "description": "Applications for secondary school in England are made in Year 6, by 31 October, for a place starting in Year 7 the following September.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "When do I apply for Year 7?",
+        "a": "In the autumn of Year 6, with a closing date of 31 October."
+      },
+      {
+        "q": "When do I find out?",
+        "a": "On 1 March the following year, or the next working day."
+      },
+      {
+        "q": "Do I apply directly to the school?",
+        "a": "For state schools, apply through your local authority. Some schools, such as grammar and faith schools, also have extra forms."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "school-application-deadlines-in-england",
+        "how-to-choose-a-secondary-school",
+        "when-are-school-offers-announced",
+        "moving-from-year-6-to-year-7"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "types-of-nursery-in-england",
+    "title": "Types of nursery in England explained",
+    "seoTitle": "Types of Nursery in England Explained | Britannia Crown",
+    "description": "The main types of nursery and early years provider in England, from nursery schools to childminders, and how to choose between them.",
+    "category": "Early Years & Primary",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is the difference between a nursery school and a day nursery?",
+        "a": "Maintained nursery schools are state-funded schools led by teachers. Private day nurseries are run privately, often with longer hours."
+      },
+      {
+        "q": "Are they all inspected?",
+        "a": "Registered providers are inspected by Ofsted, and childminders may register with Ofsted or a childminder agency."
+      },
+      {
+        "q": "Do all offer funded hours?",
+        "a": "Many do, but check with the provider that it takes part in funded childcare."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "how-to-choose-a-nursery-england",
+        "funded-childcare-hours-england",
+        "eyfs-explained",
+        "starting-reception-what-to-expect"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Questions about the early years?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your child's age and area and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "independent-school-scholarships-explained",
+    "title": "Independent school scholarships explained",
+    "seoTitle": "Independent School Scholarships Explained | Britannia Crown",
+    "description": "How scholarships at UK independent schools work: types of award, how to apply, how they differ from bursaries and what families should ask.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is the difference between a scholarship and a bursary?",
+        "a": "A scholarship recognises talent, such as academic or music ability. A bursary is means-tested financial help."
+      },
+      {
+        "q": "Are scholarships worth a lot?",
+        "a": "Amounts vary. Many reduce fees by a modest percentage, and some can be topped up by a bursary."
+      },
+      {
+        "q": "When do we apply?",
+        "a": "Deadlines vary by school and entry point, often in the autumn before entry. Check each school."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "independent-school-entry-assessments-and-bursaries",
+        "independent-or-state-school",
+        "how-to-apply-to-an-independent-school",
+        "common-entrance-and-prep-schools-explained"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "how-to-apply-to-an-independent-school",
+    "title": "How to apply to an independent school",
+    "seoTitle": "How to Apply to an Independent School | Britannia Crown",
+    "description": "A step-by-step guide to applying to an independent school in the UK, from visits and registration to assessments, interviews and offers.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "When should we register?",
+        "a": "Many schools take registrations years ahead, so register as early as you can."
+      },
+      {
+        "q": "Is there an application fee?",
+        "a": "Many schools charge a registration or assessment fee. Check each school."
+      },
+      {
+        "q": "What do assessments involve?",
+        "a": "Usually tests in English, maths and reasoning, sometimes an interview. Format varies by school and age."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "independent-school-entry-assessments-and-bursaries",
+        "independent-school-scholarships-explained",
+        "seven-plus-and-eight-plus-entry",
+        "common-entrance-and-prep-schools-explained"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "school-house-system-explained",
+    "title": "The school house system explained",
+    "seoTitle": "The School House System Explained | Britannia Crown",
+    "description": "What the house system is in British schools, how pupils are placed in houses and how it works for competitions, pastoral care and school spirit.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is a house in a school?",
+        "a": "A group of pupils from different year groups who belong together for events, competitions and, in many schools, pastoral care."
+      },
+      {
+        "q": "How are pupils placed?",
+        "a": "Usually allocated when they join, sometimes by family so siblings are together."
+      },
+      {
+        "q": "Do all British schools have houses?",
+        "a": "Many do, especially independent and British-curriculum schools abroad, but not all."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "how-to-choose-a-secondary-school",
+        "british-curriculum-schools-in-dubai-explained",
+        "boarding-schools-in-the-uk",
+        "helping-children-adjust-to-a-new-country-and-school"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "dubai-school-year-groups-fs1-fs2",
+    "title": "FS1, FS2 and Year 1 in Dubai schools explained",
+    "seoTitle": "FS1, FS2 and Year 1 in Dubai Schools | Britannia Crown",
+    "description": "What FS1 and FS2 mean in Dubai British-curriculum schools, the usual ages for each year, and how they compare with Nursery and Reception in England.",
+    "category": "Moving & International Families",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is FS1?",
+        "a": "Foundation Stage 1, the first year of early years, for children who are three by the start of the school year."
+      },
+      {
+        "q": "What is FS2?",
+        "a": "Foundation Stage 2, equivalent to Reception in England, for four-year-olds."
+      },
+      {
+        "q": "What age is Year 1 in Dubai?",
+        "a": "Usually five by the cut-off date, as in England, though cut-off dates differ by school type. Check each school."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "british-curriculum-schools-in-dubai-explained",
+        "dubai-school-admissions-timeline",
+        "khda-ratings-explained",
+        "what-age-do-children-start-reception"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Moving with children?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are moving to and a consultant will help plan school places."
+    }
+  },
+  {
+    "slug": "sixth-form-in-dubai",
+    "title": "Sixth form in Dubai: A-Levels, IB and what to choose",
+    "seoTitle": "Sixth Form in Dubai: A-Levels and IB | Britannia Crown",
+    "description": "How sixth form works in Dubai: British schools offering A-Levels, schools offering the IB, how to choose between them and when to apply.",
+    "category": "Moving & International Families",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Do Dubai schools offer A-Levels?",
+        "a": "Many British-curriculum schools offer sixth form with A-Levels. Check each school's subject range."
+      },
+      {
+        "q": "What is the IB?",
+        "a": "The International Baccalaureate Diploma is a two-year course in six subjects plus core elements, offered by some schools in Dubai."
+      },
+      {
+        "q": "When should we apply?",
+        "a": "Early. Popular sixth forms fill up, and some require GCSE or IGCSE results. Check each school."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [
+        "a-level-maths"
+      ],
+      "guides": [
+        "british-curriculum-schools-in-dubai-explained",
+        "dubai-school-admissions-timeline",
+        "khda-ratings-explained",
+        "a-level-subject-choices-and-university"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Moving with children?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are moving to and a consultant will help plan school places."
+    }
+  },
+  {
+    "slug": "gcse-and-igcse-in-dubai-schools",
+    "title": "GCSE and IGCSE in Dubai schools",
+    "seoTitle": "GCSE and IGCSE in Dubai Schools Explained | Britannia Crown",
+    "description": "Why British schools in Dubai often teach IGCSEs, how they compare with GCSEs in England and what that means for sixth form and university.",
+    "category": "Moving & International Families",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Do schools in Dubai teach GCSE or IGCSE?",
+        "a": "Many British schools in Dubai teach IGCSEs, though some teach GCSEs. Ask the school."
+      },
+      {
+        "q": "Are IGCSEs accepted by universities?",
+        "a": "Yes. They are widely accepted by UK and international universities."
+      },
+      {
+        "q": "Can a child switch between them?",
+        "a": "Moving between a GCSE course and an IGCSE course mid-way can be difficult, so plan the move early."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [
+        "gcse-maths",
+        "gcse-science"
+      ],
+      "guides": [
+        "igcse-vs-gcse",
+        "british-curriculum-schools-in-dubai-explained",
+        "sitting-uk-exams-abroad",
+        "sixth-form-in-dubai"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Moving with children?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are moving to and a consultant will help plan school places."
+    }
+  },
+  {
+    "slug": "what-does-an-education-consultant-do",
+    "title": "What does an education consultant do?",
+    "seoTitle": "What Does an Education Consultant Do? | Britannia Crown",
+    "description": "What an education consultant does for families: school search, applications, tutoring plans and exam guidance, and what to ask before hiring one.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What does an education consultant do?",
+        "a": "They advise families on schools, applications, tutoring and qualifications, and often help organise the process."
+      },
+      {
+        "q": "Do I need one?",
+        "a": "Not always. They are most useful when you are moving, choosing between several routes or short of time."
+      },
+      {
+        "q": "What should I ask?",
+        "a": "About their experience, how they charge, what is included and how they stay independent of the schools they recommend."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "choosing-a-private-tutor",
+        "how-school-admissions-criteria-work",
+        "independent-or-state-school",
+        "school-admissions-england"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "gcse-english-language-papers-explained",
+    "title": "GCSE English Language papers explained",
+    "seoTitle": "GCSE English Language Papers Explained | Britannia Crown",
+    "description": "How the two GCSE English Language papers are structured, what each question tests and how to approach reading and writing sections, using AQA as the example.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "How many papers are there?",
+        "a": "Most boards have two English Language papers, each worth half the grade, and each combining reading and writing."
+      },
+      {
+        "q": "Is there a speaking exam?",
+        "a": "Spoken language is assessed separately and reported alongside the grade. It does not count towards the 9 to 1 grade."
+      },
+      {
+        "q": "Do the boards differ?",
+        "a": "Yes. AQA, Edexcel and OCR use different structures and question styles, so check your child's board."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-english"
+      ],
+      "guides": [
+        "how-to-improve-gcse-english-language-and-literature",
+        "how-to-pass-english-language-gcse",
+        "gcse-exam-boards-aqa-edexcel-ocr",
+        "how-to-use-past-papers"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "how-to-write-a-six-mark-science-answer",
+    "title": "How to write a six-mark science answer",
+    "seoTitle": "How to Write a 6-Mark GCSE Science Answer | Britannia Crown",
+    "description": "A simple method for GCSE science six-mark questions: plan, structure, use key terms and link ideas, so students earn top-level marks on extended answers.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "How long should a six-mark answer be?",
+        "a": "Usually a short paragraph or a few linked sentences. Clear, ordered points matter more than length."
+      },
+      {
+        "q": "Do six-mark questions need all the points?",
+        "a": "Not always. They are marked on levels, so a clear, logically linked explanation can score well even if it misses a point."
+      },
+      {
+        "q": "Do spelling mistakes matter?",
+        "a": "Scientific terms should be spelt correctly where they affect meaning, but the main focus is the quality of the explanation."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-science"
+      ],
+      "guides": [
+        "how-to-revise-for-gcse-science",
+        "gcse-science-combined-or-separate",
+        "how-to-use-past-papers",
+        "gcse-mock-exams-how-to-use-them"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "how-to-pass-english-language-gcse",
+    "title": "How to pass GCSE English Language",
+    "seoTitle": "How to Pass GCSE English Language | Britannia Crown",
+    "description": "Practical steps to reach a grade 4 or higher in GCSE English Language: where marks come from, what to practise and how to fix common problems.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "How much of the grade is writing?",
+        "a": "Roughly half the marks come from writing and half from reading, so improving either can lift the grade."
+      },
+      {
+        "q": "Can a student pass without Literature?",
+        "a": "English Language and English Literature are separate GCSEs with separate grades."
+      },
+      {
+        "q": "How long does it take to improve?",
+        "a": "Steady practice over a few months helps, especially with timed writing and feedback."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-english"
+      ],
+      "guides": [
+        "gcse-english-language-papers-explained",
+        "how-to-improve-gcse-english-language-and-literature",
+        "gcse-resits-english-and-maths",
+        "what-is-a-pass-in-gcse"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "language-and-structure-in-english-analysis",
+    "title": "Language and structure in English analysis",
+    "seoTitle": "Language vs Structure in English Analysis | Britannia Crown",
+    "description": "What the difference between language and structure means in GCSE English analysis, with simple examples and a method for writing about both.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is the difference between language and structure?",
+        "a": "Language is the words and phrases a writer chooses. Structure is how the text is organised, such as its order, shifts in focus and sentence patterns."
+      },
+      {
+        "q": "What is form?",
+        "a": "Form is the type of text, such as a poem, play or letter, and how its conventions shape meaning."
+      },
+      {
+        "q": "Should I always mention both?",
+        "a": "Only if the question asks. Answer the question set and use the terms that help."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-english",
+        "gcse-english-literature"
+      ],
+      "guides": [
+        "how-to-improve-gcse-english-language-and-literature",
+        "gcse-english-language-papers-explained",
+        "how-to-revise-for-english-literature",
+        "how-to-pass-english-language-gcse"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "when-are-gcse-exams",
+    "title": "When are GCSE exams?",
+    "seoTitle": "When Are GCSE Exams? Dates and Timetable | Britannia Crown",
+    "description": "When GCSE exams take place in England, how the timetable is set, when results come out and when English and maths can be retaken in November.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "When is the GCSE exam season?",
+        "a": "Main GCSE exams take place from about May to June, with results in August."
+      },
+      {
+        "q": "Where do I find the exact dates?",
+        "a": "Exam boards publish timetables, and schools share them with students. Check the boards' websites for the current year."
+      },
+      {
+        "q": "Are there exams outside the summer?",
+        "a": "English language and maths can be retaken in November."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-maths",
+        "gcse-english"
+      ],
+      "guides": [
+        "results-day-gcse-a-level-what-to-do",
+        "gcse-resits-english-and-maths",
+        "private-candidate-gcse-how-to-enter",
+        "gcse-mock-exams-how-to-use-them"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "when-are-a-level-exams",
+    "title": "When are A-Level exams?",
+    "seoTitle": "When Are A-Level Exams? Dates and Results | Britannia Crown",
+    "description": "When A-Level exams take place in England, how the timetable is set, when results are released and what happens after results day.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "When do A-Levels take place?",
+        "a": "Usually from about May to June, with results in August."
+      },
+      {
+        "q": "Are there A-Level exams in January?",
+        "a": "Some boards offered winter exams in the past, but most A-Level exams are now in the summer. Check the board."
+      },
+      {
+        "q": "Can A-Levels be retaken?",
+        "a": "Yes, usually the following summer. See our guide to retaking A-Levels."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "a-level-maths"
+      ],
+      "guides": [
+        "results-day-gcse-a-level-what-to-do",
+        "predicted-grades-explained",
+        "retaking-a-levels",
+        "how-to-use-past-papers"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "retaking-gcses-as-an-adult",
+    "title": "Retaking GCSEs as an adult",
+    "seoTitle": "Retaking GCSEs as an Adult in England | Britannia Crown",
+    "description": "How adults can retake GCSEs in England: where to study, how to enter the exams, what English and maths funding may be available and how long it takes.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Can adults retake GCSEs?",
+        "a": "Yes. There is no upper age limit, and many adults retake English and maths."
+      },
+      {
+        "q": "Is it free?",
+        "a": "Adults without a grade 4 in English or maths may be able to study for free at a college. Funding rules change, so check with the provider."
+      },
+      {
+        "q": "Which exam board?",
+        "a": "Colleges choose the board, while private candidates choose a board and centre that accepts them."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-maths",
+        "gcse-english"
+      ],
+      "guides": [
+        "gcse-resits-english-and-maths",
+        "private-candidate-gcse-how-to-enter",
+        "what-is-a-pass-in-gcse",
+        "when-are-gcse-exams"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "combined-science-grades-explained",
+    "title": "Combined science grades explained",
+    "seoTitle": "Combined Science Grades Explained (5-5, 6-6) | Britannia Crown",
+    "description": "Why combined science GCSE gives a double grade such as 5-5 or 6-5, how the two grades are worked out and what they mean for sixth form entry.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Why are there two numbers?",
+        "a": "Combined science is worth two GCSEs, so students receive two grades."
+      },
+      {
+        "q": "Can the two numbers differ?",
+        "a": "Yes, by one grade, for example 5-4. The first number is the higher or equal of the two."
+      },
+      {
+        "q": "Is 4-4 a pass?",
+        "a": "Yes. A double 4 means a standard pass in both GCSEs."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-science"
+      ],
+      "guides": [
+        "gcse-science-combined-or-separate",
+        "what-is-triple-science",
+        "gcse-grades-explained",
+        "how-gcse-grade-boundaries-work"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "gcse-grades-8-and-9-explained",
+    "title": "GCSE grades 8 and 9 explained",
+    "seoTitle": "GCSE Grades 8 and 9 Explained | Britannia Crown",
+    "description": "What a GCSE grade 8 or 9 means, how they compare with the old A and A* grades, and how rare the top grades are.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Is a 9 harder than an A*?",
+        "a": "A 9 is a higher bar than the old A*, because it sits above it and is awarded to a smaller share of students."
+      },
+      {
+        "q": "Is an 8 an A*?",
+        "a": "A grade 8 is equivalent to a low A* or a high A."
+      },
+      {
+        "q": "Do universities care about a 9?",
+        "a": "Highly selective courses look at GCSE profiles, but A-Levels and the admissions process count for more."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-maths"
+      ],
+      "guides": [
+        "gcse-grades-explained",
+        "how-gcse-grade-boundaries-work",
+        "what-is-a-pass-in-gcse",
+        "a-level-entry-requirements-explained"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "what-to-do-if-your-child-misses-a-gcse-exam",
+    "title": "What to do if your child misses a GCSE exam",
+    "seoTitle": "Missed a GCSE Exam? What to Do | Britannia Crown",
+    "description": "What parents should do if a child misses or is ill for a GCSE exam: who to contact, special consideration, resits and how to protect the grade.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Who should I contact first?",
+        "a": "The school or exam centre, as soon as possible. They deal with the exam board."
+      },
+      {
+        "q": "Can a missed exam be taken later?",
+        "a": "Sometimes, depending on the reason and the board. Ask the centre immediately, as options are limited."
+      },
+      {
+        "q": "What is special consideration?",
+        "a": "A small adjustment to marks for students affected by illness or other issues at the time of the exam. The centre applies on the student's behalf."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [],
+      "guides": [
+        "gcse-resits-english-and-maths",
+        "exam-access-arrangements-extra-time",
+        "how-to-support-a-child-through-exam-stress",
+        "what-to-do-on-exam-day"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "what-age-do-children-start-reception",
+    "title": "What age do children start Reception in England?",
+    "seoTitle": "What Age Do Children Start Reception? | Britannia Crown",
+    "description": "Children in England usually start Reception in the September after their fourth birthday. How the age rules work, and what summer-born families can do.",
+    "category": "Early Years & Primary",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Is Reception compulsory?",
+        "a": "No. Compulsory school age starts on the first day of the term after a child's fifth birthday, but most children start Reception at four."
+      },
+      {
+        "q": "Can my child start Reception later?",
+        "a": "Parents of summer-born children can request to delay entry by a year. The school or admissions authority decides, so apply early."
+      },
+      {
+        "q": "Which year group is my child in?",
+        "a": "It depends on their date of birth. The school start date calculator on our site shows the year group and deadlines."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "summer-born-children-and-starting-school",
+        "starting-reception-what-to-expect",
+        "school-admissions-england",
+        "school-readiness-what-it-means"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Questions about the early years?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your child's age and area and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "school-year-groups-in-england-by-age",
+    "title": "School year groups in England by age",
+    "seoTitle": "School Year Groups in England by Age | Britannia Crown",
+    "description": "A clear table of school year groups in England by age, from Reception to Year 13, with key stages, national tests and exams at each stage.",
+    "category": "Early Years & Primary",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What year is a 10-year-old in?",
+        "a": "Usually Year 5 or Year 6, depending on their birthday. Year 6 children turn 11 during the year."
+      },
+      {
+        "q": "What are the key stages?",
+        "a": "Key Stage 1 is Years 1 and 2, Key Stage 2 is Years 3 to 6, Key Stage 3 is Years 7 to 9, Key Stage 4 is Years 10 and 11, and Key Stage 5 is Years 12 and 13."
+      },
+      {
+        "q": "When do children take GCSEs?",
+        "a": "Usually at the end of Year 11, at age 15 to 16."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "what-age-do-children-start-reception",
+        "key-stage-3-explained",
+        "ks2-sats-explained",
+        "how-to-choose-gcse-options"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Questions about the early years?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your child's age and area and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "us-grades-vs-uk-year-groups",
+    "title": "US grades vs UK year groups: how they compare",
+    "seoTitle": "US Grades vs UK Year Groups Explained | Britannia Crown",
+    "description": "How US grade levels match UK year groups in England, why the numbers differ by one, and how schools place children who move between the two systems.",
+    "category": "Moving & International Families",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What UK year is 8th grade?",
+        "a": "Usually Year 9, though schools place children by date of birth and may differ."
+      },
+      {
+        "q": "What UK year is 7th grade?",
+        "a": "Usually Year 8."
+      },
+      {
+        "q": "Will my child be put in a different year?",
+        "a": "Sometimes. Cut-off dates differ, so a school may place a child a year up or down. Ask the admissions team early."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [],
+      "guides": [
+        "school-year-groups-in-england-by-age",
+        "in-year-school-admissions-moving-mid-year",
+        "international-pupils-applying-to-uk-schools",
+        "helping-children-adjust-to-a-new-country-and-school"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Moving with children?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are moving to and a consultant will help plan school places."
+    }
+  },
+  {
+    "slug": "what-is-a-pass-in-gcse",
+    "title": "What counts as a pass in GCSE?",
+    "seoTitle": "What Is a Pass in GCSE? Grade 4 vs 5 | Britannia Crown",
+    "description": "What counts as a pass at GCSE: grade 4 is a standard pass and grade 5 a strong pass. Why it matters for sixth form, resits and jobs.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Is a grade 3 a pass?",
+        "a": "No. A grade 4 is the standard pass. A grade 3 is below it, and in English and maths students without a 4 are generally expected to keep studying the subject after 16."
+      },
+      {
+        "q": "What is a strong pass?",
+        "a": "A grade 5. Some employers, colleges and the school performance measures use it as a higher benchmark."
+      },
+      {
+        "q": "Is a grade 4 the same as a C?",
+        "a": "A grade 4 is broadly equivalent to the bottom of the old C grade."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-maths",
+        "gcse-english"
+      ],
+      "guides": [
+        "gcse-grades-explained",
+        "gcse-resits-english-and-maths",
+        "how-gcse-grade-boundaries-work",
+        "how-to-choose-a-sixth-form-or-college"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "how-many-a-levels-do-you-take",
+    "title": "How many A-Levels do you take?",
+    "seoTitle": "How Many A-Levels Do You Take? | Britannia Crown",
+    "description": "Most students take three A-Levels. Here is when students take four, how Further Maths and the EPQ fit in, and what universities usually expect.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Is three A-Levels enough for university?",
+        "a": "Yes. Most university offers are based on three A-Levels, and some courses specify the grades and subjects."
+      },
+      {
+        "q": "Should my child take four A-Levels?",
+        "a": "Only if they are well suited to it. Four can increase workload and rarely changes offers. Further Maths is a common fourth subject."
+      },
+      {
+        "q": "Can you take fewer than three?",
+        "a": "Yes, some students take two or combine A-Levels with other qualifications. Check the entry requirements of the course."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "a-level-maths",
+        "a-level-further-maths"
+      ],
+      "guides": [
+        "a-level-subject-choices-and-university",
+        "extended-project-qualification-explained",
+        "as-levels-explained",
+        "btec-vs-a-level"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "a-level-entry-requirements-explained",
+    "title": "A-Level entry requirements: what sixth forms ask for",
+    "seoTitle": "A-Level Entry Requirements Explained | Britannia Crown",
+    "description": "What GCSE grades sixth forms and colleges ask for before starting A-Levels, why requirements differ by subject, and how to check them before applying.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Do all sixth forms ask for the same grades?",
+        "a": "No. Each sixth form or college sets its own entry requirements, so check the prospectus."
+      },
+      {
+        "q": "What grade do I need for A-Level Maths?",
+        "a": "Many sixth forms ask for a 7 or above, but it varies. Check with the school or college."
+      },
+      {
+        "q": "Can I start A-Levels without a grade 4 in English and maths?",
+        "a": "Some providers will accept students who agree to resit, but many ask for a 4. Always ask."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [],
+      "guides": [
+        "how-to-choose-a-sixth-form-or-college",
+        "a-level-subject-choices-and-university",
+        "how-many-a-levels-do-you-take",
+        "predicted-grades-explained"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
+    "slug": "sats-in-england-which-years-and-what-they-test",
+    "title": "SATs in England: which years, and what they test",
+    "seoTitle": "SATs in England: Which Years and What They Test | Britannia Crown",
+    "description": "A plain guide to SATs in England: which year groups sit national tests, what they cover, when they happen and what the results mean for parents.",
+    "category": "Early Years & Primary",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Which year takes SATs?",
+        "a": "The main SATs are taken in Year 6, at the end of Key Stage 2, in May."
+      },
+      {
+        "q": "Are there SATs in Year 2?",
+        "a": "Key Stage 1 tests are optional for schools, and teachers report an assessment of each child's attainment."
+      },
+      {
+        "q": "Do SATs decide which secondary school my child attends?",
+        "a": "No. They are national tests. Secondary places are set by admissions criteria, not SATs results."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [
+        "primary"
+      ],
+      "guides": [
+        "ks2-sats-explained",
+        "key-stage-1-assessments-explained",
+        "sats-scaled-scores-explained",
+        "moving-from-year-6-to-year-7"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Questions about the early years?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your child's age and area and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "sats-scaled-scores-explained",
+    "title": "SATs scaled scores explained",
+    "seoTitle": "SATs Scaled Scores Explained: What 100 Means | Britannia Crown",
+    "description": "How KS2 SATs raw marks become scaled scores from 80 to 120, what a score of 100 means, and how to read your child's result.",
+    "category": "Early Years & Primary",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is a good SATs score?",
+        "a": "A scaled score of 100 or more means the expected standard has been met. Scores above 110 are strong."
+      },
+      {
+        "q": "Why are there no grades?",
+        "a": "SATs report scaled scores and whether the expected standard was reached, rather than letter grades."
+      },
+      {
+        "q": "Why can the same raw mark give different scores?",
+        "a": "Tests vary in difficulty each year, so raw marks are converted onto a standard scale."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [
+        "primary"
+      ],
+      "guides": [
+        "ks2-sats-explained",
+        "sats-in-england-which-years-and-what-they-test",
+        "moving-from-primary-to-secondary-school",
+        "how-to-help-your-child-with-maths-at-home"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Questions about the early years?",
+      "emphasis": "We can help.",
+      "lead": "Tell us your child's age and area and a consultant will talk through the options."
+    }
+  },
+  {
+    "slug": "11-plus-standardised-scores-explained",
+    "title": "11-plus standardised scores explained",
+    "seoTitle": "11-Plus Standardised Scores Explained | Britannia Crown",
+    "description": "What 11-plus standardised scores mean, why a pass mark differs by area, and why a good score does not always guarantee a grammar school place.",
+    "category": "Choosing a School",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "What is a good 11-plus score?",
+        "a": "It depends on the school and area. Each sets its own pass mark or ranking, so check your target school."
+      },
+      {
+        "q": "What is the highest 11-plus score?",
+        "a": "Scores are standardised so that an average child scores around 100. The highest and lowest possible depend on the test provider."
+      },
+      {
+        "q": "Does passing guarantee a place?",
+        "a": "No. Oversubscribed schools rank those who qualify, and you must still apply through your local authority."
+      }
+    ],
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "subjects": [
+        "11-plus"
+      ],
+      "guides": [
+        "11-plus-and-grammar-schools-explained",
+        "how-to-prepare-for-the-11-plus",
+        "how-school-admissions-criteria-work",
+        "school-admissions-england"
+      ]
+    },
+    "enquiry": {
+      "service": "School Placement",
+      "title": "Choosing a school?",
+      "emphasis": "We can help.",
+      "lead": "Tell us where you are and what matters most and a consultant will talk through your options."
+    }
+  },
+  {
+    "slug": "what-is-triple-science",
+    "title": "What is triple science at GCSE?",
+    "seoTitle": "What Is Triple Science at GCSE? | Britannia Crown",
+    "description": "Triple science means studying biology, chemistry and physics as three separate GCSEs. Here is how it differs from combined science and who it suits.",
+    "category": "Exams & Qualifications",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "faqs": [
+      {
+        "q": "Is triple science harder?",
+        "a": "It covers more content in each science, so it is more demanding, but it also gives more time per topic. Suitability depends on the student."
+      },
+      {
+        "q": "Do I need triple science for A-Level sciences?",
+        "a": "Not always. Many sixth forms accept strong combined science grades, but some prefer separate sciences. Check requirements."
+      },
+      {
+        "q": "How many GCSEs is triple science?",
+        "a": "Three: one each in biology, chemistry and physics."
+      }
+    ],
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "subjects": [
+        "gcse-science",
+        "a-level-chemistry"
+      ],
+      "guides": [
+        "gcse-science-combined-or-separate",
+        "how-to-choose-gcse-options",
+        "a-level-subject-choices-and-university",
+        "how-to-revise-for-gcse-science"
+      ]
+    },
+    "enquiry": {
+      "service": "Qualifications",
+      "title": "Questions about exams?",
+      "emphasis": "We can help.",
+      "lead": "Tell us the qualification and your timeline and an education consultant will help you plan."
+    }
+  },
+  {
     "slug": "how-to-prepare-for-the-11-plus",
     "title": "How to prepare for the 11-plus",
     "seoTitle": "How to Prepare for the 11-Plus | Britannia Crown",

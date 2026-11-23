@@ -3,6 +3,366 @@ import type { NewsItem } from "./news";
 // Generated from the article batches; edit content in content/*.mdx and metadata here.
 export const newsEntries: NewsItem[] = [
   {
+    "slug": "how-to-read-year-11-mock-results",
+    "title": "Year 11 mock results: how to read them",
+    "seoTitle": "Year 11 Mock Results: How to Read Them | Britannia Crown",
+    "description": "Mock results arrive in the new year. Here is how parents can read them calmly, find where marks were lost and turn them into a plan for the real exams.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "guides": [
+        "gcse-mock-exams-how-to-use-them",
+        "predicted-grades-explained",
+        "how-to-use-past-papers",
+        "how-to-build-a-revision-timetable"
+      ]
+    }
+  },
+  {
+    "slug": "check-your-gcse-and-a-level-exam-timetables",
+    "title": "Check your GCSE and A-Level exam timetables early",
+    "seoTitle": "Check GCSE and A-Level Exam Timetables Early | Britannia Crown",
+    "description": "Exam boards publish GCSE and A-Level timetables well ahead of the summer. Here is why to check yours early and what to plan around it.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "guides": [
+        "when-are-gcse-exams",
+        "when-are-a-level-exams",
+        "how-to-build-a-revision-timetable",
+        "what-to-do-on-exam-day"
+      ]
+    }
+  },
+  {
+    "slug": "ks2-sats-results-reach-families-in-july",
+    "title": "KS2 SATs results reach families in July",
+    "seoTitle": "KS2 SATs Results Reach Families in July | Britannia Crown",
+    "description": "Year 6 SATs results are normally released to schools in early July and shared with families before the end of term. Here is how to read them.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "guides": [
+        "sats-scaled-scores-explained",
+        "ks2-sats-explained",
+        "moving-from-year-6-to-year-7",
+        "how-to-help-your-child-with-maths-at-home"
+      ]
+    }
+  },
+  {
+    "slug": "planning-tutoring-for-the-spring-term",
+    "title": "Planning tutoring for the spring term",
+    "seoTitle": "Planning Tutoring for the Spring Term | Britannia Crown",
+    "description": "The spring term is short and leads straight into exam season. Here is how to plan tutoring now so your child makes the most of it.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "guides": [
+        "how-often-should-a-child-have-tutoring",
+        "choosing-a-private-tutor",
+        "how-much-does-a-private-tutor-cost-uk",
+        "is-private-tutoring-worth-it"
+      ]
+    }
+  },
+  {
+    "slug": "spring-revision-plan-for-year-11",
+    "title": "A spring revision plan for Year 11",
+    "seoTitle": "A Spring Revision Plan for Year 11 | Britannia Crown",
+    "description": "The spring term is where GCSE revision gets serious. Here is a simple plan for Year 11 students and the parents helping them.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "guides": [
+        "how-to-revise-gcse-a-level",
+        "how-to-build-a-revision-timetable",
+        "how-to-use-past-papers",
+        "how-to-support-a-child-through-exam-stress"
+      ]
+    }
+  },
+  {
+    "slug": "easter-holiday-revision-for-gcse-and-a-level",
+    "title": "Making the most of Easter revision",
+    "seoTitle": "Making the Most of Easter Revision | Britannia Crown",
+    "description": "The Easter holidays are the last long break before GCSE and A-Level exams. Here is how to use them well without burning out.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "guides": [
+        "how-to-revise-gcse-a-level",
+        "how-to-build-a-revision-timetable",
+        "how-to-use-past-papers",
+        "how-to-support-a-child-through-exam-stress"
+      ]
+    }
+  },
+  {
+    "slug": "february-half-term-revise-or-rest",
+    "title": "February half term: revise or rest?",
+    "seoTitle": "February Half Term: Revise or Rest? | Britannia Crown",
+    "description": "February half term falls in the middle of the exam year. Here is how to balance revision and rest so students return refreshed rather than drained.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "guides": [
+        "how-to-build-a-revision-timetable",
+        "how-to-support-a-child-through-exam-stress",
+        "how-to-revise-gcse-a-level",
+        "gcse-mock-exams-how-to-use-them"
+      ]
+    }
+  },
+  {
+    "slug": "how-to-use-school-open-days",
+    "title": "How to get the most from school open days",
+    "seoTitle": "How to Get the Most From School Open Days | Britannia Crown",
+    "description": "Open days are the best way to see a school in action. Here is how to prepare, what to look for and which questions to ask.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "guides": [
+        "questions-to-ask-when-visiting-a-school",
+        "how-to-choose-a-secondary-school",
+        "how-to-choose-a-primary-school",
+        "how-school-admissions-criteria-work"
+      ]
+    }
+  },
+  {
+    "slug": "independent-school-assessments-autumn-and-winter",
+    "title": "Independent school assessments in autumn and winter",
+    "seoTitle": "Independent School Entry Tests: Autumn | Britannia Crown",
+    "description": "Many independent schools hold entrance assessments in the autumn and winter before entry. Here is what to expect and how to prepare calmly.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "guides": [
+        "independent-school-entry-assessments-and-bursaries",
+        "how-to-apply-to-an-independent-school",
+        "seven-plus-and-eight-plus-entry",
+        "common-entrance-and-prep-schools-explained"
+      ]
+    }
+  },
+  {
+    "slug": "uk-and-dubai-school-terms-compared",
+    "title": "UK and Dubai school terms compared",
+    "seoTitle": "UK and Dubai School Terms Compared | Britannia Crown",
+    "description": "UK and Dubai school terms do not line up exactly. Here is what families moving between them should check for term dates and start dates.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "guides": [
+        "british-curriculum-schools-in-dubai-explained",
+        "dubai-school-admissions-timeline",
+        "dubai-school-year-groups-fs1-fs2",
+        "keeping-uk-learning-on-track-abroad"
+      ]
+    }
+  },
+  {
+    "slug": "dubai-school-admissions-open-early",
+    "title": "Dubai school places: why to start early",
+    "seoTitle": "Dubai School Places: Why to Start Early | Britannia Crown",
+    "description": "Popular British-curriculum schools in Dubai can have waiting lists, so families moving there are advised to start the search early.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "guides": [
+        "dubai-school-admissions-timeline",
+        "khda-ratings-explained",
+        "british-curriculum-schools-in-dubai-explained",
+        "sixth-form-in-dubai"
+      ]
+    }
+  },
+  {
+    "slug": "moving-abroad-school-records",
+    "title": "Moving abroad: what school records to collect",
+    "seoTitle": "Moving Abroad: Which School Records to Collect | Britannia Crown",
+    "description": "Before moving abroad, collect school reports, assessment results and exam information. Here is what new schools usually ask for.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "guides": [
+        "helping-children-adjust-to-a-new-country-and-school",
+        "international-pupils-applying-to-uk-schools",
+        "keeping-uk-learning-on-track-abroad",
+        "sitting-uk-exams-abroad"
+      ]
+    }
+  },
+  {
+    "slug": "a-level-mocks-in-year-13-how-to-use-them",
+    "title": "A-Level mocks in Year 13: how to use them",
+    "seoTitle": "A-Level Mocks in Year 13: How to Use Them | Britannia Crown",
+    "description": "Year 13 mock exams shape predicted grades and show where to focus. Here is how to use them well in the months before the final exams.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "guides": [
+        "predicted-grades-explained",
+        "how-to-use-past-papers",
+        "how-to-revise-gcse-a-level",
+        "ucas-personal-statement-guide-for-parents"
+      ]
+    }
+  },
+  {
+    "slug": "gcse-options-evenings-year-9",
+    "title": "Year 9 GCSE options evenings: what to ask",
+    "seoTitle": "Year 9 GCSE Options Evenings: What to Ask | Britannia Crown",
+    "description": "Many schools hold GCSE options evenings in Year 9. Here is what to ask teachers and how to prepare for the conversation.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "qualifications"
+      ],
+      "guides": [
+        "how-to-choose-gcse-options",
+        "how-many-gcses-does-a-child-need",
+        "a-level-subject-choices-and-university",
+        "key-stage-3-explained"
+      ]
+    }
+  },
+  {
+    "slug": "11-plus-test-and-results-timeline",
+    "title": "The 11-plus: a typical test and results timeline",
+    "seoTitle": "The 11-Plus Test and Results Timeline | Britannia Crown",
+    "description": "A typical 11-plus timeline runs from registration in the summer to results in the autumn and school offers in March. Here is how the steps fit together.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "guides": [
+        "11-plus-and-grammar-schools-explained",
+        "how-to-prepare-for-the-11-plus",
+        "11-plus-standardised-scores-explained",
+        "how-school-admissions-criteria-work"
+      ]
+    }
+  },
+  {
+    "slug": "in-year-school-moves-in-the-new-year",
+    "title": "Moving school in the new year: what to know",
+    "seoTitle": "Moving School in the New Year: What to Know | Britannia Crown",
+    "description": "If your family moves in the new year, your child may need an in-year school place. Here is how it works and how to start.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "school-placement"
+      ],
+      "guides": [
+        "in-year-school-admissions-moving-mid-year",
+        "school-admissions-england",
+        "how-to-change-schools-in-england",
+        "what-if-you-dont-get-your-first-choice-school"
+      ]
+    }
+  },
+  {
+    "slug": "looking-after-wellbeing-in-the-exam-months",
+    "title": "Looking after wellbeing in the exam months",
+    "seoTitle": "Looking After Wellbeing in the Exam Months | Britannia Crown",
+    "description": "Exam stress builds in the spring. Here is how parents can protect sleep, routine and confidence as GCSEs and A-Levels approach.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "tutoring"
+      ],
+      "guides": [
+        "how-to-support-a-child-through-exam-stress",
+        "what-to-do-on-exam-day",
+        "how-to-build-a-revision-timetable",
+        "gcse-mock-exams-how-to-use-them"
+      ]
+    }
+  },
+  {
+    "slug": "home-education-and-the-gcse-years-planning-ahead",
+    "title": "Home education and the GCSE years: planning ahead",
+    "seoTitle": "Home Education and the GCSE Years: Plan Ahead | Britannia Crown",
+    "description": "Home-educated students who want GCSEs need to plan 18 to 24 months ahead. Here is what to arrange and when.",
+    "kind": "Education news",
+    "published": "2026-11-23",
+    "updated": "2026-11-23",
+    "related": {
+      "services": [
+        "home-education"
+      ],
+      "guides": [
+        "private-candidate-gcse-how-to-enter",
+        "qualifications-for-home-educated-children",
+        "home-education-curriculum-choices",
+        "when-are-gcse-exams"
+      ]
+    }
+  },
+  {
     "slug": "secondary-school-applications-closed-what-happens-next",
     "title": "Secondary school applications have closed: what happens next",
     "seoTitle": "Secondary Applications Closed: What Next | Britannia Crown",
