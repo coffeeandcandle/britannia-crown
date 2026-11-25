@@ -10,6 +10,17 @@
 import pg from "pg";
 import Stripe from "stripe";
 
+// The Academic Partner member discount on the Advocacy Plan. Keep these in step with
+// MEMBER_DISCOUNT_PERCENT in app/lib/membership.ts and the advocacy products in app/lib/products.ts.
+// Makes sure the current coupon exists (limited to the Advocacy products), moves any subscription
+// still on an older rate onto it, and deletes the older coupons so they can't be used again.
+const MEMBER_DISCOUNT_PERCENT = 10;
+const ADVOCACY_PRODUCTS = {
+  "bc_advocacy-essential": "Advocacy Plan: Essential",
+  "bc_advocacy-standard": "Advocacy Plan: Standard",
+  "bc_advocacy-priority": "Advocacy Plan: Priority",
+};
+
 const EVENTS = [
   "checkout.session.completed",
   "checkout.session.async_payment_succeeded",
@@ -114,17 +125,6 @@ async function setupBillingPortal(settings, save) {
   await save("stripe_portal_config", created.id);
   console.log("Stripe billing portal created.");
 }
-
-// The Academic Partner member discount on the Advocacy Plan. Keep these in step with
-// MEMBER_DISCOUNT_PERCENT in app/lib/membership.ts and the advocacy products in app/lib/products.ts.
-// Makes sure the current coupon exists (limited to the Advocacy products), moves any subscription
-// still on an older rate onto it, and deletes the older coupons so they can't be used again.
-const MEMBER_DISCOUNT_PERCENT = 10;
-const ADVOCACY_PRODUCTS = {
-  "bc_advocacy-essential": "Advocacy Plan: Essential",
-  "bc_advocacy-standard": "Advocacy Plan: Standard",
-  "bc_advocacy-priority": "Advocacy Plan: Priority",
-};
 
 async function setupMemberDiscount() {
   const couponId = `bc_member_advocacy_${MEMBER_DISCOUNT_PERCENT}`;
