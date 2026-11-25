@@ -116,10 +116,17 @@ export default async function SubjectPage({ params }: Props) {
                 ))}
               </div>
             </Reveal>
-            <Reveal className="uk-head">
+          </div>
+        </section>
+      )}
+
+      {depth && (
+        <section className="uk-section cream">
+          <div className="uk-wrap uk-split">
+            <Reveal>
               <h2 className="uk-h2">{depth.lessonTitle}</h2>
             </Reveal>
-            <Reveal>
+            <Reveal className="uk-prose">
               {depth.lesson.map((para) => (
                 <p key={para}>{para}</p>
               ))}
