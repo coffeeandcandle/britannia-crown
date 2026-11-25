@@ -275,3 +275,16 @@ CREATE TABLE IF NOT EXISTS session_note_drafts (
   updated_at  timestamptz NOT NULL DEFAULT now(),
   PRIMARY KEY (session_id, author_id)
 );
+
+-- Notes a family writes for the team from their portal: concerns, and things we should know about them or a child.
+CREATE TABLE IF NOT EXISTS family_notes (
+  id          serial PRIMARY KEY,
+  family_id   integer NOT NULL REFERENCES families(id) ON DELETE CASCADE,
+  child_id    integer REFERENCES children(id) ON DELETE SET NULL,
+  topic       text NOT NULL,
+  body        text NOT NULL,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  seen_at     timestamptz,
+  seen_by     integer REFERENCES staff(id) ON DELETE SET NULL
+);
+CREATE INDEX IF NOT EXISTS family_notes_family ON family_notes (family_id, created_at DESC);

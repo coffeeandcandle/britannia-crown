@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { requireStaff, getFamily, familyChildren, familySessions, listStaff, familyDocuments } from "../../../../lib/portal/dal";
+import { requireStaff, familyNotesToTeam, getFamily, familyChildren, familySessions, listStaff, familyDocuments } from "../../../../lib/portal/dal";
+import FamilyNotesCard from "../../FamilyNotesCard";
 import { TIMEZONES, tzLabel } from "../../../../lib/portal/time";
 import { siteOrigin } from "../../../../lib/portal/origin";
 import { SIGN_IN_PATH } from "../../../../lib/portal/config";
@@ -30,7 +31,7 @@ export default async function AdminFamilyPage({
   if (!Number.isInteger(id)) notFound();
   const family = await getFamily(id);
   if (!family) notFound();
-  const [children, sessions, team, msg, origin, documents, activity] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin(), familyDocuments(id), recentActivity({ familyId: id, limit: 40 })]);
+  const [children, sessions, team, msg, origin, documents, activity, familyNotes] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin(), familyDocuments(id), recentActivity({ familyId: id, limit: 40 }), familyNotesToTeam(id)]);
   const active = team.filter((s) => s.active);
   const consultants = active.filter((s) => s.role !== "tutor");
   const consultant = team.find((s) => s.id === family.consultant_id);
@@ -76,6 +77,8 @@ export default async function AdminFamilyPage({
 
       <div className="pt-grid">
         <div className="pt-main">
+          <FamilyNotesCard notes={familyNotes} familyId={family.id} canMark tz="Europe/London" />
+
           <Card id="schedule" title="Schedule a lesson" description={dailyEnabled() ? "The family sees it straight away. The lesson happens in the portal, with a Join button 15 minutes before it starts." : "The family sees it straight away, with a Join button 15 minutes before it starts."}>
             <form action={scheduleSession} className="pt-form pt-form-grid">
               <input type="hidden" name="family_id" value={family.id} />

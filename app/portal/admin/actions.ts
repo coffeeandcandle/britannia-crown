@@ -269,3 +269,13 @@ export async function deleteStaff(fd: FormData) {
   revalidatePath("/portal", "layout");
   back("/portal/admin/staff", { ok: `${person!.name} was deleted. Their lessons now show as not assigned.` });
 }
+
+// Marks a family's notes to the team as read, so the family sees "Read by the team".
+export async function markFamilyNotesSeen(fd: FormData) {
+  const { staff } = await requireStaff(MANAGERS);
+  const familyId = int(fd, "family_id");
+  if (!familyId) back("/portal/admin/families", { error: "Family not found." });
+  await query("UPDATE family_notes SET seen_at = now(), seen_by = $1 WHERE family_id = $2 AND seen_at IS NULL", [staff.id, familyId]);
+  revalidatePath("/portal", "layout");
+  back(`/portal/admin/families/${familyId}#from-family`, { ok: "Marked as read. The family can see their note has been read." });
+}

@@ -31,6 +31,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
       title: "Get in touch",
       items: [
         { href: "/portal/request", label: "Request a lesson", icon: "plus" },
+        { href: "/portal/notes-for-team", label: "Notes for the team", icon: "notes" },
         { href: `mailto:${consultant?.email ?? EMAIL}`, label: "Email your consultant", icon: "chat", external: true },
         { href: "/portal/help", label: "Help", icon: "help" },
       ],

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { requireStaff, staffSession, sessionNotesForStaff, getFamily, listStaff, canManage, noteDraft } from "../../../../lib/portal/dal";
+import FamilyNotesCard from "../../FamilyNotesCard";
+import { requireStaff, staffSession, sessionNotesForStaff, getFamily, listStaff, canManage, noteDraft, familyNotesToTeam } from "../../../../lib/portal/dal";
 import { sessionWhen, tzLabel } from "../../../../lib/portal/time";
 import { NoteCard, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Pill, Field, HelpBox } from "../../../ui";
@@ -23,13 +24,14 @@ export default async function AdminSessionPage({
   const session = await staffSession(staff, id);
   if (!session) notFound();
   const manager = canManage(staff);
-  const [notes, family, team, msg, lessonLog, draft] = await Promise.all([
+  const [notes, family, team, msg, lessonLog, draft, familyNotes] = await Promise.all([
     sessionNotesForStaff(session.id),
     getFamily(session.family_id),
     manager ? listStaff() : Promise.resolve([]),
     searchParams,
     sessionLog(session.id),
     noteDraft(session.id, staff.id),
+    familyNotesToTeam(session.family_id),
   ]);
   const tz = family?.timezone ?? "Europe/London";
   const ukWhen = sessionWhen(new Date(session.starts_at), session.minutes, "Europe/London");
@@ -69,6 +71,8 @@ export default async function AdminSessionPage({
 
       <div className="pt-grid">
         <div className="pt-main">
+          <FamilyNotesCard notes={familyNotes} familyId={session.family_id} canMark={manager} tz="Europe/London" />
+
           <Card
             id="write-note"
             title={finished ? "Write a session note" : "Session note"}

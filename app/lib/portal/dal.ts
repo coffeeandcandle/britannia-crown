@@ -724,3 +724,34 @@ export type NoteDraft = { body: string; homework: string; updated_at: Date };
 export async function noteDraft(sessionId: number, staffId: number) {
   return queryOne<NoteDraft>("SELECT body, homework, updated_at FROM session_note_drafts WHERE session_id = $1 AND author_id = $2", [sessionId, staffId]);
 }
+
+/* ── Notes from families to the team ───────────────────────────────── */
+
+export const FAMILY_NOTE_TOPICS = [
+  "A concern",
+  "Something to know about my child",
+  "Learning needs or SEN",
+  "Wellbeing",
+  "Schedule or availability",
+  "Something else",
+];
+
+export type FamilyNoteRow = {
+  id: number;
+  topic: string;
+  body: string;
+  child_name: string | null;
+  created_at: Date;
+  seen_at: Date | null;
+  seen_by_name: string | null;
+};
+
+// A family's own notes to the team (also what staff see for that family), newest first.
+export async function familyNotesToTeam(familyId: number) {
+  return query<FamilyNoteRow>(
+    `SELECT n.id, n.topic, n.body, c.name AS child_name, n.created_at, n.seen_at, s.name AS seen_by_name
+       FROM family_notes n LEFT JOIN children c ON c.id = n.child_id LEFT JOIN staff s ON s.id = n.seen_by
+      WHERE n.family_id = $1 ORDER BY n.created_at DESC LIMIT 100`,
+    [familyId],
+  );
+}
