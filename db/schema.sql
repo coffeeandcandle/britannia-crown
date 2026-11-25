@@ -264,3 +264,14 @@ BEGIN
     CREATE UNIQUE INDEX families_email_lower ON families (lower(email));
   END IF;
 END $$;
+
+-- A tutor's live notes, typed in the lesson room while the lesson happens and saved automatically.
+-- Nobody else sees a draft; it becomes a session note when the tutor saves it.
+CREATE TABLE IF NOT EXISTS session_note_drafts (
+  session_id  integer NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+  author_id   integer NOT NULL REFERENCES staff(id) ON DELETE CASCADE,
+  body        text NOT NULL DEFAULT '',
+  homework    text NOT NULL DEFAULT '',
+  updated_at  timestamptz NOT NULL DEFAULT now(),
+  PRIMARY KEY (session_id, author_id)
+);

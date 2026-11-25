@@ -174,7 +174,8 @@ export async function addNote(fd: FormData) {
   const sessionId = int(fd, "session_id");
   const session = sessionId ? await staffSession(staff, sessionId) : null;
   if (!session) back("/portal/admin", { error: "Session not found." });
-  const path = `/portal/admin/sessions/${sessionId}`;
+  // Saved from the lesson room, the tutor goes back to the room; otherwise to the lesson page.
+  const path = fd.get("from") === "room" ? `/portal/admin/sessions/${sessionId}/room` : `/portal/admin/sessions/${sessionId}`;
 
   const body = str(fd, "body", 5000);
   const homework = str(fd, "homework", 2000) || null;
@@ -185,6 +186,8 @@ export async function addNote(fd: FormData) {
     "INSERT INTO session_notes (session_id, author_id, body, homework, shared_with_family) VALUES ($1, $2, $3, $4, $5)",
     [sessionId, staff.id, body, homework, shared],
   );
+  // The live draft has become a real note, so clear it.
+  await query("DELETE FROM session_note_drafts WHERE session_id = $1 AND author_id = $2", [sessionId, staff.id]);
   // Writing up a session that has ended marks it as completed (not one still in progress,
   // so the family keeps their joining link until the end).
   await query(
@@ -193,6 +196,20 @@ export async function addNote(fd: FormData) {
   );
   revalidatePath("/portal", "layout");
   back(path, { ok: shared ? "Note saved and shared with the family." : "Internal note saved." });
+}
+
+// Autosaves the tutor's live notes from the lesson room. Called every few seconds while they type,
+// so it returns a result instead of redirecting.
+export async function saveNoteDraft(sessionId: number, body: string, homework: string) {
+  const { staff } = await requireStaff();
+  const session = Number.isInteger(sessionId) ? await staffSession(staff, sessionId) : null;
+  if (!session) return { ok: false as const };
+  await query(
+    `INSERT INTO session_note_drafts (session_id, author_id, body, homework, updated_at) VALUES ($1, $2, $3, $4, now())
+     ON CONFLICT (session_id, author_id) DO UPDATE SET body = EXCLUDED.body, homework = EXCLUDED.homework, updated_at = now()`,
+    [sessionId, staff.id, body.slice(0, 5000), homework.slice(0, 2000)],
+  );
+  return { ok: true as const, savedAt: new Date().toISOString() };
 }
 
 export async function deleteNote(fd: FormData) {

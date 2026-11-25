@@ -715,3 +715,12 @@ export async function removeEmptyClientRecord(familyId: number, email: string) {
   );
   return true;
 }
+
+/* ── Live lesson notes (drafts) ────────────────────────────────────── */
+
+export type NoteDraft = { body: string; homework: string; updated_at: Date };
+
+// The tutor's own draft for a lesson, if they've started one. Drafts are private to their author.
+export async function noteDraft(sessionId: number, staffId: number) {
+  return queryOne<NoteDraft>("SELECT body, homework, updated_at FROM session_note_drafts WHERE session_id = $1 AND author_id = $2", [sessionId, staffId]);
+}

@@ -1719,3 +1719,14 @@ a.form-submit { display: flex; align-items: center; justify-content: center; tex
 .ob-checks > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 16px; margin-top: 6px; }
 .ob-intro { display: block; margin: -4px 0 14px; }
 #advocacy .shop-terms { margin-top: 24px; }
+
+/* ── Tutor lesson room: video with live notes beside it ── */
+.live-room { display: grid; gap: 20px; align-items: start; }
+@media (min-width: 1100px) { .live-room { grid-template-columns: minmax(0, 1fr) 360px; } .live-room-notes { position: sticky; top: 16px; } }
+.live-notes { padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+.live-notes-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.live-notes-head h2 { font-size: 1.15rem; }
+.live-notes-status { font-size: .82rem; color: var(--ink-3); }
+.live-notes textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 10px; font: inherit; font-size: .95rem; line-height: 1.55; background: var(--white); resize: vertical; }
+.live-notes textarea:focus { outline: 2px solid var(--brand); outline-offset: 1px; }
+.live-notes-label { font-weight: 600; font-size: .92rem; }

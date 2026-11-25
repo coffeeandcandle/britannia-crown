@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { requireStaff, staffSession, sessionNotesForStaff, getFamily, listStaff, canManage } from "../../../../lib/portal/dal";
+import { requireStaff, staffSession, sessionNotesForStaff, getFamily, listStaff, canManage, noteDraft } from "../../../../lib/portal/dal";
 import { sessionWhen, tzLabel } from "../../../../lib/portal/time";
 import { NoteCard, Flash } from "../../../components";
 import { PageHeader, Card, EmptyState, Pill, Field, HelpBox } from "../../../ui";
@@ -23,12 +23,13 @@ export default async function AdminSessionPage({
   const session = await staffSession(staff, id);
   if (!session) notFound();
   const manager = canManage(staff);
-  const [notes, family, team, msg, lessonLog] = await Promise.all([
+  const [notes, family, team, msg, lessonLog, draft] = await Promise.all([
     sessionNotesForStaff(session.id),
     getFamily(session.family_id),
     manager ? listStaff() : Promise.resolve([]),
     searchParams,
     sessionLog(session.id),
+    noteDraft(session.id, staff.id),
   ]);
   const tz = family?.timezone ?? "Europe/London";
   const ukWhen = sessionWhen(new Date(session.starts_at), session.minutes, "Europe/London");
@@ -71,7 +72,7 @@ export default async function AdminSessionPage({
           <Card
             id="write-note"
             title={finished ? "Write a session note" : "Session note"}
-            description={finished ? "This is what the family reads in their portal. Keep it short, specific and encouraging." : "You can write the note once the lesson has finished."}
+            description={finished ? "This is what the family reads in their portal. Keep it short, specific and encouraging." : "Tip: open the lesson room to take notes live beside the video. They save automatically and appear here too."}
           >
             <form action={addNote} className="pt-form">
               <input type="hidden" name="session_id" value={session.id} />
@@ -85,11 +86,12 @@ export default async function AdminSessionPage({
                   name="body"
                   rows={6}
                   required
+                  defaultValue={draft?.body ?? ""}
                   placeholder={"Covered: simultaneous equations by substitution.\nWent well: confident with the method by the end.\nNext time: elimination method and worded problems."}
                 />
               </Field>
               <Field label="Homework (optional)" htmlFor="n-hw" hint="Shown to the family as homework.">
-                <textarea id="n-hw" name="homework" rows={2} placeholder="e.g. Exercise 4B, questions 1 to 10" />
+                <textarea id="n-hw" name="homework" rows={2} defaultValue={draft?.homework ?? ""} placeholder="e.g. Exercise 4B, questions 1 to 10" />
               </Field>
               <fieldset className="ui-choice">
                 <legend>Who can see this note?</legend>
@@ -104,7 +106,7 @@ export default async function AdminSessionPage({
             <ActivityList rows={lessonLog} showFamily={false} empty="Nothing yet. Entries appear when someone opens the lesson room." />
           </Card>
 
-          <Card title={`Notes (${notes.length})`}>
+          <Card id="notes" title={`Notes (${notes.length})`}>
             {notes.length === 0 ? (
               <EmptyState title="No notes yet">{finished ? "Write the first note above." : "Notes appear here after the lesson."}</EmptyState>
             ) : (
