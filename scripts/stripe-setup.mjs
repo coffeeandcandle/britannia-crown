@@ -46,6 +46,7 @@ try {
 
   await setupWebhook(settings, save);
   await setupBillingPortal(settings, save);
+  await setupMemberDiscount();
 } catch (error) {
   console.warn("Stripe setup did not finish; it will try again on the next deploy.", error.message ?? error);
 } finally {
@@ -112,4 +113,58 @@ async function setupBillingPortal(settings, save) {
   const created = await stripe.billingPortal.configurations.create(params);
   await save("stripe_portal_config", created.id);
   console.log("Stripe billing portal created.");
+}
+
+// The Academic Partner member discount on the Advocacy Plan. Keep these in step with
+// MEMBER_DISCOUNT_PERCENT in app/lib/membership.ts and the advocacy products in app/lib/products.ts.
+// Makes sure the current coupon exists (limited to the Advocacy products), moves any subscription
+// still on an older rate onto it, and deletes the older coupons so they can't be used again.
+const MEMBER_DISCOUNT_PERCENT = 10;
+const ADVOCACY_PRODUCTS = {
+  "bc_advocacy-essential": "Advocacy Plan: Essential",
+  "bc_advocacy-standard": "Advocacy Plan: Standard",
+  "bc_advocacy-priority": "Advocacy Plan: Priority",
+};
+
+async function setupMemberDiscount() {
+  const couponId = `bc_member_advocacy_${MEMBER_DISCOUNT_PERCENT}`;
+  for (const [id, name] of Object.entries(ADVOCACY_PRODUCTS)) {
+    const exists = await stripe.products.retrieve(id).catch(() => null);
+    if (!exists) await stripe.products.create({ id, name });
+  }
+  const coupon = await stripe.coupons.retrieve(couponId).catch(() => null);
+  if (!coupon) {
+    await stripe.coupons.create({
+      id: couponId,
+      percent_off: MEMBER_DISCOUNT_PERCENT,
+      duration: "forever",
+      name: `Academic Partner member: ${MEMBER_DISCOUNT_PERCENT}% off Advocacy`,
+      applies_to: { products: Object.keys(ADVOCACY_PRODUCTS) },
+    });
+    console.log(`Member discount coupon created: ${couponId} (${MEMBER_DISCOUNT_PERCENT}% off Advocacy)`);
+  } else {
+    console.log(`Member discount coupon ready: ${couponId} (${coupon.percent_off}% off)`);
+  }
+
+  // Move subscriptions still on an older member coupon to the current one.
+  const isOld = (id) => typeof id === "string" && id.startsWith("bc_member_advocacy_") && id !== couponId;
+  let moved = 0;
+  for await (const sub of stripe.subscriptions.list({ status: "all", limit: 100, expand: ["data.discounts"] })) {
+    if (["canceled", "incomplete_expired"].includes(sub.status)) continue;
+    const discounts = (sub.discounts ?? []).filter((d) => typeof d !== "string");
+    const couponOf = (d) => (typeof d.source?.coupon === "string" ? d.source.coupon : d.source?.coupon?.id);
+    if (!discounts.some((d) => isOld(couponOf(d)))) continue;
+    const keep = discounts.filter((d) => !isOld(couponOf(d)) && couponOf(d) !== couponId).map((d) => ({ discount: d.id }));
+    await stripe.subscriptions.update(sub.id, { discounts: [...keep, { coupon: couponId }] });
+    moved++;
+  }
+  console.log(`Subscriptions moved to the ${MEMBER_DISCOUNT_PERCENT}% member discount: ${moved}`);
+
+  // Delete older member coupons so they can't be applied again.
+  for await (const c of stripe.coupons.list({ limit: 100 })) {
+    if (isOld(c.id)) {
+      await stripe.coupons.del(c.id);
+      console.log(`Old member coupon deleted: ${c.id} (${c.percent_off}% off)`);
+    }
+  }
 }

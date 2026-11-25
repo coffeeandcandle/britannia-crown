@@ -5,6 +5,7 @@ import { products } from "./products";
 import { priceIdFor } from "./stripe-catalog";
 
 // Academic Partner members get 10% off the Advocacy Plan, applied automatically at checkout.
+// Also set in scripts/stripe-setup.mjs, which keeps the Stripe coupon in step on each deploy.
 export const MEMBER_DISCOUNT_PERCENT = 10;
 // v2: limited in Stripe to the Advocacy products, so it can never discount anything else.
 // Stripe coupons can't be edited, so a new rate needs a new coupon id. Earlier coupons
