@@ -1735,3 +1735,5 @@ a.form-submit { display: flex; align-items: center; justify-content: center; tex
 .ptn-link[aria-current="page"] .ptn-hint { color: rgba(255,255,255,.75); }
 .ptn-link:has(.ptn-hint) { align-items: flex-start; }
 .ptn-link:has(.ptn-hint) .ptn-icon { margin-top: 2px; }
+.cc-actions { display: grid; gap: 8px; margin-top: 14px; }
+.cc-actions > * { text-align: center; }

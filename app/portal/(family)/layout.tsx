@@ -1,5 +1,4 @@
 import { getViewer, requireFamily, familyConsultant } from "../../lib/portal/dal";
-import { EMAIL } from "../../lib/site";
 import { Suspense } from "react";
 import PortalShell from "../PortalShell";
 import PortalFrameSkeleton from "../PortalFrameSkeleton";
@@ -41,7 +40,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
       title: "Contact us",
       items: [
         { href: "/portal/notes-for-team", label: "Send a note to the team", hint: "Concerns or things we should know", icon: "chat" },
-        { href: `mailto:${consultant?.email ?? EMAIL}`, label: "Email my consultant", hint: consultant?.name ?? "The Britannia Crown team", icon: "chat", external: true },
+        { href: "/portal/contact-consultant", label: "Contact my consultant", hint: consultant ? `Message ${consultant.name}` : "Message the Britannia Crown team", icon: "chat" },
         { href: "/portal/help", label: "Help and FAQs", hint: "How the portal works", icon: "help" },
       ],
     },
