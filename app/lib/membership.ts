@@ -4,10 +4,12 @@ import { queryOne } from "./portal/db";
 import { products } from "./products";
 import { priceIdFor } from "./stripe-catalog";
 
-// Academic Partner members get 15% off the Advocacy Plan, applied automatically at checkout.
-export const MEMBER_DISCOUNT_PERCENT = 15;
+// Academic Partner members get 10% off the Advocacy Plan, applied automatically at checkout.
+export const MEMBER_DISCOUNT_PERCENT = 10;
 // v2: limited in Stripe to the Advocacy products, so it can never discount anything else.
-const COUPON_ID = "bc_member_advocacy_15_v2";
+// Stripe coupons can't be edited, so a new rate needs a new coupon id. Earlier coupons
+// (bc_member_advocacy_15*) stay on subscriptions that already had them.
+const COUPON_ID = `bc_member_advocacy_${MEMBER_DISCOUNT_PERCENT}`;
 const advocacyProducts = () => products.filter((p) => p.id.startsWith("advocacy-"));
 // The only products the member discount is ever applied to: the Advocacy Plan tiers.
 export const memberDiscountApplies = (productId: string) => advocacyProducts().some((p) => p.id === productId);
@@ -41,7 +43,7 @@ export async function memberCouponId(stripe: Stripe) {
       id: COUPON_ID,
       percent_off: MEMBER_DISCOUNT_PERCENT,
       duration: "forever",
-      name: "Academic Partner member: 15% off Advocacy",
+      name: `Academic Partner member: ${MEMBER_DISCOUNT_PERCENT}% off Advocacy`,
       applies_to: { products: advocacyProducts().map((p) => `bc_${p.id}`) },
     });
   }
@@ -71,7 +73,7 @@ export async function removeLapsedMemberDiscounts(stripe: Stripe, email: string)
     const isMember = (d: Stripe.Discount) => {
       const coupon = d.source?.coupon;
       const id = typeof coupon === "string" ? coupon : coupon?.id;
-      return Boolean(id?.startsWith("bc_member_advocacy_15"));
+      return Boolean(id?.startsWith("bc_member_advocacy_"));
     };
     if (!discounts.some(isMember)) continue;
     const keep = discounts.filter((d) => !isMember(d)).map((d) => ({ discount: d.id }));

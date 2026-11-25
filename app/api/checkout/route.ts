@@ -2,7 +2,7 @@ import type Stripe from "stripe";
 import { getProduct, PAY_FIRST } from "../../lib/products";
 import { getStripe } from "../../lib/stripe";
 import { priceIdFor } from "../../lib/stripe-catalog";
-import { hasActiveMembership, memberCouponId, memberDiscountApplies } from "../../lib/membership";
+import { hasActiveMembership, memberCouponId, memberDiscountApplies, MEMBER_DISCOUNT_PERCENT } from "../../lib/membership";
 import { parseOnboarding, type Onboarding } from "../../lib/onboarding";
 import { recordEvent } from "../../lib/crm";
 
@@ -106,13 +106,13 @@ async function create(origin: string, form: FormData) {
     };
   }
 
-  // Academic Partner members get 15% off the Advocacy Plan automatically. Stripe allows either an
+  // Academic Partner members get a discount on the Advocacy Plan automatically. Stripe allows either an
   // automatic discount or a promotion code box, not both, so members skip the code box.
   let memberCoupon: string | null = null;
   if (o && memberDiscountApplies(product.id) && (await hasActiveMembership(o.email))) {
     try {
       memberCoupon = await memberCouponId(stripe);
-      metadata.member_discount = "15%";
+      metadata.member_discount = `${MEMBER_DISCOUNT_PERCENT}%`;
     } catch (error) {
       console.error("Could not apply the member discount", error);
     }

@@ -96,7 +96,7 @@ export async function POST(request: Request) {
           : null;
         await notifyTeam("Subscription cancelled", { product_id: sub.metadata?.product_id ?? "", subscription: sub.id });
 
-        // Membership ended: the 15% member discount on the Advocacy Plan stops from the next bill.
+        // Membership ended: the member discount on the Advocacy Plan stops from the next bill.
         const email = ended?.customer_email ?? sub.metadata?.customer_email ?? "";
         if ((sub.metadata?.product_id ?? "").startsWith("membership-") && email) {
           const plans = await removeLapsedMemberDiscounts(stripe, email);
@@ -105,7 +105,7 @@ export async function POST(request: Request) {
               name: email,
               email,
               type: "note",
-              summary: `Membership ended, so the 15% member discount was removed from: ${plans.join(", ")}. Full price applies from the next bill.`,
+              summary: `Membership ended, so the member discount was removed from: ${plans.join(", ")}. Full price applies from the next bill.`,
             });
             await notifyTeam("Member discount removed", { email, plans: plans.join(", ") });
           }
