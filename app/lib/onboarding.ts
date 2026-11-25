@@ -94,7 +94,13 @@ export const ACTIVE_ISSUES = [
   "Another urgent issue",
 ];
 export const URGENCY = ["This week", "Within the next two weeks", "Ongoing, but not time-critical"];
-export const COMPLAINT_STATUS = ["No formal complaint yet", "Formal complaint made to the school", "Complaint made to the KHDA", "Not sure"];
+export const COMPLAINT_STATUS = [
+  "No formal complaint yet",
+  "Formal complaint made to the school",
+  "Complaint made to the Department for Education or local authority (UK)",
+  "Complaint made to the KHDA (UAE)",
+  "Not sure",
+];
 
 // Labels for the saved answers, as staff see them in the CRM and team emails.
 export const ADVOCACY_LABELS: Record<string, string> = {

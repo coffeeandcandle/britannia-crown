@@ -30,7 +30,7 @@ const advocacyIds = ["advocacy-essential", "advocacy-standard", "advocacy-priori
 const advocacyPerks: Record<string, string[]> = {
   "advocacy-essential": ["2 advocacy hours a month", "Emails drafted and sent to school for you", "One call with the school each month", "Monthly written summary", "WhatsApp replies within 48 hours"],
   "advocacy-standard": ["4 advocacy hours a month", "Everything in Essential", "One online school meeting a month", "Review of reports, IEPs and learning plans", "Written action plan after every meeting", "Same-day WhatsApp replies"],
-  "advocacy-priority": ["8 advocacy hours a month", "Everything in Standard", "For active issues: bullying, SEN disputes, exam access, risk of exclusion", "One in-person school visit a month within Greater London (outside Greater London, an additional travel expenses fee applies)", "Priority booking for urgent meetings", "Formal escalation, including KHDA complaints", "Weekly updates and WhatsApp replies within 4 working hours"],
+  "advocacy-priority": ["8 advocacy hours a month", "Everything in Standard", "For active issues: bullying, SEN disputes, exam access, risk of exclusion", "One in-person school visit a month within Greater London (outside Greater London, an additional travel expenses fee applies)", "Priority booking for urgent meetings", "Formal escalation, including complaints to the DfE or local authority (UK) or the KHDA (UAE)", "Weekly updates and WhatsApp replies within 4 working hours"],
 };
 const uaeIds = ["uae-nursery-search", "uae-school-search", "uae-exam-prep-term", "uae-homeschool-term", "uae-concierge"];
 

@@ -75,7 +75,7 @@ const tiers = [
       "One in-person school visit a month within Greater London (outside Greater London, an additional travel expenses fee applies)",
       "Priority booking for urgent school meetings",
       "Formal written escalation through the school's complaints process",
-      "Support with KHDA complaints where needed",
+      "Support with complaints beyond the school where needed: to the Department for Education or local authority in the UK, or the KHDA in the UAE",
       "Weekly updates while the issue is active",
       "WhatsApp replies within 4 working hours",
     ],
@@ -110,7 +110,7 @@ const faqs = [
   },
   {
     q: "What if the school ignores us?",
-    a: "We follow up in writing with clear deadlines and escalate step by step: to the head of year, then senior leaders, then the school's formal complaints process. On the Priority plan we can also support a complaint to the KHDA where needed.",
+    a: "We follow up in writing with clear deadlines and escalate step by step: to the head of year, then senior leaders, then the school's formal complaints process. On the Priority plan we can also support a complaint beyond the school where needed: to the Department for Education or the local authority in the UK, or to the KHDA in the UAE.",
   },
   {
     q: "Is this only for SEN?",
