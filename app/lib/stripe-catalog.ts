@@ -16,6 +16,8 @@ export async function priceIdFor(stripe: Stripe, product: Product) {
 
   const found = await stripe.prices.list({ lookup_keys: [lookupKey], active: true, limit: 1 });
   if (found.data[0]) {
+    // Keep the name and description shown at checkout in step with products.ts.
+    await ensureProduct(stripe, product).catch((error) => console.error("Updating Stripe product details failed", error));
     cache.set(lookupKey, found.data[0].id);
     return found.data[0].id;
   }

@@ -79,7 +79,13 @@ export const ADVOCACY_CONCERNS = [
 export const SCHOOL_LOCATIONS = ["Dubai", "Abu Dhabi", "Sharjah or another emirate", "United Kingdom", "Elsewhere"];
 export const SCHOOL_CONTACTS = ["Class or subject teacher", "Head of year", "SENCO or inclusion lead", "Senior leadership", "Nobody yet"];
 export const SUPPORT_PLANS = ["Yes, an IEP or learning plan", "A diagnosis, but no plan yet", "Being assessed", "No", "Not sure"];
-export const MEETING_FORMATS = ["Online", "In person at the school", "Either"];
+// Standard meetings are online only; Priority includes one in-person visit a month.
+export const MEETING_FORMATS = [
+  "Online",
+  "In person at the school (Greater London)",
+  "In person outside Greater London (travel expenses fee applies)",
+  "Either, whatever suits the school",
+];
 export const ACTIVE_ISSUES = [
   "Bullying",
   "SEN dispute (support not in place or not followed)",
@@ -123,7 +129,7 @@ export function parseAdvocacy(fd: FormData, tier: AdvocacyTier): { extra: Record
 
   if (tier !== "essential") {
     extra.support_plan = one("support_plan", SUPPORT_PLANS);
-    extra.meeting_format = one("meeting_format", MEETING_FORMATS);
+    extra.meeting_format = tier === "standard" ? "Online (Standard plan)" : one("meeting_format", MEETING_FORMATS);
     extra.deadlines = text(fd, "deadlines", 300);
     if (!extra.support_plan) return { error: "Please tell us whether your child has an IEP, learning plan or diagnosis." };
     if (!extra.meeting_format) return { error: "Please choose how you would like school meetings to happen." };

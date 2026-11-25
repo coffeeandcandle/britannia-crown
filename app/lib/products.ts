@@ -144,7 +144,7 @@ export const products: Product[] = [
   {
     id: "advocacy-standard",
     name: "Advocacy Plan: Standard",
-    description: "4 advocacy hours a month, including one school meeting, review of reports and IEPs, and an action plan after every meeting.",
+    description: "4 advocacy hours a month, including one online school meeting, review of reports and IEPs, and an action plan after every meeting.",
     amount: 440,
     currency: "gbp",
     mode: "subscription",
@@ -154,7 +154,7 @@ export const products: Product[] = [
   {
     id: "advocacy-priority",
     name: "Advocacy Plan: Priority",
-    description: "8 advocacy hours a month for active issues, with priority meetings, formal escalation and weekly updates.",
+    description: "8 advocacy hours a month for active issues, with one in-person school visit a month in Greater London (a travel expenses fee applies outside Greater London), priority meetings, formal escalation and weekly updates.",
     amount: 780,
     currency: "gbp",
     mode: "subscription",

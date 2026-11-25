@@ -58,7 +58,7 @@ const tiers = [
     featured: true,
     features: [
       "Everything in Essential",
-      "Attendance at one school meeting a month (online or in person)",
+      "Attendance at one online school meeting a month",
       "Review of reports, IEPs and learning plans",
       "Written action plan after every meeting",
       "Same-day WhatsApp replies",
@@ -72,6 +72,7 @@ const tiers = [
     features: [
       "Everything in Standard",
       "For active issues: bullying, SEN disputes, exam access, risk of exclusion",
+      "One in-person school visit a month within Greater London (outside Greater London, an additional travel expenses fee applies)",
       "Priority booking for urgent school meetings",
       "Formal written escalation through the school's complaints process",
       "Support with KHDA complaints where needed",

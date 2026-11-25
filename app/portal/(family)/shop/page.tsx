@@ -17,8 +17,8 @@ const tiers = [
 ];
 const advocacy = [
   { id: "advocacy-essential", name: "Essential", hours: 2, tag: "Ongoing support", points: ["Emails drafted and sent to school for you", "One call with the school each month", "Monthly written summary"] },
-  { id: "advocacy-standard", name: "Standard", hours: 4, tag: "Most popular", featured: true, points: ["One school meeting a month, online or in person", "Review of reports, IEPs and learning plans", "Action plan after every meeting"] },
-  { id: "advocacy-priority", name: "Priority", hours: 8, tag: "Active issues", points: ["Bullying, SEN disputes, exam access, risk of exclusion", "Priority booking for urgent meetings", "Formal escalation and weekly updates"] },
+  { id: "advocacy-standard", name: "Standard", hours: 4, tag: "Most popular", featured: true, points: ["One online school meeting a month", "Review of reports, IEPs and learning plans", "Action plan after every meeting"] },
+  { id: "advocacy-priority", name: "Priority", hours: 8, tag: "Active issues", points: ["Bullying, SEN disputes, exam access, risk of exclusion", "One in-person school visit a month in Greater London (travel fee applies further afield)", "Priority booking for urgent meetings", "Formal escalation and weekly updates"] },
 ];
 const consultancy = ["school-placement", "home-education", "qualifications"] as const;
 

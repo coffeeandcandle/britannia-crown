@@ -90,10 +90,14 @@ export default function AdvocacyIntake({ tier }: { tier: AdvocacyTier }) {
       {tier !== "essential" && (
         <>
           <h2 className="onboarding-h">School meetings</h2>
-          <p className="ui-hint ob-intro">Your plan includes a school meeting each month, and we review reports, IEPs and learning plans.</p>
+          <p className="ui-hint ob-intro">
+            {tier === "priority"
+              ? "Your plan includes one in-person school visit a month within Greater London (outside Greater London an additional travel expenses fee applies), and we review reports, IEPs and learning plans."
+              : "Your plan includes one online school meeting a month, and we review reports, IEPs and learning plans."}
+          </p>
           <div className="form-row">
             <Select id="ob-plan" name="support_plan" label="Does your child have an IEP, learning plan or diagnosis?" options={SUPPORT_PLANS} />
-            <Select id="ob-format" name="meeting_format" label="How should meetings happen?" options={MEETING_FORMATS} />
+            {tier === "priority" && <Select id="ob-format" name="meeting_format" label="How should the monthly meeting happen?" options={MEETING_FORMATS} />}
           </div>
           <div className="form-group">
             <label htmlFor="ob-deadlines">Upcoming meetings or deadlines (optional)</label>
