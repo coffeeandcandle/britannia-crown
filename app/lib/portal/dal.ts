@@ -107,6 +107,9 @@ export const getViewer = cache(async (): Promise<Viewer | null> => {
     await query("UPDATE orders SET family_id = $1 WHERE family_id IS NULL AND lower(customer_email) = lower($2)", [family.id, family.email]);
   }
 
+  // Lessons that were taught and have ended move to "completed".
+  await completeFinishedLessons();
+
   // Record that this person is here (once per two hours).
   if (staff) await logVisit({ kind: "staff", id: staff.id, name: staff.name, role: staff.role });
   else if (family) await logVisit({ kind: "family", id: family.id, name: family.name });
@@ -155,6 +158,8 @@ export type SessionRow = {
   status: "scheduled" | "completed" | "cancelled";
   child_name: string | null;
   tutor_name: string | null;
+  cancelled_by: string | null;
+  cancelled_at: Date | null;
   family_id: number;
   family_name: string;
   staff_id: number | null;
@@ -165,7 +170,7 @@ export type SessionRow = {
 
 // Families only ever count notes shared with them; staff count all notes.
 const sessionSelect = (sharedOnly: boolean) => `
-  SELECT s.id, s.title, s.starts_at, s.minutes, s.join_url, s.status, s.family_id, s.staff_id,
+  SELECT s.id, s.title, s.starts_at, s.minutes, s.join_url, s.status, s.family_id, s.staff_id, s.cancelled_by, s.cancelled_at,
          c.name AS child_name, st.name AS tutor_name, f.name AS family_name,
          (s.status = 'scheduled' AND s.starts_at + make_interval(mins => s.minutes) > now()) AS is_upcoming,
          (s.status = 'scheduled' AND now() BETWEEN s.starts_at - interval '15 minutes' AND s.starts_at + make_interval(mins => s.minutes)) AS is_joinable,
@@ -754,4 +759,30 @@ export async function familyNotesToTeam(familyId: number) {
       WHERE n.family_id = $1 ORDER BY n.created_at DESC LIMIT 100`,
     [familyId],
   );
+}
+
+/* ── Automatic lesson completion ───────────────────────────────────── */
+
+// A lesson becomes "completed" on its own once the person teaching it joined the call in the portal
+// and the booked time has ended. Tutors and consultants can't mark lessons completed themselves.
+// Runs whenever a portal page loads (cheap: it only looks at scheduled lessons that have ended).
+export async function completeFinishedLessons() {
+  try {
+    const done = await query<{ id: number; family_id: number; title: string; tutor: string | null }>(
+      `UPDATE sessions s SET status = 'completed'
+        WHERE s.status = 'scheduled' AND s.staff_id IS NOT NULL
+          AND s.starts_at + make_interval(mins => s.minutes) < now()
+          AND EXISTS (SELECT 1 FROM activity_log a WHERE a.session_id = s.id AND a.action = 'room.joined' AND a.actor_key = 'staff:' || s.staff_id)
+        RETURNING s.id, s.family_id, s.title, (SELECT name FROM staff WHERE id = s.staff_id) AS tutor`,
+    );
+    for (const d of done) {
+      await query(
+        `INSERT INTO activity_log (actor_key, actor_kind, actor_name, actor_role, family_id, session_id, action, detail)
+         VALUES ('system', 'staff', 'Portal (automatic)', 'system', $1, $2, 'session.completed_auto', $3)`,
+        [d.family_id, d.id, `${d.title}${d.tutor ? `, taught by ${d.tutor}` : ""}`],
+      );
+    }
+  } catch (error) {
+    console.error("Automatic lesson completion failed", error);
+  }
 }

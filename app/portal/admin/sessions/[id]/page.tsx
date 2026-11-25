@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import FamilyNotesCard from "../../FamilyNotesCard";
+import StatusFields from "./StatusFields";
 import { requireStaff, staffSession, sessionNotesForStaff, getFamily, listStaff, canManage, noteDraft, familyNotesToTeam } from "../../../../lib/portal/dal";
 import { sessionWhen, tzLabel } from "../../../../lib/portal/time";
 import { NoteCard, Flash } from "../../../components";
@@ -39,10 +40,11 @@ export default async function AdminSessionPage({
   const finished = !session.is_upcoming;
 
   const status =
-    session.status === "cancelled" ? <Pill tone="muted">Cancelled</Pill>
+    session.status === "cancelled" ? <Pill tone="muted">Cancelled{session.cancelled_by ? ` by ${session.cancelled_by}` : ""}</Pill>
+    : session.status === "completed" ? <Pill tone="good">Completed</Pill>
     : session.is_joinable ? <Pill tone="brand">Happening now</Pill>
     : session.is_upcoming ? <Pill tone="brand">{ukWhen.relative}</Pill>
-    : <Pill tone="good">Finished</Pill>;
+    : <Pill tone="warn">Ended, not completed</Pill>;
 
   return (
     <>
@@ -136,13 +138,20 @@ export default async function AdminSessionPage({
           <Card title="Update this lesson">
             <form action={updateSession} className="pt-form">
               <input type="hidden" name="id" value={session.id} />
-              <Field label="Status" htmlFor="us-status" hint="Lessons are marked finished automatically when you write a note afterwards.">
-                <select id="us-status" name="status" defaultValue={session.status}>
-                  <option value="scheduled">Scheduled</option>
-                  <option value="completed">Completed</option>
-                  <option value="cancelled">Cancelled</option>
-                </select>
-              </Field>
+              <StatusFields
+                current={session.status}
+                isAdmin={staff.role === "admin"}
+                cancelledBy={session.cancelled_by}
+                cancelOptions={
+                  staff.role === "admin"
+                    ? [
+                        ...(session.tutor_name ? [`${session.tutor_name} (the tutor)`] : []),
+                        `${session.family_name} (the client)`,
+                        `Admin (${staff.name})`,
+                      ]
+                    : [`${staff.name} (me)`, `${session.family_name} (the client)`, "Admin (I was asked to cancel by the admin team)"]
+                }
+              />
               {manager && (
                 <>
                   <Field label="Who's teaching?" htmlFor="us-staff">

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { queryOne } from "../../../lib/portal/db";
+import { query, queryOne } from "../../../lib/portal/db";
 import { requireFamily } from "../../../lib/portal/dal";
 import { cancelOwnSession } from "../../../lib/portal/booking";
 import { alertTeam, sendEmail } from "../../../lib/email";
@@ -19,6 +19,7 @@ export async function cancelSession(fd: FormData) {
   if ("error" in result) redirect(`${back}?${new URLSearchParams({ error: result.error as string })}`);
 
   const { session } = result;
+  await query("UPDATE sessions SET cancelled_by = $1, cancelled_at = now() WHERE id = $2", [`${family.name} (the family, from their portal)`, id]);
   const when = new Intl.DateTimeFormat("en-GB", { dateStyle: "full", timeStyle: "short", timeZone: "Europe/London" }).format(new Date(session.starts_at));
   await logActivity({ kind: "family", id: family.id, name: family.name }, "session.cancel", { familyId: family.id, sessionId: id, detail: session.title });
   try {

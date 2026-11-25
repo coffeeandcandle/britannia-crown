@@ -23,6 +23,13 @@ export const ACTIONS: Record<string, string> = {
   "room.participant_left": "Someone else left the call",
   "room.camera_error": "Camera or microphone problem",
   "room.error": "Call error",
+  "session.status": "Changed a lesson's status",
+  "session.assign": "Changed who teaches a lesson",
+  "session.schedule": "Scheduled a lesson",
+  "session.completed_auto": "Lesson completed automatically (tutor joined and the time ended)",
+  "note.add": "Wrote a session note",
+  "note.delete": "Deleted a session note",
+  "family.note": "Sent a note to the team",
 };
 
 async function context() {

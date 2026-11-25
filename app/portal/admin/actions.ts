@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { query, queryOne } from "../../lib/portal/db";
 import { requireStaff, staffSession, canManage, type Role } from "../../lib/portal/dal";
 import { TIMEZONES, zonedToUtc } from "../../lib/portal/time";
+import { logActivity } from "../../lib/portal/audit";
 
 // Every action re-checks who is calling: the forms are only shown to the right people,
 // but a server action can be called directly, so the check here is what actually protects data.
@@ -111,7 +112,7 @@ export async function removeChild(fd: FormData) {
 /* ── Sessions ──────────────────────────────────────────────────────── */
 
 export async function scheduleSession(fd: FormData) {
-  await requireStaff(MANAGERS);
+  const { staff: me } = await requireStaff(MANAGERS);
   const familyId = int(fd, "family_id");
   if (!familyId) back("/portal/admin/families", { error: "Family not found." });
   const path = `/portal/admin/families/${familyId}`;
@@ -141,9 +142,15 @@ export async function scheduleSession(fd: FormData) {
       [familyId, childId, staffId, title, startsAt, minutes, joinUrl],
     );
   }
+  await logActivity({ kind: "staff", id: me.id, name: me.name, role: me.role }, "session.schedule", {
+    familyId,
+    detail: `${title}, ${start!.toISOString().slice(0, 16).replace("T", " ")} UTC${repeat > 1 ? `, weekly x${repeat}` : ""}`,
+  });
   revalidatePath("/portal", "layout");
   back(path, { ok: repeat > 1 ? `${repeat} weekly sessions scheduled.` : "Session scheduled." });
 }
+
+const STATUS_LABEL: Record<string, string> = { scheduled: "Scheduled", completed: "Completed", cancelled: "Cancelled" };
 
 export async function updateSession(fd: FormData) {
   const { staff } = await requireStaff();
@@ -151,17 +158,46 @@ export async function updateSession(fd: FormData) {
   const session = id ? await staffSession(staff, id) : null;
   if (!session) back("/portal/admin", { error: "Session not found." });
   const path = `/portal/admin/sessions/${id}`;
+  const isAdmin = staff.role === "admin";
+  const actor = { kind: "staff" as const, id: staff.id, name: staff.name, role: staff.role };
 
   const status = str(fd, "status");
   if (!["scheduled", "completed", "cancelled"].includes(status)) back(path, { error: "Unknown status." });
+  // Only admins can mark a lesson completed (or change one that is already completed). For everyone else
+  // it completes automatically once they have joined the lesson and its time has ended.
+  if (!isAdmin && status === "completed" && session.status !== "completed") back(path, { error: "Lessons are marked completed automatically once you've taught them in the portal." });
+  if (!isAdmin && session.status === "completed" && status !== "completed") back(path, { error: "This lesson is completed. Ask an admin if it needs changing." });
+
+  // A cancellation must say who cancelled it.
+  const cancelledBy = str(fd, "cancelled_by", 160);
+  if (status === "cancelled" && session.status !== "cancelled" && !cancelledBy) back(path, { error: "Please choose who cancelled the lesson." });
 
   if (canManage(staff)) {
     const joinUrl = safeUrl(str(fd, "join_url", 500));
     if (joinUrl === undefined) back(path, { error: "The joining link must start with https://" });
-    await query("UPDATE sessions SET status = $1, join_url = $2, staff_id = $3 WHERE id = $4", [status, joinUrl, int(fd, "staff_id"), id]);
-  } else {
-    // Tutors can only update the status of their own sessions.
-    await query("UPDATE sessions SET status = $1 WHERE id = $2 AND staff_id = $3", [status, id, staff.id]);
+    const newStaffId = int(fd, "staff_id");
+    await query("UPDATE sessions SET join_url = $1, staff_id = $2 WHERE id = $3", [joinUrl, newStaffId, id]);
+    if ((newStaffId ?? null) !== (session.staff_id ?? null)) {
+      const who = newStaffId ? (await queryOne<{ name: string }>("SELECT name FROM staff WHERE id = $1", [newStaffId]))?.name : null;
+      await logActivity(actor, "session.assign", { familyId: session.family_id, sessionId: id, detail: `${session.title}: now taught by ${who ?? "nobody (unassigned)"}, was ${session.tutor_name ?? "unassigned"}` });
+    }
+  } else if (session.staff_id !== staff.id) {
+    back(path, { error: "Only the person teaching this lesson can update it." });
+  }
+
+  if (status !== session.status) {
+    await query(
+      `UPDATE sessions SET status = $1,
+         cancelled_by = CASE WHEN $1 = 'cancelled' THEN $2 ELSE NULL END,
+         cancelled_at = CASE WHEN $1 = 'cancelled' THEN now() ELSE NULL END
+       WHERE id = $3`,
+      [status, cancelledBy || null, id],
+    );
+    await logActivity(actor, "session.status", {
+      familyId: session.family_id,
+      sessionId: id,
+      detail: `${session.title}: ${STATUS_LABEL[session.status]} → ${STATUS_LABEL[status]}${status === "cancelled" ? ` (cancelled by ${cancelledBy})` : ""}`,
+    });
   }
   revalidatePath("/portal", "layout");
   back(path, { ok: "Session updated." });
@@ -188,12 +224,12 @@ export async function addNote(fd: FormData) {
   );
   // The live draft has become a real note, so clear it.
   await query("DELETE FROM session_note_drafts WHERE session_id = $1 AND author_id = $2", [sessionId, staff.id]);
-  // Writing up a session that has ended marks it as completed (not one still in progress,
-  // so the family keeps their joining link until the end).
-  await query(
-    "UPDATE sessions SET status = 'completed' WHERE id = $1 AND status = 'scheduled' AND starts_at + make_interval(mins => minutes) < now()",
-    [sessionId],
-  );
+  // Lessons are no longer completed by writing a note; see completeFinishedLessons.
+  await logActivity({ kind: "staff", id: staff.id, name: staff.name, role: staff.role }, "note.add", {
+    familyId: session.family_id,
+    sessionId,
+    detail: `${session.title} (${shared ? "shared with the family" : "team only"})`,
+  });
   revalidatePath("/portal", "layout");
   back(path, { ok: shared ? "Note saved and shared with the family." : "Internal note saved." });
 }
@@ -217,7 +253,12 @@ export async function deleteNote(fd: FormData) {
   const id = int(fd, "id");
   const sessionId = int(fd, "session_id");
   // Authors can delete their own notes; managers can delete any.
-  await query("DELETE FROM session_notes WHERE id = $1 AND session_id = $2 AND ($3 OR author_id = $4)", [id, sessionId, canManage(staff), staff.id]);
+  const removed = await queryOne<{ family_id: number; title: string }>(
+    `DELETE FROM session_notes n USING sessions s WHERE n.id = $1 AND n.session_id = $2 AND s.id = n.session_id AND ($3 OR n.author_id = $4)
+     RETURNING s.family_id, s.title`,
+    [id, sessionId, canManage(staff), staff.id],
+  );
+  if (removed) await logActivity({ kind: "staff", id: staff.id, name: staff.name, role: staff.role }, "note.delete", { familyId: removed.family_id, sessionId, detail: removed.title });
   revalidatePath("/portal", "layout");
   back(`/portal/admin/sessions/${sessionId}`, { ok: "Note deleted." });
 }

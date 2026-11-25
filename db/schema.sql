@@ -288,3 +288,7 @@ CREATE TABLE IF NOT EXISTS family_notes (
   seen_by     integer REFERENCES staff(id) ON DELETE SET NULL
 );
 CREATE INDEX IF NOT EXISTS family_notes_family ON family_notes (family_id, created_at DESC);
+
+-- Who cancelled a lesson, and when (shown to the team and in the activity log).
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS cancelled_by text;
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS cancelled_at timestamptz;
