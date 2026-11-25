@@ -749,14 +749,37 @@ export type FamilyNoteRow = {
   created_at: Date;
   seen_at: Date | null;
   seen_by_name: string | null;
+  recipient_kind: "everyone" | "staff" | "admin";
+  recipient_name: string | null;
 };
 
-// A family's own notes to the team (also what staff see for that family), newest first.
-export async function familyNotesToTeam(familyId: number) {
+// A family's notes to the team, newest first. With `viewer`, only the notes that team member may see:
+// admins see everything; anyone else sees notes sent to them (and older notes sent to the whole team).
+export async function familyNotesToTeam(familyId: number, viewer?: Staff) {
+  const limited = viewer && viewer.role !== "admin";
   return query<FamilyNoteRow>(
-    `SELECT n.id, n.topic, n.body, c.name AS child_name, n.created_at, n.seen_at, s.name AS seen_by_name
-       FROM family_notes n LEFT JOIN children c ON c.id = n.child_id LEFT JOIN staff s ON s.id = n.seen_by
-      WHERE n.family_id = $1 ORDER BY n.created_at DESC LIMIT 100`,
+    `SELECT n.id, n.topic, n.body, c.name AS child_name, n.created_at, n.seen_at, s.name AS seen_by_name,
+            n.recipient_kind, r.name AS recipient_name
+       FROM family_notes n
+       LEFT JOIN children c ON c.id = n.child_id
+       LEFT JOIN staff s ON s.id = n.seen_by
+       LEFT JOIN staff r ON r.id = n.recipient_id
+      WHERE n.family_id = $1 ${limited ? "AND (n.recipient_kind = 'everyone' OR (n.recipient_kind = 'staff' AND n.recipient_id = $2))" : ""}
+      ORDER BY n.created_at DESC LIMIT 100`,
+    limited ? [familyId, viewer.id] : [familyId],
+  );
+}
+
+// The tutors and consultants connected to a family (their consultant, and anyone who teaches them),
+// offered as recipients for the family's notes.
+export async function familyTeamMembers(familyId: number) {
+  return query<{ id: number; name: string; role: Role; is_consultant: boolean }>(
+    `SELECT DISTINCT st.id, st.name, st.role, (st.id = f.consultant_id) AS is_consultant
+       FROM families f
+       JOIN staff st ON st.active AND st.role <> 'admin'
+        AND (st.id = f.consultant_id OR st.id IN (SELECT s.staff_id FROM sessions s WHERE s.family_id = f.id AND s.staff_id IS NOT NULL))
+      WHERE f.id = $1
+      ORDER BY is_consultant DESC, st.name`,
     [familyId],
   );
 }

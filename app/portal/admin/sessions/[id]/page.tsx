@@ -32,7 +32,7 @@ export default async function AdminSessionPage({
     searchParams,
     sessionLog(session.id),
     noteDraft(session.id, staff.id),
-    familyNotesToTeam(session.family_id),
+    familyNotesToTeam(session.family_id, staff),
   ]);
   const tz = family?.timezone ?? "Europe/London";
   const ukWhen = sessionWhen(new Date(session.starts_at), session.minutes, "Europe/London");

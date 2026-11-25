@@ -39,8 +39,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
     {
       title: "Contact us",
       items: [
-        { href: "/portal/notes-for-team", label: "Send a note to the team", hint: "Concerns or things we should know", icon: "chat" },
-        { href: "/portal/contact-consultant", label: "Contact my consultant", hint: consultant ? `Message ${consultant.name}` : "Message the Britannia Crown team", icon: "chat" },
+        { href: "/portal/notes-for-team", label: "Message your tutor or consultant", hint: consultant ? `${consultant.name} or the team` : "Concerns or things we should know", icon: "chat" },
         { href: "/portal/help", label: "Help and FAQs", hint: "How the portal works", icon: "help" },
       ],
     },

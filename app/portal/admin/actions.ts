@@ -316,7 +316,13 @@ export async function markFamilyNotesSeen(fd: FormData) {
   const { staff } = await requireStaff(MANAGERS);
   const familyId = int(fd, "family_id");
   if (!familyId) back("/portal/admin/families", { error: "Family not found." });
-  await query("UPDATE family_notes SET seen_at = now(), seen_by = $1 WHERE family_id = $2 AND seen_at IS NULL", [staff.id, familyId]);
+  // Admins mark every note read; anyone else only the notes they can see (sent to them, or to everyone).
+  await query(
+    `UPDATE family_notes SET seen_at = now(), seen_by = $1
+      WHERE family_id = $2 AND seen_at IS NULL
+        AND ($3 OR recipient_kind = 'everyone' OR (recipient_kind = 'staff' AND recipient_id = $1))`,
+    [staff.id, familyId, staff.role === "admin"],
+  );
   revalidatePath("/portal", "layout");
   back(`/portal/admin/families/${familyId}#from-family`, { ok: "Marked as read. The family can see their note has been read." });
 }

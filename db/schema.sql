@@ -292,3 +292,8 @@ CREATE INDEX IF NOT EXISTS family_notes_family ON family_notes (family_id, creat
 -- Who cancelled a lesson, and when (shown to the team and in the activity log).
 ALTER TABLE sessions ADD COLUMN IF NOT EXISTS cancelled_by text;
 ALTER TABLE sessions ADD COLUMN IF NOT EXISTS cancelled_at timestamptz;
+
+-- Who a family's note is for: one tutor or consultant (recipient_id), or the admin team only.
+-- Admins always see every note. Notes written before this choice existed stay visible to the whole team.
+ALTER TABLE family_notes ADD COLUMN IF NOT EXISTS recipient_kind text NOT NULL DEFAULT 'everyone' CHECK (recipient_kind IN ('everyone', 'staff', 'admin'));
+ALTER TABLE family_notes ADD COLUMN IF NOT EXISTS recipient_id integer REFERENCES staff(id) ON DELETE SET NULL;

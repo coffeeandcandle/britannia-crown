@@ -31,7 +31,7 @@ export default async function AdminFamilyPage({
   if (!Number.isInteger(id)) notFound();
   const family = await getFamily(id);
   if (!family) notFound();
-  const [children, sessions, team, msg, origin, documents, activity, familyNotes] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin(), familyDocuments(id), recentActivity({ familyId: id, limit: 40 }), familyNotesToTeam(id)]);
+  const [children, sessions, team, msg, origin, documents, activity, familyNotes] = await Promise.all([familyChildren(id), familySessions(id), listStaff(), searchParams, siteOrigin(), familyDocuments(id), recentActivity({ familyId: id, limit: 40 }), familyNotesToTeam(id, staff)]);
   const active = team.filter((s) => s.active);
   const consultants = active.filter((s) => s.role !== "tutor");
   const consultant = team.find((s) => s.id === family.consultant_id);

@@ -13,7 +13,7 @@ export default function FamilyNotesCard({ notes, familyId, canMark, tz = "Europe
     <Card
       id="from-family"
       title={unseen ? `From the family (${unseen} new)` : "From the family"}
-      description="Concerns and things to know, written by the family in their portal. Keep these in mind when teaching."
+      description="Notes the family sent from their portal. You see the ones sent to you; admins see them all."
       action={
         canMark && unseen > 0 ? (
           <form action={markFamilyNotesSeen}>
@@ -29,7 +29,9 @@ export default function FamilyNotesCard({ notes, familyId, canMark, tz = "Europe
             <header className="ui-note-head">
               <div>
                 <p className="ui-note-author">{n.topic}</p>
-                <p className="ui-note-meta">{n.child_name ? `About ${n.child_name} · ` : ""}{formatDate(new Date(n.created_at), tz)}</p>
+                <p className="ui-note-meta">
+                  {n.child_name ? `About ${n.child_name} · ` : ""}For {n.recipient_kind === "staff" ? n.recipient_name ?? "a team member" : n.recipient_kind === "admin" ? "the admin team only" : "the whole team"} · {formatDate(new Date(n.created_at), tz)}
+                </p>
               </div>
               {n.seen_at ? <Pill tone="muted">Read{n.seen_by_name ? ` by ${n.seen_by_name}` : ""}</Pill> : <Pill tone="warn">New</Pill>}
             </header>
