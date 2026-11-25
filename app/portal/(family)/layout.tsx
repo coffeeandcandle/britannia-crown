@@ -14,26 +14,35 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
   const { viewer, family } = await requireFamily();
   const consultant = await familyConsultant(family);
 
+  // Grouped by what families come to do, each item named after the action.
   const sections: NavSection[] = [
     {
+      items: [{ href: "/portal", label: "Home", hint: "Your next lesson and what's new", icon: "home", exact: true }],
+    },
+    {
+      title: "Lessons",
       items: [
-        { href: "/portal", label: "Overview", icon: "home", exact: true },
-        { href: "/portal/sessions", label: "Sessions", icon: "calendar" },
-        { href: "/portal/book", label: "Book a paid session", icon: "plus" },
-        { href: "/portal/notes", label: "Notes and homework", icon: "notes" },
-        { href: "/portal/documents", label: "Documents", icon: "notes" },
-        { href: "/portal/shop", label: "Plans and services", icon: "plus" },
-        { href: "/portal/family", label: "Your family", icon: "families" },
-        { href: "/portal/billing", label: "Purchases and billing", icon: "card" },
+        { href: "/portal/sessions", label: "My lessons", hint: "Upcoming and past, join or cancel", icon: "calendar" },
+        { href: "/portal/book", label: "Book a session", hint: "Choose a time for a paid session", icon: "plus" },
+        { href: "/portal/request", label: "Ask for a new lesson", hint: "Tell us the subject and times", icon: "plus" },
+        { href: "/portal/notes", label: "Tutor notes and homework", hint: "What the tutor wrote after each lesson", icon: "notes" },
       ],
     },
     {
-      title: "Get in touch",
+      title: "My account",
       items: [
-        { href: "/portal/request", label: "Request a lesson", icon: "plus" },
-        { href: "/portal/notes-for-team", label: "Notes for the team", icon: "notes" },
-        { href: `mailto:${consultant?.email ?? EMAIL}`, label: "Email your consultant", icon: "chat", external: true },
-        { href: "/portal/help", label: "Help", icon: "help" },
+        { href: "/portal/family", label: "My children and details", hint: "Add a child, update your details", icon: "families" },
+        { href: "/portal/documents", label: "Documents to read or sign", hint: "Forms, letters and reports", icon: "notes" },
+        { href: "/portal/shop", label: "Buy a plan or service", hint: "Tutoring, advocacy and sessions", icon: "card" },
+        { href: "/portal/billing", label: "Payments and receipts", hint: "Invoices, card and cancelling a plan", icon: "card" },
+      ],
+    },
+    {
+      title: "Contact us",
+      items: [
+        { href: "/portal/notes-for-team", label: "Send a note to the team", hint: "Concerns or things we should know", icon: "chat" },
+        { href: `mailto:${consultant?.email ?? EMAIL}`, label: "Email my consultant", hint: consultant?.name ?? "The Britannia Crown team", icon: "chat", external: true },
+        { href: "/portal/help", label: "Help and FAQs", hint: "How the portal works", icon: "help" },
       ],
     },
     {
@@ -43,6 +52,7 @@ async function FamilyFrame({ children }: { children: React.ReactNode }) {
       ],
     },
   ];
+
 
   return (
     <PortalShell viewer={viewer} areaLabel="Client portal" who={family.name} role="Client account" sections={sections}>

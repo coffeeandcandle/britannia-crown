@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export type IconName = "home" | "calendar" | "notes" | "card" | "families" | "team" | "plus" | "chat" | "back" | "switch" | "help";
-export type NavItem = { href: string; label: string; icon: IconName; external?: boolean; exact?: boolean };
+// hint: a short line under the label saying what you do there.
+export type NavItem = { href: string; label: string; hint?: string; icon: IconName; external?: boolean; exact?: boolean };
 export type NavSection = { title?: string; items: NavItem[] };
 
 const paths: Record<IconName, string> = {
@@ -95,12 +96,18 @@ export default function PortalNav({
                     {item.external ? (
                       <a href={item.href} className="ptn-link" {...(item.href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noopener noreferrer" })}>
                         <Icon name={item.icon} />
-                        {item.label}
+                        <span className="ptn-text">
+                          {item.label}
+                          {item.hint && <small className="ptn-hint">{item.hint}</small>}
+                        </span>
                       </a>
                     ) : (
                       <Link href={item.href} className="ptn-link" aria-current={item === current ? "page" : undefined}>
                         <Icon name={item.icon} />
-                        {item.label}
+                        <span className="ptn-text">
+                          {item.label}
+                          {item.hint && <small className="ptn-hint">{item.hint}</small>}
+                        </span>
                       </Link>
                     )}
                   </li>

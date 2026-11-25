@@ -16,56 +16,66 @@ async function StaffFrame({ children }: { children: React.ReactNode }) {
   const count = (label: string, n: number) => (n > 0 ? `${label} (${n})` : label);
 
   // Each role sees only the parts of its own area it can use.
+  // Grouped by what each role comes to do, each item named after the action, with a hint underneath.
+  const isAdmin = staff.role === "admin";
   const sections: NavSection[] = [
     {
       items: [
-        { href: "/portal/admin", label: staff.role === "admin" ? "Business overview" : manager ? "Dashboard" : "My dashboard", icon: "home", exact: true },
-        { href: "/portal/admin/sessions", label: manager ? "All sessions" : "My sessions", icon: "calendar" },
-        { href: "/portal/admin/availability", label: "My availability", icon: "calendar" },
+        isAdmin
+          ? { href: "/portal/admin", label: "Business overview", hint: "Today, takings and what needs doing", icon: "home", exact: true }
+          : { href: "/portal/admin", label: "My dashboard", hint: manager ? "Today and what needs doing" : "Today's lessons and notes to write", icon: "home", exact: true },
       ],
     },
-    // Clients: families and everything sold to them. Admins also get the client CRM, orders and requests.
+    {
+      title: "Lessons",
+      items: [
+        manager
+          ? { href: "/portal/admin/sessions", label: "All lessons", hint: "Join, update, write notes", icon: "calendar" }
+          : { href: "/portal/admin/sessions", label: "My lessons", hint: "Join, write notes, cancel", icon: "calendar" },
+        ...(isAdmin ? [{ href: "/portal/admin/requests", label: count("Lesson requests to approve", pendingRequests), hint: "Families asking for a lesson", icon: "plus" as const }] : []),
+        ...(manager ? [{ href: "/portal/admin/consultations", label: "Free consultation bookings", hint: "Calls booked from the website", icon: "calendar" as const }] : []),
+        { href: "/portal/admin/availability", label: "My available times", hint: "When you can teach or take calls", icon: "calendar" },
+      ],
+    },
     ...(manager
       ? [
           {
             title: "Clients",
             items: [
-              { href: "/portal/admin/families", label: "Families", icon: "families" as const },
-              { href: "/portal/admin/consultations", label: "Free consultations", icon: "calendar" as const },
-              ...(staff.role === "admin"
+              { href: "/portal/admin/families", label: "Families", hint: "Add a family, children, schedule lessons", icon: "families" as const },
+              ...(isAdmin
                 ? [
-                    { href: "/portal/admin/contacts", label: "Client CRM", icon: "chat" as const },
-                    { href: "/portal/admin/orders", label: "Orders", icon: "card" as const },
-                    { href: "/portal/admin/requests", label: count("Lesson requests", pendingRequests), icon: "plus" as const },
+                    { href: "/portal/admin/contacts", label: "Enquiries and leads (CRM)", hint: "Everyone who has contacted us", icon: "chat" as const },
+                    { href: "/portal/admin/orders", label: "Orders and payments", hint: "Everything bought online", icon: "card" as const },
                   ]
                 : []),
             ],
           },
         ]
       : []),
-    // Team: tutors and consultants, kept separate from clients. Admins only.
-    ...(staff.role === "admin"
+    ...(isAdmin
       ? [
           {
             title: "Team",
             items: [
-              { href: "/portal/admin/applications", label: count("Applications", pendingApplicants), icon: "plus" as const },
-              { href: "/portal/admin/tutors", label: "Tutors", icon: "team" as const },
-              { href: "/portal/admin/consultants", label: "Consultants", icon: "team" as const },
-              { href: "/portal/admin/staff", label: "Team and access", icon: "team" as const },
-              { href: "/portal/admin/activity", label: "Activity log", icon: "notes" as const },
+              { href: "/portal/admin/applications", label: count("Team sign-ups to approve", pendingApplicants), hint: "New tutors and consultants", icon: "plus" as const },
+              { href: "/portal/admin/tutors", label: "Tutors", hint: "Their lessons and calendars", icon: "team" as const },
+              { href: "/portal/admin/consultants", label: "Consultants", hint: "Their families and calendars", icon: "team" as const },
+              { href: "/portal/admin/staff", label: "Roles and access", hint: "Add people, change roles", icon: "team" as const },
+              { href: "/portal/admin/activity", label: "Activity log", hint: "Everything everyone did, with times", icon: "notes" as const },
             ],
           },
         ]
       : []),
     {
       items: [
-        { href: "/portal/admin/help", label: "Guide", icon: "help" },
+        { href: "/portal/admin/help", label: isAdmin ? "Admin guide" : manager ? "Consultant guide" : "Tutor guide", hint: "How to do each task", icon: "help" },
         ...(viewer.family ? [{ href: "/portal", label: "Switch to client view", icon: "switch" as const }] : []),
         { href: "/", label: "Back to website", icon: "back" },
       ],
     },
   ];
+
 
   return (
     <PortalShell viewer={viewer} areaLabel={`${roleNames[staff.role]} area`} who={staff.name} role={roleNames[staff.role]} sections={sections}>
