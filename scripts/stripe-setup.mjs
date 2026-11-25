@@ -138,7 +138,7 @@ async function setupMemberDiscount() {
       id: couponId,
       percent_off: MEMBER_DISCOUNT_PERCENT,
       duration: "forever",
-      name: `Academic Partner member: ${MEMBER_DISCOUNT_PERCENT}% off Advocacy`,
+      name: `Member ${MEMBER_DISCOUNT_PERCENT}% off Advocacy`, // Stripe allows 40 characters
       applies_to: { products: Object.keys(ADVOCACY_PRODUCTS) },
     });
     console.log(`Member discount coupon created: ${couponId} (${MEMBER_DISCOUNT_PERCENT}% off Advocacy)`);

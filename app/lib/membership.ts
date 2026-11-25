@@ -44,7 +44,7 @@ export async function memberCouponId(stripe: Stripe) {
       id: COUPON_ID,
       percent_off: MEMBER_DISCOUNT_PERCENT,
       duration: "forever",
-      name: `Academic Partner member: ${MEMBER_DISCOUNT_PERCENT}% off Advocacy`,
+      name: `Member ${MEMBER_DISCOUNT_PERCENT}% off Advocacy`, // Stripe allows 40 characters
       applies_to: { products: advocacyProducts().map((p) => `bc_${p.id}`) },
     });
   }
