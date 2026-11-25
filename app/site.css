@@ -1737,3 +1737,24 @@ a.form-submit { display: flex; align-items: center; justify-content: center; tex
 .ptn-link:has(.ptn-hint) .ptn-icon { margin-top: 2px; }
 .cc-actions { display: grid; gap: 8px; margin-top: 14px; }
 .cc-actions > * { text-align: center; }
+
+/* ── Full subject list on /tutors ── */
+.cur { display: grid; gap: 12px; }
+.cur-count { color: var(--ink-3); font-size: .95rem; }
+.cur-stage { border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+.cur-stage summary { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; padding: 18px 22px; cursor: pointer; list-style: none; }
+.cur-stage summary::-webkit-details-marker { display: none; }
+.cur-stage summary::after { content: "+"; font-size: 1.4rem; line-height: 1; color: var(--brand); margin-left: auto; }
+.cur-stage[open] summary::after { content: "–"; }
+.cur-title { font-family: var(--serif); font-size: 1.3rem; color: var(--brand-ink); }
+.cur-ages { font-size: .9rem; color: var(--ink-3); }
+.cur-intro { padding: 0 22px; color: var(--ink-2); }
+.cur-group { padding: 14px 22px 4px; }
+.cur-group:last-child { padding-bottom: 22px; }
+.cur-group h3 { margin-bottom: 10px; font-size: .95rem; font-weight: 650; color: var(--ink); }
+.cur-group ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.cur-chip { display: inline-block; padding: 7px 13px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: .9rem; color: var(--ink-2); text-decoration: none; background: var(--paper); transition: border-color .15s, background-color .15s; }
+.cur-chip:hover { border-color: var(--brand); color: var(--brand-ink); }
+.cur-chip.has-page { border-color: var(--champagne); background: #fbf3e6; color: var(--brand-ink); font-weight: 600; }
+.cur-note { margin-top: 8px; color: var(--ink-2); }
+.contact-form-subject { margin: 0 0 14px; padding: 10px 14px; border-radius: 10px; background: var(--brand-tint); color: var(--brand-ink); }

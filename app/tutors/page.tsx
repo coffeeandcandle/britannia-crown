@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import CurriculumList from "../components/CurriculumList";
 import Reveal from "../components/Reveal";
 import Breadcrumbs from "../components/Breadcrumbs";
 import SubjectFilter from "../components/SubjectFilter";
@@ -37,11 +38,24 @@ export default function TutorsPage() {
         <div className="uk-wrap">
           <Reveal className="uk-head">
             <h2 className="uk-h2">Choose a subject</h2>
-            <p className="uk-lead">Our most-requested subjects are below. We tutor across the curriculum, so if your child&apos;s subject isn&apos;t listed, just ask.</p>
+            <p className="uk-lead">Our most-requested subjects, each with its own page. Scroll down for every subject and course we tutor.</p>
           </Reveal>
           <Reveal>
             <SubjectFilter />
           </Reveal>
+        </div>
+      </section>
+
+      <section className="uk-section white" id="all-subjects">
+        <div className="uk-wrap">
+          <Reveal className="uk-head">
+            <h2 className="uk-h2">Every subject we tutor</h2>
+            <p className="uk-lead">
+              From phonics to A-Level, plus vocational courses, alternative curricula and the extras independent and alternative schools offer.
+              Highlighted subjects have their own page; choose any other to send us an enquiry about it.
+            </p>
+          </Reveal>
+          <CurriculumList />
         </div>
       </section>
 
