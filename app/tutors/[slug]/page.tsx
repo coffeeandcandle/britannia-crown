@@ -187,13 +187,22 @@ export default async function SubjectPage({ params }: Props) {
               </Link>
             </div>
           </Reveal>
-          {reading.length > 0 && (
-            <Reveal className="gd-reading-after">
-              <GuideCards items={reading} />
-            </Reveal>
-          )}
         </div>
       </section>
+
+      {reading.length > 0 && (
+        <section className="uk-section white">
+          <div className="uk-wrap">
+            <Reveal className="uk-head">
+              <h2 className="uk-h2">Guides for parents</h2>
+              <p className="uk-lead">Short, practical reads to help you support your child at home.</p>
+            </Reveal>
+            <Reveal>
+              <GuideCards items={reading} />
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       <JsonLd
         data={serviceSchema({
